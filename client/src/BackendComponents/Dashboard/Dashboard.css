@@ -108,3 +108,11 @@ color: #777777;
 .slick-next:before {
   background-color:#c3c3c3;
 } */
+
+
+.advertisements-card{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:16px;
+
+}

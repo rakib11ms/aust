@@ -459,6 +459,92 @@ function Publication() {
 
             </div>
 
+            <div className="publication mt-5">
+                <h6 className="text-success ">Advertiements</h6>
+
+                <nav className="publication-nav text-normal fw-300">
+                    <div className="row d-flex align-items-center">
+                        <div className="publication-left col-md-6 ">
+                            <ul className="d-flex justify-content-start all-left-public-li m-0 p-0">
+                                <li className="fw-bold">
+                                    All
+                                </li>
+                                <li className="mx-4">
+                                    Pendings
+                                </li>
+                                <li className="mx-3">
+                                    Running
+                                </li>
+                                <li className="mx-3">
+                                    Archieved
+                                </li>
+
+
+
+                            </ul>
+
+                        </div>
+                        {/* <div className="">
+
+                        </div> */}
+
+                        <div className="publication-right col-md-6  d-flex justify-content-end align-items-center">
+
+                            <div className="right-fn-icon me-3 border px-1 text-success border-success rounded">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div className="">
+                                <button className="btn btn-sm btn-success text-light px-3   rounded-pill"> View All</button>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </nav>
+
+                <section className="publication-content mt-2 px-2 ">
+                    <div className="advertisements-card  mt-4 ">
+
+
+                    <div class="card rounded-3" >
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU"  style={{width:'100%',height:'50%',objectFit:'cover'}} class="card-img-top" alt="..."/>
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" >
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU" class="card-img-top" alt="..."/>
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+<div class="card" >
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU" class="card-img-top" alt="..."/>
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </section>
+
+
+
+
+
+            </div>
 
         </>
     )
