@@ -289,7 +289,6 @@ function Publication() {
 
                             </div>
 
-
                         </div>
                     </div>
 
