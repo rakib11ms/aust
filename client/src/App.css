@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+    /* font-size: 14px; */
+
+
+}
+
+.login-wrap{
+    height: 100vh;
+    width: 100vw;
+    background-color:white;
+}
+
+
+
+
+  .row .left-side-screen {
+    background-color:#0FA958;
+    box-sizing:border-box;
+    -webkit-transform: skewx(-17deg);
+    margin-left: -110px;
+
+  }
+  .left-side-screen >.inside-wrapper{
+    height: 100vh;
+    -webkit-transform: skewx(17deg);
+
+
+  }
+
+  .right-side-screen >.inside-wrapper{
+    height: 100vh;
+
+
+  }
+
+
+.login-to{
+    font-size: 23px;
+    font-weight: 300;
+}
+
+.form-color{
+    background:#00602B;
+}
+
+.image-moderator{
+    border:2px solid #00602B;
+    border-radius: 50%;
+    height: 95px;
+    width: 95px;
+}
