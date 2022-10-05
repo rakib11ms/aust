@@ -1,5 +1,9 @@
 import User from '../../image/User.png'
 import React, { useState,useEffect} from 'react';
+import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
+
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function Sidebar() {
     const [isActive, setIsActive] = useState(true);
@@ -8,6 +12,28 @@ function Sidebar() {
     const [isActive4, setIsActive4] = useState(false);
     const [isActive5, setIsActive5] = useState(false);
     console.log('is active cheking',isActive)
+
+
+    const navigate = useNavigate();
+    const handleLogOut = (e) => {
+        e.preventDefault();
+        axios.post('/api/admin-logout').then(res => {
+            if (res.data.status == 200) {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('username');
+                localStorage.removeItem('email');
+                localStorage.removeItem('user_type');
+                localStorage.removeItem('user_info');
+                localStorage.removeItem('user_id');
+
+                navigate('/admin-login')
+                // Swal.fire('Logged Out successfully', '', 'success')
+                // window.location.reload();
+
+            }
+
+        })
+    }
 
     return (
         <>
@@ -20,8 +46,8 @@ function Sidebar() {
                         <h6 className='m-1'>Anwarul Islam</h6>
                         <span>Admin</span>
                     </div>
-                    <div class=" text-white">
-                        <i class="fa-solid fa-right-from-bracket"></i>
+                    <div class=" text-white" onClick={handleLogOut}>
+                        <i class="fa-solid fa-right-from-bracket" ></i>
                     </div>
 
 
@@ -150,7 +176,7 @@ function Sidebar() {
                             isActive3 && <>
                                        <ul className='text-light mx-4 '>
                                 <li>
-                                    <a href='' className='text-light text-form' >Home</a>
+                                    <Link to='/post-type' className='text-light text-form' >Post Type </Link>
                                 </li>
                                 <li>
                                     <a href='' className='text-light text-form'>About</a>

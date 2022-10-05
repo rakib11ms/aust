@@ -86,7 +86,7 @@ function Dashboard() {
                             </div>
 
 
-                      
+
 
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
@@ -103,16 +103,16 @@ function Dashboard() {
                                 </div>
                             </div>
 
-                       
 
-                        
 
-                       
-                     
+
+
+
+
 
                         </section>
 
-                        <Publication/>
+                        <Publication />
 
 
                     </div>

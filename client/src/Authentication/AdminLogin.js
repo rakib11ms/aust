@@ -5,7 +5,91 @@ import moderator from '../image/moderator.png'
 import admin from '../image/admin.png'
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
-function AdminLogin(){
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
+function AdminLogin({handleSucessLogin}){
+
+  const navigate = useNavigate({handleSucessLogin});
+    
+  const [loginInput, setLoginInput] = useState({
+      email: '',
+      password: ''
+  })
+  const handleChange = (e) => {
+      setLoginInput({
+          ...loginInput, [e.target.name]: e.target.value
+      })
+  }
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+
+      console.log('admin info check',loginInput)
+
+      // update('yes')
+
+      // console.log('state checking', loginInput)
+
+      // axios.get('sanctum/csrf-cookie').then(response => {
+
+      axios.post('/api/admin-login', loginInput).then(res => {
+
+
+          if (res.data.status == 200) {
+
+              let admin_auth={
+                  name:res.data.username,
+                  user_type:res.data.user_type,
+                  token:res.data.token,
+                  email:res.data.email,
+                  status:'yes'
+              }
+              // update(admin_auth)
+              handleSucessLogin(admin_auth);
+              //     localStorage.setItem('auth_token',res.data.token);
+              // localStorage.setItem('username',res.data.username);
+              // localStorage.setItem('email',res.data.email);
+              // localStorage.setItem('user_type',res.data.user_type);
+              // localStorage.setItem('user_id',res.data.user_id);
+              // localStorage.setItem('user_info',JSON. stringify(res.data.user_info) );
+
+              // navigate('/admin-dashboard')
+
+              //   if (res.data.user_type=== 'admin') {
+
+              //     navigate('/dashboard')
+              // }
+              // else if(res.data.user_type=== 'user'){
+              //     navigate('/')
+
+              // }
+
+          }
+          else if (res.data.status == 401) {
+              Swal.fire(res.data.message, '', 'warning')
+
+          }
+          else {
+              Swal.fire('Invalid Credentials', '', 'warning')
+
+          }
+      })
+      
+  // });
+}
+
+
+
+
+
+
+
+
+
+
+
+
     return(
             <>
             
@@ -52,19 +136,21 @@ function AdminLogin(){
           </div>
 
           <div class="form-part  mx-5 mt-5 d-flex  flex-column">
+            <form onSubmit={handleSubmit}>
             <div class="input-group mb-3">
               <span class="input-group-text form-color text-white" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-              <input type="text" class="form-control p-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+              <input type="text" class="form-control p-2" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name='email' onChange={handleChange} />
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text   form-color text-white" id="basic-addon1">|**</span>
-              <input type="text" class="form-control p-2" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" />
+              <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password" name='password' onChange={handleChange} aria-describedby="basic-addon1" />
             </div>
-              <button type='' className='btn  text-light form-color d-block'> Log In</button>
+              <button type='submit' className='btn  text-light form-color d-block'> Log In</button>
 
             <div class="input-group  mt-4">
               <p>Forgot Your Id or Password ? <span class="text-success"> RESET NOW</span></p>
             </div>
+            </form>
           </div>
         </div>
 
