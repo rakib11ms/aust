@@ -4,6 +4,7 @@ import AdminLogin from './Authentication/AdminLogin';
 import ProtectedRoutes from './Authentication/ProtectedRoutes';
 import Dashboard from './BackendComponents/Dashboard/Dashboard';
 import PostType from './BackendComponents/PostType/PostType';
+import axios from 'axios';
 
 function App() {
   const [storage, setStorage] = useState('');
@@ -19,6 +20,46 @@ function App() {
   }
 
 
+const [trigger,setTrigger]=useState('');
+console.log('hel',trigger);
+
+useEffect(()=>{
+  if(trigger){
+    <Navigate to="/admin-login" />
+
+  }
+
+},[trigger]);
+
+    axios.interceptors.response.use(response => {
+      return response;
+
+    }, error => {
+      if (error.response.status === 401) {
+        // setTrigger(error.response.status);
+        console.log('use effect triggered');
+        alert('trii')
+          // Swal.fire("Unauthorized", '', 'error')
+          // navigate('admin-login')
+          {<Navigate to="/admin-login" />}
+
+      }
+      return error;
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
   const navigate = useNavigate();
   useEffect(() => {
     if (successStatus.status == 'yes') {
@@ -29,20 +70,27 @@ function App() {
       if (successStatus.user_type === 'admin') {
 
         navigate('/admin-dashboard')
+        // setSuccessStatus('');
       }
       else if (successStatus.user_type === 'user') {
-        navigate('/')
+        navigate('/admin-login')
 
       }
 
     }
+ 
   }, [successStatus])
 
   return (
     <>
       <Routes>
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
-        {
+     
+
+
+        
+          <Route element={<ProtectedRoutes />}>
+          {
           successStatus == 'yes' ?
             storage === 'admin' && <>
               <Route path="admin-dashboard" element={<Dashboard />}></Route>
@@ -52,10 +100,6 @@ function App() {
             <Route path="admin-login" element={<AdminLogin />}></Route>
 
         }
-
-
-        
-          <Route element={<ProtectedRoutes />}>
 
             <Route path="admin-dashboard" element={<Dashboard />}></Route>
             <Route path="post-type" element={<PostType/>}></Route>

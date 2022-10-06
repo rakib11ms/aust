@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:sanctum'], function()
     // Route::post('/check',[MobileAuthenticationController::class,'check']);
     Route::post('/admin-logout',[AuthenticationController::class,'adminLogout']);
 
+Route::get('/post-type',[PostTypeController::class,'index']);
 
 
 });
@@ -53,7 +54,7 @@ Route::post('/admin-login',[AuthenticationController::class,'adminLogin']);
 
 //post type routes
 
-Route::get('/post-type',[PostTypeController::class,'index']);
+// Route::get('/post-type',[PostTypeController::class,'index']);
 Route::post('/add-post-type',[PostTypeController::class,'store']);
 Route::get('/edit-post-type/{id}',[PostTypeController::class,'edit']);
 Route::post('/update-post-type/{id}',[PostTypeController::class,'update']);

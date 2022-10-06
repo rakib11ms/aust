@@ -175,9 +175,7 @@ function Sidebar() {
                             {
                             isActive3 && <>
                                        <ul className='text-light mx-4 '>
-                                <li>
-                                    <Link to='/post-type' className='text-light text-form' >Post Type </Link>
-                                </li>
+                              
                                 <li>
                                     <a href='' className='text-light text-form'>About</a>
                                 </li>
@@ -236,6 +234,45 @@ function Sidebar() {
                     </div>
 
 
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive5(!isActive5)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i className='fa-solid fa-blog d-block' />
+
+                                <h6 className='mx-2 mt-3'>User Posts</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                            {isActive5 ?
+                                <b className=''>-</b>
+                                :
+                                <b className=''>+</b>
+                            }                            </div>
+                        </div>
+                        <div class="menu-content ">
+                         
+                        {
+                            isActive5 && <>
+                                       <ul className='text-light mx-4 '>
+                                       <li>
+                                    <Link to='/post-type' className='text-light text-form' >Post Type </Link>
+                                </li>
+                                <li>
+                                    <a href='' className='text-light text-form'>About</a>
+                                </li>
+                                <li>
+                                    <a href='' className='text-light text-form'>Contact</a>
+                                </li>
+                                <li>
+                                    <a href='' className='text-light text-form'>Home</a>
+                                </li>
+                            </ul>
+                            </>
+
+                            }
+                        </div>
+                    </div>
                 </div>
 
          

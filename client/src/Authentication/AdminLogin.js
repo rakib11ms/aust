@@ -31,7 +31,7 @@ function AdminLogin({handleSucessLogin}){
 
       // console.log('state checking', loginInput)
 
-      // axios.get('sanctum/csrf-cookie').then(response => {
+      axios.get('sanctum/csrf-cookie').then(response => {
 
       axios.post('/api/admin-login', loginInput).then(res => {
 
@@ -76,7 +76,7 @@ function AdminLogin({handleSucessLogin}){
           }
       })
       
-  // });
+  });
 }
 
 
