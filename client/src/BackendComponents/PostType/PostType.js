@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import '../App.css';
+import './Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
@@ -17,7 +17,7 @@ function PostType() {
 
     const [allPosts, setallPosts] = useState([]);
 
-    const [renderAllPosts,setRenderAllPosts]=useState('');
+    const [renderAllPosts, setRenderAllPosts] = useState('');
 
     console.log('all posts check', allPosts)
     const [addPostType, setAddPostType] = useState({
@@ -124,7 +124,7 @@ function PostType() {
     ];
 
 
-    const deletePostType = (e,id) => {
+    const deletePostType = (e, id) => {
         e.preventDefault();
         const thisClicked = e.currentTarget;
         //  thisClicked.innerText = "Deleting";
@@ -154,7 +154,7 @@ function PostType() {
         })
 
     }
-  
+
 
 
 
@@ -171,6 +171,101 @@ function PostType() {
 
                         <div className='container-fluid'>
                             <div className="row">
+
+                                <div className='post-top-con mt-2'>
+                                    <div class="card rounded-3 post-top-con-wrapper ">
+                                        <div class="left-1 px-5 py-3 ">
+
+                                            <div class="left-1-inner-con  d-flex  ">
+
+                                                <div class="left-1-inner-con-search " style={{ width: '70%' }}>
+                                                    <div className=' '>
+                                                        <div class="input-group  ">
+                                                            <span class="input-group-text bg-white" id="basic-addon1">
+                                                                <i class="fa-solid fa-magnifying-glass text-dark"></i>
+                                                            </span>
+
+                                                            <input type="text" class="form-control bg-transparent py-2" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="mx-3">
+                                                    <div class=" shadow-sm d-flex rounded-3  py-2 px-2 fw-bold  justify-content-center align-items-center border">
+
+                                                        <i className='fa fa-plus '> </i>
+
+
+                                                        <span className='mx-2'>  Category </span>
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                            <div className=' d-flex   align-items-center py-2 ' style={{ width: '70%' }}>
+                                                <b>Search By</b>
+
+                                                <div class="d-flex  justify-content-between align-items-center py-2 mx-5 " style={{ width: '70%' }}>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Post Id
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Post Title
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Post UserName
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="left-2 px-4 py-3  text-center rounded-end text-light">
+
+                                            <div className='px-4'>
+
+                                                <div className=''>
+                                                    <h5 className='p-0 m-0'>1332</h5>
+                                                    <p className='p-0 m-0'> Active Post</p>
+                                                </div>
+
+                                                <div className='mt-1'>
+                                                    <h5 className='p-0 m-0'>489</h5>
+                                                    <p className='p-0 m-0'> Pending Post</p>
+                                                </div>
+
+                                                <div className='mt-1'>
+                                                    <h5 className='p-0 m-0'>10</h5>
+                                                    <p className='p-0 m-0'>Categories</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
 
                                 <div className="col-md-12 mt-3">
                                     <div className="card">

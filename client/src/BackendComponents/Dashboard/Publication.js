@@ -505,30 +505,174 @@ function Publication() {
                 </nav>
 
                 <section className="publication-content mt-2 px-2 ">
-                    <div className="advertisements-card  mt-4 ">
+                    <div className="advertisements-card  mt-4 mb-4 ">
 
 
-                    <div class="card rounded-3" >
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU"  style={{width:'100%',height:'50%',objectFit:'cover'}} class="card-img-top" alt="..."/>
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div class="card" >
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU" class="card-img-top" alt="..."/>
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
 
-<div class="card" >
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmurFwVl5JLAkTDjXc_Mic1vZS1hqD-nkj9w&usqp=CAU" class="card-img-top" alt="..."/>
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+                        <div class="card-no-1 shadow">
+                            <div class="card-h">
+                                <div class="card-image-tops">
+                                    <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
+                                </div>
+
+                                <div class="overlay-radius">
+
+                                    <p className="text-light px-3 py-1  m-0"> RUNNING</p>
+
+                                </div>
+                            </div>
+
+                            <div class="content py-3 px-2">
+                                <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
 
 
+                                <div class="footer-con ">
+                                    <div class="">
+                                        <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="me-2">
+                                        15 sept,2022
+                                    </div>
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        30 days
+                                    </div>
+
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        2 Times
+                                    </div>
+
+                                    <div className="hr-sign mx-2"></div>
+
+
+                                    <div class="">
+                                        <i class="fa-solid fa-edit text-success"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="card-no-1 shadow">
+                            <div class="card-h">
+                                <div class="card-image-tops">
+                                    <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
+                                </div>
+
+                                <div class="overlay-radius">
+
+                                    <p className="text-light px-3 py-1  m-0"> RUNNING</p>
+
+                                </div>
+                            </div>
+
+                            <div class="content py-3 px-2">
+                                <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
+
+
+                                <div class="footer-con ">
+                                    <div class="">
+                                        <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="me-2">
+                                        15 sept,2022
+                                    </div>
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        30 days
+                                    </div>
+
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        2 Times
+                                    </div>
+
+                                    <div className="hr-sign mx-2"></div>
+
+
+                                    <div class="">
+                                        <i class="fa-solid fa-edit text-success"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-no-1 shadow">
+                            <div class="card-h">
+                                <div class="card-image-tops">
+                                    <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
+                                </div>
+
+                                <div class="overlay-radius">
+
+                                    <p className="text-light px-3 py-1  m-0"> RUNNING</p>
+
+                                </div>
+                            </div>
+
+                            <div class="content py-3 px-2">
+                                <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
+
+
+                                <div class="footer-con ">
+                                    <div class="">
+                                        <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="me-2">
+                                        15 sept,2022
+                                    </div>
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        30 days
+                                    </div>
+
+                                    <div class="">
+                                        <i class="fa-solid fa-clock text-success"></i>
+
+                                    </div>
+
+                                    <div class="me-2">
+                                        2 Times
+                                    </div>
+
+                                    <div className="hr-sign mx-2"></div>
+
+
+                                    <div class="">
+                                        <i class="fa-solid fa-edit text-success"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
 
 
 

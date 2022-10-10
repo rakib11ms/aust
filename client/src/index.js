@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 // import './imageUrl'
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://172.31.120.238/';
+axios.defaults.baseURL = 'http://192.168.121.55/';
 // axios.defaults.baseURL = 'https://dev.zaimahtech.com/ztl-server/public/api/';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
