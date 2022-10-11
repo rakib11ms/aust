@@ -176,14 +176,21 @@ function Sidebar() {
                             isActive3 && <>
                                        <ul className='text-light mx-4 '>
                               
-                                <li>
-                                    <a href='' className='text-light text-form'>About</a>
+                                <li className='mt-1'>
+                                    <Link to ="" className='text-light text-form '>View All Jobs</Link>
                                 </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Contact</a>
+                                <li className='mt-1'>
+                                    <Link to ="/job-configuration" className='text-light text-form '>Job Configuration</Link>
                                 </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Home</a>
+                                <li className='mt-1'>
+                                    <Link to ="" className='text-light text-form '>Create a Job</Link>
+                                </li>
+                                <li className='mt-1'>
+                                    <Link to ="" className='text-light text-form '>Approval List</Link>
+                                </li>
+
+                                <li className='mt-1'>
+                                    <Link to ="" className='text-light text-form '>Archeived</Link>
                                 </li>
                             </ul>
                             </>

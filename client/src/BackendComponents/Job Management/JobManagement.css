@@ -1,0 +1,49 @@
+.job-config-header{
+    background-color: #0FA958;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.job-config-header>.inside{
+    display: flex;
+    justify-content: center;
+    flex-basis: 40%;
+    text-align: center;
+
+}
+
+.job-config-header>.inside>.item2,.item3{
+    margin-left:60px;
+}
+.job-config-header>.inside>div>p{
+    font-size: 15px;
+}
+
+.job-type-nav{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+
+.job-type-secs >div>button{
+color: #777777;
+}
+.job-type-secs{
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-type-secs>div{
+    margin-right:20px;
+    flex-basis: 1 1 180px;
+
+}
+
+.job-type-text{
+    color: #008F41;
+    font-weight: 400;
+}

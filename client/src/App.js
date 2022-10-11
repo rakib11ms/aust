@@ -5,6 +5,7 @@ import ProtectedRoutes from './Authentication/ProtectedRoutes';
 import Dashboard from './BackendComponents/Dashboard/Dashboard';
 import PostType from './BackendComponents/PostType/PostType';
 import axios from 'axios';
+import JobConfiguration from './BackendComponents/Job Management/JobConfiguration/JobConfiguration';
 
 function App() {
   const [storage, setStorage] = useState('');
@@ -103,6 +104,7 @@ useEffect(()=>{
 
             <Route path="admin-dashboard" element={<Dashboard />}></Route>
             <Route path="post-type" element={<PostType/>}></Route>
+            <Route path="job-configuration" element={<JobConfiguration/>}></Route>
 
 
           </Route>

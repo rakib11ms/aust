@@ -6,8 +6,6 @@ import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import MaterialTable from 'material-table';
 
 import Modal from 'react-modal';
 
@@ -277,7 +275,7 @@ function PostType() {
                                         </div>
                                         <div className="card-body">
 
-                                            <MaterialTable
+                                            {/* <MaterialTable
                                                 columns={columns}
                                                 data={allPosts}
                                                 options={{
@@ -292,7 +290,7 @@ function PostType() {
 
                                                 }}
 
-                                            />
+                                            /> */}
 
 
                                         </div>
