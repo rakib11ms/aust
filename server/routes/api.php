@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\MobileAuthenticationController;
 use App\Http\Controllers\Backend\PostTypeController;
+use App\Http\Controllers\Backend\JobTypeController;
 use App\Http\Controllers\Authentication\AuthenticationController;
 use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\JobPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +65,25 @@ Route::delete('/delete-post-type/{id}',[PostTypeController::class,'destroy']);
 
 //post routes
 Route::post('/save-post',[PostController::class,'store']);
-Route::get('/all-posts',[PostController::class,'index']);
+Route::get('/all-job-post',[PostController::class,'index']);
 Route::get('/edit-post/{id}',[PostController::class,'edit']);
 Route::post('/update-post/{id}',[PostController::class,'update']);
 Route::post('/delete-post/{id}',[PostController::class,'destroy']);
+
+
+//job types
+Route::get('/job-type',[JobTypeController::class,'index']);
+Route::post('/add-job-type',[JobTypeController::class,'store']);
+Route::get('/edit-job-type/{id}',[JobTypeController::class,'edit']);
+Route::post('/update-job-type/{id}',[JobTypeController::class,'update']);
+Route::delete('/delete-job-type/{id}',[JobTypeController::class,'destroy']);
+
+
+//job post routes
+Route::post('/save-job-post',[JobPostController::class,'store']);
+Route::get('/all-job-post',[JobPostController::class,'index']);
+Route::get('/edit-job-post/{id}',[JobPostController::class,'edit']);
+Route::post('/update-job-post/{id}',[JobPostController::class,'update']);
+Route::post('/delete-job-post/{id}',[JobPostController::class,'destroy']);
+
 

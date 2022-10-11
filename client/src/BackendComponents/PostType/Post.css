@@ -1,20 +1,11 @@
-.post-top-con-wrapper{
-  display: flex;
-  flex-direction: row;
-  /* flex-wrap: wrap; */
-}
-.post-top-con-wrapper > .left-1{
-    flex:1;
-}
-.left-1-inner-con{
+.post-top-con{
     display: flex;
-    align-items: center;
-}
 
-.post-top-con-wrapper >.left-2{
-    background-color: #219653;
 }
+.post-top-con-left{
+    flex: 1;
+}
+/* .post-top-con-left{
+background-color: #219653;
 
-.left-1-inner-con-cat{
-        width:100%;
-}
+} */
