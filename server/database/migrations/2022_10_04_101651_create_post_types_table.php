@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('type_name')->nullable();
             $table->string('created_by')->nullable();
+            $table->string('mapping_user')->nullable();
 
             $table->timestamps();
         });

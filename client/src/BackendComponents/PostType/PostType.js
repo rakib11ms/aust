@@ -17,13 +17,58 @@ function PostType() {
 
     const [renderAllPosts, setRenderAllPosts] = useState('');
 
-    console.log('all posts check', allPosts)
+    // console.log('all posts check', allPosts)
+
+    //add functionality for post category
+
+    const [checkboxMapping, setcheckboxMapping] = useState({
+        val: [],
+    });
+
+
+
+    const handleAddPostTypeChange = (e) => {
+        // Destructuring
+        const { value, checked } = e.target;
+        const { val } = checkboxMapping;
+
+
+        console.log(`${value} is ${checked}`);
+
+        // Case 1 : The user checks the box
+        if (checked) {
+            setcheckboxMapping({
+                val: [...val, value],
+            });
+        }
+
+        // Case 2  : The user unchecks the box
+        else {
+            setcheckboxMapping({
+                val: val.filter((e) => e !== value),
+            });
+        }
+    };
+
+    //   console.log('uuuuuuu',checkboxMapping.val)
+
+
+
+
+
+
+
+
+
+
     const [addPostType, setAddPostType] = useState({
         type_name: "",
         created_by: '',
         error_list: []
 
     })
+
+    console.log('checking error', addPostType.error_list.type_name)
 
     const handleInput = (e) => {
         setAddPostType({
@@ -36,11 +81,16 @@ function PostType() {
 
     const handleSave = (e) => {
         e.preventDefault();
-        axios.post(`/api/add-post-type`, addPostType).then(res => {
+        const addpostCat = {
+            type_name: addPostType.type_name,
+            created_by: '',
+            mapping_user: checkboxMapping.val
+        }
+        axios.post(`/api/add-post-type`, addpostCat).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 setRenderAllPosts(res.data);
-                closeAddModal();
+                closeAddPostCategoryModal();
                 setAddPostType({
                     type_name: "",
                     created_by: '',
@@ -51,7 +101,7 @@ function PostType() {
             }
             else if (res.data.status == 400) {
                 setAddPostType({ ...addPostType, error_list: res.data.errors });
-                Swal.fire(addPostType.error_list.type_namep[0], '', 'error')
+                Swal.fire(addPostType.error_list.type_name[0], '', 'error')
 
             }
         })
@@ -64,27 +114,27 @@ function PostType() {
     const customStyles1 = {
         content: {
             // marginTop: '70px',
-            top: '35vh',
-            left: '35%',
+            top: '40vh',
+            left: '30%',
             right: 'auto',
             bottom: 'auto',
             padding: '5px',
             // marginRight: '-50%',
             transform: 'translate(-7%, -45%)',
-            width: "35%",
-            height: "280px",
+            width: "50vw",
+            height: "50vh",
             // background: "#ffffff",
         },
         overlay: { zIndex: 1000 }
 
     };
-    const [addModalIsOpen, setaddModalIsOpen] = useState(false);
-    function openAddModal(e) {
+    const [addPostCategoryModalIsOpen, setaddPostCategoryModalIsOpen] = useState(false);
+    function openAddPostCategoryModal(e) {
         e.preventDefault();
-        setaddModalIsOpen(true)
+        setaddPostCategoryModalIsOpen(true)
     }
-    function closeAddModal(e) {
-        setaddModalIsOpen(false);
+    function closeAddPostCategoryModal(e) {
+        setaddPostCategoryModalIsOpen(false);
 
     }
 
@@ -156,6 +206,8 @@ function PostType() {
 
 
 
+
+
     return (
         <>
             <div className="container-fluid">
@@ -169,54 +221,103 @@ function PostType() {
 
                         <div className='container-fluid'>
 
-                                <div className='post-top-con border rounded mt-2'>
+                            <div className='post-top-con border rounded mt-2'>
 
-                                    <div class="post-top-con-left">
+                                <div class="post-top-con-left  p-4">
 
-                                        Zdasd
+                                    <div className='mb-3 input-search mt-3'>
+                                        <div class="input-group py-2">
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+
+                                            <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
+                                        </div>
+
+                                        <div class="search-by d-flex mt-3">
+
+                                            <div className='fw-bold'>
+                                                Search By
+                                            </div>
+                                            <div class="form-check mx-3">
+                                                <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" />
+                                                <label class="form-check-label mx-2" for="flexRadioDefault1">
+                                                    Post Id
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check mx-3">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="btn-2" />
+                                                <label class="form-check-label mx-2" for="flexRadioDefault1">
+                                                    Post Title
+                                                </label>
+                                            </div>
+
+
+                                            <div class="form-check mx-3">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="btn-3" />
+                                                <label class="form-check-label mx-2" for="flexRadioDefault1">
+                                                    UserName
+                                                </label>
+                                            </div>
+                                        </div>
+
 
                                     </div>
-                                    <div class="post-top-con-right text-light bg-success rounded-end px-5">
 
-                                        <div className='rounded-3'>
+                                    <div className='text-center  mt-4'>
+                                        <div className='shadow-sm mx-3 border py-2 px-2  cat-btn mb-1 ' onClick={openAddPostCategoryModal}>
+                                            <h6 className='mt-1' > + Category</h6>
 
-                                        <h5 className=' m-1'>1332</h5>
-                                        <p>Active Post</p>
                                         </div>
+                                        <span className=''> View All Categories </span>
+                                    </div>
 
-                                        
-                                        <div>
+
+
+
+
+
+                                </div>
+                                <div class="post-top-con-right text-light rounded-end px-5 py-2">
+
+                                    <div className=' mb-0'>
 
                                         <h5 className=' m-0'>1332</h5>
-                                        <p>Active Post</p>
-                                        </div>
+                                        <p className='mb-2'>Active Post</p>
+                                    </div>
 
-                                        
-                                        <div>
+
+                                    <div className='mb-0'>
 
                                         <h5 className=' m-0'>1332</h5>
-                                        <p>Active Post</p>
-                                        </div>
+                                        <p className='mb-2'>Active Post</p>
+                                    </div>
 
 
-                                        
-                                        </div>
-                                      
-                                  
+                                    <div className='mb-0'>
+
+                                        <h5 className=' m-0'>1332</h5>
+                                        <p className='mb-1'>Active Post</p>
+                                    </div>
+
+
 
                                 </div>
 
-                                <div className="col-md-12 mt-3">
-                                    <div className="card">
-                                        <div className="card-header">
-                                            <h6 className="card-title">Post Type
-                                                {/* <Link to='/add-service-type' className="btn btn-success btn-sm float-end"> Add Post Type</Link> */}
-                                                <button className="btn btn-success btn-sm float-end" onClick={openAddModal}> Add Post Type</button>
-                                            </h6>
-                                        </div>
-                                        <div className="card-body">
 
-                                            {/* <MaterialTable
+
+                            </div>
+
+                            <div className="col-md-12 mt-3">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h6 className="card-title">Post Type
+                                            {/* <Link to='/add-service-type' className="btn btn-success btn-sm float-end"> Add Post Type</Link> */}
+                                            {/* <button className="btn btn-success btn-sm float-end" onClick={openAddPostCategoryModal}> Add Post Type</button> */}
+                                        </h6>
+                                    </div>
+                                    <div className="card-body">
+
+                                        {/* <MaterialTable
                                                 columns={columns}
                                                 data={allPosts}
                                                 options={{
@@ -234,10 +335,10 @@ function PostType() {
                                             /> */}
 
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                     </div>
 
@@ -245,28 +346,89 @@ function PostType() {
 
                     {/* add modal */}
                     <Modal
-                        isOpen={addModalIsOpen}
-                        onRequestClose={closeAddModal}
+                        isOpen={addPostCategoryModalIsOpen}
+                        onRequestClose={closeAddPostCategoryModal}
                         style={customStyles1}
                         contentLabel="Example Modal"
                     >
 
                         <div className='card-body '>
-                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddModal}><i class="fa fa-times"></i></span>
+                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddPostCategoryModal}><i class="fa fa-times"></i></span>
 
-                            <h5 className=""> Add Post Type</h5>
+                            <h5 className=""> Create Post Category</h5>
                             <hr />
 
 
                             <div className="row">
 
                                 <div className="col-12">
-                                    <div class="input-group mb-2">
-                                        <span class="input-group-text bg-light" id="basic-addon1">Post Type Name</span>
-                                        <input type="text" class="form-control" aria-label="Type Name" aria-describedby="basic-addon1" value={addPostType.type_name} name="type_name" onChange={handleInput} />
+
+                                    <div className='d-flex align-items-center'>
+                                        <div class="mb-3" style={{ width: '60%' }}>
+                                            <label for="exampleFormControlInput1" class="form-label fs-6">Category Name</label>
+                                            <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addPostType.type_name} name="type_name" onChange={handleInput} />
+                                        </div>
+
+                                        <div>
+                                        </div>
+
+
+                                        <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                            <span className='text-danger'> {addPostType.error_list.type_name}</span>
+                                        </div>
                                     </div>
 
-                                    <button className='btn btn-success btn-sm float-end rounded-3 px-3 mt-1' onClick={handleSave}>Save</button>
+
+
+
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label fs-6">Mapping</label>
+                                        <div className='d-flex mt-2'>
+                                            <div className=''>
+                                                Mapping With
+                                            </div>
+
+
+                                            <div class="form-check mx-3">
+                                                <input class="form-check-input" type="checkbox" value="administrator" id="flexCheckDefault" name="administrator" onChange={handleAddPostTypeChange}
+                                                />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Administrator
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="moderator" id="flexCheckDefault" name="moderator" onChange={handleAddPostTypeChange} />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Moderator
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="alumni" id="flexCheckDefault" name="alumni" onChange={handleAddPostTypeChange} />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Alumni
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="stuff" id="flexCheckDefault" name="stuff" onChange={handleAddPostTypeChange} />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Stuff
+                                                </label>
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <button className='btn btn-secondary btn-sm float-end me-5 rounded-3 px-5 py-2 mt-1' onClick={handleSave}>Save</button>
 
 
 

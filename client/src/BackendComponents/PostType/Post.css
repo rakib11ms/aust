@@ -4,8 +4,30 @@
 }
 .post-top-con-left{
     flex: 1;
-}
-/* .post-top-con-left{
-background-color: #219653;
+    display: flex;
 
-} */
+}
+.input-search {
+    width: 60%;
+}
+
+#btn-1,#btn-2,#btn-3{
+    transform: scale(1.4);
+    /* background-color:green; */
+
+}
+
+.inp{
+    /* background-color: red; */
+    padding:13px;
+    /* border:0; */
+    border-radius: 10px;
+}
+.cat-btn{
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+.post-top-con-right{
+background-color: #219653;
+}

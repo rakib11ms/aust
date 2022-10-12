@@ -43,6 +43,10 @@ class PostTypeController extends Controller
 
 
         $post_type->type_name = $request->type_name;
+        $post_type->created_by = $request->created_by;
+        $post_type->mapping_user =implode(",",$request->mapping_user);
+
+
         $post_type->save();
 
         $count = PostType::orderBy('id', 'desc')->get()->count();

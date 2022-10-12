@@ -37,12 +37,17 @@ class JobPostController extends Controller
             $post->image =$filename ;
          } 
 
-           $post->post_title = $request->post_title;
-           $post->post_type = $request->post_type;
-           $post->post_description = $request->post_description;
+           $post->job_title = $request->job_title;
+           $post->job_type = $request->job_type;
+           $post->job_description = $request->job_description;
+           $post->job_link = $request->job_link;
+           // $post->image = $request->image;
+
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
            $post->isPublished = $request->isPublished;
+           $post->isArchived = $request->isArchived;
+           $post->application_deadline = $request->application_deadline;
             $post->save();
 
                 $count = JobPost::orderBy('id','desc')->get()->count();
@@ -50,7 +55,7 @@ class JobPostController extends Controller
  return response()->json([
                 'status' => 200,
                  'count'=>$count,
-                'message' => 'Post Added Successfully',
+                'message' => 'Job Post Added Successfully',
             ]);   
      }
 
@@ -91,17 +96,22 @@ class JobPostController extends Controller
 
             }
 
-           $post->post_title = $request->post_title;
-           $post->post_type = $request->post_type;
-           $post->post_description = $request->post_description;
+            $post->job_title = $request->job_title;
+           $post->job_type = $request->job_type;
+           $post->job_description = $request->job_description;
+           $post->job_link = $request->job_link;
+           // $post->image = $request->image;
+
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
            $post->isPublished = $request->isPublished;
+           $post->isArchived = $request->isArchived;
+           $post->application_deadline = $request->application_deadline;
             $post->update();
 
  return response()->json([
                 'status' => 200,
-                'message' => 'Post Updated Successfully',
+                'message' => 'Job Post Updated Successfully',
             ]);   
     }
 
@@ -118,7 +128,7 @@ class JobPostController extends Controller
         $post->delete();
             return response()->json([
                 'status' => 200,
-                'message' => 'Post deleted successfully',
+                'message' => 'Job Post deleted successfully',
             ]);
 
     

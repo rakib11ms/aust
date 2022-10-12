@@ -50,7 +50,7 @@ class PostController extends Controller
 
  return response()->json([
                 'status' => 200,
-                 'count'=>$count,
+                 // 'count'=>$count,
                 'message' => 'Post Added Successfully',
             ]);   
      }
@@ -83,7 +83,7 @@ class PostController extends Controller
 
  if ($files = $request->file('image')) {
             $names = $files->getClientOriginalName();
-            $name = rand(111, 99999).$names;
+            $name = rand(111, 999999).$names;
             $files->move('images/', $name);
         }
            
