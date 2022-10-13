@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import Modal from 'react-modal';
 
+import MaterialTable from "material-table";
 
 
 function PostType() {
@@ -151,23 +152,38 @@ function PostType() {
 
 
     const columns = [
-        {
-            title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
+        // {
+        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
 
-            width: "40 !important"
-        },
+        //     width: "40 !important"
+        // },
         {
             title: "Post Type", field: `type_name`
 
             , cellStyle: {
                 marginLeft: 50,
-                width: 600
+                maxWidth: 600
+            },
+        },
+        {
+            title: "Mapping Users", field: `mapping_user`
+
+            , cellStyle: {
+                marginLeft: 50,
+                width: 0
             },
         },
 
+    
+        // {
+        //     title: "Action", field: "", render: (row) => <div className='d-flex'><Link to={`/edit-service-type/${row.id}`} class="btn btn-info btn-sm action-btn"><i class="fas fa-edit"></i></Link>
+        //         <button onClick={(e) => deletePostType(e, row.id)} className="btn btn-danger btn-sm action-btn mx-4"> <i class="fas fa-trash"></i> </button></div>
+        // },
+
         {
-            title: "Action", field: "", render: (row) => <div className='d-flex'><Link to={`/edit-service-type/${row.id}`} class="btn btn-info btn-sm action-btn"><i class="fas fa-edit"></i></Link>
-                <button onClick={(e) => deletePostType(e, row.id)} className="btn btn-danger btn-sm action-btn mx-1"> <i class="fas fa-trash"></i> </button></div>
+            title: "Action", field: "", render: (row) => <div className='d-flex align-items-center'>
+                <Link to={`/edit-service-type/${row.id}`}> <i class="fas fa-edit fa-2x text-danger"></i></Link>
+                 <i class="fas fa-trash text-danger"></i> </div>
         },
     ];
 
@@ -317,22 +333,24 @@ function PostType() {
                                     </div>
                                     <div className="card-body">
 
-                                        {/* <MaterialTable
+                                        <MaterialTable
                                                 columns={columns}
                                                 data={allPosts}
                                                 options={{
-                                                    search: true,
-                                                    // filtering: filter,
+                                                    search: false,
+                                                    // filtering: true,
                                                     showTitle: false,
                                                     searchFieldAlignment: "left",
                                                     pageSize: 5,
                                                     emptyRowsWhenPaging: false,
                                                     pageSizeOptions: [5, 10, 20, 50, 100],
-                                                    isLoading: true
+                                                    isLoading: true,
+                                                    selection: true
+
 
                                                 }}
 
-                                            /> */}
+                                            />
 
 
                                     </div>
