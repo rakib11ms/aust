@@ -16,6 +16,8 @@ function PostType() {
 
     const [allPosts, setallPosts] = useState([]);
 
+    console.log('all post type check', allPosts)
+
     const [renderAllPosts, setRenderAllPosts] = useState('');
 
     // console.log('all posts check', allPosts)
@@ -25,6 +27,37 @@ function PostType() {
     const [checkboxMapping, setcheckboxMapping] = useState({
         val: [],
     });
+
+
+    const [postCheckboxMapping, setPostCheckboxMapping] = useState({
+        val: [],
+    });
+
+
+
+    // const handleAddPostMapChange = (e) => {
+    //     // Destructuring
+    //     const { value, checked } = e.target;
+    //     const { val } = postCheckboxMapping;
+
+
+    //     // console.log(`${value} is ${checked}`);
+
+    //     // Case 1 : The user checks the box
+    //     if (checked) {
+    //         setPostCheckboxMapping({
+    //             val: [...val, value],
+    //         });
+    //     }
+
+    //     // Case 2  : The user unchecks the box
+    //     else {
+    //         setPostCheckboxMapping({
+    //             val: val.filter((e) => e !== value),
+    //         });
+    //     }
+    // };
+    // console.log('uuuuuuu',postCheckboxMapping.val)
 
 
 
@@ -51,7 +84,6 @@ function PostType() {
         }
     };
 
-    //   console.log('uuuuuuu',checkboxMapping.val)
 
 
 
@@ -68,8 +100,24 @@ function PostType() {
         error_list: []
 
     })
+    //     const [addPost, setaddPost] = useState({
+    //         post_type_id: "",
+    //         post_title: "",
+    //         post_description: "",
+    //         created_by: '',
+    //         error_list: []
 
-    console.log('checking error', addPostType.error_list.type_name)
+    //     })
+
+    //     console.log('checking error', addPostType.error_list.type_name)
+
+
+    //    const  handleAddPostChange=(e)=>{
+    //     setaddPost({
+    //         ...addPost, [e.target.name]: e.target.value
+
+    //     })
+    //    }
 
     const handleInput = (e) => {
         setAddPostType({
@@ -78,6 +126,39 @@ function PostType() {
 
 
     }
+
+
+    // const handlePostSave = (e) => {
+    //     e.preventDefault();
+    //     const addPost= {
+    //         post_type_id: addPost.post_type_id,
+    //         created_by: '',
+    //         post_title:addPost.post_title,
+    //         post_description:addPost.post_description,
+    //         mapping_user: checkboxMapping.val
+    //     }
+    //     axios.post(`/api/add-post-type`, addPost).then(res => {
+    //         if (res.data.status == 200) {
+    //             Swal.fire(res.data.message, '', 'success')
+    //             setRenderAllPosts(res.data);
+    //             closeAddPostCategoryModal();
+    //             setAddPostType({
+    //                 type_name: "",
+    //                 created_by: '',
+    //                 error_list: []
+
+    //             });
+
+    //         }
+    //         else if (res.data.status == 400) {
+    //             setAddPostType({ ...addPostType, error_list: res.data.errors });
+    //             Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+    //         }
+    //     })
+    // }
+
+
 
 
     const handleSave = (e) => {
@@ -129,6 +210,25 @@ function PostType() {
         overlay: { zIndex: 1000 }
 
     };
+    const customStyles2 = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "70vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+
     const [addPostCategoryModalIsOpen, setaddPostCategoryModalIsOpen] = useState(false);
     function openAddPostCategoryModal(e) {
         e.preventDefault();
@@ -139,11 +239,24 @@ function PostType() {
 
     }
 
+    const [addPostModalIsOpen, setaddPostModalIsOpen] = useState(false);
+
+    function openAddPostModal(e) {
+        e.preventDefault();
+        setaddPostModalIsOpen(true)
+    }
+    function closeAddPostModal(e) {
+        setaddPostModalIsOpen(false);
+
+    }
+
+
+
 
     useEffect(() => {
-        axios.get(`/api/post-type`).then(res => {
+        axios.get(`/api/all-posts`).then(res => {
             if (res.data.status == 200) {
-                setallPosts(res.data.post_type);
+                setallPosts(res.data.posts);
             }
         })
         Modal.setAppElement('body');
@@ -158,32 +271,103 @@ function PostType() {
         //     width: "40 !important"
         // },
         {
-            title: "Post Type", field: `type_name`
+            title: 'ALL  ', field: ``
 
-            , cellStyle: {
+            ,
+            render: (row) =>
+
+                <div className=''>
+                    <div class="tooops d-flex align-items-center justify-content-between">
+                        <div className=''>
+                            <div className='text-secondary'>
+                                <span>
+                                    <i className='fa fa-calendar'></i>
+                                    <span className='mx-1'>13,October,22</span>
+                                </span>
+                            </div>
+                            <div className='d-flex align-items-center text-secondary'>
+                                <h6 className='my-1'>Posted By:<span> rakib </span></h6>
+                                <i className='fa fa-eye mx-2'></i>
+                            </div>
+                        </div>
+                        <div>
+                            
+
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>Help Post</span> </button>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h5 className='my-1'>
+                            {row.post_title}
+                        </h5>
+
+                        <p className='text-secondary'>{row.post_description}</p>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
                 marginLeft: 50,
-                maxWidth: 600
+                maxWidth: 200
             },
         },
         {
-            title: "Mapping Users", field: `mapping_user`
+            title: "", field: `isPublished`,render:(row)=>
+                    <div>
+                            {
+                                row.isPublished===1? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Approved</button>:<button className='btn btn-success btn-sm px-4 btn-sm rounded-pill'> Pending</button>
+                            }
+
+                        </div>
+            
 
             , cellStyle: {
                 marginLeft: 50,
-                width: 0
+                width: 50
             },
         },
 
-    
+
         // {
         //     title: "Action", field: "", render: (row) => <div className='d-flex'><Link to={`/edit-service-type/${row.id}`} class="btn btn-info btn-sm action-btn"><i class="fas fa-edit"></i></Link>
         //         <button onClick={(e) => deletePostType(e, row.id)} className="btn btn-danger btn-sm action-btn mx-4"> <i class="fas fa-trash"></i> </button></div>
         // },
 
         {
-            title: "Action", field: "", render: (row) => <div className='d-flex align-items-center'>
-                <Link to={`/edit-service-type/${row.id}`}> <i class="fas fa-edit fa-2x text-danger"></i></Link>
-                 <i class="fas fa-trash text-danger"></i> </div>
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
+                <div class="form-check form-switch mx-2  text-danger">
+                    <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" />
+                </div>
+
+                <div className='mx-2 '>
+                    <i class="fa-solid fa-trash icon-table-trash"></i>
+                </div>
+
+                <div className='mx-2'>
+
+
+                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                </div>
+
+
+            </div>,
+             cellStyle: {
+                marginLeft: 50,
+                textAlign:'right'
+            },
         },
     ];
 
@@ -324,33 +508,102 @@ function PostType() {
                             </div>
 
                             <div className="col-md-12 mt-3">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h6 className="card-title">Post Type
-                                            {/* <Link to='/add-service-type' className="btn btn-success btn-sm float-end"> Add Post Type</Link> */}
-                                            {/* <button className="btn btn-success btn-sm float-end" onClick={openAddPostCategoryModal}> Add Post Type</button> */}
-                                        </h6>
-                                    </div>
-                                    <div className="card-body">
+                                <div className="card bg-white">
+
+                                    <div className="card-body ">
+
+                                        <div className='table-filter-tab bg-white'>
+
+                                            <div className='d-flex table-filter-menus align-items-center'>
+
+                                                <h6 className='mx-2'>All</h6>
+                                                <h6 className='mx-3'>Active</h6>
+                                                <h6 className='mx-3'>Pending</h6>
+                                                <h6 className='mx-3'>Decline</h6>
+
+                                            </div>
+
+                                            <div className='d-flex align-items-center'>
+
+                                                <div class="form-check form-switch mx-2">
+                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                                </div>
+
+                                                <div className='mx-2 '>
+                                                    <i class="fa-solid fa-trash icon-table-trash"></i>
+                                                </div>
+
+                                                <div className='mx-2'>
+
+
+                                                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
+
+                                                </div>
+
+                                                <div className='table-add-button px-4 shadow-sm border  py-1 mx-3 d-flex align-items-center' onClick={openAddPostModal}>
+                                                    <h6 className='mb-1'> + <span>Post</span></h6>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <hr />
 
                                         <MaterialTable
-                                                columns={columns}
-                                                data={allPosts}
-                                                options={{
-                                                    search: false,
-                                                    // filtering: true,
-                                                    showTitle: false,
-                                                    searchFieldAlignment: "left",
-                                                    pageSize: 5,
-                                                    emptyRowsWhenPaging: false,
-                                                    pageSizeOptions: [5, 10, 20, 50, 100],
-                                                    isLoading: true,
-                                                    selection: true
+                                            columns={columns}
+                                            data={allPosts}
+                                            options={{
+                                                search: true,
+                                                // filtering: true,
+                                                toolbar: false,
+                                                showTitle: false,
+                                                searchFieldAlignment: "left",
+                                                pageSize: 5,
+                                                emptyRowsWhenPaging: false,
+                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                isLoading: true,
+                                                selection: true,
+                                                sorting: false
+                                                // paging:false
 
 
-                                                }}
+                                            }}
 
-                                            />
+                                        />
 
 
                                     </div>
@@ -362,7 +615,7 @@ function PostType() {
 
 
 
-                    {/* add modal */}
+                    {/* add post category modal */}
                     <Modal
                         isOpen={addPostCategoryModalIsOpen}
                         onRequestClose={closeAddPostCategoryModal}
@@ -460,6 +713,11 @@ function PostType() {
                         </div>
 
                     </Modal>
+
+
+
+
+
                 </div>
             </div>
 

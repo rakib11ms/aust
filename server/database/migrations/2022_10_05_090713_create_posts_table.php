@@ -22,6 +22,7 @@ return new class extends Migration
                  $table->string('posted_by')->nullable();
                  $table->string('date')->nullable();
                  $table->Boolean('isPublished')->nullable();
+                 $table->string('tag')->nullable();
             $table->timestamps();
         });
     }

@@ -31,3 +31,34 @@
 .post-top-con-right{
 background-color: #219653;
 }
+
+.table-filter-tab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #f1f1f1; */
+    cursor: pointer;
+}
+
+.table-filter-menus>h6{
+    color: #777777;
+}
+.icon-table-trash{
+    color: #F24E1E;
+    font-size: 18px;
+}
+
+.icon-table-archive{
+    font-size: 18px;
+    color: #777777;
+
+}
+
+.table-add-button{
+   border-radius: 18px;
+   text-align: center;
+}
+.table-cat-btns{
+    border-radius: 7px;
+    padding: 1px 15px;
+}

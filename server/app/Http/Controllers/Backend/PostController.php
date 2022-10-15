@@ -44,6 +44,7 @@ class PostController extends Controller
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
            $post->isPublished = $request->isPublished;
+           $post->tag = $request->tag;
             $post->save();
 
                 $count = Post::orderBy('id','desc')->get()->count();
@@ -98,6 +99,8 @@ class PostController extends Controller
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
            $post->isPublished = $request->isPublished;
+           $post->isPublished = $request->isPublished;
+
             $post->update();
 
  return response()->json([
