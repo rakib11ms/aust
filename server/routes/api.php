@@ -67,8 +67,12 @@ Route::delete('/delete-post-type/{id}',[PostTypeController::class,'destroy']);
 Route::post('/save-post',[PostController::class,'store']);
 Route::get('/all-posts',[PostController::class,'index']);
 Route::get('/edit-post/{id}',[PostController::class,'edit']);
-Route::post('/update-post/{id}',[PostController::class,'update']);
+Route::put('/update-post/{id}',[PostController::class,'update']);
 Route::post('/delete-post/{id}',[PostController::class,'destroy']);
+
+Route::post('/delete-all-posts',[PostController::class,'deleteAllPosts']);
+Route::get('/filter-post/{filterByStatus}',[PostController::class,'filterByStatus']);
+
 
 
 //job types

@@ -54,11 +54,8 @@ background-color: #219653;
 
 }
 
-.table-add-button{
-   border-radius: 18px;
-   text-align: center;
-}
+
 .table-cat-btns{
-    border-radius: 7px;
+    border-radius:8px;
     padding: 1px 15px;
 }

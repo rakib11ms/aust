@@ -27,9 +27,9 @@ function Dashboard() {
                         <section className="dashboard-card-top-wrapper mt-3">
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
-                                    <div className="fontaws-bold rounded-3 py-4 text-light col-4">
+                                    <div className="fontaws-bold rounded-3 py-4 text-light col-3">
                                         {/* p-1 */}
-                                        <i class="fa-solid fa-newspaper fa-2x mx-1 "></i>
+                                        <i class="fa-solid fa-newspaper fa-2x  "></i>
                                     </div>
                                     <div className="col-6 mt-1">
                                         <h5 className="fw-bold">103</h5>
@@ -41,9 +41,9 @@ function Dashboard() {
 
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
-                                    <div className="fontaws-bold rounded-3 py-4 text-light col-4">
+                                    <div className="fontaws-bold rounded-3 py-4 text-light col-3">
                                         {/* p-1 */}
-                                        <i class="fa-solid fa-users fa-2x mx-1 "></i>
+                                        <i class="fa-solid fa-users fa-2x  "></i>
                                     </div>
                                     <div className="col-6 mt-1">
                                         <h5 className="fw-bold">103</h5>
@@ -56,9 +56,9 @@ function Dashboard() {
 
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
-                                    <div className="fontaws-bold rounded-3 py-4 text-light col-4">
+                                    <div className="fontaws-bold rounded-3 py-4 text-light col-3">
                                         {/* p-1 */}
-                                        <i class="fa-solid fa-bullhorn fa-2x mx-1"></i>
+                                        <i class="fa-solid fa-bullhorn fa-2x "></i>
                                     </div>
                                     <div className="col-6 mt-1">
                                         <h5 className="fw-bold">103</h5>
@@ -73,9 +73,9 @@ function Dashboard() {
 
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
-                                    <div className="fontaws-bold rounded-3 py-4 text-light col-4">
+                                    <div className="fontaws-bold rounded-3 py-4 text-light col-3 ">
                                         {/* p-1 */}
-                                        <i class="fa-solid fa-suitcase  fa-2x mx-1"></i>
+                                        <i class="fa-solid fa-suitcase  fa-2x  "></i>
                                     </div>
                                     <div className="col-6 mt-1">
                                         <h5 className="fw-bold">103</h5>
@@ -90,10 +90,10 @@ function Dashboard() {
 
                             <div className="dashboard-top-cards rounded-3 border border-success p-0 ">
                                 <div className="row py-2 px-1 d-flex align-content-center justify-content-center">
-                                    <div className="fontaws-bold rounded-3 py-4 text-light bg-danger col-4">
+                                    <div className="fontaws-bold rounded-3 py-4 text-light bg-danger col-3">
                                         {/* p-1 */}
                                         {/* <i class="fa-solid fa-newspaper fa-2x mx-1 "></i> */}
-                                        <i class="fa-solid fa-triangle-exclamation fa-2x mx-1"></i>
+                                        <i class="fa-solid fa-triangle-exclamation fa-2x "></i>
                                     </div>
                                     <div className="col-6 mt-1">
                                         <h5 className="fw-bold">103</h5>

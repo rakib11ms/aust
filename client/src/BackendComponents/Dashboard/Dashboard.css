@@ -103,12 +103,40 @@ color: #777777;
 .slick-list {margin: 0 -5px;}
 .slick-slide>div {padding: 0 5px;}
 
+/* 
+.slick-prev:before {
+    content: "<";
+    color: red;
+    font-size: 30px;
+    font-family: 'FontAwesome';
+
+  }
+  
+  .slick-next:before {
+    content: "-";
+    color: red;
+    font-size: 30px;
+    background-color: #0FA958;
+    font-family: 'FontAwesome';
+
+  } */
 
   /* .slick-prev:before,
-.slick-next:before {
-  background-color:#c3c3c3;
-} */
+  .slick-next:before {
+   color: #307dff !important;
+  } */
+  /* .slick-prev:before {
+    content: "\f060 !important" ;
+    color: red !important;
+    font-size: 36px;
+    font-family: "FontAwesome ";
 
+    }
+    ​
+    .slick-next:before {
+    content: ">" !important;;
+    }
+   */
 
 .advertisements-card{
     display: grid;

@@ -83,7 +83,7 @@ function Publication() {
 
                 <section className="publication-content  px-2 mt-4 ">
                     <div className="total-publication-card  row  ">
-                        <div className="total-pu-card-left  my-2 col-3 rounded-3 bg-white border d-flex flex-column  justify-content-center shadow-sm">
+                        <div className="total-pu-card-left    col-3 rounded-3 bg-white border d-flex flex-column  justify-content-center shadow-sm">
                             <div className="d-flex">
                                 <h4 className="publiction-num">17</h4>
                                 <p className="mx-4 mt-1">News Are posted</p>
@@ -296,7 +296,7 @@ function Publication() {
 
                 <section className="publication-content mt-2 px-2 ">
                     <div className="total-publication-card  mt-4 row">
-                        <div className="total-pu-card-left  my-2 col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3">
+                        <div className="total-pu-card-left   col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3">
                             <div className="d-flex">
                                 <h4 className="publiction-num">14</h4>
                                 <p className="mx-4 mt-1">News Are posted</p>

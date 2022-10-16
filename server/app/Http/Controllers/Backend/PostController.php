@@ -92,14 +92,16 @@ class PostController extends Controller
              $post->image=$name;
 
             }
+            // if($request->post_title !=null ||$request->post_type !=null || $request->post_description !=null ||  $request->posted_by !=null ||){
 
-           $post->post_title = $request->post_title;
-           $post->post_type = $request->post_type;
-           $post->post_description = $request->post_description;
-           $post->posted_by = $request->posted_by;
-           $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
-           $post->isPublished = $request->isPublished;
+            // }
+
+           $post->post_title = $request->input('post_title');
+           $post->post_type = $request->input('post_type');
+           $post->post_description = $request->input('post_description');
+           $post->posted_by = $request->input('posted_by');
+           $post->date = $request->input('date');
+           $post->isPublished = $request->input('isPublished');
 
             $post->update();
 
@@ -126,5 +128,26 @@ class PostController extends Controller
             ]);
 
     
+    }
+
+    public function deleteAllPosts(Request $request){
+           Post::truncate();
+              return response()->json([
+                'status' => 200,
+                'message' => 'All Posts deleted successfully',
+            ]);
+
+    }
+
+    public function filterByStatus($name){
+      
+      // $active_posts=Post::where('isPublished',$name)->get();
+      // $pending_posts=Post::where('isPublished',$name)->get();
+      // $active_posts=Post::where('isPublished',$name)->get();
+      $posts=Post::where('isPublished',$name)->get();
+             return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
     }
 }
