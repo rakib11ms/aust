@@ -18,7 +18,12 @@ function PostType() {
 
     const [allPosts, setallPosts] = useState([]);
 
-    console.log('all post type check', allPosts)
+    const [specificPost, setSpecificPost] = useState('');
+    const [specificPostData,setSpecificPostData]=useState([]);
+
+
+
+    console.log('specificPostData', specificPostData)
 
     const [renderAllPosts, setRenderAllPosts] = useState('');
 
@@ -116,21 +121,44 @@ function PostType() {
             }
         })
     }
+    const formData = new FormData();
 
     const handlePostApproval = (e, id) => {
+        setSpecificPost(id);
         const IsApprovedValue = e.target.checked === true ? 1 : 0;
-        const updateApprovedVal = {
-            isPublished: IsApprovedValue,
-            // post_title:'',
-            // post_type:"",
-            // post_description:'',
-            // posted_by:""
-        }
-        axios.put(`/api/update-post/${id}`, updateApprovedVal).then(res => {
+        // formData.append('_method', 'POST');
+
+       formData.append('isPublished',IsApprovedValue);
+       formData.append('post_title',specificPostData.post_title);
+       formData.append('post_type',specificPostData.post_type);
+       formData.append('post_description',specificPostData.post_description);
+       formData.append('posted_by',specificPostData.posted_by);
+       formData.append('date',specificPostData.date);
+       formData.append('image',specificPostData.image);
+       formData.append('tag',specificPostData.tag);
+
+        // const updateApprovedVal = {
+        //     isPublished: IsApprovedValue,
+        //     post_title:specificPostData.post_title,
+        //     post_type:specificPostData.post_type,
+        //     post_description:specificPostData.post_description,
+        //     posted_by:specificPostData.posted_by,
+        //     image:specificPostData.image,
+        //     date:specificPostData.date,
+        //     tag:specificPostData.tag
+        // }
+
+        // console.log('updated approval data',formData)
+        axios.post(`/api/update-post/${id}`, formData,    {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+
+        }).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 setRenderAllPosts(res.data);
-                closeAddPostCategoryModal();
+                // closeAddPostCategoryModal();
                 // setAddPostType({
                 //     type_name: "",
                 //     created_by: '',
@@ -218,9 +246,15 @@ function PostType() {
                 setLoading(false);
             }
         })
+        axios.get(`/api/edit-post/${specificPost}`).then(res => {
+            if (res.data.status == 200) {
+                setSpecificPostData(res.data.post);
+                setLoading(false);
+            }
+        })
         Modal.setAppElement('body');
 
-    }, [renderAllPosts])
+    }, [renderAllPosts,specificPost])
 
 
     const columns = [
@@ -310,11 +344,15 @@ function PostType() {
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
                 <div class="form-check form-switch mx-2  text-danger">
-                    <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" defaultChecked={row.isPublished == 1} onChange={(e) => {
+                    <form encType="multipart/form-data" method='POST'  onChange={(e) => {
 
-                        handlePostApproval(e, row.id)
+handlePostApproval(e, row.id)
 
-                    }} />
+}} >
+                    <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" defaultChecked={row.isPublished == 1}
+                    />
+                    </form>
+
                 </div>
 
                 <div className='mx-2 ' onClick={(e) => deletePost(e, row.id)}>
@@ -436,7 +474,8 @@ function PostType() {
 
     const [postFiltering, setPostFiltering] = useState('all');
 
-    console.log('filtered post val',allPosts)
+    // console.log('filtered post val',allPosts)
+    console.log('filter click check',postFiltering)
 
 
     useEffect(()=>{
@@ -559,10 +598,10 @@ function PostType() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                            <h6 className='mx-2' onClick={(()=>setPostFiltering)('all')}>All</h6>
-                                                <h6 className='mx-3 ' onClick={(()=>setPostFiltering)('1')}>Active</h6>
-                                                <h6 className='mx-3' onClick={(()=>setPostFiltering)('0')}>Pending</h6>
-                                                <h6 className='mx-3' onClick={(()=>setPostFiltering)('decline')}>Decline</h6>
+                                            <h6 className={`${postFiltering ==='all'? 'filterTrack':""} mx-2`} onClick={()=>setPostFiltering('all')}>All</h6>
+                                                <h6 className={`${postFiltering ===1? 'filterTrack':""} mx-3`} onClick={()=>setPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${postFiltering ===0? 'filterTrack':""} mx-3`}onClick={()=>setPostFiltering(0)}>Pending</h6>
+                                                <h6 className={`${postFiltering ==='decline'? 'filterTrack':""} mx-3`}onClick={()=>setPostFiltering('decline')}>Decline</h6>
 
                                             </div>
 

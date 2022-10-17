@@ -59,3 +59,7 @@ background-color: #219653;
     border-radius:8px;
     padding: 1px 15px;
 }
+.filterTrack{
+  color:black !important;
+  /* background-color: red; */
+}

@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\JobTypeController;
 use App\Http\Controllers\Authentication\AuthenticationController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\JobPostController;
+use App\Http\Controllers\Backend\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +68,7 @@ Route::delete('/delete-post-type/{id}',[PostTypeController::class,'destroy']);
 Route::post('/save-post',[PostController::class,'store']);
 Route::get('/all-posts',[PostController::class,'index']);
 Route::get('/edit-post/{id}',[PostController::class,'edit']);
-Route::put('/update-post/{id}',[PostController::class,'update']);
+Route::post('/update-post/{id}',[PostController::class,'update']);
 Route::post('/delete-post/{id}',[PostController::class,'destroy']);
 
 Route::post('/delete-all-posts',[PostController::class,'deleteAllPosts']);
@@ -89,5 +90,12 @@ Route::get('/all-job-post',[JobPostController::class,'index']);
 Route::get('/edit-job-post/{id}',[JobPostController::class,'edit']);
 Route::post('/update-job-post/{id}',[JobPostController::class,'update']);
 Route::post('/delete-job-post/{id}',[JobPostController::class,'destroy']);
+
+//departments
+Route::get('/department',[DepartmentController::class,'index']);
+Route::post('/add-department',[DepartmentController::class,'store']);
+Route::get('/edit-department/{id}',[DepartmentController::class,'edit']);
+Route::post('/update-department/{id}',[DepartmentController::class,'update']);
+Route::delete('/delete-department/{id}',[DepartmentController::class,'destroy']);
 
 

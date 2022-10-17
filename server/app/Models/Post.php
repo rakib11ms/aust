@@ -17,5 +17,6 @@ class Post extends Model
         'date',
         'isPublished',
         'image',
+        'tag'
     ];
 }

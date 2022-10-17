@@ -96,12 +96,12 @@ class PostController extends Controller
 
             // }
 
-           $post->post_title = $request->input('post_title');
-           $post->post_type = $request->input('post_type');
-           $post->post_description = $request->input('post_description');
-           $post->posted_by = $request->input('posted_by');
-           $post->date = $request->input('date');
-           $post->isPublished = $request->input('isPublished');
+           $post->post_title = $request->post_title;
+           $post->post_type = $request->post_type;
+           $post->post_description = $request->post_description;
+           $post->posted_by = $request->posted_by;
+           $post->date = $request->date;
+           $post->isPublished = $request->isPublished;
 
             $post->update();
 
@@ -144,10 +144,37 @@ class PostController extends Controller
       // $active_posts=Post::where('isPublished',$name)->get();
       // $pending_posts=Post::where('isPublished',$name)->get();
       // $active_posts=Post::where('isPublished',$name)->get();
-      $posts=Post::where('isPublished',$name)->get();
-             return response()->json([
+
+        if($name=='all'){
+        $posts=Post::orderBy('id','DESC')->get();
+  return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
+        }
+        else if($name==1){
+      $posts=Post::where('isPublished',1)->get();
+ return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else if($name==0){
+                  $posts=Post::where('isPublished',0)->get();
+
+   return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else{
+     $posts=Post::orderBy('id','DESC')->get();
+  return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+
+          
     }
 }

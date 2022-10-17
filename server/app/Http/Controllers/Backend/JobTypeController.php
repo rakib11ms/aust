@@ -11,12 +11,12 @@ class JobTypeController extends Controller
 {
     public function index()
     {
-        $count = JobType::orderBy('id', 'desc')->get()->count();
+        $total_job_types = JobType::orderBy('id', 'desc')->get()->count();
 
         $job_type = JobType::orderBy('id', 'desc')->get();
         return response()->json([
             'status' => 200,
-            'count' => $count,
+            'total_job_types' => $total_job_types,
 
             'job_type' => $job_type
         ]);
@@ -45,11 +45,11 @@ class JobTypeController extends Controller
         $job_type->type_name = $request->type_name;
         $job_type->save();
 
-        $count = JobType::orderBy('id', 'desc')->get()->count();
+        $total_job_types = JobType::orderBy('id', 'desc')->get()->count();
 
         return response()->json([
             'status' => 200,
-            'count' => $count,
+            'total_job_types' => $total_job_types,
             'message' => 'Job Type Added Successfully',
         ]);
     }
