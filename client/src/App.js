@@ -6,7 +6,8 @@ import Dashboard from './BackendComponents/Dashboard/Dashboard';
 import PostType from './BackendComponents/PostType/PostType';
 import axios from 'axios';
 import JobConfiguration from './BackendComponents/Job Management/JobConfiguration/JobConfiguration';
-
+import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobPost';
+import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -105,6 +106,11 @@ useEffect(()=>{
             <Route path="admin-dashboard" element={<Dashboard />}></Route>
             <Route path="post-type" element={<PostType/>}></Route>
             <Route path="job-configuration" element={<JobConfiguration/>}></Route>
+            <Route path="create-job-post" element={<CreateJobPost/>}></Route>
+            <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
+
+            
+
 
 
           </Route>

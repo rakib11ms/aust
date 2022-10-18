@@ -37,16 +37,21 @@ class JobPostController extends Controller
             $post->image =$filename ;
          } 
 
+          $job_unique_id = (date('md') . rand(1, 999));
+
+          $post->job_unique_id=$job_unique_id;
+
+           $post->company_name = $request->company_name;
            $post->job_title = $request->job_title;
            $post->job_type = $request->job_type;
            $post->job_description = $request->job_description;
            $post->job_link = $request->job_link;
-           // $post->image = $request->image;
+           $post->department_id = $request->department_id;
 
            $post->posted_by = $request->posted_by;
-           $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
-           $post->isArchived = $request->isArchived;
+           $post->job_location = $request->job_location;
+           // $post->isPublished = $request->isPublished;
+           // $post->isArchived = $request->isArchived;
            $post->application_deadline = $request->application_deadline;
             $post->save();
 
@@ -55,6 +60,7 @@ class JobPostController extends Controller
  return response()->json([
                 'status' => 200,
                  'count'=>$count,
+                 'job_info'=>$post ,
                 'message' => 'Job Post Added Successfully',
             ]);   
      }

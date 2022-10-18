@@ -177,13 +177,13 @@ function Sidebar() {
                                        <ul className='text-light mx-4 '>
                               
                                 <li className='mt-1'>
-                                    <Link to ="" className='text-light text-form '>View All Jobs</Link>
+                                    <Link to ="/view-all-jobs" className='text-light text-form '>View All Jobs</Link>
                                 </li>
                                 <li className='mt-1'>
                                     <Link to ="/job-configuration" className='text-light text-form '>Job Configuration</Link>
                                 </li>
                                 <li className='mt-1'>
-                                    <Link to ="" className='text-light text-form '>Create a Job</Link>
+                                    <Link to ="/create-job-post" className='text-light text-form '>Create a Job</Link>
                                 </li>
                                 <li className='mt-1'>
                                     <Link to ="" className='text-light text-form '>Approval List</Link>
