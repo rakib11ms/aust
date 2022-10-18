@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\File;    
+use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
 
@@ -13,7 +14,8 @@ class PostController extends Controller
     {
                 $count = Post::orderBy('id','desc')->get()->count();
 
-        $posts = Post::orderBy('id','desc')->get();
+        // $posts = Post::orderBy('id','desc')->get();
+         $posts=DB::table('job_posts')->leftJoin('departments','job_posts.department_id','departments.id')->leftJoin('job_types','job_posts.job_type','job_types.id')->select('job_posts.*','departments.*','job_types.*')->orderBy('id','desc')->get();
         return response()->json([
            'status' => 200,
              'count'=>$count,

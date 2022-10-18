@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobPost;
 use Illuminate\Support\Facades\File;   
+use Illuminate\Support\Facades\DB;
 class JobPostController extends Controller
 {
     public function index()
     {
                 $count = JobPost::orderBy('id','desc')->get()->count();
 
-        $posts = JobPost::orderBy('id','desc')->get();
+        // $posts = JobPost::orderBy('id','desc')->get();
+           $posts=DB::table('job_posts')->leftJoin('departments','job_posts.department_id','departments.id')->leftJoin('job_types','job_posts.job_type','job_types.id')->select('job_posts.*','departments.*','job_types.*')->orderBy('job_posts.id','desc')->get();
         return response()->json([
            'status' => 200,
              'count'=>$count,

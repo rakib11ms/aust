@@ -17,7 +17,9 @@ import moment from 'moment';
 function ViewAllJob() {
     const [loading, setLoading] = useState(true);
 
-    const [allPosts, setallPosts] = useState([]);
+    const [allJobPosts, setallJobPosts] = useState([]);
+
+    console.log('all job postssssssssss',allJobPosts)
 
     const [specificPost, setSpecificPost] = useState('');
     const [specificPostData,setSpecificPostData]=useState([]);
@@ -26,9 +28,9 @@ function ViewAllJob() {
 
     console.log('specificPostData', specificPostData)
 
-    const [renderAllPosts, setRenderAllPosts] = useState('');
+    const [renderAllJobPosts, setRenderAllJobPosts] = useState('');
 
-    // console.log('all posts check', allPosts)
+    // console.log('all posts check', allJobPosts)
 
     //add functionality for post category
 
@@ -105,7 +107,7 @@ function ViewAllJob() {
         axios.post(`/api/add-post-type`, addpostCat).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                setRenderAllPosts(res.data);
+                setRenderAllJobPosts(res.data);
                 closeAddPostCategoryModal();
                 setAddPostType({
                     type_name: "",
@@ -158,7 +160,7 @@ function ViewAllJob() {
         }).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                setRenderAllPosts(res.data);
+                setRenderAllJobPosts(res.data);
                 // closeAddPostCategoryModal();
                 // setAddPostType({
                 //     type_name: "",
@@ -237,25 +239,33 @@ function ViewAllJob() {
 
     }
 
-
-
-
-    useEffect(() => {
-        axios.get(`/api/all-posts`).then(res => {
+     useEffect(()=>{
+     axios.get(`/api/all-job-post`).then(res => {
             if (res.data.status == 200) {
-                setallPosts(res.data.posts);
+                setallJobPosts(res.data.posts);
                 setLoading(false);
             }
         })
-        axios.get(`/api/edit-post/${specificPost}`).then(res => {
-            if (res.data.status == 200) {
-                setSpecificPostData(res.data.post);
-                setLoading(false);
-            }
-        })
-        Modal.setAppElement('body');
+     },[])
 
-    }, [renderAllPosts,specificPost])
+
+
+    // useEffect(() => {
+    //     axios.get(`/api/all-job-post`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallJobPosts(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
+    //     axios.get(`/api/edit-post/${specificPost}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setSpecificPostData(res.data.post);
+    //             setLoading(false);
+    //         }
+    //     })
+    //     Modal.setAppElement('body');
+
+    // }, [renderAllJobPosts,specificPost])
 
 
     const columns = [
@@ -459,7 +469,7 @@ handlePostApproval(e, row.id)
             if (result.isConfirmed) {
                 axios.post(`/api/delete-all-posts/`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllPosts(res.data)
+                        setRenderAllJobPosts(res.data)
                     }
                 });
                 Swal.fire(
@@ -475,19 +485,19 @@ handlePostApproval(e, row.id)
 
     const [postFiltering, setPostFiltering] = useState('all');
 
-    // console.log('filtered post val',allPosts)
+    // console.log('filtered post val',allJobPosts)
     console.log('filter click check',postFiltering)
 
 
-    useEffect(()=>{
-        axios.get(`/api/filter-post/${postFiltering}`).then(res => {
-            if (res.data.status == 200) {
-                setallPosts(res.data.posts);
-                setLoading(false);
-            }
-        })
+    // useEffect(()=>{
+    //     axios.get(`/api/filter-post/${postFiltering}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallJobPosts(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
 
-    },[postFiltering])
+    // },[postFiltering])
 
 
 
@@ -635,7 +645,7 @@ handlePostApproval(e, row.id)
 
                                         <MaterialTable
                                             columns={columns}
-                                            data={allPosts}
+                                            data={allJobPosts}
                                             isLoading={loading === true ? true : false}
 
                                             options={{
