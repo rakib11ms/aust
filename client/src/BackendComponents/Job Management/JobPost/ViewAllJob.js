@@ -294,21 +294,23 @@ function ViewAllJob() {
                                 <i className='fa fa-eye mx-2'></i>
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
 
 
                             <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>Help Post</span> </button>
 
-                        </div>
+                        </div> */}
 
                     </div>
 
                     <div>
                         <h5 className='my-1 '>
-                            {row.post_title}
+                            {row.job_title}
                         </h5>
 
-                        <p className='text-secondary'>{row.post_description}</p>
+                        
+                        <div  className='text-secondary' dangerouslySetInnerHTML={{__html:row.job_description}}/>
+                        {/* </p> */}
 
 
                     </div>
@@ -333,7 +335,7 @@ function ViewAllJob() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished === 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-success btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>

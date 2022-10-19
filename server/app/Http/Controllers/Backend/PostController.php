@@ -14,8 +14,7 @@ class PostController extends Controller
     {
                 $count = Post::orderBy('id','desc')->get()->count();
 
-        // $posts = Post::orderBy('id','desc')->get();
-         $posts=DB::table('job_posts')->leftJoin('departments','job_posts.department_id','departments.id')->leftJoin('job_types','job_posts.job_type','job_types.id')->select('job_posts.*','departments.*','job_types.*')->orderBy('id','desc')->get();
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
         return response()->json([
            'status' => 200,
              'count'=>$count,
@@ -82,6 +81,8 @@ class PostController extends Controller
 
              $post=Post::find($id);
 
+             // dd($request->all());
+
           
 
  if ($files = $request->file('image')) {
@@ -94,9 +95,6 @@ class PostController extends Controller
              $post->image=$name;
 
             }
-            // if($request->post_title !=null ||$request->post_type !=null || $request->post_description !=null ||  $request->posted_by !=null ||){
-
-            // }
 
            $post->post_title = $request->post_title;
            $post->post_type = $request->post_type;
@@ -109,6 +107,7 @@ class PostController extends Controller
 
  return response()->json([
                 'status' => 200,
+                'data'=>$post,
                 'message' => 'Post Updated Successfully',
             ]);   
     }

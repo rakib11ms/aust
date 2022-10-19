@@ -18,12 +18,13 @@ function PostType() {
 
     const [allPosts, setallPosts] = useState([]);
 
-    const [specificPost, setSpecificPost] = useState('');
-    const [specificPostData, setSpecificPostData] = useState([]);
+    // const [specificPost, setSpecificPost] = useState('');
+    // const [specificPostData, setSpecificPostData] = useState([]);
 
 
 
-    console.log('specificPostData', specificPostData)
+
+    // console.log('specificPostData', specificPostData)
 
     const [renderAllPosts, setRenderAllPosts] = useState('');
 
@@ -121,21 +122,23 @@ function PostType() {
             }
         })
     }
-    const formData = new FormData();
 
     const handlePostApproval = (e, id) => {
-        setSpecificPost(id);
+        console.log('changing', id.id)
+        // setSpecificPost(id);
         const IsApprovedValue = e.target.checked === true ? 1 : 0;
-        // formData.append('_method', 'POST');
+        const formData = new FormData();
 
         formData.append('isPublished', IsApprovedValue);
-        formData.append('post_title', specificPostData.post_title);
-        formData.append('post_type', specificPostData.post_type);
-        formData.append('post_description', specificPostData.post_description);
-        formData.append('posted_by', specificPostData.posted_by);
-        formData.append('date', specificPostData.date);
-        formData.append('image', specificPostData.image);
-        formData.append('tag', specificPostData.tag);
+        // formData.append('_method', 'PUT');
+
+        formData.append('post_title', id.post_title);
+        formData.append('post_type', id.post_type);
+        formData.append('post_description', id.post_description);
+        formData.append('posted_by', id.posted_by);
+        formData.append('date', id.date);
+        formData.append('image', id.image);
+        formData.append('tag', id.tag);
 
         // const updateApprovedVal = {
         //     isPublished: IsApprovedValue,
@@ -149,12 +152,7 @@ function PostType() {
         // }
 
         // console.log('updated approval data',formData)
-        axios.post(`/api/update-post/${id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-
-        }).then(res => {
+        axios.post(`/api/update-post/${id.id}`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 setRenderAllPosts(res.data);
@@ -246,15 +244,15 @@ function PostType() {
                 setLoading(false);
             }
         })
-        axios.get(`/api/edit-post/${specificPost}`).then(res => {
-            if (res.data.status == 200) {
-                setSpecificPostData(res.data.post);
-                setLoading(false);
-            }
-        })
+        // axios.get(`/api/edit-post/${specificPost}`).then(res => {
+        //     if (res.data.status == 200) {
+        //         setSpecificPostData(res.data.post);
+        //         setLoading(false);
+        //     }
+        // })
         Modal.setAppElement('body');
 
-    }, [renderAllPosts, specificPost])
+    }, [renderAllPosts])
 
 
     const columns = [
@@ -286,7 +284,7 @@ function PostType() {
                         <div>
 
 
-                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>Help Post</span> </button>
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>Urgent</span> </button>
 
                         </div>
 
@@ -322,7 +320,7 @@ function PostType() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished === 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-success btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>
@@ -336,21 +334,17 @@ function PostType() {
         },
 
 
-        // {
-        //     title: "Action", field: "", render: (row) => <div className='d-flex'><Link to={`/edit-service-type/${row.id}`} class="btn btn-info btn-sm action-btn"><i class="fas fa-edit"></i></Link>
-        //         <button onClick={(e) => deletePostType(e, row.id)} className="btn btn-danger btn-sm action-btn mx-4"> <i class="fas fa-trash"></i> </button></div>
-        // },
 
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
                 <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' onChange={(e) => {
-
-                        handlePostApproval(e, row.id)
-
-                    }} >
+                    <form encType="multipart/form-data" method='POST' >
                         <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" defaultChecked={row.isPublished == 1}
-                        />
+                            onChange={(e) => {
+
+                                handlePostApproval(e, row)
+
+                            }} />
                     </form>
 
                 </div>
