@@ -17,6 +17,13 @@ function PostType() {
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
+    console.log('allll postsss',allPosts)
+
+    const [totalPosts,setTotalPosts]=useState('');
+    const [activePosts,setActivePosts]=useState('');
+    const [pendingPosts,setPendingPosts]=useState('');
+
+
 
     // const [specificPost, setSpecificPost] = useState('');
     // const [specificPostData, setSpecificPostData] = useState([]);
@@ -123,22 +130,91 @@ function PostType() {
         })
     }
 
+ const [checkboxStatus,setCheckBoxStatus]=useState(false)
+
     const handlePostApproval = (e, id) => {
-        console.log('changing', id.id)
+        setCheckBoxStatus(!checkboxStatus)
+        // console.log('checked check', e.target.checked)
         // setSpecificPost(id);
-        const IsApprovedValue = e.target.checked === true ? 1 : 0;
-        const formData = new FormData();
+        // const IsApprovedValue = e.target.checked === true ? 1 : 0;
+        if(e.target.checked === true ){
+            const formData = new FormData();
 
-        formData.append('isPublished', IsApprovedValue);
-        // formData.append('_method', 'PUT');
+            formData.append('isPublished', 1);
+            // formData.append('_method', 'PUT');
+    
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
 
-        formData.append('post_title', id.post_title);
-        formData.append('post_type', id.post_type);
-        formData.append('post_description', id.post_description);
-        formData.append('posted_by', id.posted_by);
-        formData.append('date', id.date);
-        formData.append('image', id.image);
-        formData.append('tag', id.tag);
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+                    window.location.reload();
+
+                    Swal.fire(res.data.message, '', 'success')
+                    setRenderAllPosts(res.data);
+                    // setIdChange('');
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+    
+                    // });
+    
+                }
+                else if (res.data.status == 400) {
+                    setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+    
+                }
+            })
+        }
+        if(e.target.checked==false){
+            const formData = new FormData();
+
+            formData.append('isPublished', 0);
+            // formData.append('_method', 'PUT');
+    
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
+
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+                    window.location.reload();
+
+                    Swal.fire(res.data.message, '', 'success')
+                    setRenderAllPosts(res.data);
+
+                    // setIdChange('');
+
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+    
+                    // });
+    
+                }
+                else if (res.data.status == 400) {
+                    setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+    
+                }
+            })
+        }
+
+
 
         // const updateApprovedVal = {
         //     isPublished: IsApprovedValue,
@@ -152,25 +228,7 @@ function PostType() {
         // }
 
         // console.log('updated approval data',formData)
-        axios.post(`/api/update-post/${id.id}`, formData).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllPosts(res.data);
-                // closeAddPostCategoryModal();
-                // setAddPostType({
-                //     type_name: "",
-                //     created_by: '',
-                //     error_list: []
 
-                // });
-
-            }
-            else if (res.data.status == 400) {
-                setAddPostType({ ...addPostType, error_list: res.data.errors });
-                Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-            }
-        })
 
     }
     const navigate = useNavigate();
@@ -241,18 +299,17 @@ function PostType() {
         axios.get(`/api/all-posts`).then(res => {
             if (res.data.status == 200) {
                 setallPosts(res.data.posts);
+                setTotalPosts(res.data.total_posts)
+                setActivePosts(res.data.total_active_posts)
+                setPendingPosts(res.data.total_pending_posts)
                 setLoading(false);
             }
         })
-        // axios.get(`/api/edit-post/${specificPost}`).then(res => {
-        //     if (res.data.status == 200) {
-        //         setSpecificPostData(res.data.post);
-        //         setLoading(false);
-        //     }
-        // })
+     
         Modal.setAppElement('body');
 
     }, [renderAllPosts])
+
 
 
     const columns = [
@@ -339,7 +396,11 @@ function PostType() {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
                 <div class="form-check form-switch mx-2  text-danger">
                     <form encType="multipart/form-data" method='POST' >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" defaultChecked={row.isPublished == 1}
+                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" 
+                        value={checkboxStatus}
+
+                        checked={row.isPublished==1?true:false}
+                       
                             onChange={(e) => {
 
                                 handlePostApproval(e, row)
@@ -468,6 +529,7 @@ function PostType() {
 
     const [postFiltering, setPostFiltering] = useState('all');
 
+
     // console.log('filtered post val',allPosts)
     console.log('filter click check', postFiltering)
 
@@ -557,22 +619,22 @@ function PostType() {
 
                                     <div className=' mb-0'>
 
-                                        <h5 className=' m-0'>1332</h5>
-                                        <p className='mb-2'>Active Post</p>
+                                        <h5 className=' m-0'>{totalPosts}</h5>
+                                        <p className='mb-2'>Total Posts</p>
                                     </div>
 
 
                                     <div className='mb-0'>
 
-                                        <h5 className=' m-0'>1332</h5>
-                                        <p className='mb-2'>Active Post</p>
+                                        <h5 className=' m-0'>{activePosts}</h5>
+                                        <p className='mb-2'>Active Posts</p>
                                     </div>
 
 
                                     <div className='mb-0'>
 
-                                        <h5 className=' m-0'>1332</h5>
-                                        <p className='mb-1'>Active Post</p>
+                                        <h5 className=' m-0'>{pendingPosts}</h5>
+                                        <p className='mb-1'>Pending Posts</p>
                                     </div>
 
 

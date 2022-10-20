@@ -12,12 +12,24 @@ class PostController extends Controller
 
    public function index()
     {
-                $count = Post::orderBy('id','desc')->get()->count();
+                $total_posts = Post::orderBy('id','desc')->get()->count();
+                $total_active_posts = Post::where('isPublished',1)->orderBy('id','desc')->get()->count();
+                $total_pending_posts = Post::where('isPublished',0)->orderBy('id','desc')->get()->count();
 
          $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
+
+
+              //  $pending_posts=Post::where('isPublished',0)->get();
+              // $active_posts=Post::where('isPublished',1)->get();
+
+
         return response()->json([
            'status' => 200,
-             'count'=>$count,
+             'total_posts'=>$total_posts,
+             'total_active_posts'=>$total_active_posts,
+             'total_pending_posts'=>$total_pending_posts,
+             // 'pending_posts'=>$pending_posts,
+             // 'active_posts'=>$active_posts,
 
             'posts' => $posts
          ]);
@@ -44,15 +56,15 @@ class PostController extends Controller
            $post->post_description = $request->post_description;
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
+           $post->isPublished =1;
            $post->tag = $request->tag;
             $post->save();
 
-                $count = Post::orderBy('id','desc')->get()->count();
+                $total_posts = Post::orderBy('id','desc')->get()->count();
 
  return response()->json([
                 'status' => 200,
-                 // 'count'=>$count,
+             'total_posts'=>$total_posts,
                 'message' => 'Post Added Successfully',
             ]);   
      }
