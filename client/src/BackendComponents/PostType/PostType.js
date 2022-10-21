@@ -663,9 +663,9 @@ function PostType() {
 
                                             <div className='d-flex align-items-center'>
 
-                                                <div class="form-check form-switch mx-2">
+                                                {/* <div class="form-check form-switch mx-2">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                </div>
+                                                </div> */}
 
                                                 <div className='mx-2 '
                                                     onClick={

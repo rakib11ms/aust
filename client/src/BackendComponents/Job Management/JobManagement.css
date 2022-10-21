@@ -9,7 +9,7 @@
 .job-config-header>.inside{
     display: flex;
     justify-content: center;
-    flex-basis: 40%;
+    flex-basis: 25%;
     text-align: center;
 
 }

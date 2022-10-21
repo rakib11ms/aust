@@ -4,11 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-// import './imageUrl'
+import './imageUrl'
 import axios from 'axios';
 
 
-axios.defaults.baseURL = 'http://172.31.120.238:80';
+axios.defaults.baseURL = 'http://localhost:8000/';
 // axios.defaults.baseURL = 'https://dev.zaimahtech.com/ztl-server/public/api/';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/json';

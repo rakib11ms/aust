@@ -137,9 +137,10 @@ function CreateJobPost() {
                     <div className="col-md-10 ">
                         <Topbar />
                         <div className='create-job-wrapper mt-2'>
-                            <div className='card'>
-                                <div className='card-header bg-white'>
+                            <div className='card mt-3'>
+                                <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Job</h5>
+                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-secondary float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body px-4'>

@@ -1,0 +1,16 @@
+http://zaimahtech.com/cpanel
+user: zaimahtechcom pass:info!@#123
+
+https://drive.google.com/file/d/1zSQicfqcNSfm16ImQiZuxeNdy43YSWEr/view
+
+
+
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com 
+MAIL_PORT=587 
+MAIL_USERNAME=rakib10ms@gmail.com
+MAIL_PASSWORD=aqlssndpsdeetocf
+MAIL_ENCRYPTION=tls 
+MAIL_FROM_ADDRESS="zaimahtech@gmail.com"
+MAIL_FROM_NAME="Zaimah tech"

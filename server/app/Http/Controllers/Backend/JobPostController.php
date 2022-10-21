@@ -14,7 +14,7 @@ class JobPostController extends Controller
                 $count = JobPost::orderBy('id','desc')->get()->count();
 
         // $posts = JobPost::orderBy('id','desc')->get();
-           $posts=DB::table('job_posts')->leftJoin('departments','job_posts.department_id','departments.id')->leftJoin('job_types','job_posts.job_type','job_types.id')->select('job_posts.*','departments.*','job_types.*')->orderBy('job_posts.id','desc')->get();
+           $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
         return response()->json([
            'status' => 200,
              'count'=>$count,
