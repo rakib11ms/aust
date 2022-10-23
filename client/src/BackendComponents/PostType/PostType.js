@@ -14,6 +14,9 @@ import moment from 'moment';
 
 
 function PostType() {
+
+
+
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
@@ -546,6 +549,22 @@ function PostType() {
 
 
 
+
+
+
+
+
+
+
+
+    //selection tracking
+
+    const selectedRow = React.useRef([]); 
+
+    console.log('selected rows checked',selectedRow)
+    const handleClick = rows => {selectedRow.current = rows;     };
+
+
     return (
         <>
             <div className="container-fluid">
@@ -615,7 +634,7 @@ function PostType() {
 
 
                                 </div>
-                                <div class="post-top-con-right text-light rounded-end px-5 py-2">
+                                <div class="post-top-con-right text-light text-center rounded-end px-5 py-2">
 
                                     <div className=' mb-0'>
 
@@ -657,7 +676,7 @@ function PostType() {
                                                 <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering === 'decline' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('decline')}>Decline</h6>
+                                                <h6 className={`${postFiltering === 'decline' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('decline')}>Archived</h6>
 
                                             </div>
 
@@ -692,6 +711,7 @@ function PostType() {
                                             columns={columns}
                                             data={allPosts}
                                             isLoading={loading === true ? true : false}
+                                            onSelectionChange={(e)=>{ handleClick(e); }}
 
                                             options={{
                                                 search: true,

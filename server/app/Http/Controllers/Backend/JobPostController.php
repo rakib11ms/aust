@@ -111,7 +111,7 @@ class JobPostController extends Controller
            // $post->image = $request->image;
 
            $post->posted_by = $request->posted_by;
-           $post->date = $request->date;
+           // $post->date = $request->date;
            $post->isPublished = $request->isPublished;
            $post->isArchived = $request->isArchived;
            $post->application_deadline = $request->application_deadline;

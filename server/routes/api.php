@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth:sanctum'], function()
     // Route::post('/check',[MobileAuthenticationController::class,'check']);
     Route::post('/admin-logout',[AuthenticationController::class,'adminLogout']);
 
+    Route::get('/user-logout',[MobileAuthenticationController::class,'UserLogout']);
+
+
 // Route::get('/post-type',[PostTypeController::class,'index']);
 
 
@@ -45,6 +48,8 @@ Route::post('/user-login',[MobileAuthenticationController::class,'userLogin']);
 Route::post('/user-forgot-password',[MobileAuthenticationController::class,'userForgotPassword']);
 Route::post('/user-forgot-password-otp-verification',[MobileAuthenticationController::class,'forgotPasswordOtpVerification']);
 Route::post('/change-user-forgot-password',[MobileAuthenticationController::class,'changeUserforgotPassword']);
+
+// Route::post('/user-logout',[MobileAuthenticationController::class,'UserLogout']);
 
 
 //web authentication

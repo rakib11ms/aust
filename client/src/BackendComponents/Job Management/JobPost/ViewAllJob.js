@@ -12,6 +12,8 @@ import '../JobManagement.css'
 
 import MaterialTable from "material-table";
 import moment from 'moment';
+import { Paper } from '@material-ui/core';
+
 
 
 function ViewAllJob() {
@@ -265,7 +267,10 @@ function ViewAllJob() {
         // },
 
         {
-            title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{cursor:'pointer'}}>
+
+            
+
                 <div class="form-check form-switch mx-2  text-danger">
                     <form encType="multipart/form-data" method='POST' onChange={(e) => {
 
@@ -277,7 +282,12 @@ function ViewAllJob() {
                     </form>
 
                 </div>
+                <div className='text-secondary'>
+                <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
+                </div>
+
+         
                 <div className='mx-2 ' onClick={(e) => deleteJobPost(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
@@ -287,6 +297,11 @@ function ViewAllJob() {
 
                     <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
                 </div>
+                <div className='text-secondary'>
+                <i className='fa fa-eye mx-2 '></i>
+
+                </div>
+
 
 
             </div>,
@@ -440,9 +455,13 @@ function ViewAllJob() {
                                         <hr />
 
                                         <MaterialTable
+                                    //        components={{
+                                    //         Container: props => <Paper {...props} />
+                                    //    }}
                                             columns={columns}
                                             data={allJobPosts}
                                             isLoading={loading === true ? true : false}
+
 
                                             options={{
                                                 search: true,
@@ -461,6 +480,8 @@ function ViewAllJob() {
 
 
                                             }}
+                                            
+                                         
 
                                         />
 

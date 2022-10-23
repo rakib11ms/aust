@@ -160,7 +160,8 @@ class MobileAuthenticationController extends Controller
                 'message' => 'Login Successfull',
                 'status' => 200,
                 'mess_status' => true,
-                'token' => $login_token
+                'token' => $login_token,
+                'user_id'=>$user->id
             ]
         );
     }
@@ -271,4 +272,12 @@ class MobileAuthenticationController extends Controller
             ]);
         }
     }
+
+        public function  UserLogout(){
+              auth()->user()->tokens()->delete();
+           return response()->json([
+                'status'=>200,
+                'message'=>'User Logged Out Successfull'
+            ]);
+}
 }
