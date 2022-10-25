@@ -1,9 +1,17 @@
+import React, { useState, useEffect } from 'react';
+import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
+
 function Topbar(){
     return(
         <>
         <div className="topbar d-flex p-2 justify-content-between align-items-center row border-bottom border-success">
             <div className="topbar-left col-7 ">
-                <h5 className="fw-bold text-success">Dashboard</h5>
+                <h5 className="fw-bold text-success">
+                    Dashboard
+
+                    {console.log('href',window.location.href)}
+                
+                </h5>
                 </div>
                 <div className="topbar-right d-flex justify-content-around  align-items-center  col-5">
                     <div className="">

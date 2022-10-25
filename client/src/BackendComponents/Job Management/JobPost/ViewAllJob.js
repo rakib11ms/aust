@@ -38,54 +38,175 @@ function ViewAllJob() {
     const formData = new FormData();
 
     const handlePostApproval = (e, id) => {
-        const IsApprovedValue = e.target.checked === true ? 1 : 0;
-        // formData.append('_method', 'POST');
 
-        // formData.append('isPublished', IsApprovedValue);
-        // formData.append('post_title', specificPostData.post_title);
-        // formData.append('post_type', specificPostData.post_type);
-        // formData.append('post_description', specificPostData.post_description);
-        // formData.append('posted_by', specificPostData.posted_by);
-        // formData.append('date', specificPostData.date);
-        // formData.append('image', specificPostData.image);
-        // formData.append('tag', specificPostData.tag);
+        if (e.target.checked === true) {
+            const formData = new FormData();
 
-        // const updateApprovedVal = {
-        //     isPublished: IsApprovedValue,
-        //     post_title:specificPostData.post_title,
-        //     post_type:specificPostData.post_type,
-        //     post_description:specificPostData.post_description,
-        //     posted_by:specificPostData.posted_by,
-        //     image:specificPostData.image,
-        //     date:specificPostData.date,
-        //     tag:specificPostData.tag
-        // }
+            formData.append('isPublished', 1);
+            // formData.append('_method', 'PUT');
 
-        // console.log('updated approval data',formData)
-        axios.post(`/api/update-post/${id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+            formData.append('company_name', id.company_name);
+            formData.append('job_type', id.job_type);
+            formData.append('job_description', id.job_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('application_deadline', id.application_deadline);
+            formData.append('image', id.image);
+            formData.append('isArchived', id.isArchived);
+            formData.append('job_title', id.job_title);
+            formData.append('job_location', id.job_location);
 
-        }).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllJobPosts(res.data);
-                // closeAddPostCategoryModal();
-                // setAddPostType({
-                //     type_name: "",
-                //     created_by: '',
-                //     error_list: []
+            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
 
-                // });
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
 
-            }
-            // else if (res.data.status == 400) {
-            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+                    setRenderAllJobPosts(res.data);
+                    // setIdChange('');
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
 
-            // }
-        })
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+        }
+        if (e.target.checked == false) {
+            const formData = new FormData();
+
+            formData.append('isPublished', 0);
+            // formData.append('_method', 'PUT');
+
+            formData.append('company_name', id.company_name);
+            formData.append('job_type', id.job_type);
+            formData.append('job_description', id.job_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('application_deadline', id.application_deadline);
+            formData.append('image', id.image);
+            formData.append('isArchived', id.isArchived);
+            formData.append('job_title', id.job_title);
+            formData.append('job_location', id.job_location);
+
+            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+
+                    setRenderAllJobPosts(res.data);
+                    // setIdChange('');
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+        }
+    }
+
+    const archiveJobPost = (e, id) => {
+        console.log('iddd', id)
+        if (id.isArchived == 0) {
+
+            const formData = new FormData();
+
+            formData.append('isPublished', 0);
+            // formData.append('_method', 'PUT');
+
+            formData.append('company_name', id.company_name);
+            formData.append('job_type', id.job_type);
+            formData.append('job_description', id.job_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('application_deadline', id.application_deadline);
+            formData.append('image', id.image);
+            formData.append('isArchived', 1);
+            formData.append('job_title', id.job_title);
+            formData.append('job_location', id.job_location);
+
+            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+
+                    setRenderAllJobPosts(res.data);
+                    // setIdChange('');
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+
+        }
+        if (id.isArchived == 1) {
+
+            const formData = new FormData();
+
+            formData.append('isPublished', 1);
+            // formData.append('_method', 'PUT');
+
+            formData.append('company_name', id.company_name);
+            formData.append('job_type', id.job_type);
+            formData.append('job_description', id.job_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('application_deadline', id.application_deadline);
+            formData.append('image', id.image);
+            formData.append('isArchived', 0);
+            formData.append('job_title', id.job_title);
+            formData.append('job_location', id.job_location);
+
+            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+
+                    setRenderAllJobPosts(res.data);
+                    // setIdChange('');
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+
+        }
 
     }
     const navigate = useNavigate();
@@ -184,7 +305,7 @@ function ViewAllJob() {
         {
             title: "ALL", field: `image`, render: (row) =>
                 <div>
-            <img className="" src={`${global.img_url}/images/${row.image}`} width="55px" height="35px" alt="No Image" />
+                    <img className="" src={`${global.img_url}/images/${row.image}`} width="55px" height="35px" alt="No Image" />
 
 
                 </div>
@@ -194,7 +315,7 @@ function ViewAllJob() {
                 // marginLeft: 50,
                 // maxWidth: 0,
                 // textAlign: 'left',
-                width:10,
+                width: 10,
             },
         },
 
@@ -210,16 +331,22 @@ function ViewAllJob() {
                             <div className='text-secondary'>
                                 <span>
                                     <i className='fa fa-calendar'></i>
-                                    <span className='mx-1'>{moment(row.created_at).format("MMM Do YY")}</span>
+                                    <span className='mx-2'>{moment(row.created_at).format("MMM Do YY")}</span>
                                 </span>
                             </div>
-                        
+
                         </div>
                         <div>
 
 
-                        <button className='btn btn-success btn-sm py-1 rounded-3 px-3 my-0 outline-0'> <span className='text-center'>Help Post</span> </button>
-                        <button className='btn btn-success btn-sm py-1 rounded-3 px-3 my-0 mx-3'> <span className='text-center'>Help Post</span> </button>
+                            <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.type_name}</span> </button>
+                            {
+                                row.isPublished == 1 ?
+                                    <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
+                                    :
+                                    <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>InActive</span> </button>
+
+                            }
 
                         </div>
 
@@ -231,15 +358,21 @@ function ViewAllJob() {
                         </h5>
 
 
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description }} />
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description.length > 50 ? `${row.job_description.substring(0, 50)}...` : row.job_description }} />
+                        {/* <div className='text-secondary'>
+                            { row.job_description.length>5? `${row.job_description.substring(0, 50)}...` : row.job_description }
+                            </div> */}
+                        {/* {item.description.length > 250 ?
+    `${item.description.substring(0, 250)}...` : item.description
+  } */}
                         {/* </p> */}
 
                         <div className=' bg-light d-inline-block rounded '>
 
-                          <span className='py-1 px-1 text-secondary'>{row.dept_name}</span>
+                            <span className='py-1 px-1 text-secondary'>{row.dept_name}</span>
 
                         </div>
-                        </div>
+                    </div>
 
 
 
@@ -267,38 +400,65 @@ function ViewAllJob() {
         // },
 
         {
-            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{cursor:'pointer'}}>
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
 
-            
+
 
                 <div class="form-check form-switch mx-2  text-danger">
                     <form encType="multipart/form-data" method='POST' onChange={(e) => {
 
-                        handlePostApproval(e, row.id)
+                        handlePostApproval(e, row)
 
                     }} >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" defaultChecked={row.isPublished == 1}
+                        <input class="form-check-input " style={{ cursor: 'pointer' }} type="checkbox" id="flexSwitchCheckDefault" checked={row.isPublished == 1}
                         />
                     </form>
 
                 </div>
                 <div className='text-secondary'>
-                <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
+                    <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
                 </div>
 
-         
+
                 <div className='mx-2 ' onClick={(e) => deleteJobPost(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
 
-                <div className='mx-2'>
+                <div className='mx-2' onClick={(e) => archiveJobPost(e, row)}>
+                    {
+                        row.isArchived == 1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
+                    }
+                    {
+                        row.isArchived == 0 && <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
 
 
-                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                    }
+
+
                 </div>
+
+
                 <div className='text-secondary'>
-                <i className='fa fa-eye mx-2 '></i>
+                    <div class="modal fade" id={`exampleModal${row.id}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i className='fa fa-eye mx-2 ' data-bs-toggle="modal" data-bs-target={`#exampleModal${row.id}`}  >
+                    </i>
 
                 </div>
 
@@ -349,21 +509,21 @@ function ViewAllJob() {
 
     }
 
-    const [postFiltering, setPostFiltering] = useState('all');
+    const [jobPostFiltering, setjobPostFiltering] = useState('all');
 
     // console.log('filtered post val',allJobPosts)
-    console.log('filter click check', postFiltering)
+    console.log('filter click check', jobPostFiltering)
 
 
-    // useEffect(()=>{
-    //     axios.get(`/api/filter-post/${postFiltering}`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setallJobPosts(res.data.posts);
-    //             setLoading(false);
-    //         }
-    //     })
+    useEffect(() => {
+        axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
+            if (res.data.status == 200) {
+                setallJobPosts(res.data.posts);
+                setLoading(false);
+            }
+        })
 
-    // },[postFiltering])
+    }, [jobPostFiltering])
 
 
 
@@ -420,10 +580,10 @@ function ViewAllJob() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
-                                                <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering === 'decline' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('decline')}>Archived</h6>
+                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
+                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
+                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 
@@ -455,9 +615,9 @@ function ViewAllJob() {
                                         <hr />
 
                                         <MaterialTable
-                                    //        components={{
-                                    //         Container: props => <Paper {...props} />
-                                    //    }}
+                                            //        components={{
+                                            //         Container: props => <Paper {...props} />
+                                            //    }}
                                             columns={columns}
                                             data={allJobPosts}
                                             isLoading={loading === true ? true : false}
@@ -480,8 +640,8 @@ function ViewAllJob() {
 
 
                                             }}
-                                            
-                                         
+
+
 
                                         />
 

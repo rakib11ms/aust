@@ -92,6 +92,7 @@ function CreateJobPost() {
         formData.append('company_name', jobPost.company_name);
         formData.append('job_description', content1);
         formData.append('posted_by', 1);
+        formData.append('isApproved', 1);
         formData.append('image', image);
       
 
@@ -140,7 +141,7 @@ function CreateJobPost() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Job</h5>
-                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-secondary float-end'>Back</button></Link>
+                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body px-4'>

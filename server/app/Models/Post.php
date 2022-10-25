@@ -19,4 +19,8 @@ class Post extends Model
         'image',
         'tag'
     ];
+
+       public function userPost() {
+        return $this->belongsTo('App\Models\User','posted_by')->select('*');
+    }
 }

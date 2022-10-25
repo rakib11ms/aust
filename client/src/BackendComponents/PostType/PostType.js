@@ -676,7 +676,7 @@ function PostType() {
                                                 <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering === 'decline' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('decline')}>Archived</h6>
+                                                <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 

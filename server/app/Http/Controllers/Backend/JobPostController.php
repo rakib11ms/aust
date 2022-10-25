@@ -141,4 +141,48 @@ class JobPostController extends Controller
 
     
     }
+
+        public function filterByJobPostStatus($name){
+      
+
+        if($name=='all'){
+        $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();  
+        return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else if($name==1){
+      $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isArchived',0)->where('isPublished',1)->orderBy('job_posts.id','desc')->get(); 
+ return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else if($name==0){
+                  $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('job_posts.id','desc')->get(); 
+
+   return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+            else if($name=='archive'){
+                  $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('job_posts.id','desc')->get(); 
+
+   return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else{
+     $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();  
+        return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+
+          
+    }
 }

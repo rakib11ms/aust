@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\JobPost;
 use Illuminate\Support\Facades\File;    
 use Illuminate\Support\Facades\DB;
 class PostController extends Controller
@@ -190,4 +192,49 @@ class PostController extends Controller
 
           
     }
+
+    public function userPostsFiltering($name){
+
+        // dd(auth('sanctum')->user()->id);
+
+        if($name=='all'){
+
+
+        $user_all_posts= User::where('id', auth('sanctum')->user()->id)
+        ->with(['userPost', 'jobPost'])
+        ->get();
+
+  return response()->json([
+                'status' => 200,
+                'user_all_posts' => $user_all_posts,
+            ]);
+        }
+        else if($name=='general_post'){
+      $general_posts=Post::where('posted_by',auth('sanctum')->user()->id)->where('isPublished',1)->where('isArchived',0)->orderBy('id',"DESC")->get();
+ return response()->json([
+                'status' => 200,
+                'general_posts' => $general_posts,
+            ]);
+        }
+        else if($name=='job_post'){
+                  $job_posts=JobPost::where('posted_by',auth('sanctum')->user()->id)->where('isPublished',1)->where('isArchived',0)->orderBy('id',"DESC")->get();
+
+   return response()->json([
+                'status' => 200,
+                'job_posts' => $job_posts,
+            ]);
+        }
+        else{
+
+
+        // $user_all_posts= User::where('id', auth('sanctum')->user()->id)
+        // ->with(['userPost', 'jobPost'])
+        // ->get();
+
+  return response()->json([
+                'status' => 200,
+                'message' => "No Posts",
+            ]);
+    }
+}
 }

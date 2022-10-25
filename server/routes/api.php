@@ -79,6 +79,14 @@ Route::post('/delete-post/{id}',[PostController::class,'destroy']);
 Route::post('/delete-all-posts',[PostController::class,'deleteAllPosts']);
 Route::get('/filter-post/{filterByStatus}',[PostController::class,'filterByStatus']);
 
+//mobile users all-posts filtering
+
+Route::get('/user-posts-filtering/{name}',[PostController::class,'userPostsFiltering']);
+
+
+
+
+
 
 
 //job types
@@ -96,11 +104,19 @@ Route::get('/edit-job-post/{id}',[JobPostController::class,'edit']);
 Route::post('/update-job-post/{id}',[JobPostController::class,'update']);
 Route::post('/delete-job-post/{id}',[JobPostController::class,'destroy']);
 
+Route::get('/filter-job-post-status/{filterByJobPostStatus}',[JobPostController::class,'filterByJobPostStatus']);
+
+
+
 //departments
 Route::get('/department',[DepartmentController::class,'index']);
 Route::post('/add-department',[DepartmentController::class,'store']);
 Route::get('/edit-department/{id}',[DepartmentController::class,'edit']);
 Route::post('/update-department/{id}',[DepartmentController::class,'update']);
 Route::delete('/delete-department/{id}',[DepartmentController::class,'destroy']);
+
+
+
+
 
 

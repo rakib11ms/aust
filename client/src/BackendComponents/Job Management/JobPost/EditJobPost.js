@@ -93,6 +93,8 @@ function EditJobPost() {
         formData.append('isPublished', editData.isPublished);
         formData.append('isArchived', editData.isArchived);
         formData.append('posted_by', 1);
+        formData.append('isPublished', editData.isPublished);
+        
         formData.append('image', image);
       
 
@@ -171,7 +173,7 @@ function EditJobPost() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Edit Job</h5>
-                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-secondary float-end'>Back</button></Link>
+                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body px-4'>
@@ -279,22 +281,36 @@ function EditJobPost() {
                                     </div>
 
                                     <div class="row mt-2">
+
+                                    <div className='col-md-6'>
+                                            <div class="mt-1">
+                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Status</label>
+                                                {/* <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="company_name" value={editData.company_name} /> */}
+                                                <select class="form-select" aria-label="Default select example" onChange={handleInputChange} name="isPublished" value={editData.isPublished}>
+                                                    <option selected>Select</option>
+
+                                                    <option value="1" >Active</option>
+                                                    <option value="0" >InActive</option>
+
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="mb-3 col-md-6 ">
                                             <label for="formFile" class="form-label fs-6">Company Logo/Image</label>
                                             <input class="form-control" type="file" id="job_post_logo" name="job_post_logo" onChange={onChangePicture} />
-                                        </div>
 
-                                        {/* <div class="mb-3 col-md-6">
-                                            <label for="formFile" class="form-label fs-6">Default file input example</label>
-                                            <input class="form-control" type="file" id="formFile" />
-                                        </div> */}
-                                    </div>
-                                    {
-                                                    picture == ''? <div className="form-group" style={{ width: '100px', height: '90px' }}>
+
+
+                                        {
+                                                    picture == ''? <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
                                                         <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${editData.image}`} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
                                                     :
-                                                    <div className="form-group" style={{ width: '100px', height: '90px' }}>
+                                                    <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
                                                         <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
 
@@ -302,6 +318,9 @@ function EditJobPost() {
                                                    {
                                                     image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
                                                 }
+                                    </div>
+
+                                    </div>
 
                                     <div class="text-center">
                                         <button type="submit" className='btn btn-success rounded-3' onSubmit={updateJobPost}> UPDATE</button>
