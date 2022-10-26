@@ -7,7 +7,7 @@ function Topbar(){
         <div className="topbar d-flex p-2 justify-content-between align-items-center row border-bottom border-success">
             <div className="topbar-left col-7 ">
                 <h5 className="fw-bold text-success">
-                    Dashboard
+                    {/* Dashboard */}
 
                     {console.log('href',window.location.href)}
                 

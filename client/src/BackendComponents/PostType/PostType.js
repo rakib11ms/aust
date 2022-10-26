@@ -20,11 +20,11 @@ function PostType() {
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
-    console.log('allll postsss',allPosts)
+    console.log('allll postsss', allPosts)
 
-    const [totalPosts,setTotalPosts]=useState('');
-    const [activePosts,setActivePosts]=useState('');
-    const [pendingPosts,setPendingPosts]=useState('');
+    const [totalPosts, setTotalPosts] = useState('');
+    const [activePosts, setActivePosts] = useState('');
+    const [pendingPosts, setPendingPosts] = useState('');
 
 
 
@@ -133,19 +133,19 @@ function PostType() {
         })
     }
 
- const [checkboxStatus,setCheckBoxStatus]=useState(false)
+    const [checkboxStatus, setCheckBoxStatus] = useState(false)
 
     const handlePostApproval = (e, id) => {
         setCheckBoxStatus(!checkboxStatus)
         // console.log('checked check', e.target.checked)
         // setSpecificPost(id);
         // const IsApprovedValue = e.target.checked === true ? 1 : 0;
-        if(e.target.checked === true ){
+        if (e.target.checked === true) {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
             // formData.append('_method', 'PUT');
-    
+
             formData.append('post_title', id.post_title);
             formData.append('post_type', id.post_type);
             formData.append('post_description', id.post_description);
@@ -166,23 +166,23 @@ function PostType() {
                     //     type_name: "",
                     //     created_by: '',
                     //     error_list: []
-    
+
                     // });
-    
+
                 }
                 else if (res.data.status == 400) {
                     setAddPostType({ ...addPostType, error_list: res.data.errors });
                     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-    
+
                 }
             })
         }
-        if(e.target.checked==false){
+        if (e.target.checked == false) {
             const formData = new FormData();
 
             formData.append('isPublished', 0);
             // formData.append('_method', 'PUT');
-    
+
             formData.append('post_title', id.post_title);
             formData.append('post_type', id.post_type);
             formData.append('post_description', id.post_description);
@@ -205,14 +205,14 @@ function PostType() {
                     //     type_name: "",
                     //     created_by: '',
                     //     error_list: []
-    
+
                     // });
-    
+
                 }
                 else if (res.data.status == 400) {
                     setAddPostType({ ...addPostType, error_list: res.data.errors });
                     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-    
+
                 }
             })
         }
@@ -234,6 +234,105 @@ function PostType() {
 
 
     }
+
+
+    const archivePost = (e, id) => {
+
+        if (id.isArchived == 0) {
+
+            const formData = new FormData();
+
+            formData.append('isPublished', 0);
+            // formData.append('_method', 'PUT');
+
+   
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
+
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+                    window.location.reload();
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    setRenderAllPosts(res.data);
+
+                    // setIdChange('');
+
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+
+        }
+        if (id.isArchived == 1) {
+
+            const formData = new FormData();
+
+            formData.append('isPublished', 1);
+            // formData.append('_method', 'PUT');
+
+            formData.append('company_name', id.company_name);
+            formData.append('job_type', id.job_type);
+            formData.append('job_description', id.job_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('application_deadline', id.application_deadline);
+            formData.append('image', id.image);
+            formData.append('isArchived', 0);
+            formData.append('job_title', id.job_title);
+            formData.append('job_location', id.job_location);
+
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+                if (res.data.status == 200) {
+                    window.location.reload();
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    setRenderAllPosts(res.data);
+
+                    // setIdChange('');
+
+                    // closeAddPostCategoryModal();
+                    // setAddPostType({
+                    //     type_name: "",
+                    //     created_by: '',
+                    //     error_list: []
+
+                    // });
+
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
+
+        }
+
+    }
+
+
+
+
+
+
+
+
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
     // console.log('pip', storageData)
@@ -308,7 +407,7 @@ function PostType() {
                 setLoading(false);
             }
         })
-     
+
         Modal.setAppElement('body');
 
     }, [renderAllPosts])
@@ -399,11 +498,11 @@ function PostType() {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
                 <div class="form-check form-switch mx-2  text-danger">
                     <form encType="multipart/form-data" method='POST' >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" 
-                        value={checkboxStatus}
+                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                            value={checkboxStatus}
 
-                        checked={row.isPublished==1?true:false}
-                       
+                            checked={row.isPublished == 1 ? true : false}
+
                             onChange={(e) => {
 
                                 handlePostApproval(e, row)
@@ -417,10 +516,16 @@ function PostType() {
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
 
-                <div className='mx-2'>
+                <div className='mx-2' onClick={(e) => archivePost(e, row)}>
 
 
-                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
+                    {
+                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                                : ''
+
+                    }
                 </div>
 
 
@@ -559,10 +664,10 @@ function PostType() {
 
     //selection tracking
 
-    const selectedRow = React.useRef([]); 
+    const selectedRow = React.useRef([]);
 
-    console.log('selected rows checked',selectedRow)
-    const handleClick = rows => {selectedRow.current = rows;     };
+    console.log('selected rows checked', selectedRow)
+    const handleClick = rows => { selectedRow.current = rows; };
 
 
     return (
@@ -665,7 +770,10 @@ function PostType() {
                             </div>
 
                             <div className="col-md-12 mt-3">
+                            <h5 className=''>ALL Post</h5>
+
                                 <div className="card bg-white">
+                                    
 
                                     <div className="card-body ">
 
@@ -699,6 +807,7 @@ function PostType() {
 
                                                     <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
 
+
                                                 </div>
 
 
@@ -711,7 +820,7 @@ function PostType() {
                                             columns={columns}
                                             data={allPosts}
                                             isLoading={loading === true ? true : false}
-                                            onSelectionChange={(e)=>{ handleClick(e); }}
+                                            onSelectionChange={(e) => { handleClick(e); }}
 
                                             options={{
                                                 search: true,

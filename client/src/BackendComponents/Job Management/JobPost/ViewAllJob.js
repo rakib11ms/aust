@@ -122,7 +122,6 @@ function ViewAllJob() {
     }
 
     const archiveJobPost = (e, id) => {
-        console.log('iddd', id)
         if (id.isArchived == 0) {
 
             const formData = new FormData();
@@ -147,6 +146,7 @@ function ViewAllJob() {
                     window.location.reload();
 
                     setRenderAllJobPosts(res.data);
+
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -189,6 +189,7 @@ function ViewAllJob() {
                     window.location.reload();
 
                     setRenderAllJobPosts(res.data);
+
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -223,30 +224,29 @@ function ViewAllJob() {
             padding: '5px',
             // marginRight: '-50%',
             transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "50vh",
+            width: "60vw",
+            height: "80vh",
             // background: "#ffffff",
         },
         overlay: { zIndex: 1000 }
 
     };
-    const customStyles2 = {
-        content: {
-            // marginTop: '70px',
-            top: '40vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "70vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
 
-    };
+    const [viewJobPostDescription, setViewJobPostDescription] = useState('');
+
+
+    const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
+    function openViewJobPostModal(e, viewJobPost) {
+        e.preventDefault();
+        setViewJobPostDescription(viewJobPost)
+        setviewJobPostModalIsOpen(true)
+    }
+    function closeViewJobPostModal(e) {
+        setviewJobPostModalIsOpen(false);
+
+    }
+
+
 
 
 
@@ -258,6 +258,8 @@ function ViewAllJob() {
                 setLoading(false);
             }
         })
+        Modal.setAppElement('body');
+
     }, [])
 
 
@@ -359,13 +361,7 @@ function ViewAllJob() {
 
 
                         <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description.length > 50 ? `${row.job_description.substring(0, 50)}...` : row.job_description }} />
-                        {/* <div className='text-secondary'>
-                            { row.job_description.length>5? `${row.job_description.substring(0, 50)}...` : row.job_description }
-                            </div> */}
-                        {/* {item.description.length > 250 ?
-    `${item.description.substring(0, 250)}...` : item.description
-  } */}
-                        {/* </p> */}
+
 
                         <div className=' bg-light d-inline-block rounded '>
 
@@ -393,11 +389,6 @@ function ViewAllJob() {
 
 
 
-
-        // {
-        //     title: "Action", field: "", render: (row) => <div className='d-flex'><Link to={`/edit-service-type/${row.id}`} class="btn btn-info btn-sm action-btn"><i class="fas fa-edit"></i></Link>
-        //         <button onClick={(e) => deletePostType(e, row.id)} className="btn btn-danger btn-sm action-btn mx-4"> <i class="fas fa-trash"></i> </button></div>
-        // },
 
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
@@ -427,50 +418,48 @@ function ViewAllJob() {
 
                 <div className='mx-2' onClick={(e) => archiveJobPost(e, row)}>
                     {
-                        row.isArchived == 1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
-                    }
-                    {
-                        row.isArchived == 0 && <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-
+                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                                : ''
 
                     }
+
 
 
                 </div>
 
 
                 <div className='text-secondary'>
-                    <div class="modal fade" id={`exampleModal${row.id}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div onClick={(e) => {
+                        openViewJobPostModal(e, row)
+                    }
+                    }>
+                        <i className='fa fa-eye mx-2 '  >
+                        </i>
+
                     </div>
-                    <i className='fa fa-eye mx-2 ' data-bs-toggle="modal" data-bs-target={`#exampleModal${row.id}`}  >
-                    </i>
 
                 </div>
 
 
 
-            </div>,
+
+
+            </div>
+
+
+
+            ,
+
+
             cellStyle: {
                 marginLeft: 50,
                 textAlign: 'right'
             },
         },
     ];
+
 
 
 
@@ -540,6 +529,7 @@ function ViewAllJob() {
 
                         <div className='container-fluid'>
 
+
                             <div className='   job-config mt-3 border  rounded-3'>
 
                                 <div class="job-config-header text-light rounded-top ">
@@ -552,10 +542,7 @@ function ViewAllJob() {
                                             <h2 className=' mb-0'>2343</h2>
                                             <p className=''>Pendings</p>
                                         </div>
-                                        {/* <div class="item2">
-                                        <h2 className=' mb-0'>03</h2>
-                                        <p className=''>Job Types</p>
-                                    </div> */}
+
 
 
                                     </div>
@@ -572,6 +559,8 @@ function ViewAllJob() {
                             </div>
 
                             <div className="col-md-12 mt-3">
+                                <h5 className=''>ALL Job Post</h5>
+
                                 <div className="card bg-white">
 
                                     <div className="card-body ">
@@ -649,6 +638,112 @@ function ViewAllJob() {
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+
+                            {/* add post category modal */}
+                            <Modal
+                                isOpen={viewJobPostModalIsOpen}
+                                onRequestClose={closeViewJobPostModal}
+                                style={customStyles1}
+                                contentLabel="Example Modal"
+                            >
+
+                                <div className='card-body '>
+                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
+
+                                    <h5 className=""> Full Job Post View</h5>
+                                    <hr />
+
+
+
+                                    <div className="row">
+
+                                        <div className="col-12 ">
+
+                                            <div className=''>
+                                                <div className='' style={{ width: '120px', height: '80px' }}>
+                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewJobPostDescription.image}`} />
+                                                </div>
+                                            </div>
+
+                                            <div className='d-flex justify-content-between'>
+                                                <div className='mt-3'>
+                                                    <h5>{viewJobPostDescription.job_title}</h5>
+                                                    <div>
+                                                        <i class="fas fa-calendar"></i>
+                                                        <span className='mx-2'>{moment(viewJobPostDescription.application_deadline).format("MMM Do YY")}</span>
+                                                    </div>
+
+                                                    <div className='mt-2'>
+
+                                                        <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
+
+                                                            {viewJobPostDescription.dept_name}
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                                <div>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewJobPostDescription.type_name}</span> </button>
+
+                                                    {
+                                                        viewJobPostDescription.isPublished == 1 ?
+                                                            <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
+                                                            :
+                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>InActive</span> </button>
+
+                                                    }
+
+                                                    {/* <button className='btn btn-success btn-sm py-1 px-3 ' style={{ borderRadius: "8px" }}>asdasdas</button>
+                                                    <button className='btn btn-danger btn-sm py-1 px-3  mx-2' style={{ borderRadius: "8px" }}>asdasdas</button> */}
+                                                </div>
+                                            </div>
+
+                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewJobPostDescription.job_description }}
+                                            />
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
 
                     </div>

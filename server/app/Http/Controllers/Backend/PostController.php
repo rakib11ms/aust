@@ -116,6 +116,7 @@ class PostController extends Controller
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
            $post->isPublished = $request->isPublished;
+           $post->isArchived = $request->isArchived;
 
             $post->update();
 
@@ -156,26 +157,67 @@ class PostController extends Controller
 
     public function filterByStatus($name){
       
-      // $active_posts=Post::where('isPublished',$name)->get();
-      // $pending_posts=Post::where('isPublished',$name)->get();
-      // $active_posts=Post::where('isPublished',$name)->get();
 
-        if($name=='all'){
-        $posts=Post::orderBy('id','DESC')->get();
-  return response()->json([
+ //        if($name=='all'){
+ //        $posts=Post::orderBy('id','DESC')->get();
+ //  return response()->json([
+ //                'status' => 200,
+ //                'posts' => $posts,
+ //            ]);
+ //        }
+ //        else if($name==1){
+ //      $posts=Post::where('isPublished',1)->get();
+ // return response()->json([
+ //                'status' => 200,
+ //                'posts' => $posts,
+ //            ]);
+ //        }
+ //        else if($name==0){
+ //                  $posts=Post::where('isPublished',0)->get();
+
+ //   return response()->json([
+ //                'status' => 200,
+ //                'posts' => $posts,
+ //            ]);
+ //        }
+ //        else{
+ //     $posts=Post::orderBy('id','DESC')->get();
+ //  return response()->json([
+ //                'status' => 200,
+ //                'posts' => $posts,
+ //            ]);
+ //        }
+
+
+
+
+
+
+                if($name=='all'){
+        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->orderBy('posts.id','desc')->get();  
+        return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
         }
         else if($name==1){
-      $posts=Post::where('isPublished',1)->get();
- return response()->json([
+      $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',1)->orderBy('posts.id','desc')->get(); 
+       return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+
+            ]);
+        }
+        else if($name==0){
+                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
+
+   return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
         }
-        else if($name==0){
-                  $posts=Post::where('isPublished',0)->get();
+            else if($name=='archive'){
+                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
 
    return response()->json([
                 'status' => 200,
@@ -183,8 +225,8 @@ class PostController extends Controller
             ]);
         }
         else{
-     $posts=Post::orderBy('id','DESC')->get();
-  return response()->json([
+     $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->orderBy('posts.id','desc')->get();  
+        return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
@@ -192,6 +234,9 @@ class PostController extends Controller
 
           
     }
+
+          
+    
 
     public function userPostsFiltering($name){
 
