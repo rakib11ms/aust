@@ -78,6 +78,9 @@ Route::post('/delete-post/{id}',[PostController::class,'destroy']);
 
 Route::post('/delete-all-posts',[PostController::class,'deleteAllPosts']);
 Route::get('/filter-post/{filterByStatus}',[PostController::class,'filterByStatus']);
+Route::get('/filter-post-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}',[PostController::class,'filterBySearchInputValandRadioButtonValue']);
+
+
 
 //mobile users all-posts filtering
 

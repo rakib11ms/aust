@@ -263,7 +263,7 @@ function Sidebar() {
                             isActive5 && <>
                                        <ul className='text-light mx-4 '>
                                        <li>
-                                    <Link to='/post-type' className='text-light text-form' >Post Type </Link>
+                                    <Link to='/post-type' className='text-light text-form' >User Posts </Link>
                                 </li>
                                 <li>
                                     <a href='' className='text-light text-form'>About</a>

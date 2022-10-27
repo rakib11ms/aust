@@ -20,25 +20,15 @@ function PostType() {
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
-    console.log('allll postsss', allPosts)
+    // console.log('allll postsss', allPosts)
 
     const [totalPosts, setTotalPosts] = useState('');
     const [activePosts, setActivePosts] = useState('');
     const [pendingPosts, setPendingPosts] = useState('');
-
-
-
-    // const [specificPost, setSpecificPost] = useState('');
-    // const [specificPostData, setSpecificPostData] = useState([]);
-
-
-
-
-    // console.log('specificPostData', specificPostData)
-
     const [renderAllPosts, setRenderAllPosts] = useState('');
 
-    // console.log('all posts check', allPosts)
+
+
 
     //add functionality for post category
 
@@ -59,7 +49,7 @@ function PostType() {
         const { val } = checkboxMapping;
 
 
-        console.log(`${value} is ${checked}`);
+        // console.log(`${value} is ${checked}`);
 
         // Case 1 : The user checks the box
         if (checked) {
@@ -77,15 +67,6 @@ function PostType() {
     };
 
 
-
-
-
-
-
-
-
-
-
     const [addPostType, setAddPostType] = useState({
         type_name: "",
         created_by: '',
@@ -100,9 +81,6 @@ function PostType() {
 
 
     }
-
-
-
 
 
     const handleSave = (e) => {
@@ -135,8 +113,17 @@ function PostType() {
 
     const [checkboxStatus, setCheckBoxStatus] = useState(false)
 
+
+
+
+
+    ////handle post approval
+
+
+
+
     const handlePostApproval = (e, id) => {
-        setCheckBoxStatus(!checkboxStatus)
+        // setCheckBoxStatus(!checkboxStatus)
         // console.log('checked check', e.target.checked)
         // setSpecificPost(id);
         // const IsApprovedValue = e.target.checked === true ? 1 : 0;
@@ -144,6 +131,7 @@ function PostType() {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
+            formData.append('isArchived', id.isArchived);
             // formData.append('_method', 'PUT');
 
             formData.append('post_title', id.post_title);
@@ -158,7 +146,6 @@ function PostType() {
                 if (res.data.status == 200) {
                     window.location.reload();
 
-                    Swal.fire(res.data.message, '', 'success')
                     setRenderAllPosts(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -190,12 +177,12 @@ function PostType() {
             formData.append('date', id.date);
             formData.append('image', id.image);
             formData.append('tag', id.tag);
+            formData.append('isArchived', id.isArchived);
 
             axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
-                    Swal.fire(res.data.message, '', 'success')
                     setRenderAllPosts(res.data);
 
                     // setIdChange('');
@@ -219,19 +206,6 @@ function PostType() {
 
 
 
-        // const updateApprovedVal = {
-        //     isPublished: IsApprovedValue,
-        //     post_title:specificPostData.post_title,
-        //     post_type:specificPostData.post_type,
-        //     post_description:specificPostData.post_description,
-        //     posted_by:specificPostData.posted_by,
-        //     image:specificPostData.image,
-        //     date:specificPostData.date,
-        //     tag:specificPostData.tag
-        // }
-
-        // console.log('updated approval data',formData)
-
 
     }
 
@@ -239,13 +213,15 @@ function PostType() {
     const archivePost = (e, id) => {
 
         if (id.isArchived == 0) {
+            // console.log('acrhived holom 0 ',id)
 
             const formData = new FormData();
 
             formData.append('isPublished', 0);
+            formData.append('isArchived', 1);
             // formData.append('_method', 'PUT');
 
-   
+
             formData.append('post_title', id.post_title);
             formData.append('post_type', id.post_type);
             formData.append('post_description', id.post_description);
@@ -281,21 +257,20 @@ function PostType() {
 
         }
         if (id.isArchived == 1) {
+            // console.log('acrhived holom 1 ',id)
 
             const formData = new FormData();
 
             formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
             formData.append('isArchived', 0);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
+
 
             axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
@@ -325,250 +300,6 @@ function PostType() {
         }
 
     }
-
-
-
-
-
-
-
-
-    const navigate = useNavigate();
-    const [storageData, setstorageData] = useState()
-    // console.log('pip', storageData)
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '40vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "50vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-    const customStyles2 = {
-        content: {
-            // marginTop: '70px',
-            top: '40vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "70vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-
-
-    const [addPostCategoryModalIsOpen, setaddPostCategoryModalIsOpen] = useState(false);
-    function openAddPostCategoryModal(e) {
-        e.preventDefault();
-        setaddPostCategoryModalIsOpen(true)
-    }
-    function closeAddPostCategoryModal(e) {
-        setaddPostCategoryModalIsOpen(false);
-
-    }
-
-    const [addPostModalIsOpen, setaddPostModalIsOpen] = useState(false);
-
-    function openAddPostModal(e) {
-        e.preventDefault();
-        setaddPostModalIsOpen(true)
-    }
-    function closeAddPostModal(e) {
-        setaddPostModalIsOpen(false);
-
-    }
-
-
-
-
-    useEffect(() => {
-        axios.get(`/api/all-posts`).then(res => {
-            if (res.data.status == 200) {
-                setallPosts(res.data.posts);
-                setTotalPosts(res.data.total_posts)
-                setActivePosts(res.data.total_active_posts)
-                setPendingPosts(res.data.total_pending_posts)
-                setLoading(false);
-            }
-        })
-
-        Modal.setAppElement('body');
-
-    }, [renderAllPosts])
-
-
-
-    const columns = [
-        // {
-        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
-
-        //     width: "40 !important"
-        // },
-        {
-            title: 'ALL  ', field: ``
-
-            ,
-            render: (row) =>
-
-                <div className=''>
-                    <div class="tooops d-flex align-items-center justify-content-between">
-                        <div className=''>
-                            <div className='text-secondary'>
-                                <span>
-                                    <i className='fa fa-calendar'></i>
-                                    <span className='mx-1'>{moment(row.created_at).format("MMM Do YY")}</span>
-                                </span>
-                            </div>
-                            <div className='d-flex align-items-center text-secondary'>
-                                <h6 className='my-1'>Posted By:<span> rakib </span></h6>
-                                <i className='fa fa-eye mx-2'></i>
-                            </div>
-                        </div>
-                        <div>
-
-
-                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>Urgent</span> </button>
-
-                        </div>
-
-                    </div>
-
-                    <div>
-                        <h5 className='my-1 '>
-                            {row.post_title}
-                        </h5>
-
-                        <p className='text-secondary'>{row.post_description}</p>
-
-
-                    </div>
-
-
-
-
-                </div>
-
-            ,
-
-
-
-
-            cellStyle: {
-                marginLeft: 50,
-                maxWidth: 200
-                // width: 400
-            },
-        },
-        {
-            title: "", field: `isPublished`, render: (row) =>
-                <div>
-                    {
-                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
-                    }
-
-                </div>
-
-
-            , cellStyle: {
-                // marginLeft: 50,
-                // maxWidth: 0,
-                textAlign: 'right'
-            },
-        },
-
-
-
-        {
-            title: "", field: "", render: (row) => <div className='d-flex align-items-center'>
-                <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
-                            value={checkboxStatus}
-
-                            checked={row.isPublished == 1 ? true : false}
-
-                            onChange={(e) => {
-
-                                handlePostApproval(e, row)
-
-                            }} />
-                    </form>
-
-                </div>
-
-                <div className='mx-2 ' onClick={(e) => deletePost(e, row.id)}>
-                    <i class="fa-solid fa-trash icon-table-trash" ></i>
-                </div>
-
-                <div className='mx-2' onClick={(e) => archivePost(e, row)}>
-
-
-                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
-                    {
-                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                : ''
-
-                    }
-                </div>
-
-
-            </div>,
-            cellStyle: {
-                marginLeft: 50,
-                textAlign: 'right'
-            },
-        },
-    ];
-
-
-    const deletePostType = (e, id) => {
-        e.preventDefault();
-        const thisClicked = e.currentTarget;
-        //  thisClicked.innerText = "Deleting";
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.delete(`/api/delete-post-type/${id}`).then(res => {
-                    if (res.data.status === 200) {
-                        thisClicked.closest("tr").remove();
-                        //   swal("Success", res.data.message, "success");
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'Your data has been deleted.',
-                    'success'
-                )
-            }
-        })
-
-    }
-
 
     const deletePost = (e, id) => {
 
@@ -635,11 +366,261 @@ function PostType() {
 
     }
 
+
+
+
+    ////modal functionality start 
+
+
+
+    const navigate = useNavigate();
+    const [storageData, setstorageData] = useState()
+    // console.log('pip', storageData)
+
+    const customStyles1 = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "50vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+    const customStyles2 = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "70vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+
+    const [addPostCategoryModalIsOpen, setaddPostCategoryModalIsOpen] = useState(false);
+    function openAddPostCategoryModal(e) {
+        e.preventDefault();
+        setaddPostCategoryModalIsOpen(true)
+    }
+    function closeAddPostCategoryModal(e) {
+        setaddPostCategoryModalIsOpen(false);
+
+    }
+
+    const [addPostModalIsOpen, setaddPostModalIsOpen] = useState(false);
+
+    function openAddPostModal(e) {
+        e.preventDefault();
+        setaddPostModalIsOpen(true)
+    }
+    function closeAddPostModal(e) {
+        setaddPostModalIsOpen(false);
+
+    }
+
+
+    ////modal functionality end
+
+
+    useEffect(() => {
+        axios.get(`/api/all-posts`).then(res => {
+            if (res.data.status == 200) {
+                setallPosts(res.data.posts);
+                setTotalPosts(res.data.total_posts)
+                setActivePosts(res.data.total_active_posts)
+                setPendingPosts(res.data.total_pending_posts)
+                setLoading(false);
+            }
+        })
+
+        Modal.setAppElement('body');
+
+    }, [renderAllPosts])
+
+
+
+    const columns = [
+        // {
+        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
+
+        //     width: "40 !important"
+        // },
+        {
+            title: 'ALL  ', field: ``
+
+            ,
+            render: (row) =>
+
+                <div className=''>
+                    <div class="tooops d-flex align-items-center justify-content-between">
+                        <div className=''>
+                            <div className='text-secondary'>
+                                <span>
+                                    <i className='fa fa-calendar'></i>
+                                    <span className='mx-1'>{moment(row.created_at).format("MMM Do YY")}</span>
+                                </span>
+                            </div>
+                            <div className='d-flex align-items-center text-secondary'>
+                                <h6 className='my-1'>Posted By:<span> rakib </span></h6>
+                                {/* <i className='fa fa-eye mx-2'></i> */}
+                            </div>
+                        </div>
+                        <div>
+
+
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.post_type}</span> </button>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h5 className='my-1 '>
+                            {row.post_title}
+                        </h5>
+
+                        <p className='text-secondary'>{row.post_description}</p>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                marginLeft: 50,
+                maxWidth: 200
+                // width: 400
+            },
+        },
+        {
+            title: "", field: `isPublished`, render: (row) =>
+                <div>
+                    {
+                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                    }
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'right'
+            },
+        },
+
+
+
+        {
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
+                <div class="form-check form-switch mx-2  text-danger">
+                    <form encType="multipart/form-data" method='POST' >
+                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                            value={checkboxStatus}
+
+                            checked={row.isPublished == 1 ? true : false}
+
+                            onChange={(e) => {
+
+                                handlePostApproval(e, row)
+
+                            }} />
+                    </form>
+
+                </div>
+
+                <div className='mx-2 ' onClick={(e) => deletePost(e, row.id)}>
+                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                </div>
+
+                <div className='mx-2' onClick={(e) => archivePost(e, row)}>
+
+
+                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
+                    {
+                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                                : ''
+
+                    }
+                </div>
+
+
+            </div>,
+            cellStyle: {
+                marginLeft: 50,
+                textAlign: 'right'
+            },
+        },
+    ];
+
+
+
+    //delete functionality start 
+
+    const deletePostType = (e, id) => {
+        e.preventDefault();
+        const thisClicked = e.currentTarget;
+        //  thisClicked.innerText = "Deleting";
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`/api/delete-post-type/${id}`).then(res => {
+                    if (res.data.status === 200) {
+                        thisClicked.closest("tr").remove();
+                        //   swal("Success", res.data.message, "success");
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your data has been deleted.',
+                    'success'
+                )
+            }
+        })
+
+    }
+
+
+
+
     const [postFiltering, setPostFiltering] = useState('all');
 
 
     // console.log('filtered post val',allPosts)
-    console.log('filter click check', postFiltering)
+    // console.log('filter click check', postFiltering)
 
 
     useEffect(() => {
@@ -654,7 +635,33 @@ function PostType() {
 
 
 
+    // searchPostByRadioButton functionality
+    const [searchRadioButtonValue, setSearchRadioButtonValue] = useState('');
+    const [searchInputValue, setSearchInputValue] = useState('');
+    console.log('search input val', searchInputValue)
+    console.log('radio button seracg ', searchRadioButtonValue)
 
+    const searchPostByRadioButton = (e, searchBy) => {
+
+        // e.preventDefault();
+        console.log('seacrh by', searchBy)
+        setSearchRadioButtonValue(searchBy)
+
+    }
+
+    useEffect(() => {
+
+        axios.get(`/api/filter-post-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+            console.log('reesssssssssssss', res)
+            if (res.data.status == 200) {
+                setallPosts(res.data.posts);
+                setLoading(false);
+            }
+        })
+        // }
+        console.log('useefefct run')
+
+    }, [searchRadioButtonValue, searchInputValue])
 
 
 
@@ -666,7 +673,7 @@ function PostType() {
 
     const selectedRow = React.useRef([]);
 
-    console.log('selected rows checked', selectedRow)
+    // console.log('selected rows checked', selectedRow)
     const handleClick = rows => { selectedRow.current = rows; };
 
 
@@ -689,7 +696,7 @@ function PostType() {
 
                                     <div className='mb-3 input-search mt-3'>
                                         <div class="input-group py-2">
-                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
@@ -700,14 +707,26 @@ function PostType() {
                                                 Search By
                                             </div>
                                             <div class="form-check mx-3">
-                                                <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" />
+                                                <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" onClick={(e) => {
+                                                    searchPostByRadioButton(e, 'postId');
+                                                    // setSearchRadioButtonValue('postTitle')
+
+                                                }
+                                                }
+                                                />
                                                 <label class="form-check-label mx-2" for="flexRadioDefault1">
                                                     Post Id
                                                 </label>
                                             </div>
 
                                             <div class="form-check mx-3">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="btn-2" />
+                                                <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" onClick={(e) => {
+                                                    searchPostByRadioButton(e, 'postTitle');
+                                                    // setSearchRadioButtonValue('postTitle')
+
+                                                }
+                                                }
+                                                />
                                                 <label class="form-check-label mx-2" for="flexRadioDefault1">
                                                     Post Title
                                                 </label>
@@ -715,7 +734,13 @@ function PostType() {
 
 
                                             <div class="form-check mx-3">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="btn-3" />
+                                                <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" onClick={(e) => {
+                                                    searchPostByRadioButton(e, 'userName');
+                                                    // setSearchRadioButtonValue('userName')
+
+                                                }
+                                                }
+                                                />
                                                 <label class="form-check-label mx-2" for="flexRadioDefault1">
                                                     UserName
                                                 </label>
@@ -770,10 +795,10 @@ function PostType() {
                             </div>
 
                             <div className="col-md-12 mt-3">
-                            <h5 className=''>ALL Post</h5>
+                                <h5 className=''>ALL Post</h5>
 
                                 <div className="card bg-white">
-                                    
+
 
                                     <div className="card-body ">
 
@@ -790,9 +815,9 @@ function PostType() {
 
                                             <div className='d-flex align-items-center'>
 
-                                                {/* <div class="form-check form-switch mx-2">
+                                                <div class="form-check form-switch mx-2">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                </div> */}
+                                                </div>
 
                                                 <div className='mx-2 '
                                                     onClick={
@@ -936,7 +961,7 @@ function PostType() {
                                     </div>
 
 
-                                    <button className='btn btn-secondary btn-sm float-end me-5 rounded-3 px-5 py-2 mt-1' onClick={handleSave}>Save</button>
+                                    <button className='btn btn-success btn-sm float-end me-5 rounded-3 px-5 py-2 mt-1' onClick={handleSave}>Save</button>
 
 
 

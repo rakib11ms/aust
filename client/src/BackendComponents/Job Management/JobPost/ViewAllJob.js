@@ -217,7 +217,7 @@ function ViewAllJob() {
     const customStyles1 = {
         content: {
             // marginTop: '70px',
-            top: '40vh',
+            top: '45vh',
             left: '30%',
             right: 'auto',
             bottom: 'auto',
@@ -225,7 +225,7 @@ function ViewAllJob() {
             // marginRight: '-50%',
             transform: 'translate(-7%, -45%)',
             width: "60vw",
-            height: "80vh",
+            height: "90vh",
             // background: "#ffffff",
         },
         overlay: { zIndex: 1000 }

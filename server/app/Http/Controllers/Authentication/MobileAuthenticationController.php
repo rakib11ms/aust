@@ -26,7 +26,8 @@ class MobileAuthenticationController extends Controller
             $request->all(),
             [
 
-                'full_name' => 'required|max:191',
+                // 'full_name' => 'required|max:191',
+                'name' => 'required|max:191',
                 'email' => 'required|email|max:191|unique:users,email',
                 // 'phone' => 'required|unique:users',
                 'confirm_password' => 'required|same:password|min:6',
@@ -52,23 +53,23 @@ class MobileAuthenticationController extends Controller
             $file->move('images/',$filename);
             $user->image =$filename ;
          } 
-                $user->full_name = $request->full_name;
-                $user->nick_name = $request->nick_name;
+                // $user->full_name = $request->full_name;
+                // $user->nick_name = $request->nick_name;
                 $user->email = $request->email;
                 $user->user_role = 1;
-                $user->address_id = $request->address_id;
-                $user->batch = $request->batch;
-                $user->phone_no = $request->phone_no;
-                $user->blood_group = $request->blood_group;
-                $user->stream = $request->stream;
-                $user->job_sector = $request->job_sector;
-                $user->job_sub_sector = $request->job_sub_sector;
-                $user->office_email = $request->office_email;
-                $user->office_address = $request->office_address;
+                // $user->address_id = $request->address_id;
+                // $user->batch = $request->batch;
+                $user->phone = $request->phone;
+                // $user->blood_group = $request->blood_group;
+                // $user->stream = $request->stream;
+                // $user->job_sector = $request->job_sector;
+                // $user->job_sub_sector = $request->job_sub_sector;
+                // $user->office_email = $request->office_email;
+                // $user->office_address = $request->office_address;
 
-                $user->name_of_company = $request->name_of_company;
-                $user->present_address = $request->present_address;
-                $user->permanent_address = $request->permanent_address;
+                // $user->name_of_company = $request->name_of_company;
+                // $user->present_address = $request->present_address;
+                // $user->permanent_address = $request->permanent_address;
                 // $user->otp_verify = 0;
                 $user->password = Hash::make($request->password);
                 $user->confirm_password = Hash::make($request->confirm_password);

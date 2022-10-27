@@ -58,7 +58,7 @@ class PostController extends Controller
            $post->post_description = $request->post_description;
            $post->posted_by = $request->posted_by;
            $post->date = $request->date;
-           $post->isPublished =1;
+           // $post->isPublished =1;
            $post->tag = $request->tag;
             $post->save();
 
@@ -236,7 +236,67 @@ class PostController extends Controller
     }
 
           
-    
+    function filterBySearchInputValandRadioButtonValue($searchInputValue,$searchRadioButtonValue){
+
+           if($searchRadioButtonValue=='postId'){
+        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('posts.id',$searchInputValue)->get();  
+        return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else if($searchRadioButtonValue=='postTitle'){
+      $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('posts.post_title','like', '%' .$searchInputValue. '%' )->orderBy('posts.id','desc')->get(); 
+       return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+
+            ]);
+        }
+        else if($searchRadioButtonValue=='userName'){
+                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
+
+   return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+        else{
+              $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->orderBy('posts.id','desc')->get();  
+        return response()->json([
+                'status' => 200,
+                'posts' => $posts,
+            ]);
+        }
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function userPostsFiltering($name){
 
