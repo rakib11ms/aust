@@ -342,4 +342,26 @@ class PostController extends Controller
             ]);
     }
 }
+
+
+
+
+///////////////mobile two dates posts filtering ////////////
+
+ public function postFilteringByTwoDates(Request $request){
+    // $filterDatePosts=Post::whereBetween('created_at', [$fromDate1, $fromDate2])->get();
+    $fromDate=$request->fromDate;
+    $toDate=$request->toDate;
+
+
+
+$filterDatePosts=Post::whereBetween(DB::raw('DATE(created_at)'), [$fromDate, $toDate])->get();
+
+      return response()->json([
+                'status' => 200,
+                'filterDatePosts' => $filterDatePosts,
+            ]);
+
+}
+
 }

@@ -56,6 +56,10 @@ Route::post('/change-user-forgot-password',[MobileAuthenticationController::clas
 
 Route::post('/admin-login',[AuthenticationController::class,'adminLogin']);
 
+//all users 
+Route::get('/all-users',[AuthenticationController::class,'allUsers']);
+
+
 
 
 
@@ -83,8 +87,9 @@ Route::get('/filter-post-by-search-input-radio/{searchInputValue}/{searchRadioBu
 
 
 //mobile users all-posts filtering
-
 Route::get('/user-posts-filtering/{name}',[PostController::class,'userPostsFiltering']);
+//mobile date range job-post filtering 
+Route::post('/post-filtering-by-two-dates',[PostController::class,'postFilteringByTwoDates']);
 
 
 
@@ -106,6 +111,7 @@ Route::get('/all-job-post',[JobPostController::class,'index']);
 Route::get('/edit-job-post/{id}',[JobPostController::class,'edit']);
 Route::post('/update-job-post/{id}',[JobPostController::class,'update']);
 Route::post('/delete-job-post/{id}',[JobPostController::class,'destroy']);
+Route::post('/delete-multiple-job-posts/{id}',[JobPostController::class,'deleteMultipleJobPosts']);
 
 Route::get('/filter-job-post-status/{filterByJobPostStatus}',[JobPostController::class,'filterByJobPostStatus']);
 

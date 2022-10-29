@@ -50,4 +50,12 @@ $user = User::where('email', $request->email)->first();
             ]);
 }
 
+  public function allUsers(){
+        $all_users=User::all();
+   return response()->json([
+                'status'=>200,
+                'all_users'=>$all_users
+            ]);
+ }
+
 }

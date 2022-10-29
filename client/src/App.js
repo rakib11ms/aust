@@ -10,6 +10,7 @@ import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobP
 import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
 import EditJobPost from './BackendComponents/Job Management/JobPost/EditJobPost';
 import './imageUrl';
+import CreateEvent from './BackendComponents/Event/CreateEvent';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -111,6 +112,9 @@ useEffect(()=>{
             <Route path="create-job-post" element={<CreateJobPost/>}></Route>
             <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
             <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
+
+            <Route path="create-event" element={<CreateEvent/>}></Route>
+
 
             
 

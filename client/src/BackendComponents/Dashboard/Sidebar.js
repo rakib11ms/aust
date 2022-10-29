@@ -1,5 +1,5 @@
 import User from '../../image/User.png'
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
 import Swal from 'sweetalert2';
@@ -11,7 +11,8 @@ function Sidebar() {
     const [isActive3, setIsActive3] = useState(false);
     const [isActive4, setIsActive4] = useState(false);
     const [isActive5, setIsActive5] = useState(false);
-    console.log('is active cheking',isActive)
+    const [isActive6, setIsActive6] = useState(false);
+    console.log('is active cheking', isActive)
 
 
     const navigate = useNavigate();
@@ -70,7 +71,7 @@ function Sidebar() {
                 </div> */}
 
                 <div className='home-menu d-flex  mt-4 py-1 px-2 menu-left rounded-2'>
-                <i className='fa-solid fa-home mt-2 d-block text-white ' />
+                    <i className='fa-solid fa-home mt-2 d-block text-white ' />
                     <h6 className='mx-2 fw-500 my-1 text-white'>Home</h6>
 
                 </div>
@@ -86,31 +87,31 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content  mx-2 text-white'>
-                            {isActive ?
-                                <b className=''>-</b>
-                                :
-                                <b className=''>+</b>
-                            }
+                                {isActive ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }
                             </div>
                         </div>
                         <div class="menu-content ">
-                        {
-                            isActive && <>
-                                       <ul className='text-light mx-4 '>
-                                <li>
-                                    <a href='' className='text-light text-form' >Home</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>About</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Contact</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Home</a>
-                                </li>
-                            </ul>
-                            </>
+                            {
+                                isActive && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <a href='' className='text-light text-form' >Home</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>About</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Home</a>
+                                        </li>
+                                    </ul>
+                                </>
 
                             }
                         </div>
@@ -125,31 +126,31 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content  mx-2 text-white '>
-                            {isActive2 ?
-                                <b className=''>-</b>
-                                :
-                                <b className=''>+</b>
-                            }
+                                {isActive2 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }
                             </div>
                         </div>
                         <div class="menu-content ">
-                        {
-                            isActive2 && <>
-                                       <ul className='text-light mx-4 '>
-                                <li>
-                                    <a href='' className='text-light text-form' >Home</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>About</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Contact</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Home</a>
-                                </li>
-                            </ul>
-                            </>
+                            {
+                                isActive2 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <a href='' className='text-light text-form' >Home</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>About</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Home</a>
+                                        </li>
+                                    </ul>
+                                </>
 
                             }
                         </div>
@@ -164,39 +165,39 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content  text-white mx-2 '>
-                            {isActive3?
-                                <b className=''>-</b>
-                                :
-                                <b className=''>+</b>
-                            }
+                                {isActive3 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }
                             </div>
                         </div>
                         <div class="menu-content ">
                             {
-                            isActive3 && <>
-                                       <ul className='text-light mx-4 '>
-                              
-                                <li className='mt-1'>
-                                    <Link to ="/view-all-jobs" className='text-light text-form '>View All Jobs</Link>
-                                </li>
-                                <li className='mt-1'>
-                                    <Link to ="/job-configuration" className='text-light text-form '>Job Configuration</Link>
-                                </li>
-                                <li className='mt-1'>
-                                    <Link to ="/create-job-post" className='text-light text-form '>Create a Job</Link>
-                                </li>
-                                <li className='mt-1'>
-                                    <Link to ="" className='text-light text-form '>Approval List</Link>
-                                </li>
+                                isActive3 && <>
+                                    <ul className='text-light mx-4 '>
 
-                                <li className='mt-1'>
-                                    <Link to ="" className='text-light text-form '>Archeived</Link>
-                                </li>
-                            </ul>
-                            </>
+                                        <li className='mt-1'>
+                                            <Link to="/view-all-jobs" className='text-light text-form '>View All Jobs</Link>
+                                        </li>
+                                        <li className='mt-1'>
+                                            <Link to="/job-configuration" className='text-light text-form '>Job Configuration</Link>
+                                        </li>
+                                        <li className='mt-1'>
+                                            <Link to="/create-job-post" className='text-light text-form '>Create a Job</Link>
+                                        </li>
+                                        <li className='mt-1'>
+                                            <Link to="" className='text-light text-form '>Approval List</Link>
+                                        </li>
+
+                                        <li className='mt-1'>
+                                            <Link to="" className='text-light text-form '>Archeived</Link>
+                                        </li>
+                                    </ul>
+                                </>
 
                             }
-                 
+
                         </div>
                     </div>
 
@@ -210,31 +211,31 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content text-white mx-2 '>
-                            {isActive4 ?
-                                <b className=''>-</b>
-                                :
-                                <b className=''>+</b>
-                            }                            </div>
+                                {isActive4 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
                         </div>
                         <div class="menu-content ">
-                         
-                        {
-                            isActive4 && <>
-                                       <ul className='text-light mx-4 '>
-                                <li>
-                                    <a href='' className='text-light text-form' >Home</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>About</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Contact</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Home</a>
-                                </li>
-                            </ul>
-                            </>
+
+                            {
+                                isActive4 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <a href='' className='text-light text-form' >Home</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>About</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Home</a>
+                                        </li>
+                                    </ul>
+                                </>
 
                             }
                         </div>
@@ -251,54 +252,86 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content text-white mx-2 '>
-                            {isActive5 ?
-                                <b className=''>-</b>
-                                :
-                                <b className=''>+</b>
-                            }                            </div>
+                                {isActive5 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
                         </div>
                         <div class="menu-content ">
-                         
-                        {
-                            isActive5 && <>
-                                       <ul className='text-light mx-4 '>
-                                       <li>
-                                    <Link to='/post-type' className='text-light text-form' >User Posts </Link>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>About</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Contact</a>
-                                </li>
-                                <li>
-                                    <a href='' className='text-light text-form'>Home</a>
-                                </li>
-                            </ul>
-                            </>
+
+                            {
+                                isActive5 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/post-type' className='text-light text-form' >User Posts </Link>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>About</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>Home</a>
+                                        </li>
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive6(!isActive6)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i className='fa-solid fa-blog d-block' />
+
+                                <h6 className='mx-2 mt-3'>Events</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive6 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive6 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/create-event' className='text-light text-form' >Create Event</Link>
+                                        </li>
+                                    
+                                    </ul>
+                                </>
 
                             }
                         </div>
                     </div>
                 </div>
 
-         
+
 
 
             </div>
 
             <div className='home-menu d-flex  mt-3 py-1 px-2   menu-left rounded-2'>
-                    <i className='fa-solid fa-gear mt-2 d-block text-white ' />
-                    <h6 className='mx-2 fw-500 my-1 text-white'>Settings</h6>
+                <i className='fa-solid fa-gear mt-2 d-block text-white ' />
+                <h6 className='mx-2 fw-500 my-1 text-white'>Settings</h6>
 
-                </div>
-                {/* <div className=' checker'>
+            </div>
+            {/* <div className=' checker'>
                 <h6 className='fw-500 my-1 text-white bg-danger d-block border w-100 m-0  '>Settings</h6>
 
                 </div> */}
 
 
-                
+
 
 
         </>

@@ -142,6 +142,23 @@ class JobPostController extends Controller
     
     }
 
+public function deleteMultipleJobPosts($ids){
+ 
+    $array=explode (",", $ids); 
+
+  $deletes=JobPost::whereIn('id',$array)->delete();
+      return response()->json([
+                'status' => 200,
+                // 'deletes'=>  $deletes,
+                'message' => 'Job Posts deleted successfully',
+            ]);
+}
+
+
+
+
+
+
         public function filterByJobPostStatus($name){
       
 

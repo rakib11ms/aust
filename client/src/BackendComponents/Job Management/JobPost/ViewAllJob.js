@@ -333,7 +333,7 @@ function ViewAllJob() {
                             <div className='text-secondary'>
                                 <span>
                                     <i className='fa fa-calendar'></i>
-                                    <span className='mx-2'>{moment(row.created_at).format("MMM Do YY")}</span>
+                                    <span className='mx-2'>{moment(row.application_deadline).format("L")}</span>
                                 </span>
                             </div>
 
@@ -468,36 +468,6 @@ function ViewAllJob() {
 
 
 
-    const deleteAllRecords = (e) => {
-
-        e.preventDefault();
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-all-posts/`).then(res => {
-                    if (res.data.status === 200) {
-                        setRenderAllJobPosts(res.data)
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'All Posts deleted successfully',
-                    'success'
-                )
-            }
-        })
-
-
-    }
-
     const [jobPostFiltering, setjobPostFiltering] = useState('all');
 
     // console.log('filtered post val',allJobPosts)
@@ -514,6 +484,59 @@ function ViewAllJob() {
 
     }, [jobPostFiltering])
 
+    const [selectedRowsLength, setselectedRowsLength] = useState(0);
+    // console.log("selcted rows",selectedRowsLength)
+    const [selectedRowsIds, setSelectedRowsIds] = useState([]);
+    console.log("selcted rows ids", selectedRowsIds)
+
+
+
+    const selectionCheck = (selectedRows) => {
+
+        setselectedRowsLength(selectedRows.length)
+
+        // setSelectedRowsIds(selectedRows)
+        let result = selectedRows.map(a => a.id);
+        // console.log('result',result)
+
+        setSelectedRowsIds(result);
+
+
+    }
+
+
+
+
+    const deleteAllRecords = (e) => {
+
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
+                    if (res.data.status === 200) {
+                        setRenderAllJobPosts(res.data)
+                        // window.location.reload();
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'All Posts deleted successfully',
+                    'success'
+                )
+            }
+        })
+
+
+    }
 
 
     return (
@@ -577,25 +600,32 @@ function ViewAllJob() {
                                             </div>
 
                                             <div className='d-flex align-items-center'>
+                                                {
+                                                    selectedRowsLength > 1 &&
+                                                    <>
+                                                        <div class="form-check form-switch mx-2">
+                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                                        </div>
 
-                                                <div class="form-check form-switch mx-2">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                </div>
+                                                        <div className='mx-2 '
+                                                            onClick={
+                                                                deleteAllRecords
+                                                            }
+                                                        >
+                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
+                                                        </div>
 
-                                                <div className='mx-2 '
-                                                    onClick={
-                                                        deleteAllRecords
-                                                    }
-                                                >
-                                                    <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                </div>
-
-                                                <div className='mx-2'>
+                                                        <div className='mx-2'>
 
 
-                                                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
+                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
 
-                                                </div>
+                                                        </div>
+
+
+                                                    </>
+                                                }
+
 
 
                                             </div>
@@ -610,6 +640,8 @@ function ViewAllJob() {
                                             columns={columns}
                                             data={allJobPosts}
                                             isLoading={loading === true ? true : false}
+                                            // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
+                                            onSelectionChange={selectionCheck}
 
 
                                             options={{
@@ -674,7 +706,7 @@ function ViewAllJob() {
                                                     <h5>{viewJobPostDescription.job_title}</h5>
                                                     <div>
                                                         <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>{moment(viewJobPostDescription.application_deadline).format("MMM Do YY")}</span>
+                                                        <span className='mx-2'>Application Deadline: {moment(viewJobPostDescription.application_deadline).format("L")}</span>
                                                     </div>
 
                                                     <div className='mt-2'>
@@ -697,7 +729,7 @@ function ViewAllJob() {
                                                         viewJobPostDescription.isPublished == 1 ?
                                                             <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
                                                             :
-                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>InActive</span> </button>
+                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
 
                                                     }
 
