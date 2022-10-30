@@ -9,6 +9,7 @@ use App\Http\Controllers\Authentication\AuthenticationController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\JobPostController;
 use App\Http\Controllers\Backend\DepartmentController;
+use App\Http\Controllers\Backend\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,4 +129,6 @@ Route::delete('/delete-department/{id}',[DepartmentController::class,'destroy'])
 
 
 
+//events
 
+Route::post('/add-event',[EventController::class,'store']);

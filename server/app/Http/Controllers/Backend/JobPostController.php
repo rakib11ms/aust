@@ -12,13 +12,13 @@ class JobPostController extends Controller
     public function index()
     {
                 $count = JobPost::orderBy('id','desc')->get()->count();
+                $latest_jobs = DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->latest()->take(3)->get();
 
-        // $posts = JobPost::orderBy('id','desc')->get();
            $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
         return response()->json([
            'status' => 200,
              'count'=>$count,
-
+'latest_jobs'=>$latest_jobs,
             'posts' => $posts
          ]);
     }
