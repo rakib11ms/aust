@@ -80,6 +80,8 @@ function CreateEvent() {
 
     })
 
+    console.log('eventstate', eventState.event_type_id)
+
     const handleInputChange = (e) => {
         seteventState({
             ...eventState, [e.target.name]: e.target.value
@@ -93,12 +95,10 @@ function CreateEvent() {
         files: []
     });
 
-    // console.log('multiple images', multipleImages)
-    // console.log('multiple images files', multipleImageFiles)
+
 
     // Functions to preview multiple images
     const changeMultipleFiles = (e) => {
-        // console.log('heeeeeeelo',e.target.files)
         setMultipleImageFiles({
             files: [...multipleImageFiles.files, ...e.target.files]
         })
@@ -112,7 +112,7 @@ function CreateEvent() {
 
     const render = (data) => {
         return data.map((image) => {
-            return <img className="image mx-2" src={image} alt="" key={image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+            return <img className="image mx-3 my-2 rounded-3" src={image} alt="" key={image} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />;
         });
     };
 
@@ -130,6 +130,7 @@ function CreateEvent() {
         formData.append("event_time", event_time);
         formData.append("priority", priority);
         formData.append("contact_person", result);
+        formData.append("event_fee", event_fee);
         formData.append("event_description", content1);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -167,10 +168,92 @@ function CreateEvent() {
 
     }
 
+    const [allEventTypes, setAllEventTypes] = useState([]);
+    console.log('allllllllllllllllllllllllllllllllllllllllllllllll', allEventTypes)
 
 
 
+    //////////////quick eveent create functionality start //////////////////
+    const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
 
+    function closeAddEventTypeModal(e) {
+        setaddEventTypeModalIsOpen(false);
+
+    }
+    const openAddEventTypeModal = (e) => {
+        e.preventDefault();
+        setaddEventTypeModalIsOpen(true)
+
+    }
+
+    const customStyles1 = {
+        content: {
+            // marginTop: '70px',
+            top: '35vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "40vw",
+            height: 300,
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+
+
+    const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
+    const [addEventType, setAddEventType] = useState({
+        event_type_name: "",
+        created_by: '',
+        error_list: []
+
+    })
+
+    console.log('job type data typing', addEventType)
+
+    const handleInput = (e) => {
+        setAddEventType({
+            ...addEventType, [e.target.name]: e.target.value
+        })
+
+
+    }
+
+
+
+    const handleJobTypeSave = (e) => {
+        e.preventDefault();
+        const addJob = {
+            event_type_name: addEventType.event_type_name,
+            created_by: '',
+        }
+        axios.post(`/api/add-event-type`, addEventType).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setRenderAllEventTypes(res.data);
+                closeAddEventTypeModal();
+                setAddEventType({
+                    event_type_name: "",
+                    created_by: '',
+                    error_list: []
+
+                });
+
+            }
+            else if (res.data.status == 400) {
+                setAddEventType({ ...addEventType, error_list: res.data.errors });
+                // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
+
+            }
+        })
+
+
+    }
 
 
     useEffect(() => {
@@ -182,8 +265,16 @@ function CreateEvent() {
         }
         )
 
-    }, [])
+        axios.get(`/api/event-type`).then(res => {
+            if (res.data.status == 200) {
+                setAllEventTypes(res.data.event_type);
+                setRenderAllEventTypes(res.data)
+                // setLoading(false);
+                // setTotalJobType(res.data.total_event_types)
+            }
+        })
 
+    }, [renderAllEventTypes])
 
 
 
@@ -206,13 +297,13 @@ function CreateEvent() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Event</h5>
-                                    <Link to="/view-all-jobs"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <Link to="/view-all-events"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>
                                     <form onSubmit={handleSubmit}>
 
-                                        <div className='row'>
+                                        <div className='row '>
 
                                             <div class="px-4" style={{ width: '73%' }}>
                                                 <div class="mt-1">
@@ -220,15 +311,106 @@ function CreateEvent() {
 
                                                     <div class="input-group mb-3">
 
-                                                        <select class="form-select" aria-label="Default select example" onChange={handleInputChange} value={eventState.event_type_id} name="event_type_id" value={eventState.event_type_id}>
-                                                            <option selected>Open this select menu</option>
-                                                            <option value="1">Ceremony</option>
-                                                            <option value="2">Vacation</option>
-                                                            <option value="3">Three</option>
+                                                        <select class="form-select" aria-label="Default select example" onChange={handleInputChange} value={eventState.event_type_id} name="event_type_id">
+                                                            <option selected>Choose</option>
+
+                                                            {
+                                                                allEventTypes.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={item.id}>{item.event_type_name}</option>
+
+                                                                        </>
+                                                                    )
+                                                                })
+                                                            }
+
                                                         </select>
-                                                        <div class="input-group-append">
+                                                        <div class="input-group-append" onClick={openAddEventTypeModal}>
                                                             <span class="input-group-text" id="basic-addon2"> + Add</span>
                                                         </div>
+
+
+                                                        {/* ////////////quick event type create  modal///////////// */}
+                                                        <Modal
+                                                            isOpen={addEventTypeModalIsOpen}
+                                                            onRequestClose={closeAddEventTypeModal}
+                                                            style={customStyles1}
+                                                            contentLabel="Example Modal"
+                                                        >
+
+                                                            <div className='card-body '>
+                                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddEventTypeModal}><i class="fa fa-times"></i></span>
+
+                                                                <h5 className=""> Create Event Type</h5>
+                                                                <hr />
+
+
+                                                                <div className="row">
+
+                                                                    <div className="col-12">
+
+                                                                        <div className='d-flex align-items-center'>
+                                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Event Type Name</label>
+                                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addEventType.event_type_name} name="event_type_name" onChange={handleInput} />
+                                                                            </div>
+
+                                                                            <div>
+                                                                            </div>
+
+
+                                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                                <span className='text-danger'> {addEventType.error_list.event_type_name}</span>
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+
+
+
+                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>Save</button>
+
+
+
+
+
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                     </div>
                                                 </div>
 
@@ -252,9 +434,9 @@ function CreateEvent() {
 
                                                 </div>
 
-                                                <div class="mt-3">
+                                                <div class="mt-4">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Contact Person</label>
-                                                    <Stack spacing={5} sx={{ width: '100%', border: '1px solid #f1f1f1' }}>
+                                                    <Stack spacing={5} sx={{ width: '100%', border: '1px solid #f1f1f1', paddingTop: '7px' }}>
                                                         <Autocomplete
                                                             multiple
                                                             id="tags-standard"
@@ -281,14 +463,14 @@ function CreateEvent() {
 
                                                 </div>
 
-                                                <div class="mt-3">
-                                                    <div class="mb-3">
+                                                <div class="mt-4">
+                                                    <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
                                                         <input class="form-control" type="file" id="formFile" multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2' style={{ width: '100px', height: '100px' }}>
+                                                        <div className='d-flex mt-2' >
                                                             {render(multipleImages)}
 
                                                         </div>
@@ -307,10 +489,10 @@ function CreateEvent() {
 
                                                     <div className='py-4  '>
                                                         <h6 className=''>Preferences</h6>
-                                                        <div className='d-flex mt-3 ' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
+                                                        <div className=' mt-3 d-flex align-items-stretch' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
 
-                                                            <div className='col-6 '>
-                                                                <div className='mt-2'>
+                                                            <div className=' ' style={{ width: '50%' }}>
+                                                                <div className='mt-1'>
                                                                     <i className='fa fa-clock' />
                                                                     <span className='mx-2 '>Event Time</span>
                                                                 </div>
@@ -352,10 +534,10 @@ function CreateEvent() {
                                                                 </div>
 
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="" style={{ width: '50%' }}>
                                                                 <div className=''>
                                                                     <Stack sx={{
-
+                                                                        height: '30px', border: 'none', padding: '0'
                                                                     }}
                                                                     >
                                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -372,40 +554,28 @@ function CreateEvent() {
                                                                         </LocalizationProvider>
                                                                     </Stack>
                                                                 </div>
-                                                                <div className='mt-2'>
-                                                                    {/* <Stack sx={{
+                                                                <div className='my-3'>
 
+                                                                    <Stack sx={{
+                                                                        height: '30px', border: 'none', padding: '0'
                                                                     }}
                                                                     >
+
+
                                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                            <TimePicker
+                                                                            <DatePicker
                                                                                 label="Date"
                                                                                 value={event_date}
 
                                                                                 onChange={(newValue) => {
                                                                                     setevent_date(newValue);
                                                                                 }}
-                                                                                renderInput={(params) => <TextField {...params} size="small"
-                                                                                />}
+                                                                                renderInput={(params) => <TextField {...params} size="small" />}
                                                                             />
                                                                         </LocalizationProvider>
-                                                                    </Stack> */}
-
-
-
- <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <DatePicker
-    label="Date"
-    value={event_date}
-
-    onChange={(newValue) => {
-        setevent_date(newValue);
-    }}
-    renderInput={(params) => <TextField {...params} size="small" />}
-  />
-</LocalizationProvider>
+                                                                    </Stack>
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className='mt-4'>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={
                                                                             (e) => {
@@ -428,7 +598,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 {
                                                                     payment_type == 1 &&
-                                                                    <div class="my-3">
+                                                                    <div class="my-2">
                                                                         <div class="">
                                                                             <input type="text" class="form-control rounded-3 " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
                                                                                 setevent_fee(e.target.value)
@@ -441,7 +611,7 @@ function CreateEvent() {
 
 
 
-                                                                <div class="mb-3">
+                                                                <div class="my-3">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -458,7 +628,7 @@ function CreateEvent() {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="mt-3">
+                                                                <div class="my-4">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -475,7 +645,7 @@ function CreateEvent() {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="mt-3">
+                                                                <div class="">
                                                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
                                                                             setpriority(e.target.value)
@@ -493,16 +663,17 @@ function CreateEvent() {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
-
-
-
 
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3' onSubmit={handleSubmit}>SAVE</button>
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
                                         </div>
+
+
+
 
 
                                     </form>
@@ -518,3 +689,4 @@ function CreateEvent() {
     )
 }
 export default CreateEvent;
+

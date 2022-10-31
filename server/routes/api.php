@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\JobPostController;
 use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\EventTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +130,22 @@ Route::delete('/delete-department/{id}',[DepartmentController::class,'destroy'])
 
 
 
+
+//event types
+Route::get('/event-type',[EventTypeController::class,'index']);
+Route::post('/add-event-type',[EventTypeController::class,'store']);
+Route::get('/edit-event-type/{id}',[EventTypeController::class,'edit']);
+Route::post('/update-event-type/{id}',[EventTypeController::class,'update']);
+Route::delete('/delete-event-type/{id}',[EventTypeController::class,'destroy']);
+
+
+
+
+
+
+
+
 //events
 
+Route::get('/all-events',[EventController::class,'index']);
 Route::post('/add-event',[EventController::class,'store']);

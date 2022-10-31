@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\DB;
 class EventController extends Controller
 {
     
+
+    public function index(){
+   $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.*')->orderBy('aussta_events.id','desc')->get();
+        return response()->json([
+           'status' => 200,
+            'all_events' => $all_events
+         ]);
+    }
+
+
+
+
+
       public function store(Request $request){
         // dd($request->all());
 
@@ -25,15 +38,16 @@ class EventController extends Controller
  foreach( $request->file('image') as $image)
    {
 
-     $upload_image_name = time().'_'.$image->getClientOriginalName();
+     $upload_image_name = time().$image->getClientOriginalName();
      $image->move('images/', $upload_image_name);    
      $name[] = $upload_image_name;       
 
       $event->image =  implode(', ',$name);       
       // $event->save();   
+}
 
 
-
+           $event->event_type_id = $request->event_type_id;
            $event->event_title = $request->event_title;
            $event->event_fee = $request->event_fee;
            $event->updated_by = $request->updated_by;
@@ -55,5 +69,4 @@ class EventController extends Controller
                 'message' => 'Event Created Successfully',
             ]);   
      }
-}
 }
