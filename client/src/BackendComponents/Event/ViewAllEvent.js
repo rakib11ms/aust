@@ -20,14 +20,16 @@ import { Paper } from '@material-ui/core';
 function ViewAllEvent() {
     const [loading, setLoading] = useState(true);
 
-    const [allJobPosts, setallJobPosts] = useState([]);
+    const [allEvents, setallEvents] = useState([]);
+    // const [totalContactPerson, settotalContactPerson] = useState('');
+    // const [allEvents, setallEvents] = useState([]);
 
-    console.log('all job postssssssssss', allJobPosts)
+    console.log('all events', allEvents)
 
 
-    const [renderAllJobPosts, setRenderAllJobPosts] = useState('');
+    const [renderAllEvents, setRenderAllEvents] = useState('');
 
-    // console.log('all posts check', allJobPosts)
+    // console.log('all posts check', allEvents)
 
     //add functionality for post category
 
@@ -62,7 +64,7 @@ function ViewAllEvent() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllEvents(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -102,7 +104,7 @@ function ViewAllEvent() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllEvents(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -146,7 +148,7 @@ function ViewAllEvent() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllEvents(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -189,7 +191,7 @@ function ViewAllEvent() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllEvents(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -233,13 +235,13 @@ function ViewAllEvent() {
 
     };
 
-    const [viewJobPostDescription, setViewJobPostDescription] = useState('');
+    const [viewEventDescription, setViewEventDescription] = useState('');
 
 
     const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
-    function openViewJobPostModal(e, viewJobPost) {
+    function openViewEventPostModal(e, viewJobPost) {
         e.preventDefault();
-        setViewJobPostDescription(viewJobPost)
+        setViewEventDescription(viewJobPost)
         setviewJobPostModalIsOpen(true)
     }
     function closeViewJobPostModal(e) {
@@ -253,9 +255,11 @@ function ViewAllEvent() {
 
 
     useEffect(() => {
-        axios.get(`/api/all-job-post`).then(res => {
+        axios.get(`/api/all-event-posts`).then(res => {
+            // console.log('ressing daata',res.data.all_events)
             if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
+                setallEvents(res.data.all_events);
+                // settotalContactPerson(res.data.total_contacts);
                 setLoading(false);
             }
         })
@@ -264,7 +268,9 @@ function ViewAllEvent() {
     }, [])
 
 
-    const deleteJobPost = (e, id) => {
+    const deleteEvent = (e, id) => {
+
+        console.log('id11111111111111',id)
 
         e.preventDefault();
         const thisClicked = e.currentTarget;
@@ -280,7 +286,7 @@ function ViewAllEvent() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-job-post/${id}`).then(res => {
+                axios.post(`/api/delete-event/${id}`).then(res => {
                     if (res.data.status === 200) {
                         thisClicked.closest("tr").remove();
                         //   swal("Success", res.data.message, "success");
@@ -354,7 +360,7 @@ function ViewAllEvent() {
                                 </div>
 
 
-                                <div className='mx-2 ' onClick={(e) => deleteJobPost(e, row.id)}>
+                                <div className='mx-2 ' onClick={(e) => deleteEvent(e, row.id)}>
                                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                                 </div>
 
@@ -374,7 +380,7 @@ function ViewAllEvent() {
                                 <div className='text-secondary'>
 
                                     <div onClick={(e) => {
-                                        openViewJobPostModal(e, row)
+                                        openViewEventPostModal(e, row)
                                     }
                                     }>
                                         <i className='fa fa-eye mx-2 '  >
@@ -395,9 +401,9 @@ function ViewAllEvent() {
                     </div>
 
                     <div class="tooops   " >
-                        <div style={{color:'#777777'}}>
+                        <div style={{ color: '#777777' }}>
                             <i className='fa fa-calendar'></i>
-                            <span className='mx-2'>Published Date : 22octover,2022</span>
+                            <span className='mx-2'>{row.event_date}</span>
                         </div>
                         <div class="d-flex mt-1" >
                             <div className='d-flex  px-2 d-inline-block py-1 event-btn1'>
@@ -405,42 +411,53 @@ function ViewAllEvent() {
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>29 december,2022</span>
+                                    <span>{moment(row.event_time).format('LT')}</span> |<span className='mx-1'>{moment(row.event_date).subtract(10, 'days').calendar()}</span>
                                 </div>
                             </div>
                             <div className='d-flex mx-2  px-2 d-inline-block py-1 event-btn2'>
                                 <div>
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-user"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>29 december,2022</span>
+                                    <span>
+                                        {row.contact_person.split(',').length}
+                                        
+                                        </span>
+                                        <span className='mx-2'>
+                                            Contact Person
+                                        </span>
                                 </div>
                             </div>
                             <div className='d-flex mx-2   px-2 d-inline-block py-1  event-btn3'>
                                 <div>
-                                    <i class="fa fa-calendar"></i>
+                                    {/* <i class="fa fa-dollar"></i> */}
+                                    <i class="fas fa-money-bill"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>29 december,2022</span>
+                                    <span>{row.event_fee}</span>
+                                    <span class="mx-2">Event Fees</span>
                                 </div>
                             </div>
-                            <div className='d-flex mx-2   px-2 d-inline-block py-1 event-btn4'>
+                            <div className='d-flex mx-2   px-2 d-inline-block py-1 event-btn4 text-light'>
                                 <div>
-                                    <i class="fa fa-calendar"></i>
+                                    {/* <i class="fa fa-calendar"></i> */}
+                                    <i class="fa-solid fa-school"></i>
                                 </div>
-                                <div className='mx-2'>
-                                    <span>29 december,2022</span>
+                                <div className='mx-2 '>
+                                    <span>{row.event_type_name}</span>
                                 </div>
                             </div>
                         </div>
 
                         <div className='mt-1'>
-                            <h5>Title</h5>
+                            <h5>{row.event_title}</h5>
                         </div>
 
-                        <div className='mt-2' style={{color:'#777777'}}>
+                        <div className='mt-2' style={{ color: '#777777' }}>
                             <span>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer t Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer t
+                                {
+                                    row.event_description
+                                }
                             </span>
                         </div>
 
@@ -482,19 +499,19 @@ function ViewAllEvent() {
 
     const [jobPostFiltering, setjobPostFiltering] = useState('all');
 
-    // console.log('filtered post val',allJobPosts)
+    // console.log('filtered post val',allEvents)
     console.log('filter click check', jobPostFiltering)
 
 
-    useEffect(() => {
-        axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
-            if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
-                setLoading(false);
-            }
-        })
+    // useEffect(() => {
+    //     axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallEvents(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
 
-    }, [jobPostFiltering])
+    // }, [jobPostFiltering])
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -535,7 +552,7 @@ function ViewAllEvent() {
             if (result.isConfirmed) {
                 axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllJobPosts(res.data)
+                        setRenderAllEvents(res.data)
                         // window.location.reload();
                     }
                 });
@@ -649,7 +666,7 @@ function ViewAllEvent() {
                                                 <div className='mx-2'>
 
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}><span>+ </span>Create</button>
+                                                    <Link to="/create-event"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
 
                                                 </div>
 
@@ -664,7 +681,7 @@ function ViewAllEvent() {
                                             //         Container: props => <Paper {...props} />
                                             //    }}
                                             columns={columns}
-                                            data={allJobPosts}
+                                            data={allEvents}
                                             isLoading={loading === true ? true : false}
                                             // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
                                             onSelectionChange={selectionCheck}
@@ -712,7 +729,7 @@ function ViewAllEvent() {
                                 <div className='card-body '>
                                     <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
 
-                                    <h5 className=""> Full Job Post View</h5>
+                                    <h5 className=""> Full Event View</h5>
                                     <hr />
 
 
@@ -723,23 +740,23 @@ function ViewAllEvent() {
 
                                             <div className=''>
                                                 <div className='' style={{ width: '120px', height: '80px' }}>
-                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewJobPostDescription.image}`} />
+                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewEventDescription.image}`} />
                                                 </div>
                                             </div>
 
                                             <div className='d-flex justify-content-between'>
                                                 <div className='mt-3'>
-                                                    <h5>{viewJobPostDescription.job_title}</h5>
+                                                    <h5>{viewEventDescription.event_title}</h5>
                                                     <div>
                                                         <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Application Deadline: {moment(viewJobPostDescription.application_deadline).format("L")}</span>
+                                                        <span className='mx-2'>Application Deadline: {moment(viewEventDescription.application_deadline).format("L")}</span>
                                                     </div>
 
                                                     <div className='mt-2'>
 
                                                         <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
 
-                                                            {viewJobPostDescription.dept_name}
+                                                            {viewEventDescription.dept_name}
                                                         </div>
                                                     </div>
 
@@ -749,10 +766,10 @@ function ViewAllEvent() {
 
                                                 </div>
                                                 <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewJobPostDescription.type_name}</span> </button>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.type_name}</span> </button>
 
                                                     {
-                                                        viewJobPostDescription.isPublished == 1 ?
+                                                        viewEventDescription.isPublished == 1 ?
                                                             <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
                                                             :
                                                             <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
@@ -764,7 +781,7 @@ function ViewAllEvent() {
                                                 </div>
                                             </div>
 
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewJobPostDescription.job_description }}
+                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewEventDescription.event_description }}
                                             />
 
 

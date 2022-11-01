@@ -256,6 +256,27 @@ function CreateEvent() {
     }
 
 
+    // useEffect(() => {
+    //     axios.get(`/api/all-users`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setAllUsers(res.data.all_users);
+
+    //         }
+    //     }
+    //     )
+
+    //     axios.get(`/api/event-type`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setAllEventTypes(res.data.event_type);
+    //             setRenderAllEventTypes(res.data)
+    //             // setLoading(false);
+    //             // setTotalJobType(res.data.total_event_types)
+    //         }
+    //     })
+
+    // }, [renderAllEventTypes])
+
+
     useEffect(() => {
         axios.get(`/api/all-users`).then(res => {
             if (res.data.status == 200) {
@@ -274,8 +295,7 @@ function CreateEvent() {
             }
         })
 
-    }, [renderAllEventTypes])
-
+    }, [])
 
 
 
@@ -436,7 +456,7 @@ function CreateEvent() {
 
                                                 <div class="mt-4">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Contact Person</label>
-                                                    <Stack spacing={5} sx={{ width: '100%', border: '1px solid #f1f1f1', paddingTop: '7px' }}>
+                                                    <Stack spacing={5} sx={{ width: '100%', paddingTop: '7px' }}>
                                                         <Autocomplete
                                                             multiple
                                                             id="tags-standard"
@@ -444,17 +464,28 @@ function CreateEvent() {
                                                             getOptionLabel={(option) => option.name}
                                                             // defaultValue={[allUsers[1]]}
                                                             onChange={handlePersonChange}
+                                                            // renderOption={(option) => (
+                                                            //     <>
+                                                            //       {option.name} ({option.user_role})
+                                                            //     </>
+                                                            //   )}
                                                             getOptionSelected={(option, value) =>
                                                                 option.id === value.id
                                                             }
+
                                                             renderInput={(params) => (
+
                                                                 <TextField
+
+
                                                                     {...params}
-                                                                    variant="standard"
+                                                                    // variant="standard"
                                                                     // label="Multiple values"
                                                                     placeholder="Search..."
                                                                 />
                                                             )}
+
+                                                      
                                                         />
                                                     </Stack>
 

@@ -147,5 +147,6 @@ Route::delete('/delete-event-type/{id}',[EventTypeController::class,'destroy']);
 
 //events
 
-Route::get('/all-events',[EventController::class,'index']);
+Route::get('/all-event-posts',[EventController::class,'index']);
 Route::post('/add-event',[EventController::class,'store']);
+Route::post('/delete-event/{id}',[EventController::class,'destroy']);
