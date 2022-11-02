@@ -12,8 +12,8 @@ import '../JobManagement.css'
 
 import MaterialTable from "material-table";
 import moment from 'moment';
-import { Paper } from '@material-ui/core';
-
+// import { Paper } from '@material-ui/core';
+import Paper from '@mui/material/Paper';
 
 
 function ViewAllJob() {
@@ -634,9 +634,7 @@ function ViewAllJob() {
                                         <hr />
 
                                         <MaterialTable
-                                            //        components={{
-                                            //         Container: props => <Paper {...props} />
-                                            //    }}
+                                         
                                             columns={columns}
                                             data={allJobPosts}
                                             isLoading={loading === true ? true : false}
@@ -663,7 +661,9 @@ function ViewAllJob() {
                                             }}
 
 
-
+                                        //     components={{
+                                        //         Container: props => <Paper {...props} elevation={2}/>
+                                        //    }}
                                         />
 
 

@@ -13,6 +13,7 @@ import './imageUrl';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
 import EventConfiguration from './BackendComponents/Event/Event Configuration/EventConfiguration';
 import ViewAllEvent from './BackendComponents/Event/ViewAllEvent';
+import EditEvent from './BackendComponents/Event/EditEvent';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -116,6 +117,7 @@ useEffect(()=>{
             <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
 
             <Route path="create-event" element={<CreateEvent/>}></Route>
+            <Route path="edit-events/:id" element={<EditEvent/>}></Route>
             <Route path="event-configuration" element={<EventConfiguration/>}></Route>
             <Route path="view-all-events" element={<ViewAllEvent/>}></Route>
 

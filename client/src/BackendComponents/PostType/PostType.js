@@ -815,6 +815,15 @@ function PostType() {
 
                                             <div className='d-flex align-items-center'>
 
+                                                <div>
+                                                    <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example">
+                                                        <option selected>Action</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+
                                                 <div class="form-check form-switch mx-2">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>

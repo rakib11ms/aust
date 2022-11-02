@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // import './Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
-import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
+import { Link, Navigate, useNavigate, Routes, Route, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 
 import Swal from 'sweetalert2';
@@ -28,7 +28,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 // import CheckBoxIcon from '@mui/icons-material/CheckBox';
 // import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
-function CreateEvent() {
+function EditEvent() {
 
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
@@ -41,7 +41,7 @@ function CreateEvent() {
     };
     const [allUsers, setAllUsers] = useState([]);
 
-    // console.log('all users check', allUsers)
+    console.log('all users check', allUsers)
 
 
 
@@ -53,12 +53,14 @@ function CreateEvent() {
 
     const [event_fee, setevent_fee] = useState('');
     const [priority, setpriority] = useState('normal');
-    const [payment_type, setpayment_type] = useState(0);
-    const [showMobile, setshowMobile] = useState(1);
-    const [showDesktop, setshowDesktop] = useState(1);
+    const [payment_type, setpayment_type] = useState();
+    const [showMobile, setshowMobile] = useState();
+    const [showDesktop, setshowDesktop] = useState();
 
     const [contactPerson, setcontactPerson] = React.useState([]);
-    // const [contactPersonId, setcontactPersonId] =useState([]);
+  
+
+
 
     console.log('checking baal', contactPerson)
 
@@ -89,6 +91,10 @@ function CreateEvent() {
     }
 
     //////////images code ///////////
+
+
+    const [allImagesFromDatabase,setAllImagesfromDatabase]=useState([]);
+    console.log('checking',allImagesFromDatabase)
 
     const [multipleImages, setMultipleImages] = useState([]);
     const [multipleImageFiles, setMultipleImageFiles] = useState({
@@ -173,109 +179,20 @@ function CreateEvent() {
 
 
 
-    //////////////quick eveent create functionality start //////////////////
-    const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
-
-    function closeAddEventTypeModal(e) {
-        setaddEventTypeModalIsOpen(false);
-
-    }
-    const openAddEventTypeModal = (e) => {
-        e.preventDefault();
-        setaddEventTypeModalIsOpen(true)
-
-    }
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '35vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "40vw",
-            height: 300,
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
 
 
 
-    const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
-    const [addEventType, setAddEventType] = useState({
-        event_type_name: "",
-        created_by: '',
-        error_list: []
-
-    })
-
-    console.log('job type data typing', addEventType)
-
-    const handleInput = (e) => {
-        setAddEventType({
-            ...addEventType, [e.target.name]: e.target.value
-        })
-
-
-    }
 
 
 
-    const handleJobTypeSave = (e) => {
-        e.preventDefault();
-        const addJob = {
-            event_type_name: addEventType.event_type_name,
-            created_by: '',
-        }
-        axios.post(`/api/add-event-type`, addEventType).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllEventTypes(res.data);
-                closeAddEventTypeModal();
-                setAddEventType({
-                    event_type_name: "",
-                    created_by: '',
-                    error_list: []
-
-                });
-
-            }
-            else if (res.data.status == 400) {
-                setAddEventType({ ...addEventType, error_list: res.data.errors });
-                // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
-
-            }
-        })
+    const { id } = useParams();
 
 
-    }
+    const [editData, setEditData] = useState({
 
+    });
 
-    // useEffect(() => {
-    //     axios.get(`/api/all-users`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllUsers(res.data.all_users);
-
-    //         }
-    //     }
-    //     )
-
-    //     axios.get(`/api/event-type`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllEventTypes(res.data.event_type);
-    //             setRenderAllEventTypes(res.data)
-    //             // setLoading(false);
-    //             // setTotalJobType(res.data.total_event_types)
-    //         }
-    //     })
-
-    // }, [renderAllEventTypes])
-
+    console.log('edit data ', editData)
 
     useEffect(() => {
         axios.get(`/api/all-users`).then(res => {
@@ -289,13 +206,39 @@ function CreateEvent() {
         axios.get(`/api/event-type`).then(res => {
             if (res.data.status == 200) {
                 setAllEventTypes(res.data.event_type);
-                setRenderAllEventTypes(res.data)
+                // setRenderAllEventTypes(res.data)
                 // setLoading(false);
                 // setTotalJobType(res.data.total_event_types)
             }
         })
 
+
+        axios.get(`/api/edit-event/${id}`).then(res => {
+            if (res.data.status == 200) {
+                setEditData(res.data.event);
+                seteventState({
+                    event_type_id: res.data.event.event_type_id,
+                    event_title: res.data.event.event_title
+                })
+                setContent1(res.data.event.event_description)
+                setevent_date(res.data.event.event_date)
+                setevent_time(res.data.event.event_time)
+                setpayment_type(res.data.event.payment_type)
+                setevent_fee(res.data.event.event_fee)
+                setshowDesktop(res.data.event.showDesktop)
+                setshowMobile(res.data.event.showMobile)
+                setpriority(res.data.event.priority)
+                setAllImagesfromDatabase(res.data.event.image.split(','))
+                setcontactPerson(res.data.users)
+                // setcontactPerson(res.data.event.contact_person.split(','))
+                // setRenderAllEventTypes(res.data)
+                // setLoading(false);
+                // setTotalJobType(res.data.total_event_types)
+            }
+        })
     }, [])
+
+
 
 
 
@@ -316,7 +259,7 @@ function CreateEvent() {
 
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
-                                    <h5>Create a Event</h5>
+                                    <h5>Edit a Event</h5>
                                     <Link to="/view-all-events"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
@@ -346,81 +289,6 @@ function CreateEvent() {
                                                             }
 
                                                         </select>
-                                                        <div class="input-group-append" onClick={openAddEventTypeModal}>
-                                                            <span class="input-group-text" id="basic-addon2"> + Add</span>
-                                                        </div>
-
-
-                                                        {/* ////////////quick event type create  modal///////////// */}
-                                                        <Modal
-                                                            isOpen={addEventTypeModalIsOpen}
-                                                            onRequestClose={closeAddEventTypeModal}
-                                                            style={customStyles1}
-                                                            contentLabel="Example Modal"
-                                                        >
-
-                                                            <div className='card-body '>
-                                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddEventTypeModal}><i class="fa fa-times"></i></span>
-
-                                                                <h5 className=""> Create Event Type</h5>
-                                                                <hr />
-
-
-                                                                <div className="row">
-
-                                                                    <div className="col-12">
-
-                                                                        <div className='d-flex align-items-center'>
-                                                                            <div class="mb-3" style={{ width: '60%' }}>
-                                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Event Type Name</label>
-                                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addEventType.event_type_name} name="event_type_name" onChange={handleInput} />
-                                                                            </div>
-
-                                                                            <div>
-                                                                            </div>
-
-
-                                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
-                                                                                <span className='text-danger'> {addEventType.error_list.event_type_name}</span>
-                                                                            </div>
-                                                                        </div>
-
-
-
-
-
-
-
-                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>Save</button>
-
-
-
-
-
-                                                                    </div>
-
-
-
-                                                                </div>
-                                                            </div>
-
-                                                        </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -461,6 +329,8 @@ function CreateEvent() {
                                                             multiple
                                                             id="tags-standard"
                                                             options={allUsers}
+                                                            value={contactPerson}
+
                                                             getOptionLabel={(option) => option.name}
                                                             // defaultValue={[allUsers[1]]}
                                                             onChange={handlePersonChange}
@@ -485,18 +355,7 @@ function CreateEvent() {
                                                                 />
                                                             )}
 
-                                                            // renderOption={option => {
-                                                            //     return (
-                                                            //         <Fragment>
-                                                            //                 <IconButton color="primary">
-                                                            //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
-                                                            //                 </IconButton>
-                                                            //             {option.title}
-                                                            //         </Fragment>
-                                                            //     );
-                                                            // }}
 
-                                                      
                                                         />
                                                     </Stack>
 
@@ -619,7 +478,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={
+                                                                        <input class="form-check-input" type="checkbox" value="" checked={payment_type == 1} id="flexCheckChecked" onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)
@@ -709,6 +568,33 @@ function CreateEvent() {
                                         </div>
 
 
+                                        {/* {
+                                                    picture == ''? <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
+                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${editData.image}`} style={{ width: '100px', height: '90px' }}></img>
+                                                    </div>
+                                                    :
+                                                    <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
+                                                        <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
+                                                    </div>
+
+                                                } */}
+
+                                                <div className='mb-2 border'>
+                                                {
+                                            allImagesFromDatabase.map((item,i)=>{
+                                                // console.log('bal item',item)
+                                                return(
+                                                    <>
+                                         <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                                </div>
+                                       
+
+
 
                                         <div class="">
                                             <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
@@ -730,5 +616,5 @@ function CreateEvent() {
         </div>
     )
 }
-export default CreateEvent;
+export default EditEvent;
 

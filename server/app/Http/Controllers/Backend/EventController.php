@@ -15,10 +15,7 @@ class EventController extends Controller
     
 
     public function index(){
-
-        // $contact=DB::table('aussta_events')->pluck('contact_person');
-
-        //             $total_contacts=explode (",",$contact);             
+             
 
    $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
         return response()->json([
@@ -73,33 +70,21 @@ class EventController extends Controller
             $user_ids=explode (",",$request->contact_person);
 
             // dd($user_ids);         
-            $users = User::whereIn("id",$user_ids)->pluck('id');
+            $users = User::whereIn("id",$user_ids)->get();
 
                     // dd($users);
 
-                    // foreach($users as $key => $user) {
-                    //     dd($user);
+                    foreach($users as $key => $user) {
+                        // echo ($user->email);
+                        Mail::to($user->email)->send(new EventMail($event));
 
-                    // }
 
-//             $age = array(1=>"35", 2=>"38", 3=>"43");
+                    }
 
-// foreach($age as $x => $val) {
-//   dd($val);
-// }
-
-            // $emails=['rakibtech9@gmail.com','rakib10ms@gmail.com'];
-
-            // foreach($emails as $val){
-            //     dd($val);
-            // }
-            // Mail::to($user->email)->send(new EventMail($event));
-            Mail::to('rakib10ms@gmail.com')->send(new EventMail($event));
-            Mail::to('rakibtech9@gmail.com')->send(new EventMail($event));
+           
             $event->save();
 
   
-
 
 
  return response()->json([
@@ -110,6 +95,32 @@ class EventController extends Controller
             ]);   
      
 }
+
+
+    public function edit($id)
+    {
+        $event = AusstaEvent::find($id);
+
+        // dd($event->contact_person);
+
+       $user_ids=explode (",",$event->contact_person);
+    $users = User::whereIn("id",$user_ids)->get();
+
+       // dd ($lol);
+
+        if ($event) {
+            return response()->json([
+                'status' => 200,
+                'event' => $event,
+                'users'=>$users
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No event Found',
+            ]);
+        }
+    }
 
        public function destroy($id){
 
