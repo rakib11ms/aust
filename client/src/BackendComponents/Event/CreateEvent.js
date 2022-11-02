@@ -60,13 +60,13 @@ function CreateEvent() {
     const [contactPerson, setcontactPerson] = React.useState([]);
     // const [contactPersonId, setcontactPersonId] =useState([]);
 
-    console.log('checking baal', contactPerson)
+    // console.log('checking baal', contactPerson)
 
 
     let result = contactPerson.map(a => a.id);
     // console.log('result',result)
 
-    console.log('baler result', result);
+    // console.log('baler result', result);
 
 
 
@@ -80,7 +80,7 @@ function CreateEvent() {
 
     })
 
-    console.log('eventstate', eventState.event_type_id)
+    // console.log('eventstate', eventState.event_type_id)
 
     const handleInputChange = (e) => {
         seteventState({
@@ -94,7 +94,49 @@ function CreateEvent() {
     const [multipleImageFiles, setMultipleImageFiles] = useState({
         files: []
     });
+    
 
+
+    useEffect(()=>{
+        if(multipleImages.length==0){
+            document.getElementById('formFileImage').value="";
+        }
+    },[multipleImages])
+
+
+
+    console.log('image files',multipleImageFiles.files)
+    console.log('image url',multipleImages)
+
+    multipleImages.map((item,i)=>{
+        console.log('hello abba',i)
+    })
+
+     function removeArray(i){
+        console.log('index clicked',i)
+        // setMultipleImageFiles({
+        //     files:
+        // });
+
+       const filterRemoveFileImgs= multipleImageFiles.files.filter((item,index)=>{
+            console.log('kosuy',item)
+            return index !==i
+        })
+
+        const filterRemovePreviewImgs= multipleImages.filter((item,index)=>{
+            console.log('kosuy',item)
+            return index !==i
+        })
+        // console.log('checking333333',filterRemoveImgs)
+
+        setMultipleImageFiles({
+            files:filterRemoveFileImgs
+        })
+        setMultipleImages(filterRemovePreviewImgs)
+
+
+
+     }
 
 
     // Functions to preview multiple images
@@ -111,8 +153,13 @@ function CreateEvent() {
     };
 
     const render = (data) => {
-        return data.map((image) => {
-            return <img className="image mx-3 my-2 rounded-3" src={image} alt="" key={image} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />;
+        return data.map((image,i) => {
+            return <div className='image-main mt-2' onClick={()=>{
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger" ></i>
+                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />;
+                </div>
         });
     };
 
@@ -416,21 +463,6 @@ function CreateEvent() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                     </div>
                                                 </div>
 
@@ -509,10 +541,10 @@ function CreateEvent() {
                                                     <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                        <input class="form-control" type="file" id="formFile" multiple onChange={changeMultipleFiles}
+                                                        <input class="form-control" type="file" id="formFileImage"  multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2' >
+                                                        <div className='d-flex mt-2 border' >
                                                             {render(multipleImages)}
 
                                                         </div>

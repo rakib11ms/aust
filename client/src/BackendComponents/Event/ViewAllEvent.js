@@ -344,17 +344,13 @@ function ViewAllEvent() {
 
 
 
-                                <div class="form-check form-switch mx-2  text-danger">
-                                    <form encType="multipart/form-data" method='POST' onChange={(e) => {
+                           
 
-                                        handlePostApproval(e, row)
-
-                                    }} >
-                                        <input class="form-check-input " style={{ cursor: 'pointer' }} type="checkbox" id="flexSwitchCheckDefault" checked={row.isPublished == 1}
-                                        />
-                                    </form>
+                                <div className='text-secondary'>
+                                    <Link to={`/edit-events/${row.id}`}><i className='fa fa-archive mx-2 icon-table-archive'></i> </Link>
 
                                 </div>
+
                                 <div className='text-secondary'>
                                     <Link to={`/edit-events/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
@@ -498,21 +494,21 @@ function ViewAllEvent() {
 
 
 
-    const [jobPostFiltering, setjobPostFiltering] = useState('all');
+    const [eventPostFiltering, seteventPostFiltering] = useState('all');
 
     // console.log('filtered post val',allEvents)
-    console.log('filter click check', jobPostFiltering)
+    console.log('filter click check', eventPostFiltering)
 
 
-    // useEffect(() => {
-    //     axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setallEvents(res.data.posts);
-    //             setLoading(false);
-    //         }
-    //     })
+    useEffect(() => {
+        axios.get(`/api/filter-event-posts/${eventPostFiltering}`).then(res => {
+            if (res.data.status == 200) {
+                setallEvents(res.data.event_posts);
+                setLoading(false);
+            }
+        })
 
-    // }, [jobPostFiltering])
+    }, [eventPostFiltering])
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -629,10 +625,11 @@ function ViewAllEvent() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
-                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${eventPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => seteventPostFiltering('all')}>All</h6>
+                                                {/* <h6 className={`${eventPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${eventPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(0)}>Pending</h6> */}
+                                                <h6 className={`${eventPostFiltering === 'upcoming_filter' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('upcoming_filter')}>Upcoming 15 days</h6>
+                                                <h6 className={`${eventPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 

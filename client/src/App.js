@@ -29,7 +29,7 @@ function App() {
 
 
 const [trigger,setTrigger]=useState('');
-console.log('hel',trigger);
+// console.log('hel',trigger);
 
 useEffect(()=>{
   if(trigger){
@@ -45,8 +45,8 @@ useEffect(()=>{
     }, error => {
       if (error.response.status === 401) {
         // setTrigger(error.response.status);
-        console.log('use effect triggered');
-        alert('trii')
+        // console.log('use effect triggered');
+        // alert('trii')
           // Swal.fire("Unauthorized", '', 'error')
           // navigate('admin-login')
           {<Navigate to="/admin-login" />}

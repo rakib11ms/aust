@@ -151,3 +151,7 @@ Route::get('/all-event-posts',[EventController::class,'index']);
 Route::post('/add-event',[EventController::class,'store']);
 Route::get('/edit-event/{id}',[EventController::class,'edit']);
 Route::post('/delete-event/{id}',[EventController::class,'destroy']);
+
+//web upcoming event,archive post (tab)filtering
+Route::get('/filter-event-posts/{filterByName}',[EventController::class,'filterEventPostsByName']);
+

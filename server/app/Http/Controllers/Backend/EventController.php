@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EventMail;
+use Carbon\Carbon;
+
 class EventController extends Controller
 {
     
@@ -136,5 +138,44 @@ class EventController extends Controller
             ]);
 
     
+    }
+
+
+
+//web upcoming event,archive post (tab)filtering
+
+     public function filterEventPostsByName($name){
+        if($name=='all'){
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+        return response()->json([
+                'status' => 200,
+                'event_posts' => $event_posts,
+            ]);
+        }
+           else if($name=='upcoming_filter'){
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where( 'aussta_events.event_date', '<=', Carbon::now()->subDays(15))->orderBy('aussta_events.id','desc')->get();  
+        return response()->json([
+                'status' => 200,
+                'event_posts' => $event_posts,
+            ]);
+        }
+   
+            else if($name=='archive'){
+                  $event_posts=DB::table('job_event_posts')->leftJoin('departments','departments.id','=','job_event_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_event_posts.job_type')->select('job_event_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('job_event_posts.id','desc')->get(); 
+
+   return response()->json([
+                'status' => 200,
+                'event_posts' => $event_posts,
+            ]);
+        }
+        else{
+     $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+        return response()->json([
+                'status' => 200,
+                'event_posts' => $event_posts,
+            ]);
+        }
+
+          
     }
 }
