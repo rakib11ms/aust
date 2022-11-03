@@ -29,6 +29,7 @@ return new class extends Migration
                  $table->boolean('payment_type')->default(0);
                  $table->boolean('showMobile')->default(1);
                  $table->boolean('showDesktop')->default(1);
+                 $table->boolean('isArchived')->default(0);
             $table->timestamps();
         });
     }

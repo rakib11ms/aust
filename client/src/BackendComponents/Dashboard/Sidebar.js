@@ -307,6 +307,9 @@ function Sidebar() {
                                             <Link to='/create-event' className='text-light text-form' >Create Event</Link>
                                         </li>
                                         <li>
+                                            <Link to='/view-all-events' className='text-light text-form' >View All Events</Link>
+                                        </li>
+                                        <li>
                                             <Link to='/event-configuration' className='text-light text-form' >Configuration</Link>
                                         </li>
                                     

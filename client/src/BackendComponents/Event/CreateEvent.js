@@ -94,49 +94,49 @@ function CreateEvent() {
     const [multipleImageFiles, setMultipleImageFiles] = useState({
         files: []
     });
-    
 
 
-    useEffect(()=>{
-        if(multipleImages.length==0){
-            document.getElementById('formFileImage').value="";
+
+    useEffect(() => {
+        if (multipleImages.length == 0) {
+            document.getElementById('formFileImage').value = "";
         }
-    },[multipleImages])
+    }, [multipleImages])
 
 
 
-    console.log('image files',multipleImageFiles.files)
-    console.log('image url',multipleImages)
+    console.log('image files', multipleImageFiles.files)
+    console.log('image url', multipleImages)
 
-    multipleImages.map((item,i)=>{
-        console.log('hello abba',i)
-    })
+    // multipleImages.map((item,i)=>{
+    //     console.log('hello abba',i)
+    // })
 
-     function removeArray(i){
-        console.log('index clicked',i)
+    function removeArray(i) {
+        console.log('index clicked', i)
         // setMultipleImageFiles({
         //     files:
         // });
 
-       const filterRemoveFileImgs= multipleImageFiles.files.filter((item,index)=>{
-            console.log('kosuy',item)
-            return index !==i
+        const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
         })
 
-        const filterRemovePreviewImgs= multipleImages.filter((item,index)=>{
-            console.log('kosuy',item)
-            return index !==i
+        const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
         })
         // console.log('checking333333',filterRemoveImgs)
 
         setMultipleImageFiles({
-            files:filterRemoveFileImgs
+            files: filterRemoveFileImgs
         })
         setMultipleImages(filterRemovePreviewImgs)
 
 
 
-     }
+    }
 
 
     // Functions to preview multiple images
@@ -153,13 +153,13 @@ function CreateEvent() {
     };
 
     const render = (data) => {
-        return data.map((image,i) => {
-            return <div className='image-main mt-2' onClick={()=>{
+        return data.map((image, i) => {
+            return <div className='image-main mt-2' onClick={() => {
                 removeArray(i);
             }}>
                 <i class="fa fa-close image-close text-danger" ></i>
-                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />;
-                </div>
+                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+            </div>
         });
     };
 
@@ -178,6 +178,7 @@ function CreateEvent() {
         formData.append("priority", priority);
         formData.append("contact_person", result);
         formData.append("event_fee", event_fee);
+        formData.append("payment_type", payment_type);
         formData.append("event_description", content1);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -192,15 +193,19 @@ function CreateEvent() {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
-                // setJobPost({
-                //     job_type:'',
-                //     department_id:'',
-                //     job_location:'',
-                //     job_title:'',
-                //     application_deadline:"",
-                //     company_name:'',
-                // });
+               seteventState({
+                event_type_id:'',
+                event_title:''
+               });
+               setevent_date(null);
+               setevent_time(null);
+               setevent_fee('')
                 setContent1('');
+                setcontactPerson([]);
+                setpriority('');
+                setMultipleImageFiles([]);
+                setMultipleImages([]);
+                setpayment_type(0)
 
                 // setImage('');
                 // setPicture('');
@@ -303,25 +308,19 @@ function CreateEvent() {
     }
 
 
-    // useEffect(() => {
-    //     axios.get(`/api/all-users`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllUsers(res.data.all_users);
+    useEffect(() => {
+    
 
-    //         }
-    //     }
-    //     )
+        axios.get(`/api/event-type`).then(res => {
+            if (res.data.status == 200) {
+                setAllEventTypes(res.data.event_type);
+                setRenderAllEventTypes(res.data)
+                // setLoading(false);
+                // setTotalJobType(res.data.total_event_types)
+            }
+        })
 
-    //     axios.get(`/api/event-type`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllEventTypes(res.data.event_type);
-    //             setRenderAllEventTypes(res.data)
-    //             // setLoading(false);
-    //             // setTotalJobType(res.data.total_event_types)
-    //         }
-    //     })
-
-    // }, [renderAllEventTypes])
+    }, [renderAllEventTypes])
 
 
     useEffect(() => {
@@ -517,18 +516,18 @@ function CreateEvent() {
                                                                 />
                                                             )}
 
-                                                            // renderOption={option => {
-                                                            //     return (
-                                                            //         <Fragment>
-                                                            //                 <IconButton color="primary">
-                                                            //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
-                                                            //                 </IconButton>
-                                                            //             {option.title}
-                                                            //         </Fragment>
-                                                            //     );
-                                                            // }}
+                                                        // renderOption={option => {
+                                                        //     return (
+                                                        //         <Fragment>
+                                                        //                 <IconButton color="primary">
+                                                        //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
+                                                        //                 </IconButton>
+                                                        //             {option.title}
+                                                        //         </Fragment>
+                                                        //     );
+                                                        // }}
 
-                                                      
+
                                                         />
                                                     </Stack>
 
@@ -541,7 +540,7 @@ function CreateEvent() {
                                                     <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                        <input class="form-control" type="file" id="formFileImage"  multiple onChange={changeMultipleFiles}
+                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
                                                         />
 
                                                         <div className='d-flex mt-2 border' >
@@ -651,7 +650,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={
+                                                                        <input class="form-check-input" type="checkbox"  id="flexCheckChecked" onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)

@@ -708,14 +708,14 @@ function PostType() {
                                             </div>
                                             <div class="form-check mx-3">
                                                 <input class="form-check-input " type="radio" name="flexRadioDefault" id="btn-1" onClick={(e) => {
-                                                    searchPostByRadioButton(e, 'postId');
+                                                    searchPostByRadioButton(e, 'postType');
                                                     // setSearchRadioButtonValue('postTitle')
 
                                                 }
                                                 }
                                                 />
                                                 <label class="form-check-label mx-2" for="flexRadioDefault1">
-                                                    Post Id
+                                                    Post Type
                                                 </label>
                                             </div>
 
@@ -815,14 +815,14 @@ function PostType() {
 
                                             <div className='d-flex align-items-center'>
 
-                                                <div>
+                                                {/* <div>
                                                     <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example">
                                                         <option selected>Action</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
-                                                </div>
+                                                </div> */}
 
                                                 <div class="form-check form-switch mx-2">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />

@@ -124,25 +124,21 @@ function ViewAllEvent() {
         }
     }
 
-    const archiveJobPost = (e, id) => {
+    const archiveEventPost = (e, id) => {
+
+        // console.log('arhcive check row',id)
+
+
+        // console.log('arhcive update',archiveUpdate)
+
         if (id.isArchived == 0) {
 
-            const formData = new FormData();
+            const archiveUpdate = {
+                isArchived: 1
+            }
 
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
 
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 1);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
@@ -169,23 +165,11 @@ function ViewAllEvent() {
 
         }
         if (id.isArchived == 1) {
+            const archiveUpdate = {
+                isArchived: 0
+            }
 
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 0);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
@@ -344,12 +328,8 @@ function ViewAllEvent() {
 
 
 
-                           
 
-                                <div className='text-secondary'>
-                                    <Link to={`/edit-events/${row.id}`}><i className='fa fa-archive mx-2 icon-table-archive'></i> </Link>
 
-                                </div>
 
                                 <div className='text-secondary'>
                                     <Link to={`/edit-events/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
@@ -361,9 +341,22 @@ function ViewAllEvent() {
                                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                                 </div>
 
-                                <div className='mx-2' onClick={(e) => archiveJobPost(e, row)}>
+
+                                <div className='text-secondary mx-2' onClick={(e) => archiveEventPost(e, row)}>
+                                    {/* <i className='fa fa-archive mx-2 icon-table-archive'></i>  */}
+
                                     {
-                                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
+                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                                                : ''
+
+                                    }
+
+                                </div>
+
+                                {/* <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
+                                    {
+                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
                                             row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
                                                 : ''
 
@@ -371,10 +364,10 @@ function ViewAllEvent() {
 
 
 
-                                </div>
+                                </div> */}
 
 
-                                <div className='text-secondary'>
+                                <div className='text-secondary mx-2'>
 
                                     <div onClick={(e) => {
                                         openViewEventPostModal(e, row)
@@ -450,13 +443,9 @@ function ViewAllEvent() {
                             <h5>{row.event_title}</h5>
                         </div>
 
-                        <div className='mt-2' style={{ color: '#777777' }}>
-                            <span>
-                                {
-                                    row.event_description
-                                }
-                            </span>
-                        </div>
+
+                        <div className='mt-2' style={{ color: '#777777' }} dangerouslySetInnerHTML={{ __html: row.event_description.length > 50 ? `${row.event_description.substring(0, 50)}...` : row.event_description }}
+                        />
 
 
 
@@ -615,7 +604,7 @@ function ViewAllEvent() {
 
 
                             <div className="col-md-12 mt-3">
-                                <h5 className=''>ALL Job Post</h5>
+                                <h5 className=''>ALL Events</h5>
 
                                 <div className="card bg-white">
 
@@ -703,7 +692,7 @@ function ViewAllEvent() {
 
                                             }}
 
-                                     
+
 
 
                                         />
@@ -746,39 +735,51 @@ function ViewAllEvent() {
                                             <div className='d-flex justify-content-between'>
                                                 <div className='mt-3'>
                                                     <h5>{viewEventDescription.event_title}</h5>
+                                                    <div className='d-flex'>
                                                     <div>
                                                         <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Application Deadline: {moment(viewEventDescription.application_deadline).format("L")}</span>
+                                                        <span className='mx-2'>Event Date: {moment(viewEventDescription.application_deadline).format("L")}</span>
                                                     </div>
+                                                    <div className='mx-3'>
+                                                        <i class="fas fa-clock"></i>
+                                                        <span className='mx-2'>Event Time: {moment(viewEventDescription.application_deadline).format("LT")}</span>
+                                                    </div>
+                                                    </div>
+                                                 
 
-                                                    <div className='mt-2'>
+                                                  
+
+
+
+
+                                                </div>
+                                                
+                                                <div>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type_name}</span> </button>
+
+                                               
+                                                </div>
+                                            </div>
+
+                                            <div className='d-flex justify-content-between mt-2'>
+                                            <div className=''>
+
+                                                Event Fee: <span>{viewEventDescription.event_fee}</span>
+                                                        
+                                                        </div>
+    
+                                            <div className=''>
+                                                        Contact Persons:
 
                                                         <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
 
                                                             {viewEventDescription.dept_name}
                                                         </div>
                                                     </div>
-
-
-
-
-
-                                                </div>
-                                                <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.type_name}</span> </button>
-
-                                                    {
-                                                        viewEventDescription.isPublished == 1 ?
-                                                            <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
-                                                            :
-                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
-
-                                                    }
-
-                                                    {/* <button className='btn btn-success btn-sm py-1 px-3 ' style={{ borderRadius: "8px" }}>asdasdas</button>
-                                                    <button className='btn btn-danger btn-sm py-1 px-3  mx-2' style={{ borderRadius: "8px" }}>asdasdas</button> */}
-                                                </div>
+                                                  
                                             </div>
+
+
 
                                             <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewEventDescription.event_description }}
                                             />

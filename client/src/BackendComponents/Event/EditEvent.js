@@ -58,7 +58,7 @@ function EditEvent() {
     const [showDesktop, setshowDesktop] = useState();
 
     const [contactPerson, setcontactPerson] = React.useState([]);
-  
+
 
 
 
@@ -93,14 +93,40 @@ function EditEvent() {
     //////////images code ///////////
 
 
-    const [allImagesFromDatabase,setAllImagesfromDatabase]=useState([]);
-    console.log('checking',allImagesFromDatabase)
+    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+    console.log('checking', allImagesFromDatabase)
 
     const [multipleImages, setMultipleImages] = useState([]);
     const [multipleImageFiles, setMultipleImageFiles] = useState({
         files: []
     });
 
+
+    function removeArray(i) {
+        console.log('index clicked', i)
+        // setMultipleImageFiles({
+        //     files:
+        // });
+
+        const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+
+        const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+        // console.log('checking333333',filterRemoveImgs)
+
+        setMultipleImageFiles({
+            files: filterRemoveFileImgs
+        })
+        setMultipleImages(filterRemovePreviewImgs)
+
+
+
+    }
 
 
     // Functions to preview multiple images
@@ -117,19 +143,23 @@ function EditEvent() {
     };
 
     const render = (data) => {
-        return data.map((image) => {
-            return <img className="image mx-3 my-2 rounded-3" src={image} alt="" key={image} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />;
+        return data.map((image, i) => {
+            return <div className='image-main mt-2' onClick={() => {
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger" ></i>
+                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+            </div>
         });
     };
 
 
+    const navigate= useNavigate();
 
-
-
-    function handleSubmit(e) {
+    function handleUpdate(e){
         e.preventDefault();
         const formData = new FormData();
-        formData.append("posted_by", 1);
+        formData.append("updated_by", 1);
         formData.append("event_title", eventState.event_title);
         formData.append("event_type_id", eventState.event_type_id);
         formData.append("event_date", event_date);
@@ -147,8 +177,10 @@ function EditEvent() {
 
 
 
-        axios.post(`/api/add-event`, formData).then(res => {
+        axios.post(`/api/update-event/${id}`, formData).then(res => {
             if (res.data.status == 200) {
+                navigate('/view-all-events')
+
                 Swal.fire(res.data.message, '', 'success')
 
                 // setJobPost({
@@ -264,9 +296,8 @@ function EditEvent() {
 
                                 </div>
                                 <div className='card-body '>
-                                    <form onSubmit={handleSubmit}>
-
-                                        <div className='row '>
+                                    <form onSubmit={handleUpdate}>
+                                     <div className='row '>
 
                                             <div class="px-4" style={{ width: '73%' }}>
                                                 <div class="mt-1">
@@ -371,11 +402,6 @@ function EditEvent() {
                                                         <input class="form-control" type="file" id="formFile" multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2' >
-                                                            {render(multipleImages)}
-
-                                                        </div>
-
 
 
 
@@ -478,7 +504,7 @@ function EditEvent() {
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" checked={payment_type == 1} id="flexCheckChecked" onChange={
+                                                                        <input class="form-check-input" type="checkbox" checked={payment_type == 1} id="flexCheckChecked" onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)
@@ -579,25 +605,34 @@ function EditEvent() {
 
                                                 } */}
 
-                                                <div className='mb-2 border'>
-                                                {
-                                            allImagesFromDatabase.map((item,i)=>{
-                                                // console.log('bal item',item)
-                                                return(
-                                                    <>
-                                         <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+                                        <div className='mb-2 mt-1 d-flex'>
 
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                                </div>
-                                       
+                                            {
+                                                multipleImages.length >= 1 ?
+                                                    render(multipleImages)
+                                                    :
+
+                                                    allImagesFromDatabase.map((item, i) => {
+                                                        // console.log('bal item',item)
+                                                        return (
+                                                            <>
+                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                            </>
+                                                        )
+                                                    })
+
+
+                                            }
+
+
+                                        </div>
+
 
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE</button>
                                         </div>
 
 

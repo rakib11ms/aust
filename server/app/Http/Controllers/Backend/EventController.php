@@ -62,6 +62,7 @@ class EventController extends Controller
            $event->event_description = $request->event_description;
            $event->contact_person = $request->contact_person;
            $event->event_date = $request->event_date;
+           $event->payment_type = $request->payment_type;
 
            $event->posted_by = $request->posted_by;
            $event->event_time = $request->event_time;
@@ -99,6 +100,7 @@ class EventController extends Controller
 }
 
 
+
     public function edit($id)
     {
         $event = AusstaEvent::find($id);
@@ -124,6 +126,90 @@ class EventController extends Controller
         }
     }
 
+
+
+
+    public function update(Request $request,$id){
+
+             $event=AusstaEvent::find($id);
+
+          if($request->file('image')){
+ foreach( $request->file('image') as $image)
+   {
+
+     $upload_image_name = time().$image->getClientOriginalName();
+     $image->move('images/', $upload_image_name);    
+     $name[] = $upload_image_name;       
+
+      $event->image =  implode(', ',$name);       
+      // $event->save();   
+}
+          }
+
+
+
+           $event->event_type_id = $request->event_type_id;
+           $event->event_title = $request->event_title;
+           $event->event_fee = $request->event_fee;
+           $event->updated_by = $request->updated_by;
+           $event->event_description = $request->event_description;
+           $event->contact_person = $request->contact_person;
+           $event->event_date = $request->event_date;
+
+           $event->posted_by = $request->posted_by;
+           $event->event_time = $request->event_time;
+           // $event->isPublished = $request->isPublished;
+           // $event->isArchived = $request->isArchived;
+           $event->priority = $request->priority;
+
+            $user_ids=explode (",",$request->contact_person);
+
+            // dd($user_ids);         
+            $users = User::whereIn("id",$user_ids)->get();
+
+                    // dd($users);
+
+                    foreach($users as $key => $user) {
+                        // echo ($user->email);
+                        Mail::to($user->email)->send(new EventMail($event));
+
+
+                    }
+
+           
+            $event->update();
+
+ return response()->json([
+                'status' => 200,
+                'message' => 'Event Updated Successfully',
+            ]);   
+    }
+
+
+
+    public function updateArchiveStatus(Request $request,$id){
+             $event=AusstaEvent::find($id);
+           $event->isArchived = $request->isArchived;
+
+            $event->update();
+
+ return response()->json([
+                'status' => 200,
+                'message' => 'Archived Updated Successfully',
+            ]);  
+
+    }
+
+
+
+
+
+
+
+
+
+
+
        public function destroy($id){
 
         $event = AusstaEvent::find($id);
@@ -145,6 +231,10 @@ class EventController extends Controller
 //web upcoming event,archive post (tab)filtering
 
      public function filterEventPostsByName($name){
+
+        // $check=Carbon::now()->subDays(15);
+        // dd($check);
+
         if($name=='all'){
         $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
         return response()->json([
@@ -153,7 +243,9 @@ class EventController extends Controller
             ]);
         }
            else if($name=='upcoming_filter'){
-        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where( 'aussta_events.event_date', '<=', Carbon::now()->subDays(15))->orderBy('aussta_events.id','desc')->get();  
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('\Carbon::parse($event_date)<=', Carbon::now()->subDays(15))->orderBy('aussta_events.id','desc')->get();  
+
+
         return response()->json([
                 'status' => 200,
                 'event_posts' => $event_posts,
@@ -161,7 +253,7 @@ class EventController extends Controller
         }
    
             else if($name=='archive'){
-                  $event_posts=DB::table('job_event_posts')->leftJoin('departments','departments.id','=','job_event_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_event_posts.job_type')->select('job_event_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('job_event_posts.id','desc')->get(); 
+                  $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('aussta_events.isArchived',1)->orderBy('aussta_events.id','desc')->get(); 
 
    return response()->json([
                 'status' => 200,

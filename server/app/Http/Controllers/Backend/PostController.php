@@ -18,7 +18,11 @@ class PostController extends Controller
                 $total_active_posts = Post::where('isPublished',1)->orderBy('id','desc')->get()->count();
                 $total_pending_posts = Post::where('isPublished',0)->orderBy('id','desc')->get()->count();
 
-         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
+         // $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
+
+
+         $posts=DB::table('posts')->where('isArchived',0)->where('isPublished',1)->orderBy('posts.id','desc')->get();
+
 
 
               //  $pending_posts=Post::where('isPublished',0)->get();
@@ -238,8 +242,8 @@ class PostController extends Controller
           
     function filterBySearchInputValandRadioButtonValue($searchInputValue,$searchRadioButtonValue){
 
-           if($searchRadioButtonValue=='postId'){
-        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('posts.id',$searchInputValue)->get();  
+           if($searchRadioButtonValue=='postType'){
+        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('post_type','like','%' .$searchInputValue . '%')->orderBy('posts.id','desc')->get();  
         return response()->json([
                 'status' => 200,
                 'posts' => $posts,
