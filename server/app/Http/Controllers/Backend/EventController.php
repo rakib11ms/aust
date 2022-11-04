@@ -20,10 +20,16 @@ class EventController extends Controller
              
 
    $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+
+
+
+            $total_events=AusstaEvent::where('isArchived',0)->get()->count();
+            $total_archive_events=AusstaEvent::where('isArchived',1)->get()->count();
         return response()->json([
            'status' => 200,
             'all_events' => $all_events,
-            // 'total_contacts'=>$total_contacts
+            'total_events' => $total_events,
+            'total_archive_events' => $total_archive_events,
          ]);
     }
 

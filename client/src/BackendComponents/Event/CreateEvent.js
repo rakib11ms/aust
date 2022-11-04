@@ -650,7 +650,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox"  id="flexCheckChecked" onChange={
+                                                                        <input class="form-check-input" type="checkbox"  id="flexCheckChecked" checked={payment_type===1}onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)

@@ -14,13 +14,20 @@ import './event.css'
 import MaterialTable from "material-table";
 import moment from 'moment';
 import { Paper } from '@material-ui/core';
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 
 function ViewAllEvent() {
     const [loading, setLoading] = useState(true);
 
     const [allEvents, setallEvents] = useState([]);
+
+    const [totalEvents, setTotalEvents] = useState([]);
+    const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
+
+
     // const [totalContactPerson, settotalContactPerson] = useState('');
     // const [allEvents, setallEvents] = useState([]);
 
@@ -223,10 +230,12 @@ function ViewAllEvent() {
 
 
     const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
-    function openViewEventPostModal(e, viewJobPost) {
+    function openViewEventPostModal(e, viewEventPost) {
         e.preventDefault();
-        setViewEventDescription(viewJobPost)
+        setViewEventDescription(viewEventPost)
         setviewJobPostModalIsOpen(true)
+        setAllImagesfromDatabase(viewEventPost.image.split(','))
+
     }
     function closeViewJobPostModal(e) {
         setviewJobPostModalIsOpen(false);
@@ -240,11 +249,12 @@ function ViewAllEvent() {
 
     useEffect(() => {
         axios.get(`/api/all-event-posts`).then(res => {
-            // console.log('ressing daata',res.data.all_events)
             if (res.data.status == 200) {
                 setallEvents(res.data.all_events);
-                // settotalContactPerson(res.data.total_contacts);
+                setTotalArchiveEvents(res.data.total_archive_events);
+                setTotalEvents(res.data.total_events);
                 setLoading(false);
+
             }
         })
         Modal.setAppElement('body');
@@ -554,6 +564,36 @@ function ViewAllEvent() {
     }
 
 
+
+
+
+    /////slider code ////////////
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        // cssEase: "linear",
+        // variableWidth: 90,
+
+
+        responsive: [{
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+            }
+        }]
+    };
+
+    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+    console.log('checking', allImagesFromDatabase)
+
+
     return (
         <>
             <div className="container-fluid">
@@ -567,28 +607,28 @@ function ViewAllEvent() {
 
                         <div className='container-fluid'>
 
-                            <section className='view-event-header d-flex align-items-center justify-content-end rounded-3 mt-3'>
-                                <div class="col-5">
+                            <section className='view-event-header d-flex justify-content-end rounded-3 mt-3'>
+                                <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">
                                             <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
 
-                                            <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
+                                            <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="view-event-header-data text-light px-3">
-                                    <div class=" d-flex align-items-center">
-                                        <div class="i mx-2 mt-2">
-                                            <h4 className=' mb-0'>20 </h4>
-                                            <p className=''>Job Types</p>
+                                    <div class=" d-flex">
+                                        <div class="i mx-2 mt-3">
+                                            <h4 className=' mb-0'>{totalEvents}</h4>
+                                            <p className=''>Total Events</p>
                                         </div>
-                                        <div class=" mx-2 mt-2">
-                                            <h4 className=' mb-0'>20 </h4>
-                                            <p className=''>Departments</p>
+                                        <div class=" mx-2 mt-3">
+                                            <h4 className=' mb-0'>{totalArchiveEvents} </h4>
+                                            <p className=''> Archive Events</p>
                                         </div>
-                                        <div class="mx-2 mt-2">
+                                        <div class="mx-2 mt-3">
                                             <h4 className=' mb-0'>20 </h4>
                                             <p className=''>Departments</p>
                                         </div>
@@ -726,57 +766,76 @@ function ViewAllEvent() {
 
                                         <div className="col-12 ">
 
-                                            <div className=''>
-                                                <div className='' style={{ width: '120px', height: '80px' }}>
-                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewEventDescription.image}`} />
-                                                </div>
+                                            <div className='col-6 mx-auto'>
+
+                                                <Slider {...settings}>
+
+                                                    {
+                                                        allImagesFromDatabase.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    <div class="">
+                                                                        <img src= {`${global.img_url}/images/${item.trim()}`} style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                        })
+                                                    }
+
+
+
+
+
+                                                </Slider>
+
                                             </div>
+
 
                                             <div className='d-flex justify-content-between'>
                                                 <div className='mt-3'>
                                                     <h5>{viewEventDescription.event_title}</h5>
                                                     <div className='d-flex'>
-                                                    <div>
-                                                        <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Event Date: {moment(viewEventDescription.application_deadline).format("L")}</span>
+                                                        <div>
+                                                            <i class="fas fa-calendar"></i>
+                                                            <span className='mx-2'>Event Date: {moment(viewEventDescription.application_deadline).format("L")}</span>
+                                                        </div>
+                                                        <div className='mx-3'>
+                                                            <i class="fas fa-clock"></i>
+                                                            <span className='mx-2'>Event Time: {moment(viewEventDescription.application_deadline).format("LT")}</span>
+                                                        </div>
                                                     </div>
-                                                    <div className='mx-3'>
-                                                        <i class="fas fa-clock"></i>
-                                                        <span className='mx-2'>Event Time: {moment(viewEventDescription.application_deadline).format("LT")}</span>
-                                                    </div>
-                                                    </div>
-                                                 
 
-                                                  
+
+
 
 
 
 
                                                 </div>
-                                                
+
                                                 <div>
                                                     <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type_name}</span> </button>
 
-                                               
+
                                                 </div>
                                             </div>
 
                                             <div className='d-flex justify-content-between mt-2'>
-                                            <div className=''>
+                                                <div className=''>
 
-                                                Event Fee: <span>{viewEventDescription.event_fee}</span>
-                                                        
-                                                        </div>
-    
-                                            <div className=''>
-                                                        Contact Persons:
+                                                    Event Fee: <span>{viewEventDescription.event_fee}</span>
 
-                                                        <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
+                                                </div>
 
-                                                            {viewEventDescription.dept_name}
-                                                        </div>
+                                                <div className=''>
+                                                    Contact Persons:
+
+                                                    <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
+
+                                                        {viewEventDescription.dept_name}
                                                     </div>
-                                                  
+                                                </div>
+
                                             </div>
 
 

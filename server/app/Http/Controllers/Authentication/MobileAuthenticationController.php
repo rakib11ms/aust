@@ -56,6 +56,7 @@ class MobileAuthenticationController extends Controller
                 // $user->full_name = $request->full_name;
                 // $user->nick_name = $request->nick_name;
                 $user->email = $request->email;
+                $user->name = $request->name;
                 $user->user_role = 1;
                 // $user->address_id = $request->address_id;
                 // $user->batch = $request->batch;
