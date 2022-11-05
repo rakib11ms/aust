@@ -28,8 +28,7 @@ function ViewAllEvent() {
     const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
 
 
-    // const [totalContactPerson, settotalContactPerson] = useState('');
-    // const [allEvents, setallEvents] = useState([]);
+
 
     console.log('all events', allEvents)
 
@@ -257,9 +256,14 @@ function ViewAllEvent() {
 
             }
         })
-        Modal.setAppElement('body');
+        // Modal.setAppElement('body');
 
-    }, [])
+    }, [renderAllEvents])
+
+
+
+
+
 
 
     const deleteEvent = (e, id) => {
@@ -546,7 +550,7 @@ function ViewAllEvent() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
+                axios.delete(`/api/delete-multiple-event-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllEvents(res.data)
                         // window.location.reload();
@@ -592,6 +596,36 @@ function ViewAllEvent() {
 
     const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
     console.log('checking', allImagesFromDatabase)
+
+
+    const handleAllEventStatus=(e)=>{
+        if(e.target.value=='archive'){
+            axios.put(`/api/archive-all-events-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallEvents(res.data.allEvents)
+                    setRenderAllEvents(res.data);
+
+                }
+             
+            })
+        }
+        else if(e.target.value=='active'){
+            axios.put(`/api/active-all-events-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallEvents(res.data.allEvents)
+                    setRenderAllEvents(res.data);
+
+                }
+             
+            })
+        }
+    }
 
 
     return (
@@ -666,9 +700,7 @@ function ViewAllEvent() {
                                                 {
                                                     selectedRowsLength > 1 &&
                                                     <>
-                                                        <div class="form-check form-switch mx-2">
-                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
+                                                      
 
                                                         <div className='mx-2 '
                                                             onClick={
@@ -679,18 +711,20 @@ function ViewAllEvent() {
                                                         </div>
 
                                                         <div className='mx-2'>
-
-
-                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
-
-                                                        </div>
-
+                                                    <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllEventStatus}>
+                                                        <option selected>Action</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="archive">Archive</option>
+                                                    </select>
+                                                </div>
 
 
 
                                                     </>
                                                 }
-                                                <div className='mx-2'>
+
+                                            
+                                                <div className='mx-3'>
 
 
                                                     <Link to="/create-event"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
@@ -710,7 +744,6 @@ function ViewAllEvent() {
                                             columns={columns}
                                             data={allEvents}
                                             isLoading={loading === true ? true : false}
-                                            // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
                                             onSelectionChange={selectionCheck}
 
 
@@ -774,8 +807,8 @@ function ViewAllEvent() {
                                                         allImagesFromDatabase.map((item, i) => {
                                                             return (
                                                                 <>
-                                                                    <div class="">
-                                                                        <img src= {`${global.img_url}/images/${item.trim()}`} style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                    <div class="rounded-3">
+                                                                        <img src={`${global.img_url}/images/${item.trim()}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
                                                                     </div>
                                                                 </>
                                                             )
@@ -791,7 +824,7 @@ function ViewAllEvent() {
                                             </div>
 
 
-                                            <div className='d-flex justify-content-between'>
+                                            <div className='d-flex justify-content-between mt-3'>
                                                 <div className='mt-3'>
                                                     <h5>{viewEventDescription.event_title}</h5>
                                                     <div className='d-flex'>
@@ -842,12 +875,6 @@ function ViewAllEvent() {
 
                                             <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewEventDescription.event_description }}
                                             />
-
-
-
-
-
-
 
 
 

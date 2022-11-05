@@ -154,6 +154,11 @@ Route::post('/delete-event/{id}',[EventController::class,'destroy']);
 Route::post('/update-event/{id}',[EventController::class,'update']);
 Route::put('/update-archive-status/{id}',[EventController::class,'updateArchiveStatus']);
 
+Route::put('/archive-all-events-by-update/{id}',[EventController::class,'archiveAllEventsByUpdate']);
+Route::delete('/delete-multiple-event-posts/{id}',[EventController::class,'deleteMultipleEventPosts']);
+Route::put('/active-all-events-by-update/{id}',[EventController::class,'activeAllEventByUpdate']);
+
+
 //web upcoming event,archive post (tab)filtering
 Route::get('/filter-event-posts/{filterByName}',[EventController::class,'filterEventPostsByName']);
 

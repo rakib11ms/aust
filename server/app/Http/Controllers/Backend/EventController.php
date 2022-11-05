@@ -93,6 +93,36 @@ class EventController extends Controller
            
             $event->save();
 
+
+               // $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+            
+        $SERVER_API_KEY = env('AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29');
+    
+        $data = [
+            "registration_ids" => 'dxe163YHTXGDykND_Pu7ND:APA91bE-jvEARD3kZPfO2Ji1xlvr7kS3hyOplHfQZaDfhVExF8pqHHLUVU3nG7qD4WjP3ck3AQ3oGZuDkXaUenHxK1ODbmKC7DZwCtU-uf1hL6r9Yh8OXcYWG1o28M4H4hVOaAaaOe2',
+            "notification" => [
+                "title" => $request->title,
+                "body" => $request->body,  
+            ]
+        ];
+        $dataString = json_encode($data);
+      
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+      
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                 
+        $response = curl_exec($ch);
+
   
 
 
@@ -235,6 +265,63 @@ class EventController extends Controller
 
 
 //web upcoming event,archive post (tab)filtering
+
+
+     public function archiveAllEventsByUpdate(Request $request,$ids){
+    $array=explode (",", $ids); 
+
+
+AusstaEvent::whereIn('id', $array)
+    ->update([
+        'isArchived' => '1',
+        'updated_by'=>2
+        // 'size' => 'XL', 
+
+        // 'price' => 10000 // Add as many as you need
+    ]);
+
+      $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+        return response()->json([
+                'status' => 200,
+                'all_events'=>$all_events,
+                'message' => 'All Events Archived successfully',
+            ]);
+
+     }
+
+    public function activeAllEventByUpdate(Request $request,$ids){
+    $array=explode (",", $ids); 
+
+
+AusstaEvent::whereIn('id', $array)
+    ->update([
+        'isArchived' => '0',
+        'updated_by'=>1
+        // 'size' => 'XL', 
+
+        // 'price' => 10000 // Add as many as you need
+    ]);
+
+      $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+        return response()->json([
+                'status' => 200,
+                'all_events'=>$all_events,
+                'message' => 'All Events Activated successfully',
+            ]);
+    }
+
+
+
+    public function deleteMultipleEventPosts($ids){
+ $array=explode (",", $ids); 
+
+  $deletes=AusstaEvent::whereIn('id',$array)->delete();
+      return response()->json([
+                'status' => 200,
+                // 'deletes'=>  $deletes,
+                'message' => 'All Events deleted successfully',
+            ]);
+     }
 
      public function filterEventPostsByName($name){
 
