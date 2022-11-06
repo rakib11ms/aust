@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EventMail;
 use Carbon\Carbon;
-
+use App\Notifications\EventNotification;
+use Illuminate\Support\Facades\Auth;
+use Notification;
 class EventController extends Controller
 {
     
@@ -41,13 +43,7 @@ class EventController extends Controller
         // dd($request->all());
 
             $event = new AusstaEvent();
-         //       if($request->hasFile('image')){
-         //    $file=$request->file('image');
-         //    $extension=$file->getClientOriginalExtension();
-         //    $filename=time().'.'.$extension;
-         //    $file->move('images/',$filename);
-         //    $event->image =$filename ;
-         // } 
+        
 
  foreach( $request->file('image') as $image)
    {
@@ -89,26 +85,28 @@ class EventController extends Controller
 
 
                     }
-
            
             $event->save();
 
+                    Notification::send($users, new EventNotification($event));
 
-               // $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+
+
+               $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
             
-        $SERVER_API_KEY = env('AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29');
+        $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
     
         $data = [
-            "registration_ids" => 'dxe163YHTXGDykND_Pu7ND:APA91bE-jvEARD3kZPfO2Ji1xlvr7kS3hyOplHfQZaDfhVExF8pqHHLUVU3nG7qD4WjP3ck3AQ3oGZuDkXaUenHxK1ODbmKC7DZwCtU-uf1hL6r9Yh8OXcYWG1o28M4H4hVOaAaaOe2',
+            "registration_ids" =>$firebaseToken,
             "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,  
+                "title" => "hello final title",
+                "body" => "oreeeeeeeeee khaise",  
             ]
         ];
         $dataString = json_encode($data);
       
         $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
+            'Authorization:key='.$SERVER_API_KEY,
             'Content-Type: application/json',
         ];
       
@@ -336,7 +334,30 @@ AusstaEvent::whereIn('id', $array)
             ]);
         }
            else if($name=='upcoming_filter'){
-        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('\Carbon::parse($event_date)<=', Carbon::now()->subDays(15))->orderBy('aussta_events.id','desc')->get();  
+
+
+    // $current = Carbon::now();
+    // dd($current);
+    // $mui='Tue, 08 Nov 2022 18:00:00 GMT';
+    // $mui = strtotime('Tue, 08 Nov 2022 18:00:00 GMT');
+    // $today=strtotime(Carbon::now());
+
+    // $check=(int)(($mui - $today)/86400);
+    //     dd($check);
+
+    //   if($mui>$today){
+    //     dd('right');
+    //   }
+    //   else{
+    //     dd('wrong');
+
+    //   }
+
+    // dd($myDateTime);
+
+
+
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->whereBetween(strtotime('event_date') ,'<',  strtotime(Carbon::now())->subDays(15))->orderBy('aussta_events.id','desc')->get();  
 
 
         return response()->json([
@@ -348,11 +369,11 @@ AusstaEvent::whereIn('id', $array)
             else if($name=='archive'){
                   $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('aussta_events.isArchived',1)->orderBy('aussta_events.id','desc')->get(); 
 
-   return response()->json([
-                'status' => 200,
-                'event_posts' => $event_posts,
-            ]);
-        }
+               return response()->json([
+                            'status' => 200,
+                            'event_posts' => $event_posts,
+                        ]);
+                    }
         else{
      $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
         return response()->json([

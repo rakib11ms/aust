@@ -193,13 +193,13 @@ function CreateEvent() {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
-               seteventState({
-                event_type_id:'',
-                event_title:''
-               });
-               setevent_date(null);
-               setevent_time(null);
-               setevent_fee('')
+                seteventState({
+                    event_type_id: '',
+                    event_title: ''
+                });
+                setevent_date(null);
+                setevent_time(null);
+                setevent_fee('')
                 setContent1('');
                 setcontactPerson([]);
                 setpriority('');
@@ -308,19 +308,19 @@ function CreateEvent() {
     }
 
 
-    useEffect(() => {
-    
+    // useEffect(() => {
 
-        axios.get(`/api/event-type`).then(res => {
-            if (res.data.status == 200) {
-                setAllEventTypes(res.data.event_type);
-                setRenderAllEventTypes(res.data)
-                // setLoading(false);
-                // setTotalJobType(res.data.total_event_types)
-            }
-        })
 
-    }, [renderAllEventTypes])
+    //     axios.get(`/api/event-type`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setAllEventTypes(res.data.event_type);
+    //             setRenderAllEventTypes(res.data)
+    //             // setLoading(false);
+    //             // setTotalJobType(res.data.total_event_types)
+    //         }
+    //     })
+
+    // }, [renderAllEventTypes])
 
 
     useEffect(() => {
@@ -650,7 +650,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox"  id="flexCheckChecked" checked={payment_type===1}onChange={
+                                                                        <input class="form-check-input" type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)

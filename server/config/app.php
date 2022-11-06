@@ -69,7 +69,7 @@ return [
     |
     */
 
- 'timezone' => 'Asia/Kolkata',
+ 'timezone' => 'Asia/Dhaka',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
