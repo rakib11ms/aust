@@ -71,6 +71,7 @@ class EventController extends Controller
            // $event->isPublished = $request->isPublished;
            // $event->isArchived = $request->isArchived;
            $event->priority = $request->priority;
+            $event->save();
 
             $user_ids=explode (",",$request->contact_person);
 
@@ -86,7 +87,6 @@ class EventController extends Controller
 
                     }
            
-            $event->save();
 
                     Notification::send($users, new EventNotification($event));
 
@@ -336,28 +336,24 @@ AusstaEvent::whereIn('id', $array)
            else if($name=='upcoming_filter'){
 
 
-    // $current = Carbon::now();
-    // dd($current);
-    // $mui='Tue, 08 Nov 2022 18:00:00 GMT';
-    // $mui = strtotime('Tue, 08 Nov 2022 18:00:00 GMT');
-    // $today=strtotime(Carbon::now());
+// $originalDate = "Tue, 08 Nov 2022 18:00:00 GMT";
+// $newDate = date("d-m-Y", strtotime($originalDate));
 
-    // $check=(int)(($mui - $today)/86400);
-    //     dd($check);
+// echo $newDate;
 
-    //   if($mui>$today){
-    //     dd('right');
-    //   }
-    //   else{
-    //     dd('wrong');
+    $currentDate=date('d-m-Y');
+    $currentDate_15=date('d-m-Y', strtotime("+15 day"));
 
-    //   }
-
-    // dd($myDateTime);
+    // dd($currentDate_15);
 
 
 
-        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->whereBetween(strtotime('event_date') ,'<',  strtotime(Carbon::now())->subDays(15))->orderBy('aussta_events.id','desc')->get();  
+
+
+// $filterDatePosts=Post::whereBetween(DB::raw('DATE(created_at)'), [$fromDate, $toDate])->get();
+
+
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('aussta_events.event_date',[$currentDate, $currentDate_15])->orderBy('aussta_events.id','desc')->get();  
 
 
         return response()->json([

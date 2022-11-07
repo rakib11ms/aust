@@ -12,6 +12,7 @@ function Sidebar() {
     const [isActive4, setIsActive4] = useState(false);
     const [isActive5, setIsActive5] = useState(false);
     const [isActive6, setIsActive6] = useState(false);
+    const [isActive7, setIsActive7] = useState(false);
     console.log('is active cheking', isActive)
 
 
@@ -246,7 +247,7 @@ function Sidebar() {
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive5(!isActive5)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
-                                <i className='fa-solid fa-blog d-block' />
+                            <i class="fa-brands fa-usps mt-1"></i>
 
                                 <h6 className='mx-2 mt-3'>User Posts</h6>
 
@@ -286,7 +287,7 @@ function Sidebar() {
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive6(!isActive6)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
-                                <i className='fa-solid fa-blog d-block' />
+                            <i class="fa-sharp fa-solid fa-calendar-days mt-1"></i>
 
                                 <h6 className='mx-2 mt-3'>Events</h6>
 
@@ -312,13 +313,46 @@ function Sidebar() {
                                         <li>
                                             <Link to='/event-configuration' className='text-light text-form' >Configuration</Link>
                                         </li>
-                                    
+
                                     </ul>
                                 </>
 
                             }
                         </div>
                     </div>
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive7(!isActive7)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                            <i class="fa-solid fa-rectangle-ad mt-1"></i>
+
+                                <h6 className='mx-2 mt-3'>Advertisement</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive7 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive7 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/create-advertisement' className='text-light text-form'>Create Advment</Link>
+                                        </li>
+                                        
+
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+
                 </div>
 
 

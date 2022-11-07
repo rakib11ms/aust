@@ -17,7 +17,14 @@ import { Paper } from '@material-ui/core';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function ViewAllEvent() {
     const [loading, setLoading] = useState(true);
@@ -598,8 +605,8 @@ function ViewAllEvent() {
     console.log('checking', allImagesFromDatabase)
 
 
-    const handleAllEventStatus=(e)=>{
-        if(e.target.value=='archive'){
+    const handleAllEventStatus = (e) => {
+        if (e.target.value == 'archive') {
             axios.put(`/api/archive-all-events-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
@@ -609,10 +616,10 @@ function ViewAllEvent() {
                     setRenderAllEvents(res.data);
 
                 }
-             
+
             })
         }
-        else if(e.target.value=='active'){
+        else if (e.target.value == 'active') {
             axios.put(`/api/active-all-events-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
@@ -622,10 +629,14 @@ function ViewAllEvent() {
                     setRenderAllEvents(res.data);
 
                 }
-             
+
             })
         }
     }
+
+
+    const [value, setValue] = React.useState([null, null]);
+
 
 
     return (
@@ -680,6 +691,23 @@ function ViewAllEvent() {
                             <div className="col-md-12 mt-3">
                                 <h5 className=''>ALL Events</h5>
 
+                                {/* <div className=''>
+   
+    <DateRangePicker
+      startText="Check-in"
+      endText="Check-out"
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+      renderInput={(startProps, endProps) => (
+        <React.Fragment>
+          <TextField {...startProps} />
+          <DateRangeDelimiter> to </DateRangeDelimiter>
+          <TextField {...endProps} />
+        </React.Fragment>
+      )}
+    />
+                                </div> */}
+
                                 <div className="card bg-white">
 
                                     <div className="card-body ">
@@ -700,7 +728,7 @@ function ViewAllEvent() {
                                                 {
                                                     selectedRowsLength > 1 &&
                                                     <>
-                                                      
+
 
                                                         <div className='mx-2 '
                                                             onClick={
@@ -711,19 +739,19 @@ function ViewAllEvent() {
                                                         </div>
 
                                                         <div className='mx-2'>
-                                                    <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllEventStatus}>
-                                                        <option selected>Action</option>
-                                                        <option value="active">Active</option>
-                                                        <option value="archive">Archive</option>
-                                                    </select>
-                                                </div>
+                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllEventStatus}>
+                                                                <option selected>Action</option>
+                                                                <option value="active">Active</option>
+                                                                <option value="archive">Archive</option>
+                                                            </select>
+                                                        </div>
 
 
 
                                                     </>
                                                 }
 
-                                            
+
                                                 <div className='mx-3'>
 
 
