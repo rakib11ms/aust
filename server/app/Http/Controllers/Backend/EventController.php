@@ -63,7 +63,8 @@ class EventController extends Controller
            $event->updated_by = $request->updated_by;
            $event->event_description = $request->event_description;
            $event->contact_person = $request->contact_person;
-           $event->event_date = $request->event_date;
+           $event->event_date =date('d-m-Y', strtotime($request->event_date));
+
            $event->payment_type = $request->payment_type;
 
            $event->posted_by = $request->posted_by;
@@ -353,7 +354,7 @@ AusstaEvent::whereIn('id', $array)
 // $filterDatePosts=Post::whereBetween(DB::raw('DATE(created_at)'), [$fromDate, $toDate])->get();
 
 
-        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->where('aussta_events.event_date',[$currentDate, $currentDate_15])->orderBy('aussta_events.id','desc')->get();  
+        $event_posts=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->whereBetween('aussta_events.event_date',[$currentDate, $currentDate_15])->orderBy('aussta_events.id','desc')->get();  
 
 
         return response()->json([

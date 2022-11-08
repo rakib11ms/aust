@@ -571,7 +571,7 @@ function CreateAdvertisement() {
                                                                 </div>
 
                                                                 <div class="">
-                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" 
+                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
                                                                             setpriority(e.target.value)
                                                                         }}>

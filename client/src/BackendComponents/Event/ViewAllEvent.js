@@ -858,11 +858,11 @@ function ViewAllEvent() {
                                                     <div className='d-flex'>
                                                         <div>
                                                             <i class="fas fa-calendar"></i>
-                                                            <span className='mx-2'>Event Date: {moment(viewEventDescription.application_deadline).format("L")}</span>
+                                                            <span className='mx-2'>Event Date: {moment(viewEventDescription.event_date).format("L")}</span>
                                                         </div>
                                                         <div className='mx-3'>
                                                             <i class="fas fa-clock"></i>
-                                                            <span className='mx-2'>Event Time: {moment(viewEventDescription.application_deadline).format("LT")}</span>
+                                                            <span className='mx-2'>Event Time: {moment(viewEventDescription.event_time).format("LT")}</span>
                                                         </div>
                                                     </div>
 
