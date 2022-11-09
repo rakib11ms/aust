@@ -17,6 +17,7 @@ import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -24,9 +25,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
-// import Checkbox from '@mui/material/Checkbox';
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
-// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 function CreateAdvertisement() {
 
@@ -56,6 +54,24 @@ function CreateAdvertisement() {
     const [payment_type, setpayment_type] = useState(0);
     const [showMobile, setshowMobile] = useState(1);
     const [showDesktop, setshowDesktop] = useState(1);
+
+
+    // const [allViewPage, setAllViewPage] = useState([
+    //     { id: '1', page_name: 'Home' },
+    //     { id: '2', page_name: 'View Job Post' },
+    //     { id: '3', page_name: 'View Event' },
+    //     { id: '4', page_name: 'View Article' },
+
+    // ]);
+
+
+    const allViewPage = [
+        { id: '1', page_name: 'Home' },
+        { id: '2', page_name: 'View Job Post' },
+        { id: '3', page_name: 'View Event' },
+        { id: '4', page_name: 'View Article' },
+
+    ];
 
     const [contactPerson, setcontactPerson] = React.useState([]);
     // const [contactPersonId, setcontactPersonId] =useState([]);
@@ -426,9 +442,9 @@ function CreateAdvertisement() {
 
                                                     <div className='py-4  '>
                                                         <h6 className=''>Preferences</h6>
-                                                        <div className=' mt-3 d-flex align-items-stretch' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
+                                                        <div className=' mt-3 d-flex align-items-stretch ' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
 
-                                                            <div className=' ' style={{ width: '50%' }}>
+                                                            <div className=' ' style={{ width: '50%' }} >
 
 
                                                                 <div className='mt-1'>
@@ -472,6 +488,11 @@ function CreateAdvertisement() {
                                                                     <span className='mx-2'>Position</span>
                                                                 </div>
 
+                                                                <div className='mt-4'>
+                                                                    <i class="fa fa-flag" aria-hidden="true"></i>
+                                                                    <span className='mx-2'>View In</span>
+                                                                </div>
+
                                                             </div>
                                                             <div class="" style={{ width: '50%' }}>
                                                                 <div class="d-flex align-items-center">
@@ -500,9 +521,9 @@ function CreateAdvertisement() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className='mt-4'>
+                                                                <div className='mt-3'>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
+                                                                        <input class="form-check-input " type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setpayment_type(1)
@@ -523,9 +544,9 @@ function CreateAdvertisement() {
                                                                 </div>
                                                                 {
                                                                     payment_type == 1 &&
-                                                                    <div class="my-2">
+                                                                    <div class="my-3 col-8">
                                                                         <div class="">
-                                                                            <input type="text" class="form-control rounded-3 " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
+                                                                            <input type="text" class="form-control form-control-sm rounded-3  " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
                                                                                 setevent_fee(e.target.value)
                                                                             }} />
                                                                         </div>
@@ -536,7 +557,7 @@ function CreateAdvertisement() {
 
 
 
-                                                                <div class="my-3">
+                                                                <div class="my-4">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -581,6 +602,40 @@ function CreateAdvertisement() {
                                                                         <option value="left">Left</option>
                                                                     </select>
                                                                 </div>
+
+                                                                <div className='mt-2'>
+
+                                                                    <Stack spacing={5} sx={{ width: '100%', height: '10px' }}>
+                                                                        <Autocomplete
+                                                                            multiple
+                                                                            id="tags-standard"
+                                                                            options={allUsers}
+                                                                            getOptionLabel={(option) => option.name}
+                                                                            // defaultValue={[allUsers[1]]}
+                                                                            onChange={handlePersonChange}
+
+                                                                            getOptionSelected={(option, value) =>
+                                                                                option.id === value.id
+                                                                            }
+
+                                                                            renderInput={(params) => (
+
+                                                                                <TextField
+
+
+                                                                                    {...params}
+                                                                                    // variant="standard"
+                                                                                    // label="Multiple values"
+                                                                                    placeholder="Search..."
+                                                                                    size="small"
+                                                                                />
+                                                                            )}
+
+
+                                                                        />
+                                                                    </Stack>
+                                                                </div>
+
 
                                                             </div>
                                                         </div>

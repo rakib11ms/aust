@@ -26,6 +26,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 
+
+
 function ViewAllEvent() {
     const [loading, setLoading] = useState(true);
 
@@ -691,21 +693,9 @@ function ViewAllEvent() {
                             <div className="col-md-12 mt-3">
                                 <h5 className=''>ALL Events</h5>
 
-                                {/* <div className=''>
-   
-    <DateRangePicker
-      startText="Check-in"
-      endText="Check-out"
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
-      renderInput={(startProps, endProps) => (
-        <React.Fragment>
-          <TextField {...startProps} />
-          <DateRangeDelimiter> to </DateRangeDelimiter>
-          <TextField {...endProps} />
-        </React.Fragment>
-      )}
-    />
+                                {/* <div className='mb-3' style={{ position: 'relative', zIndex: '9999' }}>
+
+                                   asd
                                 </div> */}
 
                                 <div className="card bg-white">
