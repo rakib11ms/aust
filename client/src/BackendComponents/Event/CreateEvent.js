@@ -45,6 +45,8 @@ function CreateEvent() {
 
 
 
+    const [clickedRender, setClickedRender] = useState(false)
+
 
 
     ///add event functionality start//
@@ -169,6 +171,7 @@ function CreateEvent() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         const formData = new FormData();
         formData.append("posted_by", 1);
         formData.append("event_title", eventState.event_title);
@@ -186,12 +189,14 @@ function CreateEvent() {
             formData.append("image[]", file);
 
         });
+        setClickedRender(true)
 
 
 
         axios.post(`/api/add-event`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
+                setClickedRender(false)
 
                 seteventState({
                     event_type_id: '',
@@ -437,7 +442,13 @@ function CreateEvent() {
 
 
 
-                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>Save</button>
+                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>
+
+                                                                            Save
+
+
+
+                                                                        </button>
 
 
 
@@ -742,7 +753,14 @@ function CreateEvent() {
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>
+
+                                                SAVE
+                                                {
+                                                    clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
+
+                                                }
+                                            </button>
                                         </div>
 
 

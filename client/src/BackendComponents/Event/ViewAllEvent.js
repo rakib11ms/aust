@@ -675,10 +675,10 @@ function ViewAllEvent() {
                                             <h4 className=' mb-0'>{totalArchiveEvents} </h4>
                                             <p className=''> Archive Events</p>
                                         </div>
-                                        <div class="mx-2 mt-3">
+                                        {/* <div class="mx-2 mt-3">
                                             <h4 className=' mb-0'>20 </h4>
                                             <p className=''>Departments</p>
-                                        </div>
+                                        </div> */}
 
 
                                     </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\JobPostController;
 use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\EventTypeController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -162,6 +163,16 @@ Route::put('/active-all-events-by-update/{id}',[EventController::class,'activeAl
 
 //web upcoming event,archive post (tab)filtering
 Route::get('/filter-event-posts/{filterByName}',[EventController::class,'filterEventPostsByName']);
+
+
+//advertisement
+
+Route::get('/all-advertisement-posts',[AdvertisementController::class,'index']);
+Route::post('/add-advertisement',[AdvertisementController::class,'store']);
+Route::get('/edit-advertisement/{id}',[AdvertisementController::class,'edit']);
+Route::post('/delete-advertisement/{id}',[AdvertisementController::class,'destroy']);
+Route::post('/update-advertisement/{id}',[AdvertisementController::class,'update']);
+
 
 
 

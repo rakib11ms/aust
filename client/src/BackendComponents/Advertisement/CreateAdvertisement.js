@@ -45,27 +45,17 @@ function CreateAdvertisement() {
 
 
 
-    ///add event functionality start//
-    const [event_time, setevent_time] = React.useState(null);
-    const [event_date, setevent_date] = React.useState(null);
+    ///add advertisement functionality start//
 
-    const [event_fee, setevent_fee] = useState('');
-    const [priority, setpriority] = useState('normal');
+
+    const [advertisement_fee, setadvertisement_fee] = useState('');
+    const [position, setposition] = useState('');
     const [payment_type, setpayment_type] = useState(0);
     const [showMobile, setshowMobile] = useState(1);
     const [showDesktop, setshowDesktop] = useState(1);
 
 
-    // const [allViewPage, setAllViewPage] = useState([
-    //     { id: '1', page_name: 'Home' },
-    //     { id: '2', page_name: 'View Job Post' },
-    //     { id: '3', page_name: 'View Event' },
-    //     { id: '4', page_name: 'View Article' },
-
-    // ]);
-
-
-    const allViewPage = [
+    const allViewPageArray = [
         { id: '1', page_name: 'Home' },
         { id: '2', page_name: 'View Job Post' },
         { id: '3', page_name: 'View Event' },
@@ -73,13 +63,18 @@ function CreateAdvertisement() {
 
     ];
 
-    const [contactPerson, setcontactPerson] = React.useState([]);
-    // const [contactPersonId, setcontactPersonId] =useState([]);
-
-    // console.log('checking baal', contactPerson)
+    const [allViewPage, setAllViewPage] = useState(allViewPageArray);
 
 
-    let result = contactPerson.map(a => a.id);
+
+
+    const [viewInPage, setviewInPage] = React.useState([]);
+    // const [viewInPageId, setviewInPageId] =useState([]);
+
+    // console.log('checking baal', viewInPage)
+
+
+    let result = viewInPage.map(a => a.page_name);
     // console.log('result',result)
 
     // console.log('baler result', result);
@@ -87,22 +82,15 @@ function CreateAdvertisement() {
 
 
     function handlePersonChange(event, values) {
-        setcontactPerson(values)
+        setviewInPage(values)
     }
 
-    const [eventState, seteventState] = useState({
-        event_type_id: '',
-        event_title: '',
+    const [advertisement_title, setadvertisement_title] = useState("");
+    const [redirect_link, setredirect_link] = useState("");
+    const [show_time, setshow_time] = useState("");
+    const [show_days, setshow_days] = useState("");
 
-    })
 
-    // console.log('eventstate', eventState.event_type_id)
-
-    const handleInputChange = (e) => {
-        seteventState({
-            ...eventState, [e.target.name]: e.target.value
-        })
-    }
 
     //////////images code ///////////
 
@@ -186,16 +174,19 @@ function CreateAdvertisement() {
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("posted_by", 1);
-        formData.append("event_title", eventState.event_title);
-        formData.append("event_type_id", eventState.event_type_id);
-        formData.append("event_date", event_date);
-        formData.append("event_time", event_time);
-        formData.append("priority", priority);
-        formData.append("contact_person", result);
-        formData.append("event_fee", event_fee);
+        // formData.append("posted_by", 1);
+        formData.append("advertisement_title", advertisement_title);
+        formData.append("advertisement_description", content1);
+        formData.append("redirect_link", redirect_link);
+        formData.append("show_time", show_time);
+        formData.append("show_days", show_days);
         formData.append("payment_type", payment_type);
-        formData.append("event_description", content1);
+        formData.append("advertisement_fee", advertisement_fee);
+        formData.append("view_page", result);
+        formData.append("showMobile", showMobile);
+        formData.append("showDesktop", showDesktop);
+
+        formData.append("position", position);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
 
@@ -205,23 +196,21 @@ function CreateAdvertisement() {
 
 
 
-        axios.post(`/api/add-event`, formData).then(res => {
+        axios.post(`/api/add-advertisement`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
-                seteventState({
-                    event_type_id: '',
-                    event_title: ''
-                });
-                setevent_date(null);
-                setevent_time(null);
-                setevent_fee('')
+                setadvertisement_fee('')
                 setContent1('');
-                setcontactPerson([]);
-                setpriority('');
+                setviewInPage([]);
+                setposition('');
                 setMultipleImageFiles([]);
                 setMultipleImages([]);
-                setpayment_type(0)
+                setpayment_type(0);
+                setshow_days('');
+                setshow_time('');
+                setshowDesktop(1);
+                setshowMobile(1);
 
                 // setImage('');
                 // setPicture('');
@@ -392,7 +381,7 @@ function CreateAdvertisement() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="event_title" value={eventState.event_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertisement_title(e.target.value)} name="advertisement_title" value={advertisement_title} />
 
                                                 </div>
 
@@ -412,7 +401,7 @@ function CreateAdvertisement() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Redirection Link</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="event_title" value={eventState.event_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setredirect_link(e.target.value)} name="redirect_link" value={redirect_link} />
 
                                                 </div>
 
@@ -466,7 +455,7 @@ function CreateAdvertisement() {
                                                                     payment_type == 1 &&
                                                                     <div className='mt-4'>
                                                                         <i class="fa-solid fa-money-bill"></i>
-                                                                        <span className='mx-2'>Event Fees</span>
+                                                                        <span className='mx-2'>Fee</span>
                                                                     </div>
                                                                 }
 
@@ -489,7 +478,7 @@ function CreateAdvertisement() {
                                                                 </div>
 
                                                                 <div className='mt-4'>
-                                                                    <i class="fa fa-flag" aria-hidden="true"></i>
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
                                                                     <span className='mx-2'>View In</span>
                                                                 </div>
 
@@ -498,8 +487,8 @@ function CreateAdvertisement() {
                                                                 <div class="d-flex align-items-center">
 
                                                                     <div class="" style={{ width: '65%' }}>
-                                                                        <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
-                                                                            setevent_fee(e.target.value)
+                                                                        <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={show_time} placeholder="" onChange={(e) => {
+                                                                            setshow_time(e.target.value)
                                                                         }} />
                                                                     </div>
                                                                     <div class="mx-2" style={{ width: '35%' }}>
@@ -512,8 +501,8 @@ function CreateAdvertisement() {
                                                                     <div class="d-flex align-items-center">
 
                                                                         <div class="" style={{ width: '65%' }}>
-                                                                            <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
-                                                                                setevent_fee(e.target.value)
+                                                                            <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={show_days} placeholder="" onChange={(e) => {
+                                                                                setshow_days(e.target.value)
                                                                             }} />
                                                                         </div>
                                                                         <div class="mx-2" style={{ width: '35%' }}>
@@ -530,7 +519,7 @@ function CreateAdvertisement() {
                                                                                 }
                                                                                 else {
                                                                                     setpayment_type(0);
-                                                                                    setevent_fee('');
+                                                                                    setadvertisement_fee('');
 
                                                                                 }
                                                                             }
@@ -546,8 +535,8 @@ function CreateAdvertisement() {
                                                                     payment_type == 1 &&
                                                                     <div class="my-3 col-8">
                                                                         <div class="">
-                                                                            <input type="text" class="form-control form-control-sm rounded-3  " id="formGroupExampleInput" value={event_fee} placeholder="" onChange={(e) => {
-                                                                                setevent_fee(e.target.value)
+                                                                            <input type="text" class="form-control form-control-sm rounded-3  " id="formGroupExampleInput" value={advertisement_fee} placeholder="" onChange={(e) => {
+                                                                                setadvertisement_fee(e.target.value)
                                                                             }} />
                                                                         </div>
                                                                         {/* <span className='d-block col-6'>BDT</span> */}
@@ -594,50 +583,118 @@ function CreateAdvertisement() {
                                                                 <div class="">
                                                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
-                                                                            setpriority(e.target.value)
+                                                                            setposition(e.target.value)
                                                                         }}>
-                                                                        {/* <option selected>Open this select menu</option> */}
-                                                                        <option value="top" selected>Top</option>
+                                                                        <option selected value="">Choose</option>
+                                                                        <option value="top" >Top</option>
                                                                         <option value="right">Right</option>
                                                                         <option value="left">Left</option>
+                                                                        <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>
+                                                                {/* 
+                                                                <div className='d-flex  align-items-center flex-wrap'>
 
-                                                                <div className='mt-2'>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0 ">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            Home
+                                                                        </label>
+                                                                    </div>
+                                                                </div> */}
 
-                                                                    <Stack spacing={5} sx={{ width: '100%', height: '10px' }}>
-                                                                        <Autocomplete
-                                                                            multiple
-                                                                            id="tags-standard"
-                                                                            options={allUsers}
-                                                                            getOptionLabel={(option) => option.name}
-                                                                            // defaultValue={[allUsers[1]]}
-                                                                            onChange={handlePersonChange}
 
-                                                                            getOptionSelected={(option, value) =>
-                                                                                option.id === value.id
-                                                                            }
-
-                                                                            renderInput={(params) => (
-
-                                                                                <TextField
-
-
-                                                                                    {...params}
-                                                                                    // variant="standard"
-                                                                                    // label="Multiple values"
-                                                                                    placeholder="Search..."
-                                                                                    size="small"
-                                                                                />
-                                                                            )}
-
-
-                                                                        />
-                                                                    </Stack>
-                                                                </div>
 
 
                                                             </div>
+                                                        </div>
+                                                        <div className='mt-2'>
+                                                            <Stack spacing={5} sx={{ width: '100%' }}>
+                                                                <Autocomplete
+                                                                    multiple
+                                                                    id="tags-standard"
+                                                                    options={allViewPage}
+                                                                    getOptionLabel={(option) => option.page_name}
+                                                                    // defaultValue={[allUsers[1]]}
+                                                                    onChange={handlePersonChange}
+                                                                    // renderOption={(option) => (
+                                                                    //     <>
+                                                                    //       {option.name} ({option.user_role})
+                                                                    //     </>
+                                                                    //   )}
+                                                                    getOptionSelected={(option, value) =>
+                                                                        option.page_name === value.page_name
+                                                                    }
+
+                                                                    renderInput={(params) => (
+
+                                                                        <TextField
+
+                                                                            {...params}
+                                                                            // variant="standard"
+                                                                            // label="Multiple values"
+                                                                            placeholder="Search..."
+                                                                            size="small"
+
+                                                                        />
+                                                                    )}
+
+                                                                // renderOption={option => {
+                                                                //     return (
+                                                                //         <Fragment>
+                                                                //                 <IconButton color="primary">
+                                                                //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
+                                                                //                 </IconButton>
+                                                                //             {option.title}
+                                                                //         </Fragment>
+                                                                //     );
+                                                                // }}
+
+
+                                                                />
+                                                            </Stack>
                                                         </div>
 
                                                     </div>
@@ -669,4 +726,3 @@ function CreateAdvertisement() {
     )
 }
 export default CreateAdvertisement;
-

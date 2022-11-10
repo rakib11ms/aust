@@ -247,7 +247,7 @@ function Sidebar() {
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive5(!isActive5)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
-                            <i class="fa-brands fa-usps mt-1"></i>
+                                <i class="fa-brands fa-usps mt-1"></i>
 
                                 <h6 className='mx-2 mt-3'>User Posts</h6>
 
@@ -287,7 +287,7 @@ function Sidebar() {
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive6(!isActive6)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
-                            <i class="fa-sharp fa-solid fa-calendar-days mt-1"></i>
+                                <i class="fa-sharp fa-solid fa-calendar-days mt-1"></i>
 
                                 <h6 className='mx-2 mt-3'>Events</h6>
 
@@ -324,7 +324,7 @@ function Sidebar() {
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive7(!isActive7)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
-                            <i class="fa-solid fa-rectangle-ad mt-1"></i>
+                                <i class="fa-solid fa-rectangle-ad mt-1"></i>
 
                                 <h6 className='mx-2 mt-3'>Advertisement</h6>
 
@@ -344,7 +344,10 @@ function Sidebar() {
                                         <li>
                                             <Link to='/create-advertisement' className='text-light text-form'>Create Advment</Link>
                                         </li>
-                                        
+                                        <li class="mt-1">
+                                            <Link to='/view-advertisement' className='text-light text-form'>View All Advment</Link>
+                                        </li>
+
 
                                     </ul>
                                 </>
