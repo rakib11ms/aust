@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // import './Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
-import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
+import { Link, Navigate, useNavigate, Routes, Route, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 
 import Swal from 'sweetalert2';
@@ -26,7 +26,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 
-function CreateAdvertisement() {
+function EditAdvertisement() {
 
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
@@ -56,10 +56,11 @@ function CreateAdvertisement() {
 
 
     const allViewPageArray = [
-        { id: '1', page_name: 'Home' },
-        { id: '2', page_name: 'View Job Post' },
-        { id: '3', page_name: 'View Event' },
-        { id: '4', page_name: 'View Article' },
+        { page_name: 'Home' },
+        { page_name: 'View Job Post' },
+        { page_name: 'View Event' },
+        { page_name: 'View Article' },
+
 
     ];
 
@@ -77,12 +78,13 @@ function CreateAdvertisement() {
     let result = viewInPage.map(a => a.page_name);
     // console.log('result',result)
 
-    // console.log('baler result', result);
 
 
 
     function handlePersonChange(event, values) {
         setviewInPage(values)
+        // setViewPagesArray(values)
+
     }
 
     const [advertisement_title, setadvertisement_title] = useState("");
@@ -313,34 +315,55 @@ function CreateAdvertisement() {
     }
 
 
-    // useEffect(() => {
+
+    const { id } = useParams();
 
 
-    //     axios.get(`/api/event-type`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllEventTypes(res.data.event_type);
-    //             setRenderAllEventTypes(res.data)
-    //             // setLoading(false);
-    //             // setTotalJobType(res.data.total_event_types)
-    //         }
-    //     })
+    const [editData, setEditData] = useState({
 
-    // }, [renderAllEventTypes])
+    });
 
+
+
+
+    const [viewPagesArray, setViewPagesArray] = React.useState([]);
+    console.log('viewwwwwwwwwww page comming from data', viewPagesArray)
+
+    const allViewPageFromDatabase = [
+        // {
+        //     viewPagesArray[0] !==
+        // }
+        { page_name: 'View Event' },
+        { page_name: 'View Article' },
+
+
+
+    ];
+
+    console.log('beeey', allViewPageFromDatabase)
 
     useEffect(() => {
-        axios.get(`/api/all-users`).then(res => {
-            if (res.data.status == 200) {
-                setAllUsers(res.data.all_users);
 
-            }
-        }
-        )
 
-        axios.get(`/api/event-type`).then(res => {
+        axios.get(`/api/edit-advertisement/${id}`).then(res => {
             if (res.data.status == 200) {
-                setAllEventTypes(res.data.event_type);
-                setRenderAllEventTypes(res.data)
+                setEditData(res.data.event);
+
+                setContent1(res.data.advertisement.advertisement_description)
+                setpayment_type(res.data.advertisement.payment_type)
+                setadvertisement_fee(res.data.advertisement.advertisement_fee)
+                setshowDesktop(res.data.advertisement.showDesktop)
+                setshowMobile(res.data.advertisement.showMobile)
+                setposition(res.data.advertisement.position)
+                // setAllImagesfromDatabase(res.data.advertisement.image.split(','))
+                setshow_days(res.data.advertisement.show_days)
+                setshow_time(res.data.advertisement.show_time)
+                setpayment_type(res.data.advertisement.payment_type)
+                setredirect_link(res.data.advertisement.redirect_link);
+                setadvertisement_title(res.data.advertisement.advertisement_title)
+
+                setViewPagesArray(res.data.view_pages);
+                // setRenderAllEventTypes(res.data)
                 // setLoading(false);
                 // setTotalJobType(res.data.total_event_types)
             }
@@ -581,7 +604,7 @@ function CreateAdvertisement() {
                                                                 </div>
 
                                                                 <div class="">
-                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" value={position}
                                                                         onChange={(e) => {
                                                                             setposition(e.target.value)
                                                                         }}>
@@ -592,59 +615,8 @@ function CreateAdvertisement() {
                                                                         <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>
-                                                                {/* 
-                                                                <div className='d-flex  align-items-center flex-wrap'>
-
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0 ">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                </div> */}
-
+                                                        
+                                              
 
 
 
@@ -656,6 +628,8 @@ function CreateAdvertisement() {
                                                                     multiple
                                                                     id="tags-standard"
                                                                     options={allViewPage}
+                                                                    value={viewInPage}
+
                                                                     getOptionLabel={(option) => option.page_name}
                                                                     // defaultValue={[allUsers[1]]}
                                                                     onChange={handlePersonChange}
@@ -681,17 +655,7 @@ function CreateAdvertisement() {
                                                                         />
                                                                     )}
 
-                                                                // renderOption={option => {
-                                                                //     return (
-                                                                //         <Fragment>
-                                                                //                 <IconButton color="primary">
-                                                                //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
-                                                                //                 </IconButton>
-                                                                //             {option.title}
-                                                                //         </Fragment>
-                                                                //     );
-                                                                // }}
-
+                                                        
 
                                                                 />
                                                             </Stack>
@@ -706,7 +670,7 @@ function CreateAdvertisement() {
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>UPDATE</button>
                                         </div>
 
 
@@ -725,4 +689,4 @@ function CreateAdvertisement() {
         </div>
     )
 }
-export default CreateAdvertisement;
+export default EditAdvertisement;

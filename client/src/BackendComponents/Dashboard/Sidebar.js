@@ -345,7 +345,7 @@ function Sidebar() {
                                             <Link to='/create-advertisement' className='text-light text-form'>Create Advment</Link>
                                         </li>
                                         <li class="mt-1">
-                                            <Link to='/view-advertisement' className='text-light text-form'>View All Advment</Link>
+                                            <Link to='/view-all-advertisement' className='text-light text-form'>View All Advment</Link>
                                         </li>
 
 

@@ -15,6 +15,8 @@ import EventConfiguration from './BackendComponents/Event/Event Configuration/Ev
 import ViewAllEvent from './BackendComponents/Event/ViewAllEvent';
 import EditEvent from './BackendComponents/Event/EditEvent';
 import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdvertisement';
+import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
+import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertisement';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -124,6 +126,8 @@ useEffect(()=>{
 
 
             <Route path="create-advertisement" element={<CreateAdvertisement/>}></Route>
+            <Route path="view-all-advertisement" element={<ViewAllAdvertisement/>}></Route>
+            <Route path="edit-advertisement/:id" element={<EditAdvertisement/>}></Route>
 
 
 

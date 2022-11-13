@@ -16,17 +16,20 @@ class AdvertisementController extends Controller
     public function index(){
              
 
-   $all_events=DB::table('aussta_events')->leftJoin('austta_event_types','austta_event_types.id','=','aussta_events.event_type_id',)->select('aussta_events.*','austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id','desc')->get();
+   $all_advertisements=DB::table('advertisements')->leftJoin('users','users.id','=','advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id','desc')->get();
 
 
 
-            $total_events=Advertisement::where('isArchived',0)->get()->count();
-            $total_archive_events=Advertisement::where('isArchived',1)->get()->count();
+
+
+
+            $total_active_advertisements=Advertisement::where('isArchived',0)->get()->count();
+            $total_archive_advertisements=Advertisement::where('isArchived',1)->get()->count();
         return response()->json([
            'status' => 200,
-            'all_events' => $all_events,
-            'total_events' => $total_events,
-            'total_archive_events' => $total_archive_events,
+            'all_advertisements' => $all_advertisements,
+            'total_active_advertisements' => $total_active_advertisements,
+            'total_archive_advertisements' => $total_archive_advertisements,
          ]);
     }
 
@@ -81,25 +84,25 @@ class AdvertisementController extends Controller
 
     public function edit($id)
     {
-        $event = Advertisement::find($id);
+        $advertisement = Advertisement::find($id);
 
-        // dd($event->contact_person);
+        // dd($advertisement->contact_person);
 
-       $user_ids=explode (",",$event->contact_person);
-    $users = User::whereIn("id",$user_ids)->get();
+       $view_pages=explode (",",$advertisement->view_page);
+    // $view_pages = Advertisement::whereIn("view_page",$view_page)->get();
 
        // dd ($lol);
 
-        if ($event) {
+        if ($advertisement) {
             return response()->json([
                 'status' => 200,
-                'event' => $event,
-                'users'=>$users
+                'advertisement' => $advertisement,
+                'view_pages'=>$view_pages
             ]);
         } else {
             return response()->json([
                 'status' => 404,
-                'message' => 'No event Found',
+                'message' => 'No advertisement Found',
             ]);
         }
     }
@@ -190,15 +193,15 @@ class AdvertisementController extends Controller
 
        public function destroy($id){
 
-        $event = Advertisement::find($id);
+        $advertisement = Advertisement::find($id);
         // $file=$event->image;
         // $filename = public_path().'/images/'.$file;
         // File::delete($filename);
 
-        $event->delete();
+        $advertisement->delete();
             return response()->json([
                 'status' => 200,
-                'message' => 'Event deleted successfully',
+                'message' => 'Advertisement deleted successfully',
             ]);
 
     

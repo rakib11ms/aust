@@ -167,7 +167,7 @@ Route::get('/filter-event-posts/{filterByName}',[EventController::class,'filterE
 
 //advertisement
 
-Route::get('/all-advertisement-posts',[AdvertisementController::class,'index']);
+Route::get('/all-advertisements',[AdvertisementController::class,'index']);
 Route::post('/add-advertisement',[AdvertisementController::class,'store']);
 Route::get('/edit-advertisement/{id}',[AdvertisementController::class,'edit']);
 Route::post('/delete-advertisement/{id}',[AdvertisementController::class,'destroy']);
