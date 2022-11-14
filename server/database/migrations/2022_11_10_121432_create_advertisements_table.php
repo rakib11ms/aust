@@ -23,10 +23,8 @@ return new class extends Migration
                  $table->string('image')->nullable();
                  $table->string('show_time')->nullable();
                  $table->string('show_days')->nullable();
-                 $table->string('advertisement_fee')->nullable();
                  $table->string('redirect_link')->nullable();
                  $table->string('position')->nullable();
-                  $table->boolean('payment_type')->default(0);
                  $table->boolean('showMobile')->default(1);
                  $table->boolean('showDesktop')->default(1);
                  $table->boolean('isArchived')->default(0);

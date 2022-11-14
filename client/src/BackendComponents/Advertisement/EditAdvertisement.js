@@ -37,9 +37,7 @@ function EditAdvertisement() {
         height: "300",
 
     };
-    const [allUsers, setAllUsers] = useState([]);
 
-    // console.log('all users check', allUsers)
 
 
 
@@ -48,18 +46,16 @@ function EditAdvertisement() {
     ///add advertisement functionality start//
 
 
-    const [advertisement_fee, setadvertisement_fee] = useState('');
     const [position, setposition] = useState('');
-    const [payment_type, setpayment_type] = useState(0);
     const [showMobile, setshowMobile] = useState(1);
     const [showDesktop, setshowDesktop] = useState(1);
 
 
     const allViewPageArray = [
-        { page_name: 'Home' },
-        { page_name: 'View Job Post' },
-        { page_name: 'View Event' },
-        { page_name: 'View Article' },
+        { id: 1, page_name: 'Home' },
+        { id: 2, page_name: 'View Job Post' },
+        { id: 3, page_name: 'View Event' },
+        { id: 4, page_name: 'View Article' },
 
 
     ];
@@ -72,7 +68,7 @@ function EditAdvertisement() {
     const [viewInPage, setviewInPage] = React.useState([]);
     // const [viewInPageId, setviewInPageId] =useState([]);
 
-    // console.log('checking baal', viewInPage)
+    console.log('checking baal', viewInPage)
 
 
     let result = viewInPage.map(a => a.page_name);
@@ -93,6 +89,7 @@ function EditAdvertisement() {
     const [show_days, setshow_days] = useState("");
 
 
+    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
 
     //////////images code ///////////
 
@@ -182,12 +179,9 @@ function EditAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
-        formData.append("payment_type", payment_type);
-        formData.append("advertisement_fee", advertisement_fee);
         formData.append("view_page", result);
         formData.append("showMobile", showMobile);
         formData.append("showDesktop", showDesktop);
-
         formData.append("position", position);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -202,13 +196,11 @@ function EditAdvertisement() {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
-                setadvertisement_fee('')
                 setContent1('');
                 setviewInPage([]);
                 setposition('');
                 setMultipleImageFiles([]);
                 setMultipleImages([]);
-                setpayment_type(0);
                 setshow_days('');
                 setshow_time('');
                 setshowDesktop(1);
@@ -227,94 +219,6 @@ function EditAdvertisement() {
 
     }
 
-    const [allEventTypes, setAllEventTypes] = useState([]);
-    console.log('allllllllllllllllllllllllllllllllllllllllllllllll', allEventTypes)
-
-
-
-    //////////////quick eveent create functionality start //////////////////
-    const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
-
-    function closeAddEventTypeModal(e) {
-        setaddEventTypeModalIsOpen(false);
-
-    }
-    const openAddEventTypeModal = (e) => {
-        e.preventDefault();
-        setaddEventTypeModalIsOpen(true)
-
-    }
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '35vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "40vw",
-            height: 300,
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-
-
-
-    const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
-    const [addEventType, setAddEventType] = useState({
-        event_type_name: "",
-        created_by: '',
-        error_list: []
-
-    })
-
-    console.log('job type data typing', addEventType)
-
-    const handleInput = (e) => {
-        setAddEventType({
-            ...addEventType, [e.target.name]: e.target.value
-        })
-
-
-    }
-
-
-
-    const handleJobTypeSave = (e) => {
-        e.preventDefault();
-        const addJob = {
-            event_type_name: addEventType.event_type_name,
-            created_by: '',
-        }
-        axios.post(`/api/add-event-type`, addEventType).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllEventTypes(res.data);
-                closeAddEventTypeModal();
-                setAddEventType({
-                    event_type_name: "",
-                    created_by: '',
-                    error_list: []
-
-                });
-
-            }
-            else if (res.data.status == 400) {
-                setAddEventType({ ...addEventType, error_list: res.data.errors });
-                // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
-
-            }
-        })
-
-
-    }
-
-
 
     const { id } = useParams();
 
@@ -329,18 +233,21 @@ function EditAdvertisement() {
     const [viewPagesArray, setViewPagesArray] = React.useState([]);
     console.log('viewwwwwwwwwww page comming from data', viewPagesArray)
 
-    const allViewPageFromDatabase = [
-        // {
-        //     viewPagesArray[0] !==
-        // }
-        { page_name: 'View Event' },
-        { page_name: 'View Article' },
+
+
+
+    let allViewPageFromDatabase = [
+
+        { id: 1, page_name: 'Home' },
+        { id: 2, page_name: 'View Job Post' },
+        { id: 3, page_name: 'View Event' },
+        // { id:4,page_name: 'View Article' },
+
 
 
 
     ];
 
-    console.log('beeey', allViewPageFromDatabase)
 
     useEffect(() => {
 
@@ -350,22 +257,17 @@ function EditAdvertisement() {
                 setEditData(res.data.event);
 
                 setContent1(res.data.advertisement.advertisement_description)
-                setpayment_type(res.data.advertisement.payment_type)
-                setadvertisement_fee(res.data.advertisement.advertisement_fee)
                 setshowDesktop(res.data.advertisement.showDesktop)
                 setshowMobile(res.data.advertisement.showMobile)
                 setposition(res.data.advertisement.position)
-                // setAllImagesfromDatabase(res.data.advertisement.image.split(','))
+                setAllImagesfromDatabase(res.data.advertisement.image.split(','))
                 setshow_days(res.data.advertisement.show_days)
                 setshow_time(res.data.advertisement.show_time)
-                setpayment_type(res.data.advertisement.payment_type)
                 setredirect_link(res.data.advertisement.redirect_link);
                 setadvertisement_title(res.data.advertisement.advertisement_title)
 
                 setViewPagesArray(res.data.view_pages);
-                // setRenderAllEventTypes(res.data)
-                // setLoading(false);
-                // setTotalJobType(res.data.total_event_types)
+
             }
         })
 
@@ -390,7 +292,7 @@ function EditAdvertisement() {
 
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
-                                    <h5>Create a Advirtesment</h5>
+                                    <h5>Edit a Advirtesment</h5>
                                     <Link to="/view-all-advertisement"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
@@ -468,19 +370,6 @@ function EditAdvertisement() {
                                                                     <span className='mx-2'>Show days</span>
                                                                 </div>
 
-                                                                <div className='mt-4'>
-                                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
-                                                                    <span className='mx-2'>Payment</span>
-                                                                </div>
-
-
-                                                                {
-                                                                    payment_type == 1 &&
-                                                                    <div className='mt-4'>
-                                                                        <i class="fa-solid fa-money-bill"></i>
-                                                                        <span className='mx-2'>Fee</span>
-                                                                    </div>
-                                                                }
 
 
 
@@ -533,43 +422,11 @@ function EditAdvertisement() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className='mt-3'>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input " type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
-                                                                            (e) => {
-                                                                                if (e.target.checked) {
-                                                                                    setpayment_type(1)
-                                                                                }
-                                                                                else {
-                                                                                    setpayment_type(0);
-                                                                                    setadvertisement_fee('');
-
-                                                                                }
-                                                                            }
-                                                                        } />
-                                                                        <label class="form-check-label" for="flexCheckChecked">
-                                                                            {
-                                                                                payment_type == 1 ? 'Yes' : 'No'
-                                                                            }
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                {
-                                                                    payment_type == 1 &&
-                                                                    <div class="my-3 col-8">
-                                                                        <div class="">
-                                                                            <input type="text" class="form-control form-control-sm rounded-3  " id="formGroupExampleInput" value={advertisement_fee} placeholder="" onChange={(e) => {
-                                                                                setadvertisement_fee(e.target.value)
-                                                                            }} />
-                                                                        </div>
-                                                                        {/* <span className='d-block col-6'>BDT</span> */}
-
-                                                                    </div>
-                                                                }
 
 
 
-                                                                <div class="my-4">
+
+                                                                <div class="my-3">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -615,8 +472,8 @@ function EditAdvertisement() {
                                                                         <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>
-                                                        
-                                              
+
+
 
 
 
@@ -628,19 +485,17 @@ function EditAdvertisement() {
                                                                     multiple
                                                                     id="tags-standard"
                                                                     options={allViewPage}
-                                                                    value={viewInPage}
-
-                                                                    getOptionLabel={(option) => option.page_name}
+                                                                    // value={allViewPageFromDatabase}
+                                                                    getOptionLabel={(option) =>
+                                                                        option.page_name}
                                                                     // defaultValue={[allUsers[1]]}
                                                                     onChange={handlePersonChange}
-                                                                    // renderOption={(option) => (
-                                                                    //     <>
-                                                                    //       {option.name} ({option.user_role})
-                                                                    //     </>
-                                                                    //   )}
+
                                                                     getOptionSelected={(option, value) =>
                                                                         option.page_name === value.page_name
                                                                     }
+                                                                    isOptionEqualToValue={(option, value) => option.page_name === value.page_name}
+
 
                                                                     renderInput={(params) => (
 
@@ -655,7 +510,7 @@ function EditAdvertisement() {
                                                                         />
                                                                     )}
 
-                                                        
+
 
                                                                 />
                                                             </Stack>
@@ -664,6 +519,29 @@ function EditAdvertisement() {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                        </div>
+
+                                        <div className='mb-2 mt-1 d-flex'>
+
+                                            {
+                                                multipleImages.length >= 1 ?
+                                                    render(multipleImages)
+                                                    :
+
+                                                    allImagesFromDatabase.map((item, i) => {
+                                                        // console.log('bal item',item)
+                                                        return (
+                                                            <>
+                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                            </>
+                                                        )
+                                                    })
+
+
+                                            }
+
 
                                         </div>
 

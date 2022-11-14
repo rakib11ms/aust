@@ -56,9 +56,7 @@ class AdvertisementController extends Controller
 
 
            $advertisement->advertisement_title = $request->advertisement_title;
-           $advertisement->advertisement_fee = $request->advertisement_fee;
            $advertisement->advertisement_description = $request->advertisement_description;
-           $advertisement->payment_type = $request->payment_type;
            $advertisement->posted_by =auth('sanctum')->user()->id;
            $advertisement->show_time = $request->show_time;
            $advertisement->show_days = $request->show_days;

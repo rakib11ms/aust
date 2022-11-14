@@ -48,9 +48,7 @@ function CreateAdvertisement() {
     ///add advertisement functionality start//
 
 
-    const [advertisement_fee, setadvertisement_fee] = useState('');
     const [position, setposition] = useState('');
-    const [payment_type, setpayment_type] = useState(0);
     const [showMobile, setshowMobile] = useState(1);
     const [showDesktop, setshowDesktop] = useState(1);
 
@@ -180,8 +178,6 @@ function CreateAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
-        formData.append("payment_type", payment_type);
-        formData.append("advertisement_fee", advertisement_fee);
         formData.append("view_page", result);
         formData.append("showMobile", showMobile);
         formData.append("showDesktop", showDesktop);
@@ -200,13 +196,11 @@ function CreateAdvertisement() {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
-                setadvertisement_fee('')
                 setContent1('');
                 setviewInPage([]);
                 setposition('');
                 setMultipleImageFiles([]);
                 setMultipleImages([]);
-                setpayment_type(0);
                 setshow_days('');
                 setshow_time('');
                 setshowDesktop(1);
@@ -225,128 +219,7 @@ function CreateAdvertisement() {
 
     }
 
-    const [allEventTypes, setAllEventTypes] = useState([]);
-    console.log('allllllllllllllllllllllllllllllllllllllllllllllll', allEventTypes)
 
-
-
-    //////////////quick eveent create functionality start //////////////////
-    const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
-
-    function closeAddEventTypeModal(e) {
-        setaddEventTypeModalIsOpen(false);
-
-    }
-    const openAddEventTypeModal = (e) => {
-        e.preventDefault();
-        setaddEventTypeModalIsOpen(true)
-
-    }
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '35vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "40vw",
-            height: 300,
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-
-
-
-    const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
-    const [addEventType, setAddEventType] = useState({
-        event_type_name: "",
-        created_by: '',
-        error_list: []
-
-    })
-
-    console.log('job type data typing', addEventType)
-
-    const handleInput = (e) => {
-        setAddEventType({
-            ...addEventType, [e.target.name]: e.target.value
-        })
-
-
-    }
-
-
-
-    const handleJobTypeSave = (e) => {
-        e.preventDefault();
-        const addJob = {
-            event_type_name: addEventType.event_type_name,
-            created_by: '',
-        }
-        axios.post(`/api/add-event-type`, addEventType).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllEventTypes(res.data);
-                closeAddEventTypeModal();
-                setAddEventType({
-                    event_type_name: "",
-                    created_by: '',
-                    error_list: []
-
-                });
-
-            }
-            else if (res.data.status == 400) {
-                setAddEventType({ ...addEventType, error_list: res.data.errors });
-                // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
-
-            }
-        })
-
-
-    }
-
-
-    // useEffect(() => {
-
-
-    //     axios.get(`/api/event-type`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setAllEventTypes(res.data.event_type);
-    //             setRenderAllEventTypes(res.data)
-    //             // setLoading(false);
-    //             // setTotalJobType(res.data.total_event_types)
-    //         }
-    //     })
-
-    // }, [renderAllEventTypes])
-
-
-    useEffect(() => {
-        axios.get(`/api/all-users`).then(res => {
-            if (res.data.status == 200) {
-                setAllUsers(res.data.all_users);
-
-            }
-        }
-        )
-
-        axios.get(`/api/event-type`).then(res => {
-            if (res.data.status == 200) {
-                setAllEventTypes(res.data.event_type);
-                setRenderAllEventTypes(res.data)
-                // setLoading(false);
-                // setTotalJobType(res.data.total_event_types)
-            }
-        })
-
-    }, [])
 
 
 
@@ -445,19 +318,8 @@ function CreateAdvertisement() {
                                                                     <span className='mx-2'>Show days</span>
                                                                 </div>
 
-                                                                <div className='mt-4'>
-                                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
-                                                                    <span className='mx-2'>Payment</span>
-                                                                </div>
 
 
-                                                                {
-                                                                    payment_type == 1 &&
-                                                                    <div className='mt-4'>
-                                                                        <i class="fa-solid fa-money-bill"></i>
-                                                                        <span className='mx-2'>Fee</span>
-                                                                    </div>
-                                                                }
 
 
 
@@ -496,7 +358,7 @@ function CreateAdvertisement() {
                                                                     </div>
                                                                 </div>
 
-                                                                <div className='my-3'>
+                                                                <div className='my-2'>
 
                                                                     <div class="d-flex align-items-center">
 
@@ -510,39 +372,6 @@ function CreateAdvertisement() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className='mt-3'>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input " type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
-                                                                            (e) => {
-                                                                                if (e.target.checked) {
-                                                                                    setpayment_type(1)
-                                                                                }
-                                                                                else {
-                                                                                    setpayment_type(0);
-                                                                                    setadvertisement_fee('');
-
-                                                                                }
-                                                                            }
-                                                                        } />
-                                                                        <label class="form-check-label" for="flexCheckChecked">
-                                                                            {
-                                                                                payment_type == 1 ? 'Yes' : 'No'
-                                                                            }
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                {
-                                                                    payment_type == 1 &&
-                                                                    <div class="my-3 col-8">
-                                                                        <div class="">
-                                                                            <input type="text" class="form-control form-control-sm rounded-3  " id="formGroupExampleInput" value={advertisement_fee} placeholder="" onChange={(e) => {
-                                                                                setadvertisement_fee(e.target.value)
-                                                                            }} />
-                                                                        </div>
-                                                                        {/* <span className='d-block col-6'>BDT</span> */}
-
-                                                                    </div>
-                                                                }
 
 
 
@@ -563,7 +392,7 @@ function CreateAdvertisement() {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="my-4">
+                                                                <div class="my-3">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -592,58 +421,6 @@ function CreateAdvertisement() {
                                                                         <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>
-                                                                {/* 
-                                                                <div className='d-flex  align-items-center flex-wrap'>
-
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0 ">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check mt-3 mx-1 flex-1 my-0">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
-                                                                        </label>
-                                                                    </div>
-                                                                </div> */}
 
 
 
