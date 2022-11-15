@@ -170,7 +170,7 @@ function EditAdvertisement() {
 
 
 
-    function handleSubmit(e) {
+    function handleUpdate(e) {
         e.preventDefault();
         const formData = new FormData();
         // formData.append("posted_by", 1);
@@ -179,10 +179,15 @@ function EditAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
-        formData.append("view_page", result);
         formData.append("showMobile", showMobile);
         formData.append("showDesktop", showDesktop);
         formData.append("position", position);
+        formData.append("home_page", allCheckBox.home_page ? 1 : 0);
+        formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
+        formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
+        formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
+        formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
+        formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
 
@@ -192,7 +197,7 @@ function EditAdvertisement() {
 
 
 
-        axios.post(`/api/add-advertisement`, formData).then(res => {
+        axios.post(`/api/update-advertisement/${id}`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
 
@@ -230,23 +235,7 @@ function EditAdvertisement() {
 
 
 
-    const [viewPagesArray, setViewPagesArray] = React.useState([]);
-    console.log('viewwwwwwwwwww page comming from data', viewPagesArray)
 
-
-
-
-    let allViewPageFromDatabase = [
-
-        { id: 1, page_name: 'Home' },
-        { id: 2, page_name: 'View Job Post' },
-        { id: 3, page_name: 'View Event' },
-        // { id:4,page_name: 'View Article' },
-
-
-
-
-    ];
 
 
     useEffect(() => {
@@ -266,14 +255,36 @@ function EditAdvertisement() {
                 setredirect_link(res.data.advertisement.redirect_link);
                 setadvertisement_title(res.data.advertisement.advertisement_title)
 
-                setViewPagesArray(res.data.view_pages);
+                setAllCheckBox({
+                    home_page: res.data.advertisement.home_page,
+                    view_job_page: res.data.advertisement.view_job_page,
+                    view_advment_page: res.data.advertisement.view_advment_page,
+                    create_advment_page: res.data.advertisement.create_advment_page,
+                    add_general_post_page: res.data.advertisement.add_general_post_page,
+                    add_event_page: res.data.advertisement.add_event_page
+                })
 
             }
         })
 
     }, [])
 
+    const [allCheckBox, setAllCheckBox] = useState({
+        home_page: '',
+        view_job_page: '',
+        view_advment_page: '',
+        create_advment_page: '',
+        add_general_post_page: '',
+        add_event_page: ''
+    });
 
+    // console.log('hhh', allCheckBox)
+    function handleCheckbox(e) {
+        setAllCheckBox({
+            ...allCheckBox, [e.target.name]: e.target.checked
+        })
+
+    }
 
     return (
         <div className="container-fluid">
@@ -297,7 +308,7 @@ function EditAdvertisement() {
 
                                 </div>
                                 <div className='card-body '>
-                                    <form onSubmit={handleSubmit}>
+                                    <form onSubmit={handleUpdate}>
 
                                         <div className='row '>
 
@@ -338,7 +349,24 @@ function EditAdvertisement() {
                                                         />
 
                                                         <div className='d-flex mt-2 border' >
-                                                            {render(multipleImages)}
+                                                            {
+                                                                multipleImages.length >= 1 ?
+                                                                    render(multipleImages)
+                                                                    :
+
+                                                                    allImagesFromDatabase.map((item, i) => {
+                                                                        // console.log('bal item',item)
+                                                                        return (
+                                                                            <>
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                                            </>
+                                                                        )
+                                                                    })
+
+
+                                                            }
+
 
                                                         </div>
 
@@ -479,41 +507,49 @@ function EditAdvertisement() {
 
                                                             </div>
                                                         </div>
-                                                        <div className='mt-2'>
-                                                            <Stack spacing={5} sx={{ width: '100%' }}>
-                                                                <Autocomplete
-                                                                    multiple
-                                                                    id="tags-standard"
-                                                                    options={allViewPage}
-                                                                    // value={allViewPageFromDatabase}
-                                                                    getOptionLabel={(option) =>
-                                                                        option.page_name}
-                                                                    // defaultValue={[allUsers[1]]}
-                                                                    onChange={handlePersonChange}
-
-                                                                    getOptionSelected={(option, value) =>
-                                                                        option.page_name === value.page_name
-                                                                    }
-                                                                    isOptionEqualToValue={(option, value) => option.page_name === value.page_name}
 
 
-                                                                    renderInput={(params) => (
+                                                        <div class="mt-2">
+                                                            <div class="d-flex flex-wrap ">
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="home_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.home_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Home
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="view_job_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.view_job_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        View Job
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="view_advment_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.view_advment_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        View advment
+                                                                    </label>
+                                                                </div>
 
-                                                                        <TextField
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="create_advment_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.create_advment_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Create Advment
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="add_general_post_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.add_general_post_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Add General Post
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="add_event_page" id="flexCheckDefault" onChange={handleCheckbox} checked={allCheckBox.add_event_page == 1 ? true : false} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Add Event
+                                                                    </label>
+                                                                </div>
+                                                            </div>
 
-                                                                            {...params}
-                                                                            // variant="standard"
-                                                                            // label="Multiple values"
-                                                                            placeholder="Search..."
-                                                                            size="small"
-
-                                                                        />
-                                                                    )}
-
-
-
-                                                                />
-                                                            </Stack>
                                                         </div>
 
                                                     </div>
@@ -522,33 +558,12 @@ function EditAdvertisement() {
 
                                         </div>
 
-                                        <div className='mb-2 mt-1 d-flex'>
 
-                                            {
-                                                multipleImages.length >= 1 ?
-                                                    render(multipleImages)
-                                                    :
-
-                                                    allImagesFromDatabase.map((item, i) => {
-                                                        // console.log('bal item',item)
-                                                        return (
-                                                            <>
-                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
-
-                                                            </>
-                                                        )
-                                                    })
-
-
-                                            }
-
-
-                                        </div>
 
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>UPDATE</button>
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE</button>
                                         </div>
 
 

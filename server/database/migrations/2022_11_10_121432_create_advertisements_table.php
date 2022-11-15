@@ -19,7 +19,12 @@ return new class extends Migration
                  $table->string('posted_by')->nullable();
                  $table->string('updated_by')->nullable();
                  $table->longText('advertisement_description')->nullable();
-                 $table->string('view_page')->nullable();
+                 $table->string('home_page')->nullable()->comment('1=true,0=false');
+                 $table->string('view_job_page')->nullable()->comment('1=true,0=false');
+                 $table->string('view_advment_page')->nullable()->comment('1=true,0=false');
+                 $table->string('create_advment_page')->nullable()->comment('1=true,0=false');
+                 $table->string('add_general_post_page')->nullable()->comment('1=true,0=false');
+                 $table->string('add_event_page')->nullable()->comment('1=true,0=false');
                  $table->string('image')->nullable();
                  $table->string('show_time')->nullable();
                  $table->string('show_days')->nullable();

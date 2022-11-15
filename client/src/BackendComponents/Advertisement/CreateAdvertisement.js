@@ -53,35 +53,6 @@ function CreateAdvertisement() {
     const [showDesktop, setshowDesktop] = useState(1);
 
 
-    const allViewPageArray = [
-        { id: '1', page_name: 'Home' },
-        { id: '2', page_name: 'View Job Post' },
-        { id: '3', page_name: 'View Event' },
-        { id: '4', page_name: 'View Article' },
-
-    ];
-
-    const [allViewPage, setAllViewPage] = useState(allViewPageArray);
-
-
-
-
-    const [viewInPage, setviewInPage] = React.useState([]);
-    // const [viewInPageId, setviewInPageId] =useState([]);
-
-    // console.log('checking baal', viewInPage)
-
-
-    let result = viewInPage.map(a => a.page_name);
-    // console.log('result',result)
-
-    // console.log('baler result', result);
-
-
-
-    function handlePersonChange(event, values) {
-        setviewInPage(values)
-    }
 
     const [advertisement_title, setadvertisement_title] = useState("");
     const [redirect_link, setredirect_link] = useState("");
@@ -178,7 +149,13 @@ function CreateAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
-        formData.append("view_page", result);
+        formData.append("home_page",allCheckBox.home_page?1:0);
+        formData.append("view_job_page",allCheckBox.view_job_page?1:0);
+        formData.append("view_advment_page",allCheckBox.view_advment_page?1:0);
+        formData.append("create_advment_page",allCheckBox.create_advment_page?1:0);
+        formData.append("add_general_post_page",allCheckBox.add_general_post_page?1:0);
+        formData.append("add_event_page",allCheckBox.add_event_page?1:0);
+
         formData.append("showMobile", showMobile);
         formData.append("showDesktop", showDesktop);
 
@@ -197,7 +174,6 @@ function CreateAdvertisement() {
                 Swal.fire(res.data.message, '', 'success')
 
                 setContent1('');
-                setviewInPage([]);
                 setposition('');
                 setMultipleImageFiles([]);
                 setMultipleImages([]);
@@ -218,8 +194,22 @@ function CreateAdvertisement() {
         })
 
     }
+    const [allCheckBox, setAllCheckBox] = useState({
+        home_page:'',
+        view_job_page:'',
+        view_advment_page:'',
+        create_advment_page:'',
+        add_general_post_page:'',
+        add_event_page:''
+    });
+    function handleCheckbox(e) {
+        setAllCheckBox({
+            ...allCheckBox, [e.target.name]: e.target.checked
+        })
 
+    }
 
+    console.log('heelloo yeeeeees', allCheckBox)
 
 
 
@@ -427,7 +417,7 @@ function CreateAdvertisement() {
 
                                                             </div>
                                                         </div>
-                                                        <div className='mt-2'>
+                                                        {/* <div className='mt-2'>
                                                             <Stack spacing={5} sx={{ width: '100%' }}>
                                                                 <Autocomplete
                                                                     multiple
@@ -472,6 +462,49 @@ function CreateAdvertisement() {
 
                                                                 />
                                                             </Stack>
+                                                        </div> */}
+
+                                                        <div class="mt-2">
+                                                            <div class="d-flex flex-wrap ">
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="home_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Home
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="view_job_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        View Job
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="view_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        View advment
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="create_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Create Advment
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="add_general_post_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Add General Post
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="add_event_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Add Event
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
 
                                                     </div>

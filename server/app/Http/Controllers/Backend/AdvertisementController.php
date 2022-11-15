@@ -62,7 +62,12 @@ class AdvertisementController extends Controller
            $advertisement->show_days = $request->show_days;
            $advertisement->showMobile = $request->showMobile;
            $advertisement->showDesktop = $request->showDesktop;
-           $advertisement->view_page = $request->view_page;
+           $advertisement->home_page = $request->home_page;
+           $advertisement->view_job_page = $request->view_job_page;
+           $advertisement->view_advment_page = $request->view_advment_page;
+           $advertisement->create_advment_page = $request->create_advment_page;
+           $advertisement->add_general_post_page = $request->add_general_post_page;
+           $advertisement->add_event_page = $request->add_event_page;
            $advertisement->position = $request->position;
            $advertisement->redirect_link = $request->redirect_link;
             $advertisement->save();
@@ -84,18 +89,10 @@ class AdvertisementController extends Controller
     {
         $advertisement = Advertisement::find($id);
 
-        // dd($advertisement->contact_person);
-
-       $view_pages=explode (",",$advertisement->view_page);
-    // $view_pages = Advertisement::whereIn("view_page",$view_page)->get();
-
-       // dd ($lol);
-
         if ($advertisement) {
             return response()->json([
                 'status' => 200,
                 'advertisement' => $advertisement,
-                'view_pages'=>$view_pages
             ]);
         } else {
             return response()->json([
@@ -110,7 +107,7 @@ class AdvertisementController extends Controller
 
     public function update(Request $request,$id){
 
-             $event=Advertisement::find($id);
+             $advertisement=Advertisement::find($id);
 
           if($request->file('image')){
  foreach( $request->file('image') as $image)
@@ -120,47 +117,33 @@ class AdvertisementController extends Controller
      $image->move('images/', $upload_image_name);    
      $name[] = $upload_image_name;       
 
-      $event->image =  implode(', ',$name);       
+      $advertisement->image =  implode(', ',$name);       
       // $event->save();   
 }
           }
 
 
 
-           $event->event_type_id = $request->event_type_id;
-           $event->event_title = $request->event_title;
-           $event->event_fee = $request->event_fee;
-           $event->updated_by = $request->updated_by;
-           $event->event_description = $request->event_description;
-           $event->contact_person = $request->contact_person;
-           $event->event_date = $request->event_date;
-
-           $event->posted_by = $request->posted_by;
-           $event->event_time = $request->event_time;
-           // $event->isPublished = $request->isPublished;
-           // $event->isArchived = $request->isArchived;
-           $event->priority = $request->priority;
-
-            $user_ids=explode (",",$request->contact_person);
-
-            // dd($user_ids);         
-            $users = User::whereIn("id",$user_ids)->get();
-
-                    // dd($users);
-
-                    foreach($users as $key => $user) {
-                        // echo ($user->email);
-                        Mail::to($user->email)->send(new EventMail($event));
-
-
-                    }
-
-           
-            $event->update();
+           $advertisement->advertisement_title = $request->advertisement_title;
+           $advertisement->advertisement_description = $request->advertisement_description;
+           $advertisement->posted_by =auth('sanctum')->user()->id;
+           $advertisement->show_time = $request->show_time;
+           $advertisement->show_days = $request->show_days;
+           $advertisement->showMobile = $request->showMobile;
+           $advertisement->showDesktop = $request->showDesktop;
+           $advertisement->home_page = $request->home_page;
+           $advertisement->view_job_page = $request->view_job_page;
+           $advertisement->view_advment_page = $request->view_advment_page;
+           $advertisement->create_advment_page = $request->create_advment_page;
+           $advertisement->add_general_post_page = $request->add_general_post_page;
+           $advertisement->add_event_page = $request->add_event_page;
+           $advertisement->position = $request->position;
+           $advertisement->redirect_link = $request->redirect_link;
+            $advertisement->update();
 
  return response()->json([
                 'status' => 200,
-                'message' => 'Event Updated Successfully',
+                'message' => 'Advertisement Updated Successfully',
             ]);   
     }
 
