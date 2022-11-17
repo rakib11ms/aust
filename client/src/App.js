@@ -17,6 +17,7 @@ import EditEvent from './BackendComponents/Event/EditEvent';
 import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdvertisement';
 import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
 import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertisement';
+import AdminPasswordReset from './Authentication/AdminPasswordReset';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -27,37 +28,37 @@ function App() {
   console.log('susccess status', successStatus);
 
   const handleSucessLogin = (val) => {
-    setSuccessStatus(val)
+  setSuccessStatus(val)                             
   }
 
 
-const [trigger,setTrigger]=useState('');
-// console.log('hel',trigger);
+  const [trigger, setTrigger] = useState('');
+  // console.log('hel',trigger);
 
-useEffect(()=>{
-  if(trigger){
-    <Navigate to="/admin-login" />
+  useEffect(() => {
+    if (trigger) {
+      <Navigate to="/admin-login" />
 
-  }
+    }
 
-},[trigger]);
+  }, [trigger]);
 
-    axios.interceptors.response.use(response => {
-      return response;
+  axios.interceptors.response.use(response => {
+    return response;
 
-    }, error => {
-      if (error.response.status === 401) {
-        // setTrigger(error.response.status);
-        // console.log('use effect triggered');
-        // alert('trii')
-          // Swal.fire("Unauthorized", '', 'error')
-          // navigate('admin-login')
-          {<Navigate to="/admin-login" />}
+  }, error => {
+    if (error.response.status === 401) {
+      // setTrigger(error.response.status);
+      // console.log('use effect triggered');
+      // alert('trii')
+      // Swal.fire("Unauthorized", '', 'error')
+      // navigate('admin-login')
+      { <Navigate to="/admin-login" /> }
 
-      }
-      return error;
+    }
+    return error;
 
-    });
+  });
 
 
 
@@ -89,50 +90,52 @@ useEffect(()=>{
       }
 
     }
- 
+
   }, [successStatus])
 
   return (
     <>
       <Routes>
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
-     
+
+        <Route path="admin-password-reset" element={<AdminPasswordReset />}></Route>
 
 
-        
-          <Route element={<ProtectedRoutes />}>
+
+        <Route element={<ProtectedRoutes />}>
           {
-          successStatus == 'yes' ?
-            storage === 'admin' && <>
-              <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            </>
+            successStatus == 'yes' ?
+              storage === 'admin' && <>
+                <Route path="admin-dashboard" element={<Dashboard />}></Route>
+              </>
 
-            :
-            <Route path="admin-login" element={<AdminLogin />}></Route>
+              :
+              <Route path="admin-login" element={<AdminLogin />}></Route>
 
-        }
-
-            <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            <Route path="post-type" element={<PostType/>}></Route>
-            <Route path="job-configuration" element={<JobConfiguration/>}></Route>
-            <Route path="create-job-post" element={<CreateJobPost/>}></Route>
-            <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
-            <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
-
-            <Route path="create-event" element={<CreateEvent/>}></Route>
-            <Route path="edit-events/:id" element={<EditEvent/>}></Route>
-            <Route path="event-configuration" element={<EventConfiguration/>}></Route>
-            <Route path="view-all-events" element={<ViewAllEvent/>}></Route>
+          }
 
 
-            <Route path="create-advertisement" element={<CreateAdvertisement/>}></Route>
-            <Route path="view-all-advertisement" element={<ViewAllAdvertisement/>}></Route>
-            <Route path="edit-advertisement/:id" element={<EditAdvertisement/>}></Route>
+          <Route path="admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="post-type" element={<PostType />}></Route>
+          <Route path="job-configuration" element={<JobConfiguration />}></Route>
+          <Route path="create-job-post" element={<CreateJobPost />}></Route>
+          <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
+          <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
+
+          <Route path="create-event" element={<CreateEvent />}></Route>
+          <Route path="edit-events/:id" element={<EditEvent />}></Route>
+          <Route path="event-configuration" element={<EventConfiguration />}></Route>
+          <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+
+
+          <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>
+          <Route path="view-all-advertisement" element={<ViewAllAdvertisement />}></Route>
+          <Route path="edit-advertisement/:id" element={<EditAdvertisement />}></Route>
 
 
 
-          </Route>
-        
+        </Route>
+
 
 
       </Routes>

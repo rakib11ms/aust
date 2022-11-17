@@ -348,7 +348,7 @@ function EditAdvertisement() {
                                                         <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2 border' >
+                                                        <div className='d-flex mt-2 ' >
                                                             {
                                                                 multipleImages.length >= 1 ?
                                                                     render(multipleImages)
@@ -562,7 +562,7 @@ function EditAdvertisement() {
 
 
 
-                                        <div class="">
+                                        <div class="mt-2">
                                             <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE</button>
                                         </div>
 

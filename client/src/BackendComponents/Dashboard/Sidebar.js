@@ -233,7 +233,8 @@ function Sidebar() {
                                             <a href='' className='text-light text-form'>Contact</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Home</a>
+                                            <Link to="/blog-article-configuration" className='text-light text-form '>Configuration</Link>
+
                                         </li>
                                     </ul>
                                 </>
