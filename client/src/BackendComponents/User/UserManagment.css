@@ -1,0 +1,96 @@
+.user-config{
+  border: 1px solid gray;
+ 
+}
+.user-config1{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#icon{
+    color: rgb(168, 168, 168);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow:0px 0px 3px 0px;
+    border-left: none;
+}
+.pending{
+    border: 1px solid #d4d4d4;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+    padding: 5px 15px;
+}
+.active{
+    border: 1px solid #d4d4d4;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+    padding: 5px 15px;
+}
+.num1{
+    margin-right: -10px;
+    background-color: #FF4242;
+    border-radius: 300px;
+    box-shadow: 0px 0px 2px 0px;
+}
+.num2{
+    margin-right: -10px;
+    background-color: #0FA958;
+    border-radius: 300px;
+    box-shadow: 0px 0px 2px 0px;
+}
+.input-icon{
+    display: flex;
+}
+.user-config2{
+    display: flex;
+    justify-content: space-evenly;
+}
+.select-box{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 20px;
+    margin-right: 25px;
+    padding: 10px 15px;
+    margin-bottom: 40px;
+}
+
+.job-config-header>.inside>.item2,.item3{
+    margin-left:60px;
+}
+.job-config-header>.inside>div>p{
+    font-size: 15px;
+}
+
+.job-type-nav{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+
+.job-type-secs >div>button{
+color: #777777;
+}
+.job-type-secs{
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-type-secs>div{
+    margin-right:20px;
+
+}
+
+.job-type-text{
+    color: #008F41;
+    font-weight: 400;
+}

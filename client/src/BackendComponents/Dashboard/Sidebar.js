@@ -100,7 +100,7 @@ function Sidebar() {
                                 isActive && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <a href='' className='text-light text-form' >Home</a>
+                                            <Link to="/view-all-users" className='text-light text-form '>View All Users</Link>
                                         </li>
                                         <li>
                                             <a href='' className='text-light text-form'>About</a>

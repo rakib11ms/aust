@@ -8,6 +8,7 @@ import axios from 'axios';
 import JobConfiguration from './BackendComponents/Job Management/JobConfiguration/JobConfiguration';
 import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobPost';
 import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
+import ViewAllUsers from './BackendComponents/User/ViewAllUsers';
 import EditJobPost from './BackendComponents/Job Management/JobPost/EditJobPost';
 import './imageUrl';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
@@ -31,6 +32,7 @@ function App() {
   setSuccessStatus(val)                             
   }
 
+  
 
   const [trigger, setTrigger] = useState('');
   // console.log('hel',trigger);
@@ -112,7 +114,20 @@ function App() {
               :
               <Route path="admin-login" element={<AdminLogin />}></Route>
 
-          }
+        }
+
+            <Route path="admin-dashboard" element={<Dashboard />}></Route>
+            <Route path="post-type" element={<PostType/>}></Route>
+            <Route path="job-configuration" element={<JobConfiguration/>}></Route>
+            <Route path="create-job-post" element={<CreateJobPost/>}></Route>
+            <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
+            <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
+            <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
+
+            <Route path="create-event" element={<CreateEvent/>}></Route>
+            <Route path="edit-events/:id" element={<EditEvent/>}></Route>
+            <Route path="event-configuration" element={<EventConfiguration/>}></Route>
+            <Route path="view-all-events" element={<ViewAllEvent/>}></Route>
 
 
           <Route path="admin-dashboard" element={<Dashboard />}></Route>
