@@ -8,6 +8,7 @@ import axios from 'axios';
 import JobConfiguration from './BackendComponents/Job Management/JobConfiguration/JobConfiguration';
 import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobPost';
 import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
+import ViewAllUsers from './BackendComponents/User/ViewAllUsers';
 import EditJobPost from './BackendComponents/Job Management/JobPost/EditJobPost';
 import './imageUrl';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
@@ -117,6 +118,7 @@ useEffect(()=>{
             <Route path="job-configuration" element={<JobConfiguration/>}></Route>
             <Route path="create-job-post" element={<CreateJobPost/>}></Route>
             <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
+            <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
             <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
 
             <Route path="create-event" element={<CreateEvent/>}></Route>
