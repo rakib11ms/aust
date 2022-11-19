@@ -414,25 +414,25 @@ function ViewAllAdvertisement() {
                     </div>
 
                     <div class="" >
-                
-                      
-                        <div class="d-flex" style={{color:'#777777'}}>
-                          
-                          <div className='badgee'>
-                          <i class="fa-solid fa-users"></i>
-                          </div>
-                              
-                          <div className='mx-2'>
-                          <i class="fa fa-clock"></i>
-                          <span className='mx-1'>30 Sec</span>
-                          </div>
 
-                          <div className='mx-2'>
-                          <i class="fa fa-calendar"></i>
-                          <span className='mx-1'>29 days left</span>
-                          </div>
-                         
-                       
+
+                        <div class="d-flex" style={{ color: '#777777' }}>
+
+                            <div className='badgee'>
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <div className='mx-2'>
+                                <i class="fa fa-clock"></i>
+                                <span className='mx-1'>30 Sec</span>
+                            </div>
+
+                            <div className='mx-2'>
+                                <i class="fa fa-calendar"></i>
+                                <span className='mx-1'>29 days left</span>
+                            </div>
+
+
                         </div>
 
                         <div className=''>
@@ -440,8 +440,8 @@ function ViewAllAdvertisement() {
                         </div>
 
                         <div className=''>
-                        <i class="fas fa-link"></i>
-                        <span className='mx-1'><a href={row.redirect_link}>{row.redirect_link}</a></span>
+                            <i class="fas fa-link"></i>
+                            <span className='mx-1'><a href={row.redirect_link}>{row.redirect_link}</a></span>
                         </div>
 
 
@@ -644,7 +644,7 @@ function ViewAllAdvertisement() {
                                     </div>
 
                                 </div>
-                                <div class="view-event-header-data text-light px-3">
+                                <div class="view-event-header-data text-light px-5">
                                     <div class=" d-flex">
                                         <div class="i mx-2 mt-3">
                                             <h4 className=' mb-0'>{totalActiveAdvertisements}</h4>

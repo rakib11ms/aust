@@ -145,6 +145,13 @@ class MobileAuthenticationController extends Controller
     {
 
         $user = User::where('email', $request->email)->first();
+        // dd($user->device_token);
+
+        if($user){
+ $user->device_token=$request->device_token;
+        $user->save();
+        }
+       
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(

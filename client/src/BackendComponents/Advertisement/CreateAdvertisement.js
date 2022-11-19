@@ -28,6 +28,9 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function CreateAdvertisement() {
 
+
+    const navigate = useNavigate();
+
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
 
@@ -149,12 +152,12 @@ function CreateAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
-        formData.append("home_page",allCheckBox.home_page?1:0);
-        formData.append("view_job_page",allCheckBox.view_job_page?1:0);
-        formData.append("view_advment_page",allCheckBox.view_advment_page?1:0);
-        formData.append("create_advment_page",allCheckBox.create_advment_page?1:0);
-        formData.append("add_general_post_page",allCheckBox.add_general_post_page?1:0);
-        formData.append("add_event_page",allCheckBox.add_event_page?1:0);
+        formData.append("home_page", allCheckBox.home_page ? 1 : 0);
+        formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
+        formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
+        formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
+        formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
+        formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
 
         formData.append("showMobile", showMobile);
         formData.append("showDesktop", showDesktop);
@@ -181,6 +184,7 @@ function CreateAdvertisement() {
                 setshow_time('');
                 setshowDesktop(1);
                 setshowMobile(1);
+                navigate('/view-all-advertisement')
 
                 // setImage('');
                 // setPicture('');
@@ -195,12 +199,12 @@ function CreateAdvertisement() {
 
     }
     const [allCheckBox, setAllCheckBox] = useState({
-        home_page:'',
-        view_job_page:'',
-        view_advment_page:'',
-        create_advment_page:'',
-        add_general_post_page:'',
-        add_event_page:''
+        home_page: '',
+        view_job_page: '',
+        view_advment_page: '',
+        create_advment_page: '',
+        add_general_post_page: '',
+        add_event_page: ''
     });
     function handleCheckbox(e) {
         setAllCheckBox({
@@ -481,14 +485,14 @@ function CreateAdvertisement() {
                                                                 <div class="form-check mx-2 mt-2">
                                                                     <input class="form-check-input" type="checkbox" name="view_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                                        View advment
+                                                                        View advertisement
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form-check mx-2 mt-2">
                                                                     <input class="form-check-input" type="checkbox" name="create_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                                        Create Advment
+                                                                        View Alumni
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">

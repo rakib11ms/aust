@@ -1,0 +1,13 @@
+
+
+.password-wrapper{
+    position: relative;
+}
+
+.password-wrapper-trigger{
+    position: absolute;
+    right: 5px;
+    top:15px;
+    z-index: 100;
+
+}

@@ -167,7 +167,7 @@ function CreateEvent() {
 
 
 
-
+  const navigate=useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -211,6 +211,7 @@ function CreateEvent() {
                 setMultipleImageFiles([]);
                 setMultipleImages([]);
                 setpayment_type(0)
+                navigate('/view-all-events');
 
                 // setImage('');
                 // setPicture('');
@@ -442,7 +443,7 @@ function CreateEvent() {
 
 
 
-                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>
+                                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-2' onClick={handleJobTypeSave}>
 
                                                                             Save
 
@@ -554,7 +555,7 @@ function CreateEvent() {
                                                         <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2 border' >
+                                                        <div className='d-flex mt-2 ' >
                                                             {render(multipleImages)}
 
                                                         </div>

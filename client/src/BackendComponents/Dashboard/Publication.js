@@ -8,7 +8,7 @@ function Publication() {
     var settings = {
         dots: true,
         infinite: true,
-        speed: 1000,
+        speed: 3500,
         slidesToShow: 2,
         slidesToScroll: 2,
         autoplay: true,
@@ -247,7 +247,7 @@ function Publication() {
             </div>
 
             <div className="publication mt-5">
-            <hr/>
+                <hr />
 
                 <h6 className="text-success ">Job Management</h6>
 
@@ -462,7 +462,7 @@ function Publication() {
             </div>
 
             <div className="publication mt-5">
-            <hr/>
+                <hr />
 
                 <h6 className="text-success ">Advertiements</h6>
 

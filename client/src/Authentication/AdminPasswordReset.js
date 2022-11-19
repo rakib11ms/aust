@@ -140,7 +140,7 @@ function AdminPasswordReset() {
                     <span class="input-group-text   form-color text-white" style={{ backgroundColor: '#DFA800' }} id="basic-addon1">|**</span>
                     <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Password" name='password' onChange={handleChange} aria-describedby="basic-addon1" />
                   </div>
-                  <button type='submit' className='btn  text-light form-color d-block w-100 fs-5 rounded-3 btn btn-warning' style={{ backgroundColor: '#DFA800' }}> RESET  {
+                  <button type='submit' className='btn  text-light form-color d-block mt-3 w-100 fs-5 rounded-3 btn btn-warning' style={{ backgroundColor: '#DFA800' }}> RESET  {
                     clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
 
                   }</button>

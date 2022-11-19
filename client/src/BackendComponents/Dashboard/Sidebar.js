@@ -70,17 +70,19 @@ function Sidebar() {
                     <p className='mx-2 fw-500 my-1 text-white'>Home</p>
 
                 </div> */}
+                <Link to="/admin-dashboard" style={{ textDecoration: 'none' }}>
+                    <div className='home-menu d-flex  mt-4 py-1 px-2 menu-left rounded-2'>
+                        <i className='fa-solid fa-home mt-2 d-block text-white ' />
+                        <h6 className='mx-2 fw-500 my-1 text-white'>Home</h6>
 
-                <div className='home-menu d-flex  mt-4 py-1 px-2 menu-left rounded-2'>
-                    <i className='fa-solid fa-home mt-2 d-block text-white ' />
-                    <h6 className='mx-2 fw-500 my-1 text-white'>Home</h6>
 
-                </div>
+                    </div>
+                </Link>
 
                 <div className='mt-2'>
                     <div className=''>
 
-                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive(!isActive)}>
+                        <div className={`menu-name  d-flex justify-content-between align-items-center`} onClick={() => setIsActive(!isActive)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i className='fas fa-user d-block' />
 
@@ -118,8 +120,8 @@ function Sidebar() {
                         </div>
                     </div>
                     <div className=''>
-
-                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive2(!isActive2)}>
+                        {/* {`menu-name  d-flex justify-content-between align-items-center ${isActive2?'px-2 menu-left rounded-2':'' } `}  */}
+                        <div className={`menu-name  d-flex justify-content-between align-items-center`} onClick={() => setIsActive2(!isActive2)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i class="fa-solid fa-newspaper d-block"></i>
 
