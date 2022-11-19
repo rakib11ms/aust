@@ -247,6 +247,8 @@ function Publication() {
             </div>
 
             <div className="publication mt-5">
+            <hr/>
+
                 <h6 className="text-success ">Job Management</h6>
 
                 <nav className="publication-nav text-normal fw-300">
@@ -460,6 +462,8 @@ function Publication() {
             </div>
 
             <div className="publication mt-5">
+            <hr/>
+
                 <h6 className="text-success ">Advertiements</h6>
 
                 <nav className="publication-nav text-normal fw-300">

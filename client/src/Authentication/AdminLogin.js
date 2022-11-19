@@ -129,7 +129,7 @@ function AdminLogin({ handleSucessLogin }) {
                   <h5 className='mt-2'>Admin</h5>
 
                 </div>
-                <div className={`${adminSelectedUi == 'moderator' ? 'shadow' : ''} col-6 p-3 text-center`} onClick={() => setAdminSelectedUi('moderator')}>
+                {/* <div className={`${adminSelectedUi == 'moderator' ? 'shadow' : ''} col-6 p-3 text-center`} onClick={() => setAdminSelectedUi('moderator')}>
                   <div className='image-moderator mx-3'>
                     <img src={moderator} class="p-1" style={{ width: "90px" }} />
 
@@ -137,7 +137,7 @@ function AdminLogin({ handleSucessLogin }) {
                   <h5 className='mt-2'>Moderator</h5>
 
 
-                </div>
+                </div> */}
               </div>
 
               <div class="form-part  mx-5 mt-5 d-flex  flex-column">

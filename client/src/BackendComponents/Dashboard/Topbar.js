@@ -22,7 +22,7 @@ function Topbar(){
                     </div>
 
                     <div className="">
-                        <i className="fa fa-user text-success"/>
+                        <i className="fa fa-bell text-success"/>
                     </div>
                     <div className="">
                     <i class="fa-solid fa-envelope text-success"></i>              
