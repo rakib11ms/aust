@@ -11,9 +11,17 @@ function Topbar() {
         if (window !== undefined) {
             let windowHeight = window.scrollY;
             // window height changed for the demo
-            windowHeight > 60 ? setStickyClass('sticky-nav') : setStickyClass('');
+            window.scrollY > 60 ? setStickyClass('sticky-nav') : setStickyClass('');
         }
     };
+
+    // useEffect(()=>{
+    //     if (window !== undefined) {
+    //         let windowHeight = window.scrollY;
+    //         // window height changed for the demo
+    //         windowHeight > 60 ? setStickyClass('sticky-nav') : setStickyClass('');
+    //     }
+    // },[])
 
     window.addEventListener('scroll', stickNavbar);
 

@@ -53,24 +53,24 @@ class MobileAuthenticationController extends Controller
             $file->move('images/',$filename);
             $user->image =$filename ;
          } 
-                // $user->full_name = $request->full_name;
-                // $user->nick_name = $request->nick_name;
+                $user->full_name = $request->full_name;
+                $user->nick_name = $request->nick_name;
                 $user->email = $request->email;
                 $user->name = $request->name;
                 $user->user_role = 1;
-                // $user->address_id = $request->address_id;
-                // $user->batch = $request->batch;
+                $user->address_id = $request->address_id;
+                $user->batch = $request->batch;
                 $user->phone = $request->phone;
-                // $user->blood_group = $request->blood_group;
-                // $user->stream = $request->stream;
-                // $user->job_sector = $request->job_sector;
-                // $user->job_sub_sector = $request->job_sub_sector;
-                // $user->office_email = $request->office_email;
-                // $user->office_address = $request->office_address;
+                $user->blood_group = $request->blood_group;
+                $user->stream = $request->stream;
+                $user->job_sector = $request->job_sector;
+                $user->job_sub_sector = $request->job_sub_sector;
+                $user->office_email = $request->office_email;
+                $user->office_address = $request->office_address;
 
-                // $user->name_of_company = $request->name_of_company;
-                // $user->present_address = $request->present_address;
-                // $user->permanent_address = $request->permanent_address;
+                $user->name_of_company = $request->name_of_company;
+                $user->present_address = $request->present_address;
+                $user->permanent_address = $request->permanent_address;
                 // $user->otp_verify = 0;
                 $user->password = Hash::make($request->password);
                 $user->confirm_password = Hash::make($request->confirm_password);
