@@ -11,7 +11,7 @@ function Topbar() {
         if (window !== undefined) {
             let windowHeight = window.scrollY;
             // window height changed for the demo
-            window.scrollY > 60 ? setStickyClass('sticky-nav') : setStickyClass('');
+            window.scrollY> 60 ? setStickyClass('sticky-nav') : setStickyClass('');
         }
     };
 

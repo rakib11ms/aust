@@ -480,7 +480,7 @@ function JobConfiguration() {
                                 </div>
                                 <div class=" ">
 
-                                    <button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1'> Create A job</span></button>
+                                <Link to="/create-job-post"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{textDecoration:'none'}}>  Create A job </span></button> </Link>
 
                                 </div>
 
