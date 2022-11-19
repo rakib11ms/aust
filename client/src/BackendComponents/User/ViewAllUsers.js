@@ -6,6 +6,8 @@ import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import BloodtypeOutlinedIcon from '@mui/icons-material/BloodtypeOutlined';
 import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
@@ -20,6 +22,7 @@ import MaterialTable from "material-table";
 import moment from 'moment';
 // import { Paper } from '@material-ui/core';
 import Paper from '@mui/material/Paper';
+import { Container } from '@mui/system';
 
 
 function ViewAllUsers() {
@@ -312,8 +315,8 @@ function ViewAllUsers() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div>
-                    <img className="" src={`${global.img_url}/images/${row.image}`} width="55px" height="35px" alt="No Image" />
+                <div className=''>
+                    <img className="" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
 
 
                 </div>
@@ -333,49 +336,110 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className=''>
-                    <div class="tooops d-flex align-items-center justify-content-between">
-                        <div className=''>
-                            <div className='text-secondary'>
-                                <span>
-                                    <i className='fa fa-calendar'></i>
-                                    <span className='mx-2'>{moment(row.application_deadline).format("L")}</span>
-                                </span>
-                            </div>
-
-                        </div>
-                        <div>
-
-
-                            <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.type_name}</span> </button>
-                            {
-                                row.isPublished == 1 ?
-                                    <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
-                                    :
-                                    <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>InActive</span> </button>
-
-                            }
-                        </div>
-
-                    </div>
-
+                <div className='title-field' style={{ borderRight: "1px solid gray" }}>
                     <div>
-                        <h5 className='my-1 '>
-                            {row.job_title}
+                        <h5 className='my-1 ' style={{ fontSize: 18 }}>
+                            Alena Suvra
                         </h5>
 
-
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description.length > 50 ? `${row.job_description.substring(0, 50)}...` : row.job_description }} />
-
-
                         <div className=' bg-light d-inline-block rounded '>
-
-                            <span className='py-1 px-1 text-secondary'>{row.dept_name}</span>
-
+                            <span className='py-1 px-1 text-secondary'>+880100345677</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>@gmail.com</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>AB+</span>
                         </div>
+                    </div>
+                    <div className='text-bottom'>
+                        <h3 className="title-text-h">Professional</h3>
+                        <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
 
 
+
+
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+        {
+            title: '  ', field: ``
+
+            ,
+            render: (row) =>
+
+                <div className='educational-field' style={{ borderRight: "1px solid gray" }}>
+                    <div>
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Company Name</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Designation</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Location</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Other Information</span>
+                        </div>
+                    </div>
+
+                    <div className='text-bottom'>
+                        <h3 className="title-text-h">Educational</h3>
+                        <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
+                    </div>
+
+
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+        {
+            title: '  ', field: ``
+
+            ,
+            render: (row) =>
+
+                <div className='contact-field' style={{ borderRight: "1px solid gray" }}>
+                    <div style={{ textAlign: "justify" }}>
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Last Degree Information</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Institiute</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Batch</span>
+                        </div><br />
+                        <div className=' bg-light d-inline-block rounded '>
+                            <span className='py-1 px-1 text-secondary'>Session</span>
+                        </div>
+                    </div>
+
+                    <div className='text-bottom'>
+                        <h3 className="title-text-h">Educational</h3>
+                        <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
+                    </div>
 
 
                 </div>
@@ -398,58 +462,24 @@ function ViewAllUsers() {
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
 
+                <div className='icon-view-field'>
+                    <div className='sites-icon me-3'>
+                        <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div>
+                        <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div>
+                        <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div>
+                    </div>
+                    <div className='text-secondary'>
+                        <div style={{ marginLeft: 20 }} onClick={(e) => {
+                            openViewJobPostModal(e, row)
+                        }
+                        }>
+                            <i className='fa fa-eye mx-2 '  >
+                            </i>
 
-
-                <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' onChange={(e) => {
-
-                        handlePostApproval(e, row)
-
-                    }} >
-                        <input class="form-check-input " style={{ cursor: 'pointer' }} type="checkbox" id="flexSwitchCheckDefault" checked={row.isPublished == 1}
-                        />
-                    </form>
-
-                </div>
-                <div className='text-secondary'>
-                    <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
-
-                </div>
-
-
-                <div className='mx-2 ' onClick={(e) => deleteJobPost(e, row.id)}>
-                    <i class="fa-solid fa-trash icon-table-trash" ></i>
-                </div>
-
-                <div className='mx-2' onClick={(e) => archiveJobPost(e, row)}>
-                    {
-                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                : ''
-
-                    }
-
-
-
-                </div>
-
-
-                <div className='text-secondary'>
-
-                    <div onClick={(e) => {
-                        openViewJobPostModal(e, row)
-                    }
-                    }>
-                        <i className='fa fa-eye mx-2 '  >
-                        </i>
+                        </div>
 
                     </div>
-
                 </div>
-
-
-
-
 
             </div>
 
@@ -459,8 +489,8 @@ function ViewAllUsers() {
 
 
             cellStyle: {
-                marginLeft: 50,
-                textAlign: 'right'
+                marginLeft: 0,
+                textAlign: 'left'
             },
         },
     ];
@@ -561,51 +591,48 @@ function ViewAllUsers() {
                             <div className='user-config mt-3 border  rounded-3'>
                                 <div className='user-config1'>
 
-                                <div className="input-icon input-group-sm p-5 ">
-                                <input style={{ width: 400, height: 50, boxShadow: "0px 0px 2px 0px", marginLeft: "-40px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
-                                <span className="input-group-text bg-transparent" id="icon">
-                                    <SearchRoundedIcon />
-                                </span>
-                            </div>
-                            <div className='pending'>
-                                <h6 style={{paddingRight: 10}}>Pending</h6>
-                                <span className='num1'><h3 style={{color: "white", textAlign: "center", padding: "5px 12px",marginTop: 3}}>20</h3></span>
-                            </div>
-                            <div className='active'>
-                                <h6 style={{paddingRight: 10}}>Active</h6>
-                                <span className='num2'><h3 style={{color: "white", textAlign: "center", padding: "5px 12px",marginTop: 3}}>1k</h3></span>
-                            </div>
-                            </div>
-                                <div className='user-config2'>
-                                    <div className='select-box'>
-                                       <MaleRoundedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>Male</h6>
+                                    <div className="input-icon input-group-sm p-5 ">
+                                        <input style={{ width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-60px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
+                                        <span className="input-group-text bg-transparent" id="icon">
+                                            <SearchRoundedIcon />
+                                        </span>
                                     </div>
-                                    <div className='select-box'>
-                                       <FemaleRoundedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>Female</h6>
+                                    <div className='pending'>
+                                        <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
+                                        <span className='num1'><h4 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
                                     </div>
-                                    <div className='select-box'>
-                                       <LocationCityOutlinedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>Savar</h6>
-                                    </div>
-                                    <div className='select-box'>
-                                       <WorkOutlineOutlinedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>Floor in Charge</h6>
-                                    </div>
-                                    <div className='select-box'>
-                                       <BloodtypeOutlinedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>O Positive</h6>
-                                    </div>
-                                    <div className='select-box'>
-                                       <TuneOutlinedIcon style={{marginRight: 5, color: "rgb(58, 58, 58)"}}/>
-                                       <h6 style={{fontWeight: 400, color: "rgb(58, 58, 58)"}}>More</h6>
+                                    <div className='active'>
+                                        <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
+                                        <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
                                     </div>
                                 </div>
+                                <Container>
+                                    <div className='user-config2'>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                            Male
+                                        </Button>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                            Female
+                                        </Button>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
+                                            Savar
+                                        </Button>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
+                                            Floor in charge
+                                        </Button>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
+                                            O Positive
+                                        </Button>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
+                                            More
+                                        </Button>
+
+                                    </div>
+                                </Container>
                             </div>
 
                             <div className="col-md-12 mt-3">
-                                <h5 className=''>ALL Job Post</h5>
+                                <h5 className=''>ALL Users</h5>
 
                                 <div className="card bg-white">
 
@@ -615,10 +642,19 @@ function ViewAllUsers() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
-                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>Alumni</h6>
+                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Stuff</h6>
+                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Admins</h6>
+                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Moderators</h6>
+                                                <button type="button" style={{color:"#646464", fontWeight: 400}} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
+                                                    Download
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 5}} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li> 
+                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
+                                                </ul>
+                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
 
                                             </div>
 
