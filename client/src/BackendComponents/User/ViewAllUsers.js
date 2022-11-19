@@ -437,7 +437,7 @@ function ViewAllUsers() {
                     </div>
 
                     <div className='text-bottom'>
-                        <h3 className="title-text-h">Educational</h3>
+                        <h3 className="title-text-h">information</h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
 
@@ -597,13 +597,15 @@ function ViewAllUsers() {
                                             <SearchRoundedIcon />
                                         </span>
                                     </div>
-                                    <div className='pending'>
+                                    <div className='d-flex ms-5'>
+                                    <div className='pending mx-2'>
                                         <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
                                         <span className='num1'><h4 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
                                     </div>
                                     <div className='active'>
                                         <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
                                         <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
+                                    </div>
                                     </div>
                                 </div>
                                 <Container>
@@ -654,7 +656,7 @@ function ViewAllUsers() {
                                                     <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li> 
                                                     <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
                                                 </ul>
-                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
+                                                <h6 style={{border: "1px solid rgb(235, 235, 235)", padding:"7px 18px", borderRadius: 15, boxShadow:"0px 0px 23px -15px"}} className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
 
                                             </div>
 
