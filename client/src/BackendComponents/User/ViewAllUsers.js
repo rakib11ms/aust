@@ -589,43 +589,45 @@ function ViewAllUsers() {
 
 
                             <div className='user-config mt-3 border  rounded-3'>
-                                <div className='user-config1'>
+                                <div className='user-config1 container'>
 
                                     <div className="input-icon input-group-sm p-5 ">
-                                        <input style={{ width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-60px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
+                                        <input id='res-input-icon' style={{ position:"relative", width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-84px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
                                         <span className="input-group-text bg-transparent" id="icon">
                                             <SearchRoundedIcon />
                                         </span>
                                     </div>
                                     <div className='d-flex ms-5'>
-                                    <div className='pending mx-2'>
-                                        <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
-                                        <span className='num1'><h4 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
-                                    </div>
-                                    <div className='active'>
-                                        <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
-                                        <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
-                                    </div>
+                                        <div className='pending mx-2'>
+                                            <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
+                                            <span className='num1'><h4
+                                            className='num1-h4'
+                                            style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
+                                        </div>
+                                        <div className='active'>
+                                            <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
+                                            <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <Container>
                                     <div className='user-config2'>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Male
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                        <Button className='female' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Female
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
                                             Savar
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
                                             Floor in charge
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
                                             O Positive
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12 }} variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
                                             More
                                         </Button>
 
@@ -648,15 +650,15 @@ function ViewAllUsers() {
                                                 <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Stuff</h6>
                                                 <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Admins</h6>
                                                 <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Moderators</h6>
-                                                <button type="button" style={{color:"#646464", fontWeight: 400}} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
+                                                <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
                                                     Download
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 5}} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li> 
-                                                    <li><a class="dropdown-item" href="#"><i style={{marginRight: 9}} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
                                                 </ul>
-                                                <h6 style={{border: "1px solid rgb(235, 235, 235)", padding:"7px 18px", borderRadius: 15, boxShadow:"0px 0px 23px -15px"}} className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
+                                                <h6 style={{ border: "1px solid rgb(235, 235, 235)", padding: "7px 18px", borderRadius: 15, boxShadow: "0px 0px 23px -15px" }} className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
 
                                             </div>
 
