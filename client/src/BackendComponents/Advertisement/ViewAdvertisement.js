@@ -183,6 +183,7 @@ function ViewAllAdvertisement() {
             const archiveUpdate = {
                 isArchived: 0
             }
+            
 
             axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
                 if (res.data.status == 200) {
