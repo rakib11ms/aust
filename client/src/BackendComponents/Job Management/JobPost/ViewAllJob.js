@@ -20,8 +20,10 @@ function ViewAllJob() {
     const [loading, setLoading] = useState(true);
 
     const [allJobPosts, setallJobPosts] = useState([]);
+    const [totalActiveJobs, settotalActiveJobs] = useState([]);
+    const [totalPendingJobs, settotalPendingJobs] = useState([]);
 
-    console.log('all job postssssssssss', allJobPosts)
+    console.log('totalActiveJobs', totalActiveJobs)
 
 
     const [renderAllJobPosts, setRenderAllJobPosts] = useState('');
@@ -255,6 +257,8 @@ function ViewAllJob() {
         axios.get(`/api/all-job-post`).then(res => {
             if (res.data.status == 200) {
                 setallJobPosts(res.data.posts);
+                settotalActiveJobs(res.data.active_jobs)
+                settotalPendingJobs(res.data.pending_jobs)
                 setLoading(false);
             }
         })
@@ -524,7 +528,7 @@ function ViewAllJob() {
                 axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllJobPosts(res.data)
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 });
                 Swal.fire(
@@ -558,11 +562,11 @@ function ViewAllJob() {
                                 <div class="job-config-header text-light rounded-top ">
                                     <div class="inside ">
                                         <div class="item1">
-                                            <h2 className=' mb-0'>33</h2>
+                                            <h2 className=' mb-0'>{totalActiveJobs}</h2>
                                             <p className=''>Available</p>
                                         </div>
                                         <div class="item2">
-                                            <h2 className=' mb-0'>2343</h2>
+                                            <h2 className=' mb-0'>{totalPendingJobs}</h2>
                                             <p className=''>Pendings</p>
                                         </div>
 
@@ -634,7 +638,7 @@ function ViewAllJob() {
                                         <hr />
 
                                         <MaterialTable
-                                         
+
                                             columns={columns}
                                             data={allJobPosts}
                                             isLoading={loading === true ? true : false}

@@ -18,6 +18,8 @@ import dayjs, { Dayjs } from 'dayjs';
 
 import Modal from 'react-modal';
 function CreateJobPost() {
+
+    const navigate=useNavigate();
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
 
@@ -103,7 +105,7 @@ function CreateJobPost() {
             axios.post(`/api/save-job-post`, formData).then(res => {
                 if (res.data.status == 200) {
                     Swal.fire(res.data.message, '', 'success')
-
+                    navigate('/view-all-jobs')
                     setJobPost({
                         job_type:'',
                         department_id:'',

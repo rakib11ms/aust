@@ -64,11 +64,11 @@
 .sticky-nav {
   position: fixed;
   top: 0;
-  left: -60;
+  /* left: -60; */
   z-index: 99999;
   width:83%;
-  padding: 20px;
-  background: #f2f2f2;
-  transition:all 0.2s ease-in-out;
+  /* padding: 20px; */
+  background: white;
+  transition:all 0.2s ease-out;
 }
 

@@ -167,7 +167,7 @@ function CreateEvent() {
 
 
 
-  const navigate=useNavigate();
+    const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -504,7 +504,7 @@ function CreateEvent() {
                                                             multiple
                                                             id="tags-standard"
                                                             options={allUsers}
-                                                            getOptionLabel={(option) => option.name}
+                                                            getOptionLabel={(option) => option.full_name}
                                                             // defaultValue={[allUsers[1]]}
                                                             onChange={handlePersonChange}
                                                             // renderOption={(option) => (

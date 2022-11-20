@@ -159,6 +159,23 @@ class PostController extends Controller
 
     }
 
+
+
+
+    public function deleteMultiplePosts($ids){
+ 
+    $array=explode (",", $ids); 
+
+  $deletes=Post::whereIn('id',$array)->delete();
+      return response()->json([
+                'status' => 200,
+                // 'deletes'=>  $deletes,
+                'message' => ' Posts deleted successfully',
+            ]);
+}
+
+
+
     public function filterByStatus($name){
       
 

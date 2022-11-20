@@ -350,9 +350,10 @@ function PostType() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-all-posts/`).then(res => {
+                axios.post(`/api/delete-multiple-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllPosts(res.data)
+                        window.location.reload();
                     }
                 });
                 Swal.fire(
@@ -671,10 +672,28 @@ function PostType() {
 
     //selection tracking
 
-    const selectedRow = React.useRef([]);
 
-    // console.log('selected rows checked', selectedRow)
-    const handleClick = rows => { selectedRow.current = rows; };
+
+
+    const [selectedRowsLength, setselectedRowsLength] = useState(0);
+    // console.log("selcted rows",selectedRowsLength)
+    const [selectedRowsIds, setSelectedRowsIds] = useState([]);
+    console.log("selcted rows ids", selectedRowsIds)
+
+
+
+    const selectionCheck = (selectedRows) => {
+
+        setselectedRowsLength(selectedRows.length)
+
+        // setSelectedRowsIds(selectedRows)
+        let result = selectedRows.map(a => a.id);
+        // console.log('result',result)
+
+        setSelectedRowsIds(result);
+
+
+    }
 
 
     return (
@@ -824,7 +843,7 @@ function PostType() {
                                                     </select>
                                                 </div> */}
 
-                                                <div class="form-check form-switch mx-2">
+                                                {/* <div class="form-check form-switch mx-2">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
@@ -842,7 +861,33 @@ function PostType() {
                                                     <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
 
 
-                                                </div>
+                                                </div> */}
+
+{
+                                                    selectedRowsLength > 1 &&
+                                                    <>
+                                                        <div class="form-check form-switch mx-2">
+                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                                        </div>
+
+                                                        <div className='mx-2 '
+                                                            onClick={
+                                                                deleteAllRecords
+                                                            }
+                                                        >
+                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
+                                                        </div>
+
+                                                        <div className='mx-2'>
+
+
+                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
+
+                                                        </div>
+
+
+                                                    </>
+                                                }
 
 
                                             </div>
@@ -854,7 +899,7 @@ function PostType() {
                                             columns={columns}
                                             data={allPosts}
                                             isLoading={loading === true ? true : false}
-                                            onSelectionChange={(e) => { handleClick(e); }}
+                                            onSelectionChange={selectionCheck}
 
                                             options={{
                                                 search: true,

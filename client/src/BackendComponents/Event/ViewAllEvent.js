@@ -424,7 +424,7 @@ function ViewAllEvent() {
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>{moment(row.event_time).format('LT')}</span> |<span className='mx-1'>{moment(row.event_date).subtract(10, 'days').calendar()}</span>
+                                    <span>{moment(row.event_time).format('LT')}</span> |<span className='mx-1'>{row.event_date}</span>
                                 </div>
                             </div>
                             <div className='d-flex mx-2  px-2 d-inline-block py-1 event-btn2'>

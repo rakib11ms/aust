@@ -541,7 +541,7 @@ function ViewAllAdvertisement() {
                 axios.delete(`/api/delete-multiple-event-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllAdvertisements(res.data)
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 });
                 Swal.fire(

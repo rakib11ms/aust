@@ -87,6 +87,9 @@ Route::post('/update-post/{id}', [PostController::class, 'update']);
 Route::post('/delete-post/{id}', [PostController::class, 'destroy']);
 
 Route::post('/delete-all-posts', [PostController::class, 'deleteAllPosts']);
+//web 
+Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultiplePosts']);
+
 Route::get('/filter-post/{filterByStatus}', [PostController::class, 'filterByStatus']);
 Route::get('/filter-post-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}', [PostController::class, 'filterBySearchInputValandRadioButtonValue']);
 
