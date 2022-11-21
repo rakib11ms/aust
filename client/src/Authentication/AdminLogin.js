@@ -74,10 +74,12 @@ function AdminLogin({ handleSucessLogin }) {
         }
         else if (res.data.status == 401) {
           Swal.fire(res.data.message, '', 'warning')
+          setClickedRender(false)
 
         }
         else {
           Swal.fire('Invalid Credentials', '', 'warning')
+          setClickedRender(false)
 
         }
       })
@@ -161,7 +163,7 @@ function AdminLogin({ handleSucessLogin }) {
                   }</button>
 
                   <div class="input-group  mt-4">
-                    <p>Forgot Your Id or Password ? <span class="text-success"> <Link to="/admin-password-reset">RESET NOW</Link></span></p>
+                    <p>Forgot Your Id or Password ? <span class="text-success"> <Link to="/admin-password-reset-form">RESET NOW</Link></span></p>
                   </div>
                 </form>
               </div>

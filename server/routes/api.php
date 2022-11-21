@@ -59,6 +59,9 @@ Route::post('/change-user-forgot-password', [MobileAuthenticationController::cla
 //web authentication
 
 Route::post('/admin-login', [AuthenticationController::class, 'adminLogin']);
+Route::post('/admin-forget-password', [AuthenticationController::class, 'submitForgetPasswordForm']); 
+Route::post('/reset-admin-password', [AuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
 Route::get('/specific-user/{id}', [AuthenticationController::class, 'specificUser']);
 
 
@@ -86,7 +89,12 @@ Route::get('/edit-post/{id}', [PostController::class, 'edit']);
 Route::post('/update-post/{id}', [PostController::class, 'update']);
 Route::post('/delete-post/{id}', [PostController::class, 'destroy']);
 
-Route::post('/delete-all-posts', [PostController::class, 'deleteAllPosts']);
+Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultiplePosts']);
+Route::put('/archive-all-posts-by-update/{id}', [PostController::class, 'archiveAllPostsByUpdate']);
+Route::put('/active-all-posts-by-update/{id}', [PostController::class, 'activeAllPostsByUpdate']);
+Route::put('/pending-all-posts-by-update/{id}', [PostController::class, 'pendingAllPostsByUpdate']);
+
+
 //web 
 Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultiplePosts']);
 
@@ -121,6 +129,9 @@ Route::get('/edit-job-post/{id}', [JobPostController::class, 'edit']);
 Route::post('/update-job-post/{id}', [JobPostController::class, 'update']);
 Route::post('/delete-job-post/{id}', [JobPostController::class, 'destroy']);
 Route::post('/delete-multiple-job-posts/{id}', [JobPostController::class, 'deleteMultipleJobPosts']);
+Route::put('/archive-all-job-posts-by-update/{id}', [JobPostController::class, 'archiveAllJobPostsByUpdate']);
+Route::put('/active-all-job-posts-by-update/{id}', [JobPostController::class, 'activeAllJobPostsByUpdate']);
+Route::put('/pending-all-job-posts-by-update/{id}', [JobPostController::class, 'pendingAllJobPostsByUpdate']);
 
 Route::get('/filter-job-post-status/{filterByJobPostStatus}', [JobPostController::class, 'filterByJobPostStatus']);
 

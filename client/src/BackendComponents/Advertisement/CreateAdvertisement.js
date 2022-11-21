@@ -279,7 +279,7 @@ function CreateAdvertisement() {
                                                         <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
                                                         />
 
-                                                        <div className='d-flex mt-2 border' >
+                                                        <div className='d-flex mt-2 ' >
                                                             {render(multipleImages)}
 
                                                         </div>
@@ -410,8 +410,7 @@ function CreateAdvertisement() {
                                                                         }}>
                                                                         <option selected value="">Choose</option>
                                                                         <option value="top" >Top</option>
-                                                                        <option value="right">Right</option>
-                                                                        <option value="left">Left</option>
+                                                                        <option value="middle">Middle</option>
                                                                         <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>

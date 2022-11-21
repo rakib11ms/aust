@@ -21,6 +21,14 @@ class AdvertisementController extends Controller
         $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
 
 
+//         // $add_days=
+//            $today = date("Y-m-d");
+//            // dd($today);
+//            $later = new DateTime("2010-07-09");
+
+// $abs_diff = $later->diff($earlier)->format("%a"); //3
+
+
 
 
 
@@ -62,6 +70,12 @@ class AdvertisementController extends Controller
         $advertisement->posted_by = auth('sanctum')->user()->id;
         $advertisement->show_time = $request->show_time;
         $advertisement->show_days = $request->show_days;
+// strtotime($ticket_created_on_date_time . '+ ' . $in_between_days . ' days')
+
+        $add_show_days = date('Y-m-d', strtotime('+'.$advertisement->show_days.'day'));
+                $advertisement->last_show_days = $add_show_days;
+
+
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
         $advertisement->home_page = $request->home_page;

@@ -336,36 +336,7 @@ function PostType() {
 
 
 
-    const deleteAllRecords = (e) => {
 
-        e.preventDefault();
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-multiple-posts/${selectedRowsIds}`).then(res => {
-                    if (res.data.status === 200) {
-                        setRenderAllPosts(res.data)
-                        window.location.reload();
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'All Posts deleted successfully',
-                    'success'
-                )
-            }
-        })
-
-
-    }
 
 
 
@@ -474,7 +445,7 @@ function PostType() {
                             <div className='text-secondary'>
                                 <span>
                                     <i className='fa fa-calendar'></i>
-                                    <span className='mx-1'>{moment(row.created_at).format("MMM Do YY")}</span>
+                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")}</span>
                                 </span>
                             </div>
                             <div className='d-flex align-items-center text-secondary'>
@@ -564,8 +535,8 @@ function PostType() {
                     {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
                     {
                         row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                : ''
+                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+
 
                     }
                 </div>
@@ -672,9 +643,6 @@ function PostType() {
 
     //selection tracking
 
-
-
-
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
     const [selectedRowsIds, setSelectedRowsIds] = useState([]);
@@ -693,6 +661,89 @@ function PostType() {
         setSelectedRowsIds(result);
 
 
+    }
+
+
+
+
+    const deleteAllRecords = (e) => {
+
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(`/api/delete-multiple-posts/${selectedRowsIds}`).then(res => {
+                    if (res.data.status === 200) {
+                        setRenderAllPosts(res.data)
+                        window.location.reload();
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'All Posts deleted successfully',
+                    'success'
+                )
+            }
+        })
+
+
+    }
+
+
+    const handleAllPostStatus = (e) => {
+
+        if (e.target.value === 'archive') {
+            axios.put(`/api/archive-all-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+                    setallPosts(res.data.posts)
+                    setRenderAllPosts(res.data);
+
+                }
+
+            })
+        }
+        else if (e.target.value === 'active') {
+            axios.put(`/api/active-all-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+                    setallPosts(res.data.posts)
+
+                    setRenderAllPosts(res.data);
+
+                }
+
+            })
+        }
+        else if (e.target.value === 'pending') {
+            axios.put(`/api/pending-all-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+                    setallPosts(res.data.posts)
+
+                    setRenderAllPosts(res.data);
+
+                }
+
+            })
+        }
+        else {
+
+        }
     }
 
 
@@ -834,41 +885,12 @@ function PostType() {
 
                                             <div className='d-flex align-items-center'>
 
-                                                {/* <div>
-                                                    <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example">
-                                                        <option selected>Action</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div> */}
-
-                                                {/* <div class="form-check form-switch mx-2">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                </div>
-
-                                                <div className='mx-2 '
-                                                    onClick={
-                                                        deleteAllRecords
-                                                    }
-                                                >
-                                                    <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                </div>
-
-                                                <div className='mx-2'>
 
 
-                                                    <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
-
-
-                                                </div> */}
-
-{
+                                                {
                                                     selectedRowsLength > 1 &&
                                                     <>
-                                                        <div class="form-check form-switch mx-2">
-                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
+
 
                                                         <div className='mx-2 '
                                                             onClick={
@@ -879,11 +901,14 @@ function PostType() {
                                                         </div>
 
                                                         <div className='mx-2'>
-
-
-                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
-
+                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllPostStatus}>
+                                                                <option selected>Action</option>
+                                                                <option value="active">Active</option>
+                                                                <option value="pending">Pending</option>
+                                                                <option value="archive">Archive</option>
+                                                            </select>
                                                         </div>
+
 
 
                                                     </>

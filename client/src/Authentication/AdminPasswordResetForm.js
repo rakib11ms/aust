@@ -1,51 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../logo.svg';
-import '../App.css';
+import './auth.css';
 import moderator from '../image/moderator.png'
 import admin from '../image/admin.png'
-import { Link, Navigate, useNavigate, Routes, Route,useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-function AdminPasswordReset() {
-
-  const navigate = useNavigate();
+function AdminPasswordResetForm() {
 
   const [clickedRender, setClickedRender] = useState(false)
-  const [validationError, setVaidationError] = useState();
 
-  console.log('validation errors', validationError);
-  const { id } = useParams();
-  const [inputState, setinputState] = useState({
+
+  const [resetInput, setresetInput] = useState({
     email: '',
-    new_password: '',
-    re_type_password: '',
-    token:id
+    phone_no: ''
   })
   const handleChange = (e) => {
-    setinputState({
-      ...inputState, [e.target.name]: e.target.value
+    setresetInput({
+      ...resetInput, [e.target.name]: e.target.value
     })
   }
+
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setClickedRender(true);
-    // console.log('admin info check', inputState)
+    console.log('state check', resetInput)
 
     // update('yes')
 
-    // console.log('state checking', inputState)
+    // console.log('state checking', resetInput)
 
     // axios.get('sanctum/csrf-cookie').then(response => {
 
-    axios.post('/api/reset-admin-password', inputState).then(res => {
+    axios.post('/api/admin-forget-password', resetInput).then(res => {
 
 
       if (res.data.status == 200) {
         setClickedRender(false);
-        navigate('/admin-login')
+        setSuccessMessage(res.data.message)
 
         // let admin_auth = {
         //   name: res.data.username,
@@ -62,6 +58,7 @@ function AdminPasswordReset() {
         // localStorage.setItem('user_id',res.data.user_id);
         // localStorage.setItem('user_info',JSON. stringify(res.data.user_info) );
 
+        // navigate('/admin-dashboard')
 
         //   if (res.data.user_type=== 'admin') {
 
@@ -74,16 +71,12 @@ function AdminPasswordReset() {
 
       }
       else if (res.data.status == 400) {
-        // Swal.fire(res.data.message, '', 'warning')
-        setVaidationError(res.data.validation_errors);
-        setClickedRender(false);
-
-
-      }
-      else {
         Swal.fire(res.data.message, '', 'warning')
         setClickedRender(false);
 
+      }
+      else {
+        Swal.fire('Invalid Credentials', '', 'warning')
 
       }
     })
@@ -128,42 +121,48 @@ function AdminPasswordReset() {
 
 
               <div class="form-part  mx-5 mt-5 d-flex  flex-column">
+
+
+                {
+                  successMessage &&    <div class="alert alert-primary fs-6 py-2" role="alert">
+                  {
+                    successMessage
+                  }
+                </div>
+                }
+
+             
+
                 <form onSubmit={handleSubmit}>
                   <div className='my-1'>
-                    <span className='fs-6'>Your Email or Phone </span>
+                    <span className='fs-6'>Your Email</span>
                   </div>
                   <div class="input-group mb-3 rounded-3">
                     <span class="input-group-text form-color text-white" style={{ backgroundColor: '#DFA800' }} id="basic-addon1"><i class="fa-solid fa-user px-1"></i></span>
-                    <input type="text" class="form-control p-2" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name='email' value={inputState.email} onChange={handleChange} />
+                    <input type="text" class="form-control p-2" placeholder="Your Registered Email" aria-label="Email" aria-describedby="basic-addon1" name='email' onChange={handleChange} />
                   </div>
-                  {/* <span className='text-danger'>{validationError.new_password[0]}</span> */}
 
+                  <div class="mt-4 mb-2 bg-danger">
+                    <div class="or-line" style={{ width: '100%', height: '1px', backgroundColor: '#c4c4c4' }}>
+                      <div class="or-content">
+                        Or
+                      </div>
 
-                  <div className='my-1'>
-                    <span className='fs-6'>Your New Password </span>
+                    </div>
                   </div>
-                  <div class="input-group mb-3 " >
-                    <span class="input-group-text   form-color text-white" style={{ backgroundColor: '#DFA800' }} id="basic-addon1">|**</span>
-                    <input type="password" class="form-control p-2" placeholder="Password" aria-label="Password" value={inputState.new_password} name='new_password' onChange={handleChange} aria-describedby="basic-addon1" />
-                  </div>
-                  {
-                    validationError  && <span className='text-danger'>{validationError.new_password}</span>
 
-                  }
 
-                  <div className='my-1'>
-                    <span className='fs-6'>Confirm Password </span>
+
+                  <div className='mt-2'>
+                    <span className='fs-6'>Your Phone</span>
                   </div>
                   <div class="input-group mb-3 rounded-3">
-                    <span class="input-group-text   form-color text-white" style={{ backgroundColor: '#DFA800' }} id="basic-addon1">|**</span>
-                    <input type="password" class="form-control p-2" placeholder="Confirm Password" aria-label="Password" value={inputState.re_type_password} name='re_type_password' onChange={handleChange} aria-describedby="basic-addon1" />
+                    <span class="input-group-text form-color text-white" style={{ backgroundColor: '#DFA800' }} id="basic-addon1"><i class="fa-solid fa-user px-1"></i></span>
+                    <input type="number" class="form-control p-2" placeholder="Your Registered Phone" aria-label="Email" aria-describedby="basic-addon1" name='phone_no' onChange={handleChange} />
                   </div>
-                  {
-                    validationError  && <span className='text-danger'>{validationError.re_type_password}</span>
 
-                  }
 
-                  <button type='submit' className='btn  text-light form-color d-block mt-3 w-100 fs-5 rounded-3 btn btn-warning' style={{ backgroundColor: '#DFA800' }}> RESET  {
+                  <button type='submit' className='btn  text-light form-color d-block mt-3 w-100 fs-5 rounded-3 btn btn-warning' style={{ backgroundColor: '#DFA800' }}> Send reset link  {
                     clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
 
                   }</button>
@@ -187,4 +186,4 @@ function AdminPasswordReset() {
 
 }
 
-export default AdminPasswordReset
+export default AdminPasswordResetForm

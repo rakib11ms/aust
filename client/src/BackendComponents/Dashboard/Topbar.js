@@ -8,11 +8,8 @@ function Topbar() {
 
 
     const stickNavbar = () => {
-        if (window !== undefined) {
-            let windowHeight = window.scrollY;
-            // window height changed for the demo
-            window.scrollY> 60 ? setStickyClass('sticky-nav') : setStickyClass('');
-        }
+        return window.scrollY >= 100 ? setStickyClass('sticky-nav') : setStickyClass('');
+        
     };
 
     // useEffect(()=>{

@@ -232,86 +232,86 @@ function CreateEvent() {
 
 
     //////////////quick eveent create functionality start //////////////////
-    const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
+    // const [addEventTypeModalIsOpen, setaddEventTypeModalIsOpen] = useState(false);
 
-    function closeAddEventTypeModal(e) {
-        setaddEventTypeModalIsOpen(false);
+    // function closeAddEventTypeModal(e) {
+    //     setaddEventTypeModalIsOpen(false);
 
-    }
-    const openAddEventTypeModal = (e) => {
-        e.preventDefault();
-        setaddEventTypeModalIsOpen(true)
+    // }
+    // const openAddEventTypeModal = (e) => {
+    //     e.preventDefault();
+    //     setaddEventTypeModalIsOpen(true)
 
-    }
+    // }
 
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '35vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "40vw",
-            height: 300,
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
+    // const customStyles1 = {
+    //     content: {
+    //         // marginTop: '70px',
+    //         top: '35vh',
+    //         left: '30%',
+    //         right: 'auto',
+    //         bottom: 'auto',
+    //         padding: '5px',
+    //         // marginRight: '-50%',
+    //         transform: 'translate(-7%, -45%)',
+    //         width: "40vw",
+    //         height: 300,
+    //         // background: "#ffffff",
+    //     },
+    //     overlay: { zIndex: 1000 }
 
-    };
-
-
-
-    const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
-    const [addEventType, setAddEventType] = useState({
-        event_type_name: "",
-        created_by: '',
-        error_list: []
-
-    })
-
-    console.log('job type data typing', addEventType)
-
-    const handleInput = (e) => {
-        setAddEventType({
-            ...addEventType, [e.target.name]: e.target.value
-        })
-
-
-    }
+    // };
 
 
 
-    const handleJobTypeSave = (e) => {
-        e.preventDefault();
-        const addJob = {
-            event_type_name: addEventType.event_type_name,
-            created_by: '',
-        }
-        axios.post(`/api/add-event-type`, addEventType).then(res => {
-            if (res.data.status == 200) {
-                Swal.fire(res.data.message, '', 'success')
-                setRenderAllEventTypes(res.data);
-                closeAddEventTypeModal();
-                setAddEventType({
-                    event_type_name: "",
-                    created_by: '',
-                    error_list: []
+    // const [renderAllEventTypes, setRenderAllEventTypes] = useState('');
+    // const [addEventType, setAddEventType] = useState({
+    //     event_type_name: "",
+    //     created_by: '',
+    //     error_list: []
 
-                });
+    // })
 
-            }
-            else if (res.data.status == 400) {
-                setAddEventType({ ...addEventType, error_list: res.data.errors });
-                // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
+    // console.log('job type data typing', addEventType)
 
-            }
-        })
+    // const handleInput = (e) => {
+    //     setAddEventType({
+    //         ...addEventType, [e.target.name]: e.target.value
+    //     })
 
 
-    }
+    // }
+
+
+
+    // const handleJobTypeSave = (e) => {
+    //     e.preventDefault();
+    //     const addJob = {
+    //         event_type_name: addEventType.event_type_name,
+    //         created_by: '',
+    //     }
+    //     axios.post(`/api/add-event-type`, addEventType).then(res => {
+    //         if (res.data.status == 200) {
+    //             Swal.fire(res.data.message, '', 'success')
+    //             setRenderAllEventTypes(res.data);
+    //             closeAddEventTypeModal();
+    //             setAddEventType({
+    //                 event_type_name: "",
+    //                 created_by: '',
+    //                 error_list: []
+
+    //             });
+
+    //         }
+    //         else if (res.data.status == 400) {
+    //             setAddEventType({ ...addEventType, error_list: res.data.errors });
+    //             // Swal.fire(addEventType.error_list.event_type_name[0], '', 'error')
+
+    //         }
+    //     })
+
+
+    // }
 
 
     // useEffect(() => {
@@ -341,7 +341,7 @@ function CreateEvent() {
         axios.get(`/api/event-type`).then(res => {
             if (res.data.status == 200) {
                 setAllEventTypes(res.data.event_type);
-                setRenderAllEventTypes(res.data)
+                // setRenderAllEventTypes(res.data)
                 // setLoading(false);
                 // setTotalJobType(res.data.total_event_types)
             }
@@ -398,13 +398,15 @@ function CreateEvent() {
                                                             }
 
                                                         </select>
-                                                        <div class="input-group-append" onClick={openAddEventTypeModal}>
-                                                            <span class="input-group-text" id="basic-addon2"> + Add</span>
+                                                        <div class="input-group-append"
+                                                        // onClick={openAddEventTypeModal}
+                                                        >
+                                                            <span class="input-group-text" id="basic-addon2"> Choose</span>
                                                         </div>
 
 
-                                                        {/* ////////////quick event type create  modal///////////// */}
-                                                        <Modal
+                                                        {/* ////////////quick event type create  modal start///////////// */}
+                                                        {/* <Modal
                                                             isOpen={addEventTypeModalIsOpen}
                                                             onRequestClose={closeAddEventTypeModal}
                                                             style={customStyles1}
@@ -462,10 +464,10 @@ function CreateEvent() {
                                                                 </div>
                                                             </div>
 
-                                                        </Modal>
+                                                        </Modal> */}
 
 
-
+                                                        {/* ////////////quick event type create  modal end///////////// */}
 
 
 
@@ -641,7 +643,7 @@ function CreateEvent() {
                                                                 </div>
                                                                 <div className='my-3'>
 
-                                                                    <Stack sx={{
+                                                                    {/* <Stack sx={{
                                                                         height: '30px', border: 'none', padding: '0'
                                                                     }}
                                                                     >
@@ -651,6 +653,7 @@ function CreateEvent() {
                                                                             <DatePicker
                                                                                 label="Date"
                                                                                 value={event_date}
+                                                                                inputFormat="DD-MM-YYYY"
 
                                                                                 onChange={(newValue) => {
                                                                                     setevent_date(newValue);
@@ -658,7 +661,10 @@ function CreateEvent() {
                                                                                 renderInput={(params) => <TextField {...params} size="small" />}
                                                                             />
                                                                         </LocalizationProvider>
-                                                                    </Stack>
+                                                                    </Stack> */}
+
+                                                                    <input type='date' class="col-12"  value={event_date} onChange={(e)=>setevent_date(e.target.value)}
+/>
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
@@ -735,10 +741,9 @@ function CreateEvent() {
                                                                         onChange={(e) => {
                                                                             setpriority(e.target.value)
                                                                         }}>
-                                                                        {/* <option selected>Open this select menu</option> */}
+                                                                        {/* <option selected>Choose</option> */}
                                                                         <option value="normal" selected>Normal</option>
-                                                                        <option value="urgent">Urgent</option>
-                                                                        <option value="low">Low</option>
+                                                                        <option value="high">High</option>
                                                                     </select>
                                                                 </div>
 

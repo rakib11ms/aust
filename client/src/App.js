@@ -19,6 +19,7 @@ import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdverti
 import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
 import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertisement';
 import AdminPasswordReset from './Authentication/AdminPasswordReset';
+import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -100,7 +101,9 @@ function App() {
       <Routes>
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
 
-        <Route path="admin-password-reset" element={<AdminPasswordReset />}></Route>
+        <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
+        <Route path="admin-password-reset/:id" element={<AdminPasswordReset />}></Route>
+
 
 
 

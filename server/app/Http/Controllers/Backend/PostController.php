@@ -21,7 +21,7 @@ class PostController extends Controller
          // $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
 
 
-         $posts=DB::table('posts')->where('isArchived',0)->where('isPublished',1)->orderBy('posts.id','desc')->get();
+         $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
 
 
 
@@ -173,6 +173,87 @@ class PostController extends Controller
                 'message' => ' Posts deleted successfully',
             ]);
 }
+
+
+    public function archiveAllPostsByUpdate(Request $request, $ids)
+    {
+        $array = explode(",", $ids);
+
+
+        Post::whereIn('id', $array)
+            ->update([
+                'isArchived' => '1',
+                'isPublished' => '0',
+                'updated_by' => 2
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Posts Archived successfully',
+        ]);
+    }
+
+    public function pendingAllPostsByUpdate(Request $request, $ids)
+    {
+        $array = explode(",", $ids);
+
+
+        Post::whereIn('id', $array)
+            ->update([
+                // 'isArchived' => '0',
+                'isPublished' => '0',
+                'updated_by' => 2
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Posts Archived successfully',
+        ]);
+    }
+
+
+        public function activeAllPostsByUpdate(Request $request, $ids)
+    {
+        $array = explode(",", $ids);
+
+
+        Post::whereIn('id', $array)
+            ->update([
+                'isArchived' => '0',
+                'isPublished' => '1',
+                'updated_by' => 2
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Posts Archived successfully',
+        ]);
+    }
+
+
+
+
+
+
+
 
 
 

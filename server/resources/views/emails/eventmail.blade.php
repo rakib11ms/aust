@@ -6,7 +6,7 @@ The body of your message.
 # {{ $event['event_title'] }}
 
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => 'https://rakib10ms.com/admin-login'])
 Button Text
 @endcomponent
 

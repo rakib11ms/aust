@@ -143,6 +143,7 @@ class JobPostController extends Controller
 
     
     }
+    //web upcoming event,archive post (tab)select dropdown start
 
 public function deleteMultipleJobPosts($ids){
  
@@ -155,6 +156,79 @@ public function deleteMultipleJobPosts($ids){
                 'message' => 'Job Posts deleted successfully',
             ]);
 }
+
+    
+
+
+    public function archiveAllJobPostsByUpdate(Request $request, $ids)
+    {
+        $array = explode(",", $ids);
+
+
+        JobPost::whereIn('id', $array)
+            ->update([
+                'isArchived' => '1',
+                'isPublished' => '0',
+                'updated_by' => 2
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+               $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Job posts Archived successfully',
+        ]);
+    }
+
+
+ public function activeAllJobPostsByUpdate(Request $request, $ids)
+    {
+        $array = explode(",", $ids);
+
+
+        JobPost::whereIn('id', $array)
+            ->update([
+                'isArchived' => '0',
+                'isPublished' => '1',
+                'updated_by' => 1
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+           $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Job posts Activated successfully',
+        ]);
+    }
+
+    public function pendingAllJobPostsByUpdate(Request $request, $ids){
+      $array = explode(",", $ids);
+
+
+        JobPost::whereIn('id', $array)
+            ->update([
+                // 'isArchived' => '0',
+                'isPublished' => '0',
+                'updated_by' => 1
+                // 'size' => 'XL', 
+
+                // 'price' => 10000 // Add as many as you need
+            ]);
+
+           $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
+        return response()->json([
+            'status' => 200,
+            'posts' => $posts,
+            'message' => 'Job posts Activated successfully',
+        ]);
+    }
+
 
 
 

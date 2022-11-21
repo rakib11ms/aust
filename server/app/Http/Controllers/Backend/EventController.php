@@ -25,6 +25,10 @@ class EventController extends Controller
 
         $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
 
+        // $contact_person_information=$all_events['event_title'];
+
+        // dd($contact_person_information);
+
 
 
         $total_events = AusstaEvent::where('isArchived', 0)->get()->count();
@@ -65,7 +69,8 @@ class EventController extends Controller
         $event->updated_by = $request->updated_by;
         $event->event_description = $request->event_description;
         $event->contact_person = $request->contact_person;
-        $event->event_date = date('d-m-Y', strtotime($request->event_date));
+        // $event->event_date = date('d-m-Y', strtotime($request->event_date));
+        $event->event_date = $request->event_date;
 
         $event->payment_type = $request->payment_type;
 
@@ -259,7 +264,7 @@ class EventController extends Controller
 
 
 
-    //web upcoming event,archive post (tab)filtering
+    //web upcoming event,archive post (tab)filtering start
 
 
     public function archiveAllEventsByUpdate(Request $request, $ids)
@@ -340,8 +345,8 @@ class EventController extends Controller
 
             // echo $newDate;
 
-            $currentDate = date('d-m-Y');
-            $currentDate_15 = date('d-m-Y', strtotime("+15 day"));
+            $currentDate = date('Y-m-d');
+            $currentDate_15 = date('Y-m-d', strtotime("+15 day"));
 
             // dd($currentDate_15);
 

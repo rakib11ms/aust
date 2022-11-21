@@ -154,9 +154,9 @@ function EditEvent() {
     };
 
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
-    function handleUpdate(e){
+    function handleUpdate(e) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("updated_by", 1);
@@ -297,7 +297,7 @@ function EditEvent() {
                                 </div>
                                 <div className='card-body '>
                                     <form onSubmit={handleUpdate}>
-                                     <div className='row '>
+                                        <div className='row '>
 
                                             <div class="px-4" style={{ width: '73%' }}>
                                                 <div class="mt-1">
@@ -483,7 +483,7 @@ function EditEvent() {
                                                                 </div>
                                                                 <div className='my-3'>
 
-                                                                    <Stack sx={{
+                                                                    {/* <Stack sx={{
                                                                         height: '30px', border: 'none', padding: '0'
                                                                     }}
                                                                     >
@@ -492,7 +492,9 @@ function EditEvent() {
                                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                                             <DatePicker
                                                                                 label="Date"
-                                                                                value={event_date}
+                                                                                value={moment(event_date).format('MM/DD/YYYY')}
+
+                                                                                // inputFormat="DD-MM-YYYY"
 
                                                                                 onChange={(newValue) => {
                                                                                     setevent_date(newValue);
@@ -500,7 +502,10 @@ function EditEvent() {
                                                                                 renderInput={(params) => <TextField {...params} size="small" />}
                                                                             />
                                                                         </LocalizationProvider>
-                                                                    </Stack>
+                                                                    </Stack> */}
+
+                                                                    <input type='date' class="col-12" value={event_date} onChange={(e) => setevent_date(e.target.value)} />
+
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">

@@ -260,11 +260,12 @@ function ViewAllJob() {
                 settotalActiveJobs(res.data.active_jobs)
                 settotalPendingJobs(res.data.pending_jobs)
                 setLoading(false);
+
             }
         })
         Modal.setAppElement('body');
 
-    }, [])
+    }, [renderAllJobPosts])
 
 
     const deleteJobPost = (e, id) => {
@@ -337,7 +338,8 @@ function ViewAllJob() {
                             <div className='text-secondary'>
                                 <span>
                                     <i className='fa fa-calendar'></i>
-                                    <span className='mx-2'>{moment(row.application_deadline).format("L")}</span>
+                                    {/* <span className='mx-2'>{moment(row.application_deadline).format("L")}</span> */}
+                                    <span className='mx-2'>{row.application_deadline}</span>
                                 </span>
                             </div>
 
@@ -350,7 +352,7 @@ function ViewAllJob() {
                                 row.isPublished == 1 ?
                                     <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
                                     :
-                                    <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>InActive</span> </button>
+                                    <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
 
                             }
 
@@ -400,14 +402,19 @@ function ViewAllJob() {
 
 
                 <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' onChange={(e) => {
+                    {
+                        row.isArchived == 0 &&
+                        <form encType="multipart/form-data" method='POST' onChange={(e) => {
 
-                        handlePostApproval(e, row)
+                            handlePostApproval(e, row)
 
-                    }} >
-                        <input class="form-check-input " style={{ cursor: 'pointer' }} type="checkbox" id="flexSwitchCheckDefault" checked={row.isPublished == 1}
-                        />
-                    </form>
+                        }} >
+
+                            <input class="form-check-input " style={{ cursor: 'pointer' }} type="checkbox" id="flexSwitchCheckDefault" checked={row.isPublished == 1}
+                            />
+
+                        </form>
+                    }
 
                 </div>
                 <div className='text-secondary'>
@@ -423,8 +430,8 @@ function ViewAllJob() {
                 <div className='mx-2' onClick={(e) => archiveJobPost(e, row)}>
                     {
                         row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                : ''
+                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+
 
                     }
 
@@ -528,7 +535,7 @@ function ViewAllJob() {
                 axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllJobPosts(res.data)
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 });
                 Swal.fire(
@@ -540,6 +547,55 @@ function ViewAllJob() {
         })
 
 
+    }
+
+
+    const handleAllJobStatus = (e) => {
+
+        if (e.target.value === 'archive') {
+            axios.put(`/api/archive-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallJobPosts(res.data.posts)
+                    setRenderAllJobPosts(res.data);
+
+                }
+
+            })
+        }
+        else if (e.target.value === 'active') {
+            axios.put(`/api/active-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallJobPosts(res.data.posts)
+
+                    setRenderAllJobPosts(res.data);
+
+                }
+
+            })
+        }
+        else if (e.target.value === 'pending') {
+            axios.put(`/api/pending-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallJobPosts(res.data.posts)
+
+                    setRenderAllJobPosts(res.data);
+
+                }
+
+            })
+        }
+        else{
+
+        }
     }
 
 
@@ -607,9 +663,7 @@ function ViewAllJob() {
                                                 {
                                                     selectedRowsLength > 1 &&
                                                     <>
-                                                        <div class="form-check form-switch mx-2">
-                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
+
 
                                                         <div className='mx-2 '
                                                             onClick={
@@ -620,15 +674,19 @@ function ViewAllJob() {
                                                         </div>
 
                                                         <div className='mx-2'>
-
-
-                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
-
+                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllJobStatus}>
+                                                                <option selected>Action</option>
+                                                                <option value="active">Active</option>
+                                                                <option value="pending">Pending</option>
+                                                                <option value="archive">Archive</option>
+                                                            </select>
                                                         </div>
+
 
 
                                                     </>
                                                 }
+
 
 
 
@@ -710,7 +768,7 @@ function ViewAllJob() {
                                                     <h5>{viewJobPostDescription.job_title}</h5>
                                                     <div>
                                                         <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Application Deadline: {moment(viewJobPostDescription.application_deadline).format("L")}</span>
+                                                        <span className='mx-2'>Application Deadline: {viewJobPostDescription.application_deadline}</span>
                                                     </div>
 
                                                     <div className='mt-2'>
@@ -763,21 +821,6 @@ function ViewAllJob() {
                                 </div>
 
                             </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                         </div>

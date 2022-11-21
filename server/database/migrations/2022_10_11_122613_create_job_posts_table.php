@@ -24,6 +24,7 @@ return new class extends Migration
                  $table->longText('job_link')->nullable();
                  $table->longText('image')->nullable();
                  $table->string('posted_by')->nullable();
+                 $table->string('updated_by')->nullable();
                  $table->string('job_location')->nullable();
                  $table->boolean('isPublished')->default(1);
                  $table->boolean('isArchived')->default(0);

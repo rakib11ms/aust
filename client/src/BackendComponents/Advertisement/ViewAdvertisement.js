@@ -183,7 +183,7 @@ function ViewAllAdvertisement() {
             const archiveUpdate = {
                 isArchived: 0
             }
-            
+
 
             axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
                 if (res.data.status == 200) {
@@ -312,6 +312,12 @@ function ViewAllAdvertisement() {
     }
 
 
+
+    var currentDate = moment().format("YYYY-MM-DD");
+
+    console.log('hello dada', currentDate);
+
+    let a;
     const columns = [
         // {
         //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
@@ -425,12 +431,23 @@ function ViewAllAdvertisement() {
 
                             <div className='mx-2'>
                                 <i class="fa fa-clock"></i>
-                                <span className='mx-1'>30 Sec</span>
+                                <span className='mx-1'>{row.show_time} Sec</span>
                             </div>
 
                             <div className='mx-2'>
                                 <i class="fa fa-calendar"></i>
-                                <span className='mx-1'>29 days left</span>
+                                <span className='mx-1'>
+                                    {
+                                        row.last_show_days
+                                    }
+
+
+                                    {/* {
+                                        // var a = row.last_show_days;
+                                        var b = moment([2007, 0, 28]);
+                                        a.diff(b, 'days')
+                                    } */}
+                                </span>
                             </div>
 
 
