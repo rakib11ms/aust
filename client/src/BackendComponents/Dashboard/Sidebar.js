@@ -105,13 +105,16 @@ function Sidebar() {
                                             <Link to="/view-all-users" className='text-light text-form '>View All Users</Link>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>About</a>
+                                            <a href='' className='text-light text-form'>Create User</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Contact</a>
+                                            <a href='' className='text-light text-form'>Aproval List</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Home</a>
+                                            <Link to="/role-management" className='text-light text-form '>Role Management</Link>
+                                        </li>
+                                        <li>
+                                            <a href='' className='text-light text-form'>E-Resister Users </a>
                                         </li>
                                     </ul>
                                 </>
