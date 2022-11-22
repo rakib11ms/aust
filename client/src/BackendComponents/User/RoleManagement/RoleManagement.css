@@ -1,0 +1,12 @@
+/* Role Management */
+
+.role-config{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0px 40px 0px;
+}
+.nested-routes{
+    margin-top: 60px;
+}
