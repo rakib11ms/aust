@@ -28,6 +28,7 @@ return new class extends Migration
                  $table->string('image')->nullable();
                  $table->string('show_time')->nullable();
                  $table->string('show_days')->nullable();
+                 $table->string('last_show_days')->nullable();
                  $table->string('redirect_link')->nullable();
                  $table->string('position')->nullable();
                  $table->boolean('showMobile')->default(1);

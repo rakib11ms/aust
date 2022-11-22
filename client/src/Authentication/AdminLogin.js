@@ -142,6 +142,11 @@ function AdminLogin({ handleSucessLogin }) {
                   </div>
 
                 </div>
+
+             {/* <div className='footer-area'>
+                  <span className='text-white'> Design & Develop by : <a href="https://pakizatvl.com/" style={{ color: 'black', textDecoration: 'none' }} target="_blank">Pakiza Technovation Ltd.</a></span>
+                  <span className='d-block text-center text-white'>© 2022 | All rights reserved to AUSTTAA</span>
+                </div> */}
               </div>
 
               <div class="form-part  mx-5 mt-4 d-flex  flex-column">
@@ -167,10 +172,14 @@ function AdminLogin({ handleSucessLogin }) {
                   </div>
                 </form>
               </div>
+
+              
             </div>
 
           </div>
           {/* </div> */}
+
+       
         </div>
       </div>
 

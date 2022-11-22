@@ -17,6 +17,7 @@
   height: 100vh;
   width: 100vw;
   background-color: white;
+  position: relative;
 }
 
 
@@ -72,3 +73,12 @@
   transition:all 0.2s ease-out;
 }
 
+
+
+/* //foooter */
+
+/* .footer-area{
+  position: absolute;
+  bottom:-50px;
+  top:100px;
+} */

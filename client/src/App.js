@@ -24,6 +24,7 @@ import AdminPasswordReset from './Authentication/AdminPasswordReset';
 import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
 import PostManagement from './BackendComponents/User/RoleManagement/NestedPages/PostManagement';
 import NoticeManagement from './BackendComponents/User/RoleManagement/NestedPages/NoticeManagement';
+import NoRouteMatch from './BackendComponents/NoRouteMatch';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -34,10 +35,10 @@ function App() {
   console.log('susccess status', successStatus);
 
   const handleSucessLogin = (val) => {
-  setSuccessStatus(val)                             
+    setSuccessStatus(val)
   }
 
-  
+
 
   const [trigger, setTrigger] = useState('');
   // console.log('hel',trigger);
@@ -103,6 +104,9 @@ function App() {
   return (
     <>
       <Routes>
+
+        <Route exact path="*" element={<NoRouteMatch />}></Route>
+
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
 
         <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
@@ -121,34 +125,34 @@ function App() {
               :
               <Route path="admin-login" element={<AdminLogin />}></Route>
 
-        }
+          }
 
-            <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            <Route path="post-type" element={<PostType/>}></Route>
-            <Route path="job-configuration" element={<JobConfiguration/>}></Route>
-            <Route path="create-job-post" element={<CreateJobPost/>}></Route>
-            <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
-            
-            <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
-            <Route path="role-management" element={<RoleManagement/>}>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="notice-management-nested" element={<NoticeManagement/>}></Route>
-            <Route path="post-management-nested" element={<PostManagement/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            </Route>
-            
+          <Route path="admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="post-type" element={<PostType />}></Route>
+          <Route path="job-configuration" element={<JobConfiguration />}></Route>
+          <Route path="create-job-post" element={<CreateJobPost />}></Route>
+          <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
 
-            <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
+          <Route path="view-all-users" element={<ViewAllUsers />}></Route>
+          <Route path="role-management" element={<RoleManagement />}>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="notice-management-nested" element={<NoticeManagement />}></Route>
+            <Route path="post-management-nested" element={<PostManagement />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+            <Route path="user-management-nested" element={<UserManagementNested />}></Route>
+          </Route>
 
-            <Route path="create-event" element={<CreateEvent/>}></Route>
-            <Route path="edit-events/:id" element={<EditEvent/>}></Route>
-            <Route path="event-configuration" element={<EventConfiguration/>}></Route>
-            <Route path="view-all-events" element={<ViewAllEvent/>}></Route>
+
+          <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
+
+          <Route path="create-event" element={<CreateEvent />}></Route>
+          <Route path="edit-events/:id" element={<EditEvent />}></Route>
+          <Route path="event-configuration" element={<EventConfiguration />}></Route>
+          <Route path="view-all-events" element={<ViewAllEvent />}></Route>
 
 
           <Route path="admin-dashboard" element={<Dashboard />}></Route>

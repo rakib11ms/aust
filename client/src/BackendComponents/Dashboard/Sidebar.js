@@ -37,6 +37,16 @@ function Sidebar() {
         })
     }
 
+    // const [stickyClass, setStickyClass] = useState('');
+
+
+
+    // const stickNavbar = () => {
+    //     return window.scrollY >= 100 ? setStickyClass('sticky-nav') : setStickyClass('');
+
+    // };
+    // window.addEventListener('scroll', stickNavbar);
+
     return (
         <>
             <div className="">
@@ -192,13 +202,13 @@ function Sidebar() {
                                         <li className='mt-1'>
                                             <Link to="/create-job-post" className='text-light text-form '>Create a Job</Link>
                                         </li>
-                                        <li className='mt-1'>
+                                        {/* <li className='mt-1'>
                                             <Link to="" className='text-light text-form '>Approval List</Link>
                                         </li>
 
                                         <li className='mt-1'>
                                             <Link to="" className='text-light text-form '>Archeived</Link>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </>
 
@@ -273,7 +283,7 @@ function Sidebar() {
                                         <li>
                                             <Link to='/post-type' className='text-light text-form' >User Posts </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <a href='' className='text-light text-form'>About</a>
                                         </li>
                                         <li>
@@ -281,7 +291,7 @@ function Sidebar() {
                                         </li>
                                         <li>
                                             <a href='' className='text-light text-form'>Home</a>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </>
 

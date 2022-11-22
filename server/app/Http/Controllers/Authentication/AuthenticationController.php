@@ -122,6 +122,8 @@ class AuthenticationController extends Controller
 
         $phone_or_email_check=User::where('email',$request->email)->orWhere('phone_no',$request->phone_no)->first();
         if($phone_or_email_check){
+
+            // dd($phone_or_email_check->email);
           // $token = Str::random(64);
             $token = rand(0, 9999999);
 

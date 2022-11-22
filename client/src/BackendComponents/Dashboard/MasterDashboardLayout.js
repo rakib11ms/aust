@@ -6,7 +6,7 @@ function MasterDashboardLayout({children}){
         <>
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-2  sidebar-left1 border">
+                <div className="col-md-2  sidebar-left1 ">
                     <Sidebar/>
                 </div>
 
