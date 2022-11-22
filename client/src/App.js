@@ -10,7 +10,6 @@ import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobP
 import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
 import ViewAllUsers from './BackendComponents/User/ViewAllUsers';
 import RoleManagement from './BackendComponents/User/RoleManagement/RoleManagement';
-import UserManagementNested from './BackendComponents/User/RoleManagement/NestedPages/UserManagementNested';
 import EditJobPost from './BackendComponents/Job Management/JobPost/EditJobPost';
 import './imageUrl';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
@@ -19,11 +18,10 @@ import ViewAllEvent from './BackendComponents/Event/ViewAllEvent';
 import EditEvent from './BackendComponents/Event/EditEvent';
 import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdvertisement';
 import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
+import Settings from './BackendComponents/Settings/Settings';
 import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertisement';
 import AdminPasswordReset from './Authentication/AdminPasswordReset';
 import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
-import PostManagement from './BackendComponents/User/RoleManagement/NestedPages/PostManagement';
-import NoticeManagement from './BackendComponents/User/RoleManagement/NestedPages/NoticeManagement';
 function App() {
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -130,17 +128,7 @@ function App() {
             <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
             
             <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
-            <Route path="role-management" element={<RoleManagement/>}>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="notice-management-nested" element={<NoticeManagement/>}></Route>
-            <Route path="post-management-nested" element={<PostManagement/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            <Route path="user-management-nested" element={<UserManagementNested/>}></Route>
-            </Route>
+            <Route path="role-management" element={<RoleManagement/>}></Route>
             
 
             <Route path="edit-jobs/:id" element={<EditJobPost/>}></Route>
@@ -167,6 +155,7 @@ function App() {
           <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>
           <Route path="view-all-advertisement" element={<ViewAllAdvertisement />}></Route>
           <Route path="edit-advertisement/:id" element={<EditAdvertisement />}></Route>
+          <Route path="settings" element={<Settings />}></Route>
 
 
 

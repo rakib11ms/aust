@@ -11,15 +11,15 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Sidebar from '../../Dashboard/Sidebar';
-import Topbar from '../../Dashboard/Topbar';
+import Sidebar from '../../BackendComponents/Dashboard/Dashboard';
+import Topbar from '../../BackendComponents/Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route, Outlet } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-import "./RoleManagement.css";
+import "./Settings.css";
 
 import MaterialTable from "material-table";
 import moment from 'moment';
@@ -62,7 +62,7 @@ function a11yProps(index) {
     };
 }
 
-function RoleManagement() {
+function Settings() {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -1458,4 +1458,4 @@ function RoleManagement() {
 
 }
 
-export default RoleManagement
+export default Settings;

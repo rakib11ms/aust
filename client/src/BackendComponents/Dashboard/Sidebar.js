@@ -13,6 +13,7 @@ function Sidebar() {
     const [isActive5, setIsActive5] = useState(false);
     const [isActive6, setIsActive6] = useState(false);
     const [isActive7, setIsActive7] = useState(false);
+    const [isActive8, setIsActive8] = useState(false);
     console.log('is active cheking', isActive)
 
 
@@ -361,6 +362,26 @@ function Sidebar() {
                             }
                         </div>
                     </div>
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive8(!isActive8)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i class="fa-solid fa-rectangle-ad mt-1"></i>
+
+                                <li class="mt-1">
+                                <Link to='/settings' className='text-light text-form'>Settings</Link>
+                            </li>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive8 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                       
+                    </div>
 
                 </div>
 
@@ -369,11 +390,9 @@ function Sidebar() {
 
             </div>
 
-            <div className='home-menu d-flex  mt-3 py-1 px-2   menu-left rounded-2'>
-                <i className='fa-solid fa-gear mt-2 d-block text-white ' />
-                <h6 className='mx-2 fw-500 my-1 text-white'>Settings</h6>
+            
 
-            </div>
+           
             {/* <div className=' checker'>
                 <h6 className='fw-500 my-1 text-white bg-danger d-block border w-100 m-0  '>Settings</h6>
 
