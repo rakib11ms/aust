@@ -26,6 +26,7 @@ import PostManagement from './BackendComponents/User/RoleManagement/NestedPages/
 import NoticeManagement from './BackendComponents/User/RoleManagement/NestedPages/NoticeManagement';
 import NoRouteMatch from './BackendComponents/NoRouteMatch';
 function App() {
+  
   const [storage, setStorage] = useState('');
   useEffect(() => {
     setStorage(localStorage.getItem('user_type') === 'admin');
