@@ -11,7 +11,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Sidebar from '../../BackendComponents/Dashboard/Dashboard';
+import Sidebar from '../../BackendComponents/Dashboard/Sidebar';
 import Topbar from '../../BackendComponents/Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route, Outlet } from "react-router-dom";
 
@@ -31,7 +31,7 @@ import { Grid, Input } from '@mui/material';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-   
+
     return (
         <div
             role="tabpanel"
@@ -297,10 +297,6 @@ function Settings() {
         setviewJobPostModalIsOpen(false);
 
     }
-
-
-
-
 
 
     useEffect(() => {
@@ -631,56 +627,8 @@ function Settings() {
                         <div className='container-fluid'>
 
 
-                            <div className='mt-3 border  rounded-3 '>
-                                <h2 style={{ color: "#00602B" }} className='ms-4 pt-3'>Availabe User Roles</h2>
-                                <div className='role-config'>
-
-                                    <div className=''>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD", borderRadius: 7, fontSize: 12, margin: "0px 5px 0px 25px", padding: "13px 35px" }} variant="outlined" startIcon={<AdminPanelSettingsSharpIcon />}>
-                                            Admin
-                                        </Button>
-                                        <Button className='female' style={{ color: "#828282", border: "1px solid #BDBDBD", borderRadius: 7, fontSize: 12, marginRight: 5, padding: "13px 15px" }} variant="outlined" startIcon={<AddModeratorSharpIcon />}>
-                                            Moderator
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 5, padding: "13px 35px" }} variant="outlined" startIcon={<PeopleAltSharpIcon />}>
-                                            Alumni
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, padding: "13px 35px" }} variant="outlined" startIcon={<SupervisedUserCircleIcon />}>
-                                            Stuff
-                                        </Button>
-                                    </div>
-
-
-                                    <div>
-                                        <Button style={{ backgroundColor: "#00602B", color: "white", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 10, padding: "13px 15px" }} variant="contained" startIcon={<AddIcon />}>
-                                            Create Role
-                                        </Button>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                            <div className="col-md-12 mt-3">
-                                <h5 style={{ border: "1px solid #9D9D9D", borderRadius: 7, padding: "20px 0px", color: "#00602B", paddingLeft: 10 }}>Permission Sets</h5>
-                            </div>
                             <div className='tab-sec-full'>
-                                <div className='tab-nav'>
-                                    <ul class="nav justify-content-end" id='tab-nav-ul'>
-                                        <li class="nav-item" >
-                                            <a class="nav-link" style={{ marginRight: 60 }} href="#">Alumni</a>
-                                        </li>
-                                        <li class="nav-item" >
-                                            <a class="nav-link" style={{ marginRight: 60 }} href="#">Stuff</a>
-                                        </li>
-                                        <li class="nav-item" >
-                                            <a class="nav-link" style={{ marginRight: 35 }} href="#">Admin</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" style={{ marginRight: -87 }} href="#">Moderators</a>
-                                        </li>
-                                    </ul>
-                                </div>
+
 
                                 <div className='tab-section'>
                                     <Box
@@ -694,91 +642,158 @@ function Settings() {
                                             aria-label="Vertical tabs example"
                                             sx={{ borderRight: 1, borderColor: 'divider' }}
                                         >
-                                            <Tab label="User management" {...a11yProps(0)} />
-                                            <Tab label="Notice mangement" {...a11yProps(1)} />
-                                            <Tab label="Post management" {...a11yProps(2)} />
-                                            <Tab label="Job management" {...a11yProps(3)} />
-                                            <Tab label="Advertise mangement" {...a11yProps(4)} />
-                                            <Tab label="Misc. management" {...a11yProps(5)} />
-                                            <Tab label="Website management" {...a11yProps(6)} />
-                                            <Tab label="Articles & Blogs" {...a11yProps(7)} />
-                                            <Tab label="Vlog " {...a11yProps(8)} />
+                                            <Tab label="Approval setting" {...a11yProps(0)} />
+                                            <Tab label="External link" {...a11yProps(1)} />
+                                            <Tab label="API" {...a11yProps(2)} />
+                                            <Tab label="Preview privllage" {...a11yProps(3)} />
+
                                         </Tabs>
 
                                         <TabPanel value={value} index={0}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create user
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            View users
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Approve users
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Role management
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
+                                            <div>
+                                             <h3 className='table-head-text'>Auto approval</h3>
+                                            </div>
+                                            <div className="table-responsive table-sec">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr className='table-head'>
+                                                            <th className='t-nav-text' scope="col">Users</th>
+                                                            <th className='t-nav-text' scope="col">Job post </th>
+                                                            <th className='t-nav-text' scope="col">Advertisement</th>
+                                                            <th className='t-nav-text' scope="col"> User post</th>
+                                                            <th className='t-nav-text' scope="col">Blogs/article</th>
+                                                            <th className='t-nav-text' scope="col">News</th>
+                                                            <th className='t-nav-text' scope="col">Events</th>
+                                                            <th className='t-nav-text' scope="col"> User registration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className='table-body'>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Super Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Modertor</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Stuff</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">ALumni</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
 
                                         </TabPanel>
@@ -786,553 +801,338 @@ function Settings() {
 
 
                                         <TabPanel value={value} index={1}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            Create user
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            View users
-                                                        </ol>
 
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-                                                </div>
-                                            </div>
                                         </TabPanel>
 
 
                                         <TabPanel value={value} index={2}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create post
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            View post
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Delete Post
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create categories
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
+                                        <div>
+                                        <h3 className='table-head-text'>API Configuration</h3>
+                                       </div>
+                                            <div className="table-responsive table-sec">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr className='table-head'>
+                                                            <th className='t-nav-text' scope="col">Users</th>
+                                                            <th className='t-nav-text' scope="col">Job post </th>
+                                                            <th className='t-nav-text' scope="col">Advertisement</th>
+                                                            <th className='t-nav-text' scope="col"> User post</th>
+                                                            <th className='t-nav-text' scope="col">Blogs/article</th>
+                                                            <th className='t-nav-text' scope="col">News</th>
+                                                            <th className='t-nav-text' scope="col">Events</th>
+                                                            <th className='t-nav-text' scope="col"> User registration</th>
+                                                            <th className='t-nav-text' scope="col"> Alumni</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className='table-body'>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Super Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Modertor</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Stuff</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">ALumni</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </TabPanel>
                                         <TabPanel value={value} index={3}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create Job
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            View post
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Delete Job
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Archive job
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create categoreis
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={4}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create adv
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            View adv
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Delete adv
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Pause adv
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Configure adv
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={5}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            Other mangement 1
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            other mangement 2
-                                                        </ol>
+                                        <div>
+                                        <h3 className='table-head-text'>Proview previllage</h3>
+                                       </div>
+                                            <div className="table-responsive table-sec">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr className='table-head'>
+                                                            <th className='t-nav-text' scope="col">Users</th>
+                                                            <th className='t-nav-text' scope="col">Job post </th>
+                                                            <th className='t-nav-text' scope="col">Advertisement</th>
+                                                            <th className='t-nav-text' scope="col"> User post</th>
+                                                            <th className='t-nav-text' scope="col">Blogs/article</th>
+                                                            <th className='t-nav-text' scope="col">News</th>
+                                                            <th className='t-nav-text' scope="col">Events</th>
+                                                            <th className='t-nav-text' scope="col"> Profile</th>
+                                                            <th className='t-nav-text' scope="col"> Alumni list</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className='table-body'>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Super Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
 
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Admin</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
 
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Modertor</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
 
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">Stuff</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
 
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={6}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            Manage website
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={7}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create article/blogs
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Show articles & blogs
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Delete articles/blogs
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Configure articles/blogs
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={8}>
-                                            <div class="row" >
-                                                <div class="col-4">
-                                                    <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Create vlog
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            View vlog
-                                                        </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
-                                                            Delete vlog
-                                                        </ol>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2" >
-                                                    <div class="form-check mb-5 mt-1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                    <div class="form-check mb-5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                    </div>
-                                                </div>
+                                                        <tr>
+                                                            <th className='pb-4 pt-4 t-nav-text' scope="row">ALumni</th>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                            <td className='pb-4 pt-4'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </TabPanel>
                                     </Box>
 
-                                </div>
-                                <div className='tab-button '>
-                                    <Button style={{ marginRight: 10 }} variant="outlined" color="success">
-                                        Revert
-                                    </Button>
-                                    <Button variant="contained" color="success">
-                                        Grant
-                                    </Button>
                                 </div>
                             </div>
 
@@ -1458,4 +1258,4 @@ function Settings() {
 
 }
 
-export default Settings;
+export default Settings

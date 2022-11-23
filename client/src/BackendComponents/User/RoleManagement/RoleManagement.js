@@ -31,7 +31,7 @@ import { Grid, Input } from '@mui/material';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-   
+
     return (
         <div
             role="tabpanel"
@@ -297,10 +297,6 @@ function RoleManagement() {
         setviewJobPostModalIsOpen(false);
 
     }
-
-
-
-
 
 
     useEffect(() => {
@@ -665,18 +661,18 @@ function RoleManagement() {
                                 <h5 style={{ border: "1px solid #9D9D9D", borderRadius: 7, padding: "20px 0px", color: "#00602B", paddingLeft: 10 }}>Permission Sets</h5>
                             </div>
                             <div className='tab-sec-full'>
-                                <div className='tab-nav'>
+                                <div className='tab-nav1'>
                                     <ul class="nav justify-content-end" id='tab-nav-ul'>
-                                        <li class="nav-item" >
-                                            <a class="nav-link" style={{ marginRight: 60 }} href="#">Alumni</a>
+                                        <li className="nav-item ancor-nav1" >
+                                            <a class="nav-link " style={{ marginRight: 60 }} href="#">Alumni</a>
                                         </li>
-                                        <li class="nav-item" >
+                                        <li className="nav-item ancor-nav2">
                                             <a class="nav-link" style={{ marginRight: 60 }} href="#">Stuff</a>
                                         </li>
-                                        <li class="nav-item" >
+                                        <li className="nav-item ancor-nav3">
                                             <a class="nav-link" style={{ marginRight: 35 }} href="#">Admin</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li className="nav-item ancor-nav4">
                                             <a class="nav-link" style={{ marginRight: -87 }} href="#">Moderators</a>
                                         </li>
                                     </ul>
@@ -789,10 +785,10 @@ function RoleManagement() {
                                             <div class="row" >
                                                 <div class="col-4">
                                                     <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
                                                             Create user
                                                         </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
                                                             View users
                                                         </ol>
 
@@ -1100,11 +1096,11 @@ function RoleManagement() {
                                             <div class="row" >
                                                 <div class="col-4">
                                                     <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
                                                             Other mangement 1
                                                         </ol>
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
-                                                            other mangement 2
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Other mangement 2
                                                         </ol>
 
                                                     </ul>
@@ -1151,7 +1147,7 @@ function RoleManagement() {
                                             <div class="row" >
                                                 <div class="col-4">
                                                     <ul >
-                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
                                                             Manage website
                                                         </ol>
                                                     </ul>

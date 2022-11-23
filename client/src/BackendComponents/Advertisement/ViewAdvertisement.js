@@ -29,6 +29,14 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 function ViewAllAdvertisement() {
+
+            
+                                        var a = moment([2007, 0, 28]);
+                                        var b = moment([2007, 0, 20]);
+                                       console.log("rakib",a.diff(b, 'days'))
+                                       
+
+                                    
     const [loading, setLoading] = useState(true);
 
     const [allAdvertisements, setAllAdvertisements] = useState([]);
@@ -317,7 +325,6 @@ function ViewAllAdvertisement() {
 
     console.log('hello dada', currentDate);
 
-    let a;
     const columns = [
         // {
         //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
@@ -441,12 +448,11 @@ function ViewAllAdvertisement() {
                                         row.last_show_days
                                     }
 
-
-                                    {/* {
-                                        // var a = row.last_show_days;
-                                        var b = moment([2007, 0, 28]);
-                                        a.diff(b, 'days')
-                                    } */}
+                                    {
+                                        // var a = moment([2007, 0, 28]);
+                                        // var b = moment([2007, 0, 20]);
+                                        // row.last_show_days.diff(currentDate, 'days')
+                                    }
                                 </span>
                             </div>
 
