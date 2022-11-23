@@ -5,7 +5,11 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import AddModeratorSharpIcon from '@mui/icons-material/AddModeratorSharp';
 import AdminPanelSettingsSharpIcon from '@mui/icons-material/AdminPanelSettingsSharp';
 import PeopleAltSharpIcon from '@mui/icons-material/PeopleAltSharp';
-import CloseIcon from '@mui/icons-material/Close';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Sidebar from '../../Dashboard/Sidebar';
 import Topbar from '../../Dashboard/Topbar';
@@ -22,12 +26,49 @@ import moment from 'moment';
 // import { Paper } from '@material-ui/core';
 import Paper from '@mui/material/Paper';
 import { Container } from '@mui/system';
-import { Grid } from '@mui/material';
-import SideRoute from './NestedPages/UserManagementNested';
-import UserManagementNested from './NestedPages/UserManagementNested';
+import { Grid, Input } from '@mui/material';
 
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+   
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
 
 function RoleManagement() {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     const [loading, setLoading] = useState(true);
 
     const [allJobPosts, setallJobPosts] = useState([]);
@@ -621,31 +662,679 @@ function RoleManagement() {
                             </div>
 
                             <div className="col-md-12 mt-3">
-                                <h5 style={{border: "1px solid #9D9D9D", borderRadius: 7, padding:"20px 0px", color:"#00602B", paddingLeft:10}}>Permission Sets</h5>
+                                <h5 style={{ border: "1px solid #9D9D9D", borderRadius: 7, padding: "20px 0px", color: "#00602B", paddingLeft: 10 }}>Permission Sets</h5>
                             </div>
-                            <div className='nested-routes'>
-                                <Grid container spacing={2}>
-                                    <Grid xs={4}>
-                                    <ul>
-                                    <ol>
-                                    <Link to="user-management-nested">User Management </Link> 
-                                    </ol>
-                                    <ol>
-                                    <Link to="notice-management-nested">Notice Management </Link> 
-                                    </ol>
-                                    <ol>
-                                    <Link to="post-management-nested">Post Management </Link> 
-                                    </ol>
+                            <div className='tab-sec-full'>
+                                <div className='tab-nav'>
+                                    <ul class="nav justify-content-end" id='tab-nav-ul'>
+                                        <li class="nav-item" >
+                                            <a class="nav-link" style={{ marginRight: 60 }} href="#">Alumni</a>
+                                        </li>
+                                        <li class="nav-item" >
+                                            <a class="nav-link" style={{ marginRight: 60 }} href="#">Stuff</a>
+                                        </li>
+                                        <li class="nav-item" >
+                                            <a class="nav-link" style={{ marginRight: 35 }} href="#">Admin</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" style={{ marginRight: -87 }} href="#">Moderators</a>
+                                        </li>
                                     </ul>
-                                    
-                                    </Grid>
-                                    <Outlet/>
-                                    <Grid xs={8}>
-                                       
-                                    </Grid>
-                                </Grid>
-                            </div>
+                                </div>
 
+                                <div className='tab-section'>
+                                    <Box
+                                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+                                    >
+                                        <Tabs
+                                            orientation="vertical"
+                                            variant="scrollable"
+                                            value={value}
+                                            onChange={handleChange}
+                                            aria-label="Vertical tabs example"
+                                            sx={{ borderRight: 1, borderColor: 'divider' }}
+                                        >
+                                            <Tab label="User management" {...a11yProps(0)} />
+                                            <Tab label="Notice mangement" {...a11yProps(1)} />
+                                            <Tab label="Post management" {...a11yProps(2)} />
+                                            <Tab label="Job management" {...a11yProps(3)} />
+                                            <Tab label="Advertise mangement" {...a11yProps(4)} />
+                                            <Tab label="Misc. management" {...a11yProps(5)} />
+                                            <Tab label="Website management" {...a11yProps(6)} />
+                                            <Tab label="Articles & Blogs" {...a11yProps(7)} />
+                                            <Tab label="Vlog " {...a11yProps(8)} />
+                                        </Tabs>
+
+                                        <TabPanel value={value} index={0}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create user
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            View users
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Approve users
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Role management
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </TabPanel>
+
+
+
+                                        <TabPanel value={value} index={1}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                            Create user
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                            View users
+                                                        </ol>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+
+
+                                        <TabPanel value={value} index={2}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create post
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            View post
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Delete Post
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create categories
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={3}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create Job
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            View post
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Delete Job
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Archive job
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create categoreis
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={4}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create adv
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            View adv
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Delete adv
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Pause adv
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Configure adv
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={5}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                            Other mangement 1
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                            other mangement 2
+                                                        </ol>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={6}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500 }}>
+                                                            Manage website
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={7}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create article/blogs
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Show articles & blogs
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Delete articles/blogs
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Configure articles/blogs
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={8}>
+                                            <div class="row" >
+                                                <div class="col-4">
+                                                    <ul >
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Create vlog
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            View vlog
+                                                        </ol>
+                                                        <ol className='create-col' style={{ color: "#333333", fontWeight: 500, fontSize: 14 }}>
+                                                            Delete vlog
+                                                        </ol>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-2" >
+                                                    <div class="form-check mb-5 mt-1">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                    <div class="form-check mb-5">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                    </Box>
+
+                                </div>
+                                <div className='tab-button '>
+                                    <Button style={{ marginRight: 10 }} variant="outlined" color="success">
+                                        Revert
+                                    </Button>
+                                    <Button variant="contained" color="success">
+                                        Grant
+                                    </Button>
+                                </div>
+                            </div>
 
 
 
