@@ -137,33 +137,6 @@
       font-weight: 400;
   }
   
-  /* Responsiveness */
-  @media only screen and (min-width: 1367px){
-      .input-icon{
-          /* height: rem; */
-          margin-left: 170px;
-      }
-      .pending{
-          padding: 8px 25px 8px 30px;
-  
-      }
-      .num1{
-          padding: 12px 10px 7px 10px;
-          margin-right: -20px;
-      }
-      /* .num1-h4{
-          font-size: 20px;
-          /* margin-left: 20px; */
-      /* }  */
-      .active{
-          padding: 8px 15px 8px 30px;
-      }
-      .num2{
-          padding: 12px 10px 7px 10px;
-      }
-      
-  }
-  
   
   
 /* Role Management */
@@ -177,13 +150,10 @@
 }
 
 .tab-section{
-    margin-top: 10px;
+    margin-top: 70px;
     position: relative;
 }
-.create-col{  
-    width: 520px;
-    padding-bottom: 53px;
-}
+
 .tab-nav{
     margin-right: 20%;
 }
@@ -195,4 +165,51 @@
     float: right;
     margin: 300px 80px 40px 0px;
     
+}
+
+.table-sec{
+    margin-top: 20px;
+}
+
+.table-body{
+    align-items: center;
+    text-align: center;
+    border-bottom: qpx solid rgb(255, 255, 255);
+}
+.table-head{
+    align-items: center;
+    text-align: center;
+    border: none;
+}
+.t-nav-text{
+    font-weight: 400;
+}
+
+.table-head-text{
+    margin-top: -80px;
+}
+/* Responsive */
+
+@media only screen and (min-width: 1380px) {
+    #tab-nav-ul li a {
+        position:static;
+        margin-left: 50px;
+    }
+    .ancor-nav1{
+        margin-right: -50px;
+       
+    }
+    .ancor-nav2{
+        margin-right: -50px;
+       
+    }
+    .ancor-nav3{
+        margin-right: -44px;
+       
+    }
+    .ancor-nav4{
+        margin-right: 340px;
+       
+    }
+
 }

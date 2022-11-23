@@ -29,6 +29,14 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 function ViewAllAdvertisement() {
+
+
+    var a = moment([2007, 0, 28]);
+    var b = moment([2007, 0, 20]);
+    console.log("rakib", a.diff(b, 'days'))
+
+
+
     const [loading, setLoading] = useState(true);
 
     const [allAdvertisements, setAllAdvertisements] = useState([]);
@@ -318,7 +326,7 @@ function ViewAllAdvertisement() {
                                 </div>
 
 
-                        
+
 
 
                                 <div className='text-secondary mx-2'>
@@ -364,7 +372,7 @@ function ViewAllAdvertisement() {
 
                                     <span class="badge bg-warning text-dark px-2 ">{row.last_show_days}</span>
 
-                              
+
                                 </span>
                             </div>
 
@@ -427,6 +435,7 @@ function ViewAllAdvertisement() {
     console.log('filter click check', advertisementFiltering)
 
 
+    
     useEffect(() => {
         axios.get(`/api/filter-advertisement-posts/${advertisementFiltering}`).then(res => {
             if (res.data.status == 200) {
@@ -524,7 +533,7 @@ function ViewAllAdvertisement() {
 
 
     const handleAllAdvertisementStatus = (e) => {
-   
+
         if (e.target.value == 'active') {
             axios.put(`/api/active-all-advertisements-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {

@@ -18,7 +18,7 @@ import ViewAllEvent from './BackendComponents/Event/ViewAllEvent';
 import EditEvent from './BackendComponents/Event/EditEvent';
 import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdvertisement';
 import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
-import Settings from './BackendComponents/Settings/Settings';
+import Settings from '../src/BackendComponents/Settings/Settings';
 import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertisement';
 import AdminPasswordReset from './Authentication/AdminPasswordReset';
 import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
