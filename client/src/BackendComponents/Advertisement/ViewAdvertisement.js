@@ -33,6 +33,30 @@ function ViewAllAdvertisement() {
 
     const [allAdvertisements, setAllAdvertisements] = useState([]);
 
+    var currentDate = moment().format("YYYY-MM-DD");
+
+    console.log('hello dada', typeof (currentDate));
+
+
+    {
+        var a = moment("2022-12-10");
+        var b = moment("2022-12-05");
+        console.log('diff check', a.diff(b, 'days'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const [totalActiveAdvertisements, setTotalActiveAdvertisements] = useState([]);
     const [totalArchiveAdvertisements, setTotalArchiveAdvertisements] = useState([]);
 
@@ -109,7 +133,6 @@ function ViewAllAdvertisement() {
             formData.append('posted_by', id.posted_by);
             formData.append('application_deadline', id.application_deadline);
             formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
             formData.append('job_title', id.job_title);
             formData.append('job_location', id.job_location);
 
@@ -139,80 +162,7 @@ function ViewAllAdvertisement() {
         }
     }
 
-    const archiveEventPost = (e, id) => {
 
-        // console.log('arhcive check row',id)
-
-
-        // console.log('arhcive update',archiveUpdate)
-
-        if (id.isArchived == 0) {
-
-            const archiveUpdate = {
-                isArchived: 1
-            }
-
-
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllAdvertisements(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-        if (id.isArchived == 1) {
-            const archiveUpdate = {
-                isArchived: 0
-            }
-
-
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllAdvertisements(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-
-    }
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
     // console.log('pip', storageData)
@@ -313,11 +263,7 @@ function ViewAllAdvertisement() {
 
 
 
-    var currentDate = moment().format("YYYY-MM-DD");
 
-    console.log('hello dada', currentDate);
-
-    let a;
     const columns = [
         // {
         //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
@@ -372,29 +318,7 @@ function ViewAllAdvertisement() {
                                 </div>
 
 
-                                <div className='text-secondary mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                    {/* <i className='fa fa-archive mx-2 icon-table-archive'></i>  */}
-
-                                    {
-                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
-                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                                : ''
-
-                                    }
-
-                                </div>
-
-                                {/* <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                    {
-                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
-                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                                : ''
-
-                                    }
-
-
-
-                                </div> */}
+                        
 
 
                                 <div className='text-secondary mx-2'>
@@ -425,11 +349,11 @@ function ViewAllAdvertisement() {
 
                         <div class="d-flex" style={{ color: '#777777' }}>
 
-                            <div className='badgee'>
+                            {/* <div className='badgee'>
                                 <i class="fa-solid fa-users"></i>
-                            </div>
+                            </div> */}
 
-                            <div className='mx-2'>
+                            <div className=''>
                                 <i class="fa fa-clock"></i>
                                 <span className='mx-1'>{row.show_time} Sec</span>
                             </div>
@@ -437,16 +361,10 @@ function ViewAllAdvertisement() {
                             <div className='mx-2'>
                                 <i class="fa fa-calendar"></i>
                                 <span className='mx-1'>
-                                    {
-                                        row.last_show_days
-                                    }
 
+                                    <span class="badge bg-warning text-dark px-2 ">{row.last_show_days}</span>
 
-                                    {/* {
-                                        // var a = row.last_show_days;
-                                        var b = moment([2007, 0, 28]);
-                                        a.diff(b, 'days')
-                                    } */}
+                              
                                 </span>
                             </div>
 
@@ -503,21 +421,22 @@ function ViewAllAdvertisement() {
 
 
 
-    const [eventPostFiltering, seteventPostFiltering] = useState('all');
+    const [advertisementFiltering, setadvertisementFiltering] = useState('all');
 
     // console.log('filtered post val',allEvents)
-    console.log('filter click check', eventPostFiltering)
+    console.log('filter click check', advertisementFiltering)
 
 
-    // useEffect(() => {
-    //     axios.get(`/api/filter-event-posts/${eventPostFiltering}`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setallEvents(res.data.event_posts);
-    //             setLoading(false);
-    //         }
-    //     })
+    useEffect(() => {
+        axios.get(`/api/filter-advertisement-posts/${advertisementFiltering}`).then(res => {
+            if (res.data.status == 200) {
+                // setallEvents(res.data.event_posts);
+                setAllAdvertisements(res.data.all_advertisements)
+                setLoading(false);
+            }
+        })
 
-    // }, [eventPostFiltering])
+    }, [advertisementFiltering])
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -556,7 +475,7 @@ function ViewAllAdvertisement() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`/api/delete-multiple-event-posts/${selectedRowsIds}`).then(res => {
+                axios.delete(`/api/delete-multiple-advertisements/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
                         setRenderAllAdvertisements(res.data)
                         window.location.reload();
@@ -564,7 +483,7 @@ function ViewAllAdvertisement() {
                 });
                 Swal.fire(
                     'Deleted!',
-                    'All Posts deleted successfully',
+                    'Advertisements deleted successfully',
                     'success'
                 )
             }
@@ -604,33 +523,21 @@ function ViewAllAdvertisement() {
     console.log('checking', allImagesFromDatabase)
 
 
-    const handleAllEventStatus = (e) => {
-        // if (e.target.value == 'archive') {
-        //     axios.put(`/api/archive-all-events-by-update/${selectedRowsIds}`).then(res => {
-        //         if (res.data.status == 200) {
+    const handleAllAdvertisementStatus = (e) => {
+   
+        if (e.target.value == 'active') {
+            axios.put(`/api/active-all-advertisements-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
 
-        //             // Swal.fire(res.data.message, '', 'success')
-        //             // window.location.reload();
-        //             setallEvents(res.data.allEvents)
-        //             setRenderAllAdvertisements(res.data);
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+                    // setallEvents(res.data.allEvents)
+                    setRenderAllAdvertisements(res.data);
 
-        //         }
+                }
 
-        //     })
-        // }
-        // else if (e.target.value == 'active') {
-        //     axios.put(`/api/active-all-events-by-update/${selectedRowsIds}`).then(res => {
-        //         if (res.data.status == 200) {
-
-        //             // Swal.fire(res.data.message, '', 'success')
-        //             // window.location.reload();
-        //             setallEvents(res.data.allEvents)
-        //             setRenderAllAdvertisements(res.data);
-
-        //         }
-
-        //     })
-        // }
+            })
+        }
     }
 
 
@@ -703,12 +610,10 @@ function ViewAllAdvertisement() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${eventPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => seteventPostFiltering('all')}>All</h6>
-                                                <h6 className={`${eventPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${eventPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('archive')}>Paused</h6>
-
-                                                <h6 className={`${eventPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(0)}>Archived</h6>
-                                                <h6 className={`${eventPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('archive')}>Finishing 15 Days</h6>
+                                                <h6 className={`${advertisementFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setadvertisementFiltering('all')}>All</h6>
+                                                <h6 className={`${advertisementFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(1)}>Active</h6>
+                                                <h6 className={`${advertisementFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(0)}>Paused</h6>
+                                                <h6 className={`${advertisementFiltering === '' ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering('')}>Finishing 15 Days</h6>
 
                                             </div>
 
@@ -727,10 +632,10 @@ function ViewAllAdvertisement() {
                                                         </div>
 
                                                         <div className='mx-2'>
-                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllEventStatus}>
+                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllAdvertisementStatus}>
                                                                 <option selected>Action</option>
                                                                 <option value="active">Active</option>
-                                                                <option value="archive">Archive</option>
+                                                                {/* <option value="archive">Archive</option> */}
                                                             </select>
                                                         </div>
 

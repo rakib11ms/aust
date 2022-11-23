@@ -105,7 +105,7 @@ function App() {
     <>
       <Routes>
 
-        <Route exact path="*" element={<NoRouteMatch />}></Route>
+        <Route path="*" element={<NoRouteMatch />}></Route>
 
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
 

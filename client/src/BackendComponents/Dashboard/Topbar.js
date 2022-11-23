@@ -7,10 +7,10 @@ function Topbar() {
 
 
 
-    const stickNavbar = () => {
-        return window.scrollY >= 100 ? setStickyClass('sticky-nav') : setStickyClass('');
+    // const stickNavbar = () => {
+    //     return window.scrollY >= 100 ? setStickyClass('sticky-nav') : setStickyClass('');
         
-    };
+    // };
 
     // useEffect(()=>{
     //     if (window !== undefined) {
@@ -20,7 +20,7 @@ function Topbar() {
     //     }
     // },[])
 
-    window.addEventListener('scroll', stickNavbar);
+    // window.addEventListener('scroll', stickNavbar);
 
     // useEffect(() => {
     //     console.log('useffect called');

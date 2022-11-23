@@ -189,6 +189,11 @@ Route::get('/edit-advertisement/{id}', [AdvertisementController::class, 'edit'])
 Route::post('/delete-advertisement/{id}', [AdvertisementController::class, 'destroy']);
 Route::post('/update-advertisement/{id}', [AdvertisementController::class, 'update']);
 
+// /web upcoming advertisement,archive post (tab)filtering
+Route::get('/filter-advertisement-posts/{filterByName}', [AdvertisementController::class, 'filterAdvertisementsByName']);
+
+Route::delete('/delete-multiple-advertisements/{id}', [AdvertisementController::class, 'deleteMultipleAdvertisement']);
+Route::put('/active-all-advertisements-by-update/{id}', [AdvertisementController::class, 'activeAllAdvertisementByUpdate']);
 
 
 //article & blogs

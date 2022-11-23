@@ -207,7 +207,7 @@ class AdvertisementController extends Controller
     //web upcoming event,archive post (tab)filtering
 
 
-    public function archiveAllEventsByUpdate(Request $request, $ids)
+    public function archiveAllAsvertisementByUpdate(Request $request, $ids)
     {
         $array = explode(",", $ids);
 
@@ -215,21 +215,22 @@ class AdvertisementController extends Controller
         Advertisement::whereIn('id', $array)
             ->update([
                 'isArchived' => '1',
+                'isPublished' => '0',
                 'updated_by' => 2
                 // 'size' => 'XL', 
 
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+        // $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
         return response()->json([
             'status' => 200,
-            'all_events' => $all_events,
-            'message' => 'All Events Archived successfully',
+            // 'all_events' => $all_events,
+            'message' => 'Advertisement Archived successfully',
         ]);
     }
 
-    public function activeAllEventByUpdate(Request $request, $ids)
+    public function activeAllAdvertisementByUpdate(Request $request, $ids)
     {
         $array = explode(",", $ids);
 
@@ -237,23 +238,24 @@ class AdvertisementController extends Controller
         Advertisement::whereIn('id', $array)
             ->update([
                 'isArchived' => '0',
+                'isPublished'=>'1',
                 'updated_by' => 1
                 // 'size' => 'XL', 
 
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+        // $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
         return response()->json([
             'status' => 200,
-            'all_events' => $all_events,
-            'message' => 'All Events Activated successfully',
+            // 'all_events' => $all_events,
+            'message' => 'Advertisement Activated successfully',
         ]);
     }
 
 
 
-    public function deleteMultipleEventPosts($ids)
+    public function deleteMultipleAdvertisement($ids)
     {
         $array = explode(",", $ids);
 
@@ -261,62 +263,47 @@ class AdvertisementController extends Controller
         return response()->json([
             'status' => 200,
             // 'deletes'=>  $deletes,
-            'message' => 'All Events deleted successfully',
+            'message' => 'Advertisement deleted successfully',
         ]);
     }
 
-    public function filterEventPostsByName($name)
+    public function filterAdvertisementsByName($name)
     {
 
         // $check=Carbon::now()->subDays(15);
         // dd($check);
 
         if ($name == 'all') {
-            $event_posts = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+            $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
             return response()->json([
                 'status' => 200,
-                'event_posts' => $event_posts,
+                'all_advertisements' => $all_advertisements,
             ]);
-        } else if ($name == 'upcoming_filter') {
-
-
-            // $originalDate = "Tue, 08 Nov 2022 18:00:00 GMT";
-            // $newDate = date("d-m-Y", strtotime($originalDate));
-
-            // echo $newDate;
-
-            $currentDate = date('d-m-Y');
-            $currentDate_15 = date('d-m-Y', strtotime("+15 day"));
-
-            // dd($currentDate_15);
+        } else if ($name == 1) {
 
 
 
-
-
-            // $filterDatePosts=Post::whereBetween(DB::raw('DATE(created_at)'), [$fromDate, $toDate])->get();
-
-
-            $event_posts = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->whereBetween('aussta_events.event_date', [$currentDate, $currentDate_15])->orderBy('aussta_events.id', 'desc')->get();
-
+     $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',1)->where('isArchived',0)->orderBy('advertisements.id', 'desc')->get();
 
             return response()->json([
                 'status' => 200,
-                'event_posts' => $event_posts,
-            ]);
-        } else if ($name == 'archive') {
-            $event_posts = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->where('aussta_events.isArchived', 1)->orderBy('aussta_events.id', 'desc')->get();
-
-            return response()->json([
-                'status' => 200,
-                'event_posts' => $event_posts,
-            ]);
-        } else {
-            $event_posts = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
-            return response()->json([
-                'status' => 200,
-                'event_posts' => $event_posts,
+                'all_advertisements' => $all_advertisements,
             ]);
         }
+        else if($name == 0){
+    $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',0)->orderBy('advertisements.id', 'desc')->get();
+            return response()->json([
+                'status' => 200,
+                'all_advertisements' => $all_advertisements,
+            ]);
+        }
+
+        //  else {
+        //     $event_posts = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+        //     return response()->json([
+        //         'status' => 200,
+        //         'event_posts' => $event_posts,
+        //     ]);
+        // }
     }
 }
