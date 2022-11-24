@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
-
+import modalImge from "../../image/modal.png";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -28,12 +28,12 @@ import { Container } from '@mui/system';
 function ViewAllUsers() {
     const [loading, setLoading] = useState(true);
 
-    const [allJobPosts, setallJobPosts] = useState([]);
+    const [allUserPosts, setallUserPosts] = useState([]);
 
-    console.log('all job postssssssssss', allJobPosts)
+    console.log('all job postssssssssss', allUserPosts)
 
 
-    const [renderAllJobPosts, setRenderAllJobPosts] = useState('');
+    const [renderAllUserPosts, setRenderAllUserPosts] = useState('');
 
     // console.log('all posts check', allJobPosts)
 
@@ -70,7 +70,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllUserPosts(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -110,7 +110,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllUserPosts(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -154,7 +154,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllUserPosts(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -197,7 +197,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllJobPosts(res.data);
+                    setRenderAllUserPosts(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -241,17 +241,17 @@ function ViewAllUsers() {
 
     };
 
-    const [viewJobPostDescription, setViewJobPostDescription] = useState('');
+    const [viewUserDescription, setViewUserDescription] = useState('');
 
 
-    const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
+    const [viewUserModalIsOpen, setviewUserModalIsOpen] = useState(false);
     function openViewJobPostModal(e, viewJobPost) {
         e.preventDefault();
-        setViewJobPostDescription(viewJobPost)
-        setviewJobPostModalIsOpen(true)
+        setViewUserDescription(viewJobPost)
+        setviewUserModalIsOpen(true)
     }
-    function closeViewJobPostModal(e) {
-        setviewJobPostModalIsOpen(false);
+    function closeViewUserPostModal(e) {
+        setviewUserModalIsOpen(false);
 
     }
 
@@ -263,7 +263,7 @@ function ViewAllUsers() {
     useEffect(() => {
         axios.get(`/api/all-job-post`).then(res => {
             if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
+                setallUserPosts(res.data.posts);
                 setLoading(false);
             }
         })
@@ -512,7 +512,7 @@ function ViewAllUsers() {
     useEffect(() => {
         axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
             if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
+                setallUserPosts(res.data.posts);
                 setLoading(false);
             }
         })
@@ -558,7 +558,7 @@ function ViewAllUsers() {
             if (result.isConfirmed) {
                 axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllJobPosts(res.data)
+                        setRenderAllUserPosts(res.data)
                         // window.location.reload();
                     }
                 });
@@ -592,7 +592,7 @@ function ViewAllUsers() {
                                 <div className='user-config1 container'>
 
                                     <div className="input-icon input-group-sm p-5 ">
-                                        <input id='res-input-icon' style={{ position:"relative", width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-84px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
+                                        <input id='res-input-icon' style={{ position: "relative", width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-84px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
                                         <span className="input-group-text bg-transparent" id="icon">
                                             <SearchRoundedIcon />
                                         </span>
@@ -601,8 +601,8 @@ function ViewAllUsers() {
                                         <div className='pending mx-2'>
                                             <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
                                             <span className='num1'><h4
-                                            className='num1-h4'
-                                            style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
+                                                className='num1-h4'
+                                                style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
                                         </div>
                                         <div className='active'>
                                             <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
@@ -612,22 +612,22 @@ function ViewAllUsers() {
                                 </div>
                                 <Container>
                                     <div className='user-config2'>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Male
                                         </Button>
-                                        <Button className='female' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                        <Button className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }}  variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Female
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
                                             Savar
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
                                             Floor in charge
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
                                             O Positive
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
                                             More
                                         </Button>
 
@@ -699,7 +699,7 @@ function ViewAllUsers() {
                                         <MaterialTable
 
                                             columns={columns}
-                                            data={allJobPosts}
+                                            data={allUserPosts}
                                             isLoading={loading === true ? true : false}
                                             // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
                                             onSelectionChange={selectionCheck}
@@ -740,76 +740,78 @@ function ViewAllUsers() {
 
                             {/* add post category modal */}
                             <Modal
-                                isOpen={viewJobPostModalIsOpen}
-                                onRequestClose={closeViewJobPostModal}
+                                isOpen={viewUserModalIsOpen}
+                                onRequestClose={closeViewUserPostModal}
                                 style={customStyles1}
                                 contentLabel="Example Modal"
                             >
 
                                 <div className='card-body '>
-                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
-
-                                    <h5 className=""> Full Job Post View</h5>
-                                    <hr />
-
-
+                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewUserPostModal}><i class="fa fa-times"></i></span>
 
                                     <div className="row">
 
-                                        <div className="col-12 ">
+                                        <div className="col-12 mt-3">
 
-                                            <div className=''>
-                                                <div className='' style={{ width: '120px', height: '80px' }}>
-                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewJobPostDescription.image}`} />
-                                                </div>
-                                            </div>
-
-                                            <div className='d-flex justify-content-between'>
-                                                <div className='mt-3'>
-                                                    <h5>{viewJobPostDescription.job_title}</h5>
-                                                    <div>
-                                                        <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Application Deadline: {moment(viewJobPostDescription.application_deadline).format("L")}</span>
-                                                    </div>
-
-                                                    <div className='mt-2'>
-
-                                                        <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
-
-                                                            {viewJobPostDescription.dept_name}
-                                                        </div>
-                                                    </div>
-
-
-
-
-
+                                            <div className='modal-first'>
+                                                <div className='modal-div-image'>
+                                                    <img className="modal-image" src={modalImge} />
                                                 </div>
                                                 <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewJobPostDescription.type_name}</span> </button>
-
-                                                    {
-                                                        viewJobPostDescription.isPublished == 1 ?
-                                                            <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
-                                                            :
-                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
-
-                                                    }
-
-                                                    {/* <button className='btn btn-success btn-sm py-1 px-3 ' style={{ borderRadius: "8px" }}>asdasdas</button>
-                                                    <button className='btn btn-danger btn-sm py-1 px-3  mx-2' style={{ borderRadius: "8px" }}>asdasdas</button> */}
+                                                    <h4>Alena  shuvra</h4>
+                                                    <h6 className='modal-h6'>Phone number</h6>
+                                                    <h6 className='modal-h6'>Blood group</h6>
+                                                    <div className='modal-location'>
+                                                        <i className="fa fa-map-location me-1 mb-1 modal-icon"></i>
+                                                        <h6 className='modal-h6'>Show Location in map</h6>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div>
+                                                <div class="text-center mt-4 mb-4">
+                                                    <a class="btn line-btn-dark btn-icon btn-radius border" href="#" title=""><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
+                                                </div>
 
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewJobPostDescription.job_description }}
-                                            />
+                                                <div className='select-down-div'>
+                                                    <select className="form-select form-select-sm mb-3 select-down" aria-label=".form-select-sm example">
+                                                        <option selected>Moderator</option>
+                                                        <option value="1">Super Admin</option>
+                                                        <option value="2">Admin</option>
+                                                        <option value="3">Stuff</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div className='d-flex  justify-content-between'>
+                                                <div className='d-flex'>
+                                                    <i class="fa fa-briefcase"></i>
+                                                    <h6 className='modal-h6 ms-2'>Professional</h6>
+                                                </div>
+                                            </div>
+                                            <div className='mt-5'>
+                                                <div className='d-flex'>
+                                                    <i class="fa fa-graduation-cap"></i>
+                                                    <h6 className='modal-h6  ms-2'>Education</h6>
+                                                </div>
+                                                <div>
+                                                    <article className='modal-article'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes
+                                                        <br />
+                                                        <br />
+
+                                                        orem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes
+                                                        <br />
+                                                        <br />
+                                                        orem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes</article></div>
+                                            </div>
+
+                                            <div>
+                                                {/*<button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewUserDescription.type_name}</span> </button>*/}
 
 
 
-
-
-
-
+                                                {/* <button className='btn btn-success btn-sm py-1 px-3 ' style={{ borderRadius: "8px" }}>asdasdas</button>
+                                                    <button className='btn btn-danger btn-sm py-1 px-3  mx-2' style={{ borderRadius: "8px" }}>asdasdas</button> */}
+                                            </div>
 
 
 
@@ -825,31 +827,13 @@ function ViewAllUsers() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
 
                     </div>
 
 
-
-
-
-
                 </div>
-            </div>
+            </div >
 
         </>
 

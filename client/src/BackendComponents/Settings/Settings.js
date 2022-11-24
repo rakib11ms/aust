@@ -654,7 +654,7 @@ function Settings() {
                                              <h3 className='table-head-text'>Auto approval</h3>
                                             </div>
                                             <div className="table-responsive table-sec">
-                                                <table class="table">
+                                                <table className="table ">
                                                     <thead>
                                                         <tr className='table-head'>
                                                             <th className='t-nav-text' scope="col">Users</th>
