@@ -137,7 +137,6 @@ function App() {
             <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
             <Route path="role-management" element={<RoleManagement/>}></Route>
             
-
           <Route path="view-all-users" element={<ViewAllUsers />}></Route>
           <Route path="role-management" element={<RoleManagement />}></Route>
 
