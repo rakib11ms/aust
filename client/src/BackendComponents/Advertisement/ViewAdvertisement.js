@@ -163,13 +163,13 @@ function ViewAllAdvertisement() {
 
     };
 
-    const [viewEventDescription, setViewEventDescription] = useState('');
+    const [viewAdvertisementDescription, setViewAdvertisementDescription] = useState('');
 
 
     const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
     function openViewEventPostModal(e, viewEventPost) {
         e.preventDefault();
-        setViewEventDescription(viewEventPost)
+        setViewAdvertisementDescription(viewEventPost)
         setviewJobPostModalIsOpen(true)
         setAllImagesfromDatabase(viewEventPost.image.split(','))
 
@@ -178,8 +178,6 @@ function ViewAllAdvertisement() {
         setviewJobPostModalIsOpen(false);
 
     }
-
-
 
 
 
@@ -339,8 +337,9 @@ function ViewAllAdvertisement() {
                             <div className='mx-2'>
                                 <i class="fa fa-calendar"></i>
                                 <span className='mx-1'>
+                                Las showing days 
 
-                                    <span class="badge bg-warning text-dark px-2 ">{row.last_show_days}</span>
+                                    <span class="badge bg-warning text-dark px-2 mx-2 ">{row.last_show_days}</span>
 
 
                                 </span>
@@ -700,7 +699,7 @@ function ViewAllAdvertisement() {
                                 <div className='card-body '>
                                     <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
 
-                                    <h5 className=""> Full Event View</h5>
+                                    <h5 className=""> Full Advertisement View</h5>
                                     <hr />
 
 
@@ -734,17 +733,17 @@ function ViewAllAdvertisement() {
                                             </div>
 
 
-                                            <div className='d-flex justify-content-between mt-3'>
+                                            <div className='d-flex justify-content-between mt-4'>
                                                 <div className='mt-3'>
-                                                    <h5>{viewEventDescription.event_title}</h5>
+                                                    <h5>{viewAdvertisementDescription.advertisement_title}</h5>
                                                     <div className='d-flex'>
                                                         <div>
                                                             <i class="fas fa-calendar"></i>
-                                                            <span className='mx-2'>Advertisement Uploaded date: {moment(viewEventDescription.event_date).format("L")}</span>
+                                                            <span className='mx-2'>Uploaded date: {moment(viewAdvertisementDescription.created_at).format("YYYY-MM-DD")}</span>
                                                         </div>
                                                         <div className='mx-3'>
                                                             <i class="fas fa-clock"></i>
-                                                            <span className='mx-2'>Advertisement Time: {moment(viewEventDescription.event_time).format("LT")}</span>
+                                                            <span className='mx-2'>Show Days: {viewAdvertisementDescription.show_days} days</span>
                                                         </div>
                                                     </div>
 
@@ -757,7 +756,7 @@ function ViewAllAdvertisement() {
                                                 </div>
 
                                                 <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type_name}</span> </button>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewAdvertisementDescription.show_time} Sec</span> </button>
 
 
                                                 </div>
@@ -766,7 +765,7 @@ function ViewAllAdvertisement() {
                                             <div className='d-flex justify-content-between mt-2'>
                                                 <div className=''>
 
-                                                    Advertisement Fee: <span>{viewEventDescription.event_fee}</span>
+                                                    Advertisement Fee: <span>{viewAdvertisementDescription.advertisement_fee} Taka</span>
 
                                                 </div>
 
@@ -775,7 +774,7 @@ function ViewAllAdvertisement() {
 
                                                     <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
 
-                                                        {viewEventDescription.dept_name}
+                                                        {viewAdvertisementDescription.dept_name}
                                                     </div>
                                                 </div>
 
@@ -783,7 +782,7 @@ function ViewAllAdvertisement() {
 
 
 
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewEventDescription.advertisement_description }}
+                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewAdvertisementDescription.advertisement_description }}
                                             />
 
 

@@ -21,25 +21,31 @@ class AdvertisementController extends Controller
         $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
 
 
-//         // $add_days=
-//            $today = date("Y-m-d");
-//            // dd($today);
-//            $later = new DateTime("2010-07-09");
+           $today = date("Y-m-d");
+           // dd($today);
 
-// $abs_diff = $later->diff($earlier)->format("%a"); //3
+              $over_advertisements = DB::table('advertisements')->where('last_show_days', "<" ,$today)->orderBy('advertisements.id', 'desc')->get();
+
+              $check=$over_advertisements->pluck('id')->toArray();
+
+              $array = array_values($check);
+
+              // return $array;
+
+            Advertisement::whereIn('id', $array)
+            ->update([
+                'isPublished' => '0',
+       
+            ]);
 
 
-
-
-
-
-        $total_active_advertisements = Advertisement::where('isArchived', 0)->get()->count();
-        $total_archive_advertisements = Advertisement::where('isArchived', 1)->get()->count();
+        $total_active_advertisements = Advertisement::where('isPublished', 1)->get()->count();
+        $total_pause_advertisements = Advertisement::where('isPublished', 0)->get()->count();
         return response()->json([
             'status' => 200,
             'all_advertisements' => $all_advertisements,
             'total_active_advertisements' => $total_active_advertisements,
-            'total_archive_advertisements' => $total_archive_advertisements,
+            'total_pause_advertisements' => $total_pause_advertisements,
         ]);
     }
 
@@ -78,6 +84,7 @@ class AdvertisementController extends Controller
 
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
+        $advertisement->advertisement_fee = $request->advertisement_fee;
         $advertisement->home_page = $request->home_page;
         $advertisement->view_job_page = $request->view_job_page;
         $advertisement->view_advment_page = $request->view_advment_page;
@@ -123,6 +130,8 @@ class AdvertisementController extends Controller
     public function update(Request $request, $id)
     {
 
+        // dd($request->all());
+
         $advertisement = Advertisement::find($id);
 
         if ($request->file('image')) {
@@ -144,9 +153,14 @@ class AdvertisementController extends Controller
         $advertisement->posted_by = auth('sanctum')->user()->id;
         $advertisement->show_time = $request->show_time;
         $advertisement->show_days = $request->show_days;
+         $add_show_days = date('Y-m-d', strtotime('+'.$advertisement->show_days.'day'));
+        $advertisement->last_show_days = $add_show_days;
+
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
         $advertisement->home_page = $request->home_page;
+        $advertisement->advertisement_fee = $request->advertisement_fee;
+
         $advertisement->view_job_page = $request->view_job_page;
         $advertisement->view_advment_page = $request->view_advment_page;
         $advertisement->create_advment_page = $request->create_advment_page;
@@ -176,11 +190,6 @@ class AdvertisementController extends Controller
             'message' => 'Archived Updated Successfully',
         ]);
     }
-
-
-
-
-
 
 
 
@@ -283,7 +292,7 @@ class AdvertisementController extends Controller
 
 
 
-     $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',1)->where('isArchived',0)->orderBy('advertisements.id', 'desc')->get();
+     $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',1)->orderBy('advertisements.id', 'desc')->get();
 
             return response()->json([
                 'status' => 200,

@@ -61,7 +61,8 @@ function CreateAdvertisement() {
     const [redirect_link, setredirect_link] = useState("");
     const [show_time, setshow_time] = useState("");
     const [show_days, setshow_days] = useState("");
-
+    const [advertisement_fee, setadvertisement_fee] = useState("");
+    const [payment_type, setpayment_type] = useState(0);
 
 
     //////////images code ///////////
@@ -152,6 +153,7 @@ function CreateAdvertisement() {
         formData.append("redirect_link", redirect_link);
         formData.append("show_time", show_time);
         formData.append("show_days", show_days);
+        formData.append("advertisement_fee", advertisement_fee);
         formData.append("home_page", allCheckBox.home_page ? 1 : 0);
         formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
         formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
@@ -313,6 +315,23 @@ function CreateAdvertisement() {
                                                                 </div>
 
 
+                                                                <div className='mt-4'>
+                                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                                                    <span className='mx-2'>Payment</span>
+                                                                </div>
+
+
+                                                                {
+                                                                    payment_type == 1 &&
+                                                                    <div className='mt-4'>
+                                                                        <i class="fa-solid fa-money-bill"></i>
+                                                                        <span className='mx-2'>Fees</span>
+                                                                    </div>
+                                                                }
+
+
+
+
 
 
 
@@ -366,6 +385,41 @@ function CreateAdvertisement() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div className='mt-4'>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="flexCheckChecked" checked={payment_type === 1} onChange={
+                                                                            (e) => {
+                                                                                if (e.target.checked) {
+                                                                                    setpayment_type(1)
+                                                                                }
+                                                                                else {
+                                                                                    setpayment_type(0);
+                                                                                    setadvertisement_fee('');
+
+                                                                                }
+                                                                            }
+                                                                        } />
+                                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                                            {
+                                                                                payment_type == 1 ? 'Yes' : 'No'
+                                                                            }
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                {
+                                                                    payment_type == 1 &&
+                                                                    <div class="my-2">
+                                                                        <div class="">
+                                                                            <input type="text" class="form-control rounded-3 " id="formGroupExampleInput" value={advertisement_fee} placeholder="" onChange={(e) => {
+                                                                                setadvertisement_fee(e.target.value)
+                                                                            }} />
+                                                                        </div>
+                                                                        {/* <span className='d-block col-6'>BDT</span> */}
+
+                                                                    </div>
+                                                                }
+
 
 
 
