@@ -43,6 +43,9 @@
         position:static;
         margin-left: 50px;
     }
+    .create-col{
+        width: 560px;
+    }
     .ancor-nav1{
         margin-right: -50px;
        
