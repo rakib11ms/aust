@@ -306,4 +306,29 @@ class AdvertisementController extends Controller
         //     ]);
         // }
     }
+
+    public function filterAdvertisementsByDays($days){
+
+        if($days=='all'){
+        $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
+              return response()->json([
+                'status' => 200,
+                'all_advertisements' => $all_advertisements,
+            ]);
+        }
+
+
+        $todays_date=date('Y-m-d');
+        // dd($todays_date);
+        $add_days = date('Y-m-d', strtotime('+'.$days.'day'));
+        // dd($add_show_days);
+
+        $query_days=Advertisement::whereBetween('last_show_days', [$todays_date, $add_days])->orderBy('.id', 'desc')->get();
+              return response()->json([
+                'status' => 200,
+                'all_advertisements' => $query_days,
+            ]);
+
+
+    }
 }

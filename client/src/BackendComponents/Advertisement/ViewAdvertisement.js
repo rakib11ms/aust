@@ -66,7 +66,7 @@ function ViewAllAdvertisement() {
 
 
     const [totalActiveAdvertisements, setTotalActiveAdvertisements] = useState([]);
-    const [totalArchiveAdvertisements, setTotalArchiveAdvertisements] = useState([]);
+    const [totalPauseAdvertisements, setTotalPauseAdvertisements] = useState([]);
 
 
 
@@ -87,88 +87,59 @@ function ViewAllAdvertisement() {
 
     const formData = new FormData();
 
-    const handlePostApproval = (e, id) => {
 
-        if (e.target.checked === true) {
-            const formData = new FormData();
 
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
+    const handleAdvertisementDaysFilter = (e, id) => {
+        if (e.target.value == 2) {
 
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+            axios.get(`/api/filter-advertisement-finishing-days/2`).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllAdvertisements(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
+                    setAllAdvertisements(res.data.all_advertisements);
+                    setLoading(false);
 
                 }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
             })
         }
-        if (e.target.checked == false) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+        else if (e.target.value == 5) {
+            axios.get(`/api/filter-advertisement-finishing-days/5`).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllAdvertisements(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
+                    setAllAdvertisements(res.data.all_advertisements);
+                    setLoading(false);
 
                 }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+            })
+        }
+        else if (e.target.value == 7) {
+            axios.get(`/api/filter-advertisement-finishing-days/7`).then(res => {
+                if (res.data.status == 200) {
+                    setAllAdvertisements(res.data.all_advertisements);
+                    setLoading(false);
 
-                // }
+                }
+            })
+        }
+        else if (e.target.value == 15) {
+            axios.get(`/api/filter-advertisement-finishing-days/15`).then(res => {
+                if (res.data.status == 200) {
+                    setAllAdvertisements(res.data.all_advertisements);
+                    setLoading(false);
+
+                }
+            })
+        }
+        else if (e.target.value == 'all') {
+            axios.get(`/api/filter-advertisement-finishing-days/all`).then(res => {
+                if (res.data.status == 200) {
+                    setAllAdvertisements(res.data.all_advertisements);
+
+                    setLoading(false);
+
+                }
             })
         }
     }
+
+
 
 
     const navigate = useNavigate();
@@ -218,7 +189,7 @@ function ViewAllAdvertisement() {
         axios.get(`/api/all-advertisements`).then(res => {
             if (res.data.status == 200) {
                 setAllAdvertisements(res.data.all_advertisements);
-                setTotalArchiveAdvertisements(res.data.total_archive_advertisements);
+                setTotalPauseAdvertisements(res.data.total_pause_advertisements);
                 setTotalActiveAdvertisements(res.data.total_active_advertisements);
                 setLoading(false);
 
@@ -435,7 +406,7 @@ function ViewAllAdvertisement() {
     console.log('filter click check', advertisementFiltering)
 
 
-    
+
     useEffect(() => {
         axios.get(`/api/filter-advertisement-posts/${advertisementFiltering}`).then(res => {
             if (res.data.status == 200) {
@@ -585,7 +556,7 @@ function ViewAllAdvertisement() {
                                             <p className=''>Total Active </p>
                                         </div>
                                         <div class=" mx-2 mt-3">
-                                            <h4 className=' mb-0'>{totalArchiveAdvertisements} </h4>
+                                            <h4 className=' mb-0'>{totalPauseAdvertisements} </h4>
                                             <p className=''> Total Pause</p>
                                         </div>
                                         {/* <div class="mx-2 mt-3">
@@ -622,7 +593,17 @@ function ViewAllAdvertisement() {
                                                 <h6 className={`${advertisementFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setadvertisementFiltering('all')}>All</h6>
                                                 <h6 className={`${advertisementFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(1)}>Active</h6>
                                                 <h6 className={`${advertisementFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(0)}>Paused</h6>
-                                                <h6 className={`${advertisementFiltering === '' ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering('')}>Finishing 15 Days</h6>
+                                                {/* <h6 className={`${advertisementFiltering === '' ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering('')}>Finishing 15 Days</h6> */}
+                                                <h6 className='mx-3'>
+                                                    <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAdvertisementDaysFilter}>
+                                                        <option selected value="all">Choose</option>
+                                                        <option value="2">Finish 2 days</option>
+                                                        <option value="5">Finish 5 days</option>
+                                                        <option value="7">Finish 1 week</option>
+                                                        <option value="15">Finish 15 days</option>
+                                                    </select>
+                                                </h6>
+
 
                                             </div>
 
@@ -760,11 +741,11 @@ function ViewAllAdvertisement() {
                                                     <div className='d-flex'>
                                                         <div>
                                                             <i class="fas fa-calendar"></i>
-                                                            <span className='mx-2'>Event Date: {moment(viewEventDescription.event_date).format("L")}</span>
+                                                            <span className='mx-2'>Advertisement Uploaded date: {moment(viewEventDescription.event_date).format("L")}</span>
                                                         </div>
                                                         <div className='mx-3'>
                                                             <i class="fas fa-clock"></i>
-                                                            <span className='mx-2'>Event Time: {moment(viewEventDescription.event_time).format("LT")}</span>
+                                                            <span className='mx-2'>Advertisement Time: {moment(viewEventDescription.event_time).format("LT")}</span>
                                                         </div>
                                                     </div>
 
@@ -786,7 +767,7 @@ function ViewAllAdvertisement() {
                                             <div className='d-flex justify-content-between mt-2'>
                                                 <div className=''>
 
-                                                    Event Fee: <span>{viewEventDescription.event_fee}</span>
+                                                    Advertisement Fee: <span>{viewEventDescription.event_fee}</span>
 
                                                 </div>
 

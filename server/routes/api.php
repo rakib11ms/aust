@@ -191,6 +191,13 @@ Route::post('/update-advertisement/{id}', [AdvertisementController::class, 'upda
 
 // /web upcoming advertisement,archive post (tab)filtering
 Route::get('/filter-advertisement-posts/{filterByName}', [AdvertisementController::class, 'filterAdvertisementsByName']);
+  //web filtering between days (advertisement finishing)
+Route::get('/filter-advertisement-finishing-days/{filterByDays}', [AdvertisementController::class, 'filterAdvertisementsByDays']);
+
+
+
+
+
 
 Route::delete('/delete-multiple-advertisements/{id}', [AdvertisementController::class, 'deleteMultipleAdvertisement']);
 Route::put('/active-all-advertisements-by-update/{id}', [AdvertisementController::class, 'activeAllAdvertisementByUpdate']);
