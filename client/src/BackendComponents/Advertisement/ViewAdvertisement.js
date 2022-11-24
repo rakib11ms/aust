@@ -30,7 +30,6 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function ViewAllAdvertisement() {
 
-
     var a = moment([2007, 0, 28]);
     var b = moment([2007, 0, 20]);
     console.log("rakib", a.diff(b, 'days'))
