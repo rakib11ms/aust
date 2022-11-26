@@ -30,11 +30,6 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function ViewAllAdvertisement() {
 
-    var a = moment([2007, 0, 28]);
-    var b = moment([2007, 0, 20]);
-    console.log("rakib", a.diff(b, 'days'))
-
-
 
     const [loading, setLoading] = useState(true);
 
@@ -43,23 +38,6 @@ function ViewAllAdvertisement() {
     var currentDate = moment().format("YYYY-MM-DD");
 
     console.log('hello dada', typeof (currentDate));
-
-
-    {
-        var a = moment("2022-12-10");
-        var b = moment("2022-12-05");
-        console.log('diff check', a.diff(b, 'days'));
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -337,7 +315,7 @@ function ViewAllAdvertisement() {
                             <div className='mx-2'>
                                 <i class="fa fa-calendar"></i>
                                 <span className='mx-1'>
-                                Las showing days 
+                                    Las showing days
 
                                     <span class="badge bg-warning text-dark px-2 mx-2 ">{row.last_show_days}</span>
 

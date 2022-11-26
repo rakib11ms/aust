@@ -24,8 +24,9 @@ import AdminPasswordReset from './Authentication/AdminPasswordReset';
 import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
 
 import NoRouteMatch from './BackendComponents/NoRouteMatch';
+import BlogArticleConfiguration from './BackendComponents/BlogArticle/BlogArticleConfiguration';
 function App() {
-  
+
   const [storage, setStorage] = useState('');
   useEffect(() => {
     setStorage(localStorage.getItem('user_type') === 'admin');
@@ -128,15 +129,15 @@ function App() {
           }
 
 
-            <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            <Route path="post-type" element={<PostType/>}></Route>
-            <Route path="job-configuration" element={<JobConfiguration/>}></Route>
-            <Route path="create-job-post" element={<CreateJobPost/>}></Route>
-            <Route path="view-all-jobs" element={<ViewAllJob/>}></Route>
-            
-            <Route path="view-all-users" element={<ViewAllUsers/>}></Route>
-            <Route path="role-management" element={<RoleManagement/>}></Route>
-            
+          <Route path="admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="post-type" element={<PostType />}></Route>
+          <Route path="job-configuration" element={<JobConfiguration />}></Route>
+          <Route path="create-job-post" element={<CreateJobPost />}></Route>
+          <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
+
+          <Route path="view-all-users" element={<ViewAllUsers />}></Route>
+          <Route path="role-management" element={<RoleManagement />}></Route>
+
           <Route path="view-all-users" element={<ViewAllUsers />}></Route>
           <Route path="role-management" element={<RoleManagement />}></Route>
 
@@ -160,6 +161,10 @@ function App() {
           <Route path="edit-events/:id" element={<EditEvent />}></Route>
           <Route path="event-configuration" element={<EventConfiguration />}></Route>
           <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+
+          <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
+
+
 
 
           <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>

@@ -134,7 +134,22 @@ class AdvertisementController extends Controller
 
         $advertisement = Advertisement::find($id);
 
-        if ($request->file('image')) {
+
+        $show_days=$request->show_days;
+        $advertisment_create_date= date('Y-m-d', strtotime($advertisement->created_at));
+        $add_days=date("Y-m-d", strtotime('+ '.$show_days.'day', strtotime($advertisment_create_date)));
+
+        $currentDate=date("Y-m-d");
+        if($add_days < $advertisment_create_date){
+            dd("Your date is finished you can extended more");
+
+        return response()->json([
+            'status' => 400,
+            'message' => 'Your Last show days is Less than your current date',
+        ]);
+        }
+        else{
+            if ($request->file('image')) {
             foreach ($request->file('image') as $image) {
 
                 $upload_image_name = time() . $image->getClientOriginalName();
@@ -152,9 +167,11 @@ class AdvertisementController extends Controller
         $advertisement->advertisement_description = $request->advertisement_description;
         $advertisement->posted_by = auth('sanctum')->user()->id;
         $advertisement->show_time = $request->show_time;
-        $advertisement->show_days = $request->show_days;
-         $add_show_days = date('Y-m-d', strtotime('+'.$advertisement->show_days.'day'));
-        $advertisement->last_show_days = $add_show_days;
+        $advertisement->show_days=$request->show_days;
+        $advertisment_create_date= date('Y-m-d', strtotime($advertisement->created_at));
+        $last_show_days=date("Y-m-d", strtotime('+ '.$advertisement->show_days.'day', strtotime($advertisment_create_date)));
+
+        $advertisement->last_show_days = $last_show_days;
 
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
@@ -175,6 +192,7 @@ class AdvertisementController extends Controller
             'message' => 'Advertisement Updated Successfully',
         ]);
     }
+}
 
 
 

@@ -12,6 +12,9 @@ use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\EventTypeController;
+use App\Http\Controllers\Backend\ArticleBlogCategoryController;
+use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
+
 use App\Http\Controllers\Backend\ArticleBlogController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -203,12 +206,32 @@ Route::delete('/delete-multiple-advertisements/{id}', [AdvertisementController::
 Route::put('/active-all-advertisements-by-update/{id}', [AdvertisementController::class, 'activeAllAdvertisementByUpdate']);
 
 
-//article & blogs
+//article & blogs category
+
+
+Route::get('/article-blogs-category', [ArticleBlogCategoryController::class, 'index']);
+Route::post('/add-article-blogs-category', [ArticleBlogCategoryController::class, 'store']);
+Route::get('/edit-article-blogs-category/{id}', [ArticleBlogCategoryController::class, 'edit']);
+Route::post('/update-article-blogs-category/{id}', [ArticleBlogCategoryController::class, 'update']);
+Route::delete('/delete-article-blogs-category/{id}', [ArticleBlogCategoryController::class, 'destroy']);
+
+
+//article & blogs subcategory
+
+Route::get('/article-blogs-subcategory', [ArticleBlogSubCategoryController::class, 'index']);
+Route::post('/add-article-blogs-subcategory', [ArticleBlogSubCategoryController::class, 'store']);
+Route::get('/edit-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryController::class, 'edit']);
+Route::post('/update-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryController::class, 'update']);
+Route::delete('/delete-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryController::class, 'destroy']);
+
+
 Route::get('/all-article-blogs', [ArticleBlogController::class, 'index']);
 Route::post('/add-article-blogs', [ArticleBlogController::class, 'store']);
 Route::get('/edit-article-blogs/{id}', [ArticleBlogController::class, 'edit']);
 Route::post('/delete-article-blogs/{id}', [ArticleBlogController::class, 'destroy']);
 Route::post('/update-article-blogs/{id}', [ArticleBlogController::class, 'update']);
+
+
 
 
 

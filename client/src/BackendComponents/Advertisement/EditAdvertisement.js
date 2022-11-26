@@ -28,6 +28,8 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function EditAdvertisement() {
 
+    const navigate=useNavigate();
+
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
 
@@ -202,7 +204,7 @@ function EditAdvertisement() {
         axios.post(`/api/update-advertisement/${id}`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-
+                navigate('/view-all-advertisement');
                 setContent1('');
                 setviewInPage([]);
                 setposition('');
