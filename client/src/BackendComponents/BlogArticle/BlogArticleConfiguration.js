@@ -178,6 +178,9 @@ function BlogArticleConfiguration() {
     }
 
     const [renderAllSubCategory, setRenderAllSubCategory] = useState('');
+    const [editSubCategoryId, setEditSubCategoryId] = useState('');
+    const [editSubCategoryData, setEditSubCategoryData] = useState('');
+    // console.log('edit sub category',editSubCategoryData)
 
 
 
@@ -205,8 +208,16 @@ function BlogArticleConfiguration() {
             }
         })
 
+        axios.get(`/api/edit-article-blogs-subcategory/${editSubCategoryId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditSubCategoryData(res.data.category);
+                setLoading(false);
+            }
+        })
 
-    }, [renderAllCategory, editCategoryId, renderAllSubCategory])
+
+
+    }, [renderAllCategory, editCategoryId, renderAllSubCategory, editSubCategoryId])
     const customStyles1 = {
         content: {
             // marginTop: '70px',
@@ -329,7 +340,6 @@ function BlogArticleConfiguration() {
 
 
     }
-    const [editSubCategoryId, setEditSubCategoryId] = useState('');
 
     const [editSubCategoryModalIsOpen, seteditSubCategoryModalIsOpen] = useState(false);
     function openEditSubCategoryModal(e, editId) {
@@ -346,7 +356,39 @@ function BlogArticleConfiguration() {
 
     const [loading, setLoading] = useState(true);
 
+    const handleEditSubCategory = (e) => {
 
+        setEditSubCategoryData({
+            ...editSubCategoryData, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleEditSubCategoryUpdate = (e) => {
+        e.preventDefault();
+
+        axios.post(`/api/update-article-blogs-subcategory/${editSubCategoryId}`, editSubCategoryData).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setRenderAllSubCategory(res.data);
+                closeEditSubCategoryModal();
+                setEditSubCategoryData({
+                    subcategory_name: "",
+                    created_by: '',
+                    category_id:'',
+                    category_id: "",
+                    error_list: []
+
+                });
+                setEditSubCategoryId('');
+
+            }
+            else if (res.data.status == 400) {
+                setAddSubCategoryState({ ...addSubCategoryState, error_list: res.data.errors });
+                // Swal.fire(addSubCategoryState.error_list.subcategory_name[0], '', 'error')
+
+            }
+        })
+    }
 
 
     const deleteSubCategory = (e, id) => {
@@ -425,8 +467,8 @@ function BlogArticleConfiguration() {
                             <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
 
 
-                                <div className='text-secondary'>
-                                    <i className='fa fa-edit mx-2 icon-table-archive' onClick={(e) => openEditSubCategoryModal(e, row.id)}></i>
+                                <div className='text-secondary' onClick={(e) => openEditSubCategoryModal(e, row.id)}>
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
 
                                 </div>
 
@@ -783,7 +825,7 @@ function BlogArticleConfiguration() {
                                                             <div class="mb-3" style={{ width: '60%' }}>
                                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Category Name</label>
 
-                                                                <select class="form-select" aria-label="Default select example" value={addSubCategoryState.category_id} name="category_id" onChange={handleAddSubCategory}>
+                                                                <select class="form-select" aria-label="Default select example" value={editSubCategoryData.category_id} name="category_id" onChange={handleEditSubCategory}>
                                                                     <option value="">Choose</option>
 
                                                                     {
@@ -801,16 +843,16 @@ function BlogArticleConfiguration() {
 
                                                             <div class="" style={{ width: '60%' }}>
                                                                 <label for="exampleFormControlInput1" class="form-label fs-6">SubCategory Name</label>
-                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addSubCategoryState.subcategory_name} name="subcategory_name" onChange={handleAddSubCategory} />
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editSubCategoryData.subcategory_name} name="subcategory_name" onChange={handleEditSubCategory} />
                                                             </div>
 
                                                             <div>
                                                             </div>
 
 
-                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
-                                                                <span className='text-danger'> {addSubCategoryState.error_list.subcategory_name}</span>
-                                                            </div>
+                                                            {/* <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                <span className='text-danger'> {editSubCategoryData.error_list.subcategory_name}</span>
+                                                            </div> */}
                                                         </div>
 
 
@@ -819,7 +861,7 @@ function BlogArticleConfiguration() {
 
 
 
-                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleSubCategorySave}>Save</button>
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleEditSubCategoryUpdate}>Update</button>
 
 
 

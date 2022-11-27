@@ -15,20 +15,15 @@ return new class extends Migration
     {
         Schema::create('article_blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('event_title')->nullable();
+            $table->string('category_id')->nullable();
+            $table->string('subcategory_id')->nullable();
+            $table->string('article_blog_title')->nullable();
             $table->string('posted_by')->nullable();
             $table->string('updated_by')->nullable();
-            $table->longText('event_description')->nullable();
-            $table->string('contact_person')->nullable();
-            $table->string('image')->nullable();
-            $table->string('event_time')->nullable();
-            $table->string('event_date')->nullable();
-            $table->string('event_fee')->nullable();
-            $table->string('priority')->nullable();
-            $table->boolean('payment_type')->default(0);
-            $table->boolean('showMobile')->default(1);
-            $table->boolean('showDesktop')->default(1);
+            $table->longText('article_blog_description')->nullable();
+            $table->string('article_blog_image')->nullable();
             $table->boolean('isArchived')->default(0);
+            $table->boolean('isPublished')->default(1);
             $table->timestamps();
         });
     }

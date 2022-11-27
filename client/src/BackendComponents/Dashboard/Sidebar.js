@@ -240,9 +240,10 @@ function Sidebar() {
                             {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
-                                        {/* <li>
-                                            <a href='' className='text-light text-form' >Configuration</a>
-                                        </li> */}
+                                        <li>
+                                            <Link to="/create-blog-article" className='text-light text-form '>Add Article/Blog</Link>
+
+                                        </li>
                                         <li>
                                             <a href='' className='text-light text-form'>About</a>
                                         </li>
@@ -395,7 +396,7 @@ function Sidebar() {
                                 isActive8 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings' className='text-light text-form' >Get In <EastIcon/></Link>
+                                            <Link to='/settings' className='text-light text-form' >Get In <EastIcon /></Link>
                                         </li>
 
                                     </ul>
@@ -404,7 +405,7 @@ function Sidebar() {
                             }
                         </div>
                     </div>
-                    
+
 
                 </div>
 
@@ -413,9 +414,9 @@ function Sidebar() {
 
             </div>
 
-            
 
-           
+
+
             {/* <div className=' checker'>
                 <h6 className='fw-500 my-1 text-white bg-danger d-block border w-100 m-0  '>Settings</h6>
 

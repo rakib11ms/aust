@@ -25,6 +25,7 @@ import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
 
 import NoRouteMatch from './BackendComponents/NoRouteMatch';
 import BlogArticleConfiguration from './BackendComponents/BlogArticle/BlogArticleConfiguration';
+import CreateBlogArticle from './BackendComponents/BlogArticle/CreateBlogArticle';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -162,6 +163,8 @@ function App() {
           <Route path="event-configuration" element={<EventConfiguration />}></Route>
           <Route path="view-all-events" element={<ViewAllEvent />}></Route>
 
+
+          <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>
           <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
 
 

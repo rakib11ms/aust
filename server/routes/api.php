@@ -224,6 +224,10 @@ Route::get('/edit-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryContro
 Route::post('/update-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryController::class, 'update']);
 Route::delete('/delete-article-blogs-subcategory/{id}', [ArticleBlogSubCategoryController::class, 'destroy']);
 
+//dependent sub categories based on category id dropdown web
+Route::get('/get-article-blogs-subcategories-by-category-id/{id}', [ArticleBlogSubCategoryController::class, 'getAllSubCatByCatId']);
+
+
 
 Route::get('/all-article-blogs', [ArticleBlogController::class, 'index']);
 Route::post('/add-article-blogs', [ArticleBlogController::class, 'store']);

@@ -108,4 +108,17 @@ class ArticleBlogSubCategoryController extends Controller
             'message' => 'SubCategory deleted successfully',
         ]);
     }
+//dependent sub categories based on category id dropdown web
+
+       public function getAllSubCatByCatId($id){
+          $category = DB::table('article_blog_sub_categories')->leftJoin('article_blog_categories', 'article_blog_categories.id', '=', 'article_blog_sub_categories.category_id',)->select('article_blog_sub_categories.*', 'article_blog_categories.category_name')->
+          where('category_id',$id)->orderBy('article_blog_sub_categories.id', 'desc')->get();
+
+        return response()->json([
+            'status' => 200,
+            // 'total_category' => $total_category,
+
+            'sub_categories' => $category
+        ]);
+       }
 }
