@@ -8,13 +8,13 @@ import axios from 'axios';
 
 function Sidebar() {
     const [isActive, setIsActive] = useState(true);
-    const [isActive2, setIsActive2] = useState(false);
-    const [isActive3, setIsActive3] = useState(false);
-    const [isActive4, setIsActive4] = useState(false);
-    const [isActive5, setIsActive5] = useState(false);
-    const [isActive6, setIsActive6] = useState(false);
-    const [isActive7, setIsActive7] = useState(false);
-    const [isActive8, setIsActive8] = useState(false);
+    const [isActive2, setIsActive2] = useState(true);
+    const [isActive3, setIsActive3] = useState(true);
+    const [isActive4, setIsActive4] = useState(true);
+    const [isActive5, setIsActive5] = useState(true);
+    const [isActive6, setIsActive6] = useState(true);
+    const [isActive7, setIsActive7] = useState(true);
+    const [isActive8, setIsActive8] = useState(true);
     console.log('is active cheking', isActive)
 
 
