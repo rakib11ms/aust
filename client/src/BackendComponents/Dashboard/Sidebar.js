@@ -331,6 +331,9 @@ function Sidebar() {
                                         <li>
                                             <Link to='/event-configuration' className='text-light text-form' >Configuration</Link>
                                         </li>
+                                        <li>
+                                            <Link to='/view-event-payment' className='text-light text-form' >View Payment</Link>
+                                        </li>
 
                                     </ul>
                                 </>

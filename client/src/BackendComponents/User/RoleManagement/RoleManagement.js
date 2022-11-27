@@ -623,12 +623,13 @@ function RoleManagement() {
 
                     <div className="col-md-10 ">
                         <Topbar />
+                        <h4 className='ms-4 pt-3'>Role Management</h4>
 
                         <div className='container-fluid'>
 
 
                             <div className='mt-3 border  rounded-3 '>
-                                <h2 style={{ color: "#00602B" }} className='ms-4 pt-3'>Availabe User Roles</h2>
+                                <h5 style={{ color: "#00602B" }} className='ms-4 pt-3'>Availabe User</h5>
                                 <div className='role-config'>
 
                                     <div className=''>
@@ -683,6 +684,7 @@ function RoleManagement() {
                                         sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
                                     >
                                         <Tabs
+                                            className='tab-nested-routes'
                                             orientation="vertical"
                                             variant="scrollable"
                                             value={value}
@@ -1419,19 +1421,6 @@ function RoleManagement() {
                                 </div>
 
                             </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
