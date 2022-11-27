@@ -615,7 +615,7 @@ function ViewAllUsers() {
                                         <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Male
                                         </Button>
-                                        <Button className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }}  variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                        <Button className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Female
                                         </Button>
                                         <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
