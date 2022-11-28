@@ -374,7 +374,7 @@ function BlogArticleConfiguration() {
                 setEditSubCategoryData({
                     subcategory_name: "",
                     created_by: '',
-                    category_id:'',
+                    category_id: '',
                     category_id: "",
                     error_list: []
 

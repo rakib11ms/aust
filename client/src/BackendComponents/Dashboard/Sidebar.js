@@ -240,16 +240,15 @@ function Sidebar() {
                             {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
+                                    <li>
+                                            <Link to="/view-blog-article" className='text-light text-form '>View Article/Blog</Link>
+
+                                        </li>
                                         <li>
                                             <Link to="/create-blog-article" className='text-light text-form '>Add Article/Blog</Link>
 
                                         </li>
-                                        <li>
-                                            <a href='' className='text-light text-form'>About</a>
-                                        </li>
-                                        <li>
-                                            <a href='' className='text-light text-form'>Contact</a>
-                                        </li>
+                                     
                                         <li>
                                             <Link to="/blog-article-configuration" className='text-light text-form '>Configuration</Link>
 

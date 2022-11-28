@@ -180,6 +180,11 @@ Route::delete('/delete-multiple-event-posts/{id}', [EventController::class, 'del
 Route::put('/active-all-events-by-update/{id}', [EventController::class, 'activeAllEventByUpdate']);
 
 
+/////mobile banner event latest one/////////////
+
+Route::get('/latest-event-mobile-banner', [EventController::class, 'latestEventMobileBanner']);
+
+
 //web upcoming event,archive post (tab)filtering
 Route::get('/filter-event-posts/{filterByName}', [EventController::class, 'filterEventPostsByName']);
 

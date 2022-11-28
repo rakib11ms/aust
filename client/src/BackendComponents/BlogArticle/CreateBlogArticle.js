@@ -283,7 +283,7 @@ function CreateBlogArticle() {
         axios.post(`/api/add-article-blogs`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                // navigate('/view-all-jobs')
+                navigate('/view-blog-article')
                 setcategory_id('');
                 setsubcategory_id('');
                 setarticle_blog_title('')
@@ -323,7 +323,7 @@ function CreateBlogArticle() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Blog/Article</h5>
-                                    <Link to="/view-all-advertisement"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <Link to="/view-blog-article"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>

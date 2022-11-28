@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Collection;
 use App\Mail\EventMail;
 use Carbon\Carbon;
 use App\Notifications\EventNotification;
@@ -378,5 +379,25 @@ class EventController extends Controller
                 'event_posts' => $event_posts,
             ]);
         }
+    }
+
+/////mobile banner event latest one/////////////
+    public function latestEventMobileBanner(){
+
+                $first = DB::table('aussta_events')->where('isArchived',0)->get();
+                $second = DB::table('advertisements')->where('isPublished',1)->get();
+
+                // $p = $first->unionAll($second->getQuery());
+                $merged = $second->merge($first); // Contains foo and bar.
+
+
+   
+
+               return response()->json([
+                'status' => 200,
+                // 'first' => $first,
+                // 'second'=>$second,
+                'merged'=>$merged
+            ]);
     }
 }
