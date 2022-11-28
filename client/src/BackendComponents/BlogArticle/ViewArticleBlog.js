@@ -13,7 +13,6 @@ import Modal from 'react-modal';
 import MaterialTable from "material-table";
 import moment from 'moment';
 
-
 function ViewBlogArticle() {
 
 
