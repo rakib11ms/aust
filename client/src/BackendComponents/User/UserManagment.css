@@ -116,8 +116,6 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-
 }
 
 .sites-icon {
@@ -132,8 +130,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-
 }
 
 .job-type-secs>div>button {
@@ -150,49 +146,33 @@
 
 }
 
+.nav-users {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.d-a-button {
+    float: right;
+    margin-left: 458px;
+}
+
 .job-type-text {
     color: #008F41;
     font-weight: 400;
 }
 
-/* Responsiveness */
-@media only screen and (min-width: 1367px) {
-    .input-icon {
-        /* height: rem; */
-        margin-left: 190px;
-        width: 100%;
-    }
+.select-active {
+    width: 96px;
 
-    .pending {
-        padding: 8px 25px 8px 30px;
+}
 
-    }
-
-    .num1 {
-        padding: 12px 12px 7px 10px;
-        margin-left: 60px;
-    }
-
-    .num1-h4 {
-        font-size: 25px;
-
-    }
-
-    .active {
-        padding: 8px 15px 8px 30px;
-        font-size: 17px;
-        
-    }
-
-    .num2 {
-        padding: 12px 15px 7px 10px;
-        margin-left: 60px;
-    }
-
-    .header-button {
-        margin: 0px 30px;
-    }
-
+.select-div-active {
+    text-align: center;
+    display: grid;
+    place-items: center;
+    margin-top: 8px;
+    border: none;
 }
 
 /* Modal */
@@ -240,10 +220,55 @@
     text-align: center;
     display: grid;
     place-items: center;
+
 }
 
 .modal-article {
     color: #777777;
     font-size: 12px;
     text-align: justify;
+}
+
+/* Responsiveness */
+@media only screen and (min-width: 1367px) {
+    .input-icon {
+        /* height: rem; */
+        margin-left: 190px;
+        width: 100%;
+    }
+
+    .pending {
+        padding: 8px 25px 8px 30px;
+
+    }
+
+    .num1 {
+        padding: 12px 12px 7px 10px;
+        margin-left: 60px;
+    }
+
+    .num1-h4 {
+        font-size: 25px;
+
+    }
+
+    .active {
+        padding: 8px 15px 8px 30px;
+        font-size: 17px;
+
+    }
+
+    .num2 {
+        padding: 12px 15px 7px 10px;
+        margin-left: 60px;
+    }
+
+    .header-button {
+        margin: 0px 30px;
+    }
+
+    .d-a-button {
+        margin-left: 892px;
+    }
+
 }

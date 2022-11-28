@@ -15,6 +15,7 @@ import './imageUrl';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
 import EventConfiguration from './BackendComponents/Event/Event Configuration/EventConfiguration';
 import ViewAllEvent from './BackendComponents/Event/ViewAllEvent';
+import ViewEventPayment from './BackendComponents/ViewEventPayment/ViewEventPayment';
 import EditEvent from './BackendComponents/Event/EditEvent';
 import CreateAdvertisement from './BackendComponents/Advertisement/CreateAdvertisement';
 import ViewAllAdvertisement from './BackendComponents/Advertisement/ViewAdvertisement';
@@ -162,6 +163,7 @@ function App() {
           <Route path="edit-events/:id" element={<EditEvent />}></Route>
           <Route path="event-configuration" element={<EventConfiguration />}></Route>
           <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+          <Route path="view-event-payment" element={<ViewEventPayment />}></Route>
 
 
           <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>

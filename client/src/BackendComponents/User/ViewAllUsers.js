@@ -584,6 +584,7 @@ function ViewAllUsers() {
 
                     <div className="col-md-10 ">
                         <Topbar />
+                        <h4 className='ms-4 pt-3'>User Management</h4>
 
                         <div className='container-fluid'>
 
@@ -644,21 +645,31 @@ function ViewAllUsers() {
 
                                         <div className='table-filter-tab bg-white'>
 
-                                            <div className='d-flex table-filter-menus align-items-center'>
+                                            <div className="nav-users">
 
-                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>Alumni</h6>
-                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Stuff</h6>
-                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Admins</h6>
-                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Moderators</h6>
-                                                <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
-                                                    Download
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
-                                                </ul>
-                                                <h6 style={{ border: "1px solid rgb(235, 235, 235)", padding: "7px 18px", borderRadius: 15, boxShadow: "0px 0px 23px -15px" }} className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Active</h6>
+                                                <div className='d-flex align-items-center'>
+                                                    <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>Alumni</h6>
+                                                    <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Stuff</h6>
+                                                    <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Admins</h6>
+                                                    <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Moderators</h6>
+                                                </div>
+
+                                                <div className='d-flex align-items-center d-a-button'>
+                                                    <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
+                                                        Download
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
+                                                    </ul>
+                                                    <div className='select-div-active'>
+                                                        <select className="form-select form-select-sm mb-3 select-active" aria-label=".form-select-sm example">
+                                                            <option selected>Active</option>
+                                                            <option value="1">Inactive</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 
                                             </div>
 
@@ -775,8 +786,8 @@ function ViewAllUsers() {
                                                 <div className='select-down-div'>
                                                     <select className="form-select form-select-sm mb-3 select-down" aria-label=".form-select-sm example">
                                                         <option selected>Moderator</option>
-                                                        <option value="1">Super Admin</option>
-                                                        <option value="2">Admin</option>
+                                                        <option value="1">Admin</option>
+                                                        <option value="2">Alumni</option>
                                                         <option value="3">Stuff</option>
                                                     </select>
                                                 </div>

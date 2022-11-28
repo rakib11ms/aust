@@ -623,6 +623,7 @@ function Settings() {
 
                     <div className="col-md-10 ">
                         <Topbar />
+                        <h4 className='pt-3'>Settings & Policies</h4>
 
                         <div className='container-fluid'>
 

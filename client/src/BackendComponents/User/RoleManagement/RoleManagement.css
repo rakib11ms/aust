@@ -17,6 +17,9 @@
     width: 520px;
     padding-bottom: 53px;
 }
+.tab-nested-routes{
+    margin-bottom: -80px;
+}
 
 .tab-nav1 {
     margin-right: 20%;
@@ -51,15 +54,15 @@
        
     }
     .ancor-nav2{
-        margin-right: -50px;
+        margin-right: -39px;
        
     }
     .ancor-nav3{
-        margin-right: -44px;
+        margin-right: -33px;
        
     }
     .ancor-nav4{
-        margin-right: 340px;
+        margin-right: 240px;
        
     }
 
