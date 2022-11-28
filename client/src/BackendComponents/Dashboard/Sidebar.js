@@ -8,13 +8,13 @@ import axios from 'axios';
 
 function Sidebar() {
     const [isActive, setIsActive] = useState(true);
-    const [isActive2, setIsActive2] = useState(false);
-    const [isActive3, setIsActive3] = useState(false);
-    const [isActive4, setIsActive4] = useState(false);
-    const [isActive5, setIsActive5] = useState(false);
-    const [isActive6, setIsActive6] = useState(false);
-    const [isActive7, setIsActive7] = useState(false);
-    const [isActive8, setIsActive8] = useState(false);
+    const [isActive2, setIsActive2] = useState(true);
+    const [isActive3, setIsActive3] = useState(true);
+    const [isActive4, setIsActive4] = useState(true);
+    const [isActive5, setIsActive5] = useState(true);
+    const [isActive6, setIsActive6] = useState(true);
+    const [isActive7, setIsActive7] = useState(true);
+    const [isActive8, setIsActive8] = useState(true);
     console.log('is active cheking', isActive)
 
 
@@ -240,9 +240,10 @@ function Sidebar() {
                             {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
-                                        {/* <li>
-                                            <a href='' className='text-light text-form' >Configuration</a>
-                                        </li> */}
+                                        <li>
+                                            <Link to="/create-blog-article" className='text-light text-form '>Add Article/Blog</Link>
+
+                                        </li>
                                         <li>
                                             <a href='' className='text-light text-form'>About</a>
                                         </li>
@@ -398,7 +399,7 @@ function Sidebar() {
                                 isActive8 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings' className='text-light text-form' >Get In <EastIcon/></Link>
+                                            <Link to='/settings' className='text-light text-form' >Get In <EastIcon /></Link>
                                         </li>
 
                                     </ul>
@@ -407,7 +408,7 @@ function Sidebar() {
                             }
                         </div>
                     </div>
-                    
+
 
                 </div>
 
@@ -416,9 +417,9 @@ function Sidebar() {
 
             </div>
 
-            
 
-           
+
+
             {/* <div className=' checker'>
                 <h6 className='fw-500 my-1 text-white bg-danger d-block border w-100 m-0  '>Settings</h6>
 

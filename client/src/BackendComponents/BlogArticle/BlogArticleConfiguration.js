@@ -178,6 +178,9 @@ function BlogArticleConfiguration() {
     }
 
     const [renderAllSubCategory, setRenderAllSubCategory] = useState('');
+    const [editSubCategoryId, setEditSubCategoryId] = useState('');
+    const [editSubCategoryData, setEditSubCategoryData] = useState('');
+    // console.log('edit sub category',editSubCategoryData)
 
 
 
@@ -205,8 +208,16 @@ function BlogArticleConfiguration() {
             }
         })
 
+        axios.get(`/api/edit-article-blogs-subcategory/${editSubCategoryId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditSubCategoryData(res.data.category);
+                setLoading(false);
+            }
+        })
 
-    }, [renderAllCategory, editCategoryId,renderAllSubCategory])
+
+
+    }, [renderAllCategory, editCategoryId, renderAllSubCategory, editSubCategoryId])
     const customStyles1 = {
         content: {
             // marginTop: '70px',
@@ -288,7 +299,6 @@ function BlogArticleConfiguration() {
         error_list: []
 
     })
-    console.log('eror dekh', addSubCategoryState)
 
     const handleAddSubCategory = (e) => {
         setAddSubCategoryState({
@@ -330,23 +340,55 @@ function BlogArticleConfiguration() {
 
 
     }
-    const [editDepartmentId, setEditDepartmentId] = useState('');
 
-    const [editDepartmentModalIsOpen, seteditDepartmentModalIsOpen] = useState(false);
-    function openEditDepartmentModal(e, editId) {
+    const [editSubCategoryModalIsOpen, seteditSubCategoryModalIsOpen] = useState(false);
+    function openEditSubCategoryModal(e, editId) {
         e.preventDefault();
-        seteditDepartmentModalIsOpen(true)
-        setEditDepartmentId(editId);
+        seteditSubCategoryModalIsOpen(true)
+        setEditSubCategoryId(editId);
+        console.log('kire vhai')
     }
-    function closeEditDepartmentModal(e) {
-        seteditDepartmentModalIsOpen(false);
+    function closeEditSubCategoryModal(e) {
+        seteditSubCategoryModalIsOpen(false);
 
     }
 
 
     const [loading, setLoading] = useState(true);
 
+    const handleEditSubCategory = (e) => {
 
+        setEditSubCategoryData({
+            ...editSubCategoryData, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleEditSubCategoryUpdate = (e) => {
+        e.preventDefault();
+
+        axios.post(`/api/update-article-blogs-subcategory/${editSubCategoryId}`, editSubCategoryData).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setRenderAllSubCategory(res.data);
+                closeEditSubCategoryModal();
+                setEditSubCategoryData({
+                    subcategory_name: "",
+                    created_by: '',
+                    category_id:'',
+                    category_id: "",
+                    error_list: []
+
+                });
+                setEditSubCategoryId('');
+
+            }
+            else if (res.data.status == 400) {
+                setAddSubCategoryState({ ...addSubCategoryState, error_list: res.data.errors });
+                // Swal.fire(addSubCategoryState.error_list.subcategory_name[0], '', 'error')
+
+            }
+        })
+    }
 
 
     const deleteSubCategory = (e, id) => {
@@ -413,21 +455,20 @@ function BlogArticleConfiguration() {
 
             ,
             render: (row) =>
-
                 <div className=''>
-                    <div className='d-flex justify-content-end'>
 
+                    <div className='d-flex justify-content-between'>
+                        <div>
+                            {row.subcategory_name}
+
+                        </div>
 
                         <div className='my-0 py-0 '>
-                            <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
 
 
-
-
-
-
-                                <div className='text-secondary'>
-                                    <Link to={`/edit-advertisement/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
+                                <div className='text-secondary' onClick={(e) => openEditSubCategoryModal(e, row.id)}>
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
 
                                 </div>
 
@@ -439,35 +480,11 @@ function BlogArticleConfiguration() {
 
 
 
-
-
-
-
-
-
-
                             </div>
-
-
                         </div>
-                    </div>
-
-                    <div class="" >
-
-
-
-
-                        Hello
-
 
 
                     </div>
-
-
-
-
-
-
                 </div>
 
             ,
@@ -503,11 +520,11 @@ function BlogArticleConfiguration() {
                                 <div class="inside ">
                                     <div class="item1">
                                         <h2 className=' mb-0'>{totalCategory}</h2>
-                                        <p className=''>Job Types</p>
+                                        <p className=''>Category</p>
                                     </div>
                                     <div class="item2">
-                                        <h2 className=' mb-0'>{totalDepartment}</h2>
-                                        <p className=''>Departments</p>
+                                        <h2 className=' mb-0'>{2}</h2>
+                                        <p className=''>Sub Category</p>
                                     </div>
                                     {/* <div class="item2">
                                         <h2 className=' mb-0'>03</h2>
@@ -518,7 +535,7 @@ function BlogArticleConfiguration() {
                                 </div>
                                 <div class=" ">
 
-                                    <Link to="/create-job-post"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A job </span></button> </Link>
+                                    <Link to=""><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A Blog/Article </span></button> </Link>
 
                                 </div>
 
@@ -781,6 +798,84 @@ function BlogArticleConfiguration() {
                                             </div>
 
                                         </Modal>
+
+
+
+                                        {/* edit subcategory modal */}
+
+                                        <Modal
+                                            isOpen={editSubCategoryModalIsOpen}
+                                            onRequestClose={closeEditSubCategoryModal}
+                                            style={addSubCategoryStateModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
+
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditSubCategoryModal}><i class="fa fa-times"></i></span>
+
+                                                <h5 className=""> Edit SubCategory</h5>
+                                                <hr />
+
+
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className=''>
+                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Category Name</label>
+
+                                                                <select class="form-select" aria-label="Default select example" value={editSubCategoryData.category_id} name="category_id" onChange={handleEditSubCategory}>
+                                                                    <option value="">Choose</option>
+
+                                                                    {
+                                                                        allCategory.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.id}>{item.category_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="" style={{ width: '60%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">SubCategory Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editSubCategoryData.subcategory_name} name="subcategory_name" onChange={handleEditSubCategory} />
+                                                            </div>
+
+                                                            <div>
+                                                            </div>
+
+
+                                                            {/* <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                <span className='text-danger'> {editSubCategoryData.error_list.subcategory_name}</span>
+                                                            </div> */}
+                                                        </div>
+
+
+
+
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleEditSubCategoryUpdate}>Update</button>
+
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </Modal>
+
 
 
 
