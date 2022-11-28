@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import Button from '@mui/material/Button';
 import DescriptionIcon from '@mui/icons-material/Description';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
-
+import TablePagination from '@mui/material/TablePagination';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -36,8 +35,18 @@ function ViewEventPayment() {
 
     const [totalEvents, setTotalEvents] = useState([]);
     const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
-
-
+    
+    // Pagination
+    const [page, setPage] = React.useState(2);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const handleChangePage = (event1, newPage) => {
+        setPage(newPage);
+      };
+    
+      const handleChangeRowsPerPage = (event1) => {
+        setRowsPerPage(parseInt(event1.target.value, 10));
+        setPage(0);
+      };
 
 
     console.log('all events', allEvents)
@@ -678,15 +687,15 @@ function ViewEventPayment() {
                             <div className="col-md-12 mt-3">
                                 <div className='showing-sec'>
                                     <div>
-                                    <h5 style={{fontWeight: 400, fontSize: 18}}>Showing</h5>
-                                    <div className='d-flex'>
-                                        <i class="fa fa-calendar mt-1 pe-2"></i>
-                                        <p className=''>12 Sept, 2022 - 20 Sept, 2022</p>
+                                        <h5 style={{ fontWeight: 400, fontSize: 18 }}>Showing</h5>
+                                        <div className='d-flex'>
+                                            <i class="fa fa-calendar mt-1 pe-2"></i>
+                                            <p className=''>12 Sept, 2022 - 20 Sept, 2022</p>
+                                        </div>
                                     </div>
+                                    <div>
+                                        <button className='show-button'> <span><i class=" fa-solid fa-file-invoice"></i> </span>Export</button>
                                     </div>
-                                   <div>
-                                   <button className='show-button'> <span><i class=" fa-solid fa-file-invoice"></i> </span>Export</button>
-                                   </div>
                                 </div>
 
                                 {/* <div className='mb-3' style={{ position: 'relative', zIndex: '9999' }}>
@@ -701,6 +710,7 @@ function ViewEventPayment() {
                                         <div className='table-filter-tab bg-white'>
 
                                             <div className='d-flex table-filter-menus align-items-center'>
+                                                <input className="form-check-input mb-2 me-3" type="checkbox" value="" id="flexCheckChecked" />
 
                                                 <h6 className={`${eventPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => seteventPostFiltering('all')}>All</h6>
 
@@ -747,9 +757,9 @@ function ViewEventPayment() {
                                                 <div className='mx-3'>
 
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span><i class="fa-regular fa-message-lines"></i> </span>NOTIFY</button>
+                                                    <button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450', fontSize: 13 }}> <span><i className="fa-solid fa-message"></i> </span>NOTIFY</button>
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border bg-danger' style={{ color: "white", fontWeight: '400' }}> <span><i class="fa-solid fa-trash-plus"></i> </span>DELETE </button>
+                                                    <button className='btn px-4 rounded-pill shadow-sm border bg-danger' style={{ color: "white", fontWeight: '400', fontSize: 13 }}> <span><i class="fa-solid fa-trash"></i> </span>DELETE </button>
 
                                                 </div>
 
@@ -759,45 +769,102 @@ function ViewEventPayment() {
                                         </div>
                                         <hr />
 
-                                        <MaterialTable
-                                            //        components={{
-                                            //         Container: props => <Paper {...props} />
-                                            //    }}
-                                            columns={columns}
-                                            data={allEvents}
-                                            isLoading={loading === true ? true : false}
-                                            onSelectionChange={selectionCheck}
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <div className='d-flex '>
+                                                    <div className="form-check mt-5 me-3">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                                    </div>
+
+                                                    <div className='membership-sec'>
+                                                        <div className='d-flex   align-items-center me-5'>
+                                                            <div className='d-flex'>
+                                                                <i className="fa-solid fa-calendar-days me-1"></i>
+                                                                <p>30 th November 2022</p>
+                                                            </div>
+                                                            <div className='membership-btn'>
+                                                                <button className='btn px-4 rounded-pill shadow-sm border bg-info' style={{ color: "black", fontWeight: '400', marginLeft: 65, fontSize: 14 }}>Membership fees </button>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h5 style={{fontWeight: 400}}>Fazle Arafat</h5>
+                                                            <p>Alumni</p>
+                                                            <p style={{marginTop:"-15px"}}>Other Information</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
-                                            options={{
-                                                search: true,
-                                                // filtering: true,
-                                                toolbar: false,
-                                                showTitle: false,
-                                                searchFieldAlignment: "left",
-                                                pageSize: 5,
-                                                emptyRowsWhenPaging: false,
-                                                pageSizeOptions: [5, 10, 20, 50, 100],
-                                                selection: true,
-                                                sorting: false,
-                                                searchFieldAlignment: "left",
+                                            <div className="col-6 d-flex paid-sec">
+                                                <div>
+                                                    <button className='btn rounded-pill shadow-sm border bg-success' style={{ color: "white", fontWeight: '400', padding: "7px 66px 7px 66px", fontSize: 14 }}>Paid</button>
+                                                </div>
+                                                
+                                                <h4 style={{fontSize: 20, marginRight:"-14px"}}><i class="fa-sharp fa-solid fa-dollar-sign"></i>5</h4>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <div className='d-flex '>
+                                                    <div className="form-check mt-5 me-3">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                                    </div>
 
-                                                // paging:false
+                                                    <div className='membership-sec'>
+                                                        <div className='d-flex   align-items-center me-5'>
+                                                            <div className='d-flex'>
+                                                                <i className="fa-solid fa-calendar-days me-1"></i>
+                                                                <p>30 th November 2022</p>
+                                                            </div>
+                                                            <div className='Event-registration-btn'>
+                                                                <button className='btn px-4 rounded-pill shadow-sm border bg-success' style={{ color: "rgb(245, 245, 245)", fontWeight: '400', marginLeft: 65, fontSize: 14 }}>Event registraion </button>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h5 style={{fontWeight: 400}}>Nayeem Yusuf</h5>
+                                                            <p>Alumni</p>
+                                                            <p style={{marginTop:"-15px"}}>Other Information</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
-                                            }}
+                                            <div className="col-6 d-flex paid-sec">
+                                                <div className='d-flex'>
+                                                    <button className='btn shadow-sm border btn-unpaid' style={{fontSize: 14}}>Unpaid</button>
 
+                                                    <button className='btn shadow-sm border btn-noti'><i className="fa-solid fa-message me-1" style={{fontSize: 14}}></i>Notify</button>
+                                                </div>
 
-
-
-                                        />
-
-
+                                                <h4 style={{fontSize: 20, marginRight:"6px"}}><i class="fa-sharp fa-solid fa-dollar-sign"></i>5</h4>
+                                            </div>
+                                        </div>
+                                       
                                     </div>
+                                </div>
+                                <div className='position-sticky'>
+                                <TablePagination
+                                    component="div"
+                                    count={100}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    rowsPerPage={rowsPerPage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                  />
                                 </div>
                             </div>
 
+                            
 
+                        
+                          
+                            
+                            
 
 
 

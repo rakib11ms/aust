@@ -50,11 +50,11 @@
         width: 560px;
     }
     .ancor-nav1{
-        margin-right: -50px;
+        margin-right: -48px;
        
     }
     .ancor-nav2{
-        margin-right: -39px;
+        margin-right: -44px;
        
     }
     .ancor-nav3{
@@ -62,8 +62,11 @@
        
     }
     .ancor-nav4{
-        margin-right: 240px;
+        margin-right: 130px;
        
+    }
+    .tab-sec-full{
+      margin-left: 140px;
     }
 
 }
