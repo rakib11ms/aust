@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import DescriptionIcon from '@mui/icons-material/Description';
+
+
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
-import TablePagination from '@mui/material/TablePagination';
+
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -35,18 +35,8 @@ function ViewEventPayment() {
 
     const [totalEvents, setTotalEvents] = useState([]);
     const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
-    
-    // Pagination
-    const [page, setPage] = React.useState(2);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const handleChangePage = (event1, newPage) => {
-        setPage(newPage);
-      };
-    
-      const handleChangeRowsPerPage = (event1) => {
-        setRowsPerPage(parseInt(event1.target.value, 10));
-        setPage(0);
-      };
+
+
 
 
     console.log('all events', allEvents)
@@ -328,23 +318,7 @@ function ViewEventPayment() {
         //     width: "40 !important"
         // },
 
-        {
-            title: "ALL", field: `image`, render: (row) =>
-                <div className=''>
 
-                    <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" />
-
-
-                </div>
-
-
-            , cellStyle: {
-                // marginLeft: 50,
-                // maxWidth: 0,
-                // textAlign: 'left',
-                width: 10,
-            },
-        },
 
         {
             title: '  ', field: ``
@@ -353,16 +327,24 @@ function ViewEventPayment() {
             render: (row) =>
 
                 <div className=''>
-                    <div className='d-flex justify-content-end'>
+
+                        <div className='my-0 py-0 d-flex justify-content-end '>
 
 
-                        <div className='my-0 py-0 '>
-                            <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
+                            <div className='d-flex paid-div mt-5 '>
+                                <button className='paid-btn me-5'>
+                                    Paid
+                                </button>
+                                <div style={{fontSize: 22}}>
+                                    <span className='ms-5'><i class="fa-solid fa-dollar-sign"></i> 500</span>
+                                </div>
+                            </div>
 
 
 
 
 
+                            {/* <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
 
                                 <div className='text-secondary'>
                                     <Link to={`/edit-events/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
@@ -376,7 +358,7 @@ function ViewEventPayment() {
 
 
                                 <div className='text-secondary mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                    {/* <i className='fa fa-archive mx-2 icon-table-archive'></i>  */}
+                                  
 
                                     {
                                         row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
@@ -387,7 +369,7 @@ function ViewEventPayment() {
 
                                 </div>
 
-                                {/* <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
+                                <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
                                     {
                                         row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
                                             row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
@@ -397,7 +379,7 @@ function ViewEventPayment() {
 
 
 
-                                </div> */}
+                                </div> 
 
 
                                 <div className='text-secondary mx-2'>
@@ -414,80 +396,38 @@ function ViewEventPayment() {
                                 </div>
 
 
-
-
-
-                            </div>
+                            </div>*/}
 
 
                         </div>
-                    </div>
+                    
 
                     <div class="tooops   " >
-                        <div style={{ color: '#777777' }}>
-                            <i className='fa fa-calendar'></i>
-                            <span className='mx-2'>{row.event_date}</span>
-                        </div>
-                        <div class="d-flex mt-1" >
-                            <div className='d-flex  px-2 d-inline-block py-1 event-btn1'>
-                                <div>
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <div className='mx-2'>
-                                    <span>{moment(row.event_time).format('LT')}</span> |<span className='mx-1'>{row.event_date}</span>
-                                </div>
+                        <div className='d-flex'>
+                            <div style={{ color: '#777777' }}>
+                                <i className='fa fa-calendar'></i>
+                                <span className='mx-2'>{row.event_date}</span>
                             </div>
-                            <div className='d-flex mx-2  px-2 d-inline-block py-1 event-btn2'>
-                                <div>
-                                    <i class="fa fa-user"></i>
-                                </div>
-                                <div className='mx-2'>
-                                    <span>
-                                        {row.contact_person.split(',').length}
-
-                                    </span>
-                                    <span className='mx-2'>
-                                        Contact Person
-                                    </span>
-                                </div>
-                            </div>
-                            <div className='d-flex mx-2   px-2 d-inline-block py-1  event-btn3'>
-                                <div>
-                                    {/* <i class="fa fa-dollar"></i> */}
-                                    <i class="fas fa-money-bill"></i>
-                                </div>
-                                <div className='mx-2'>
-                                    <span>{row.event_fee}</span>
-                                    <span class="mx-2">Event Fees</span>
-                                </div>
-                            </div>
-                            <div className='d-flex mx-2   px-2 d-inline-block py-1 event-btn4 text-light'>
-                                <div>
-                                    {/* <i class="fa fa-calendar"></i> */}
-                                    <i class="fa-solid fa-school"></i>
-                                </div>
-                                <div className='mx-2 '>
-                                    <span>{row.event_type_name}</span>
-                                </div>
+                            <div>
+                                <button className='membership-btnn'>
+                                    <span>Membership fees</span>
+                                </button>
                             </div>
                         </div>
 
-                        <div className='mt-1'>
-                            <h5>{row.event_title}</h5>
+                        <div>
+                            <h5 style={{fontWeight: 400}}>Md. Fazla Arafat</h5>
                         </div>
-
-
-                        <div className='mt-2' style={{ color: '#777777' }} dangerouslySetInnerHTML={{ __html: row.event_description.length > 50 ? `${row.event_description.substring(0, 50)}...` : row.event_description }}
-                        />
-
+                        <div>
+                            <p>Alumni</p>
+                        </div>
+                        <div>
+                            <p style={{ marginTop: "-15px", color:"rgb(87, 87, 87)" }}>Other information</p>
+                        </div>
 
 
 
                     </div>
-
-
-
-
 
 
                 </div>
@@ -661,7 +601,6 @@ function ViewEventPayment() {
 
                     <div className="col-md-10 ">
                         <Topbar />
-                        <h4 className='ms-4 pt-3'>Event Payment</h4>
 
                         <div className='container-fluid'>
 
@@ -669,7 +608,7 @@ function ViewEventPayment() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">
-                                            <input type="text" class="form-control shadow-sm " placeholder="Search by event name, date etc." aria-label="Username" aria-describedby="basic-addon1" />
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search by event name, date etc." aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
@@ -677,24 +616,21 @@ function ViewEventPayment() {
 
                                 </div>
 
-
-
                             </section>
 
 
 
 
                             <div className="col-md-12 mt-3">
-                                <div className='showing-sec'>
+                                <div className='showi-div mb-3'>
                                     <div>
-                                        <h5 style={{ fontWeight: 400, fontSize: 18 }}>Showing</h5>
-                                        <div className='d-flex'>
-                                            <i class="fa fa-calendar mt-1 pe-2"></i>
-                                            <p className=''>12 Sept, 2022 - 20 Sept, 2022</p>
-                                        </div>
+                                        <h5 style={{ fontWeight: 400 }}>Showing</h5>
+                                        <span><i class="fa-solid fa-calendar-days"></i>12 Sept, 2022 - 20 Sept, 2022</span>
                                     </div>
                                     <div>
-                                        <button className='show-button'> <span><i class=" fa-solid fa-file-invoice"></i> </span>Export</button>
+                                        <button className='export-btn'>
+                                            <span><i className="fa-sharp fa-solid fa-file-invoice me-1"></i>EXPORT</span>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -710,18 +646,12 @@ function ViewEventPayment() {
                                         <div className='table-filter-tab bg-white'>
 
                                             <div className='d-flex table-filter-menus align-items-center'>
-                                                <input className="form-check-input mb-2 me-3" type="checkbox" value="" id="flexCheckChecked" />
 
                                                 <h6 className={`${eventPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => seteventPostFiltering('all')}>All</h6>
-
                                                 <h6 className={`${eventPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(1)}>Membership</h6>
-
                                                 <h6 className={`${eventPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(0)}>Events</h6>
-
                                                 <h6 className={`${eventPostFiltering === 'upcoming_filter' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('upcoming_filter')}>Annual fees</h6>
-
                                                 <h6 className={`${eventPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('archive')}>Donation</h6>
-
                                                 <h6 className={`${eventPostFiltering === 'pendings' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('pendings')}>Pendings</h6>
 
                                             </div>
@@ -757,9 +687,9 @@ function ViewEventPayment() {
                                                 <div className='mx-3'>
 
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450', fontSize: 13 }}> <span><i className="fa-solid fa-message"></i> </span>NOTIFY</button>
+                                                    <button className='btn px-4 rounded-pill shadow-sm border' noti-btnn> <span><i class="fa-solid fa-message me-1"></i></span>NOTIFY </button>
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border bg-danger' style={{ color: "white", fontWeight: '400', fontSize: 13 }}> <span><i class="fa-solid fa-trash"></i> </span>DELETE </button>
+                                                    <button className='btn px-4 rounded-pill shadow-sm border delete-btnn'> <span><i class="fa-solid fa-trash me-1"></i></span>DELETE </button>
 
                                                 </div>
 
@@ -769,102 +699,45 @@ function ViewEventPayment() {
                                         </div>
                                         <hr />
 
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <div className='d-flex '>
-                                                    <div className="form-check mt-5 me-3">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                                    </div>
-
-                                                    <div className='membership-sec'>
-                                                        <div className='d-flex   align-items-center me-5'>
-                                                            <div className='d-flex'>
-                                                                <i className="fa-solid fa-calendar-days me-1"></i>
-                                                                <p>30 th November 2022</p>
-                                                            </div>
-                                                            <div className='membership-btn'>
-                                                                <button className='btn px-4 rounded-pill shadow-sm border bg-info' style={{ color: "black", fontWeight: '400', marginLeft: 65, fontSize: 14 }}>Membership fees </button>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h5 style={{fontWeight: 400}}>Fazle Arafat</h5>
-                                                            <p>Alumni</p>
-                                                            <p style={{marginTop:"-15px"}}>Other Information</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
+                                        <MaterialTable
+                                            //        components={{
+                                            //         Container: props => <Paper {...props} />
+                                            //    }}
+                                            columns={columns}
+                                            data={allEvents}
+                                            isLoading={loading === true ? true : false}
+                                            onSelectionChange={selectionCheck}
 
 
-                                            <div className="col-6 d-flex paid-sec">
-                                                <div>
-                                                    <button className='btn rounded-pill shadow-sm border bg-success' style={{ color: "white", fontWeight: '400', padding: "7px 66px 7px 66px", fontSize: 14 }}>Paid</button>
-                                                </div>
-                                                
-                                                <h4 style={{fontSize: 20, marginRight:"-14px"}}><i class="fa-sharp fa-solid fa-dollar-sign"></i>5</h4>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <div className='d-flex '>
-                                                    <div className="form-check mt-5 me-3">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                                    </div>
+                                            options={{
+                                                search: true,
+                                                // filtering: true,
+                                                toolbar: false,
+                                                showTitle: false,
+                                                searchFieldAlignment: "left",
+                                                pageSize: 5,
+                                                emptyRowsWhenPaging: false,
+                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                selection: true,
+                                                sorting: false,
+                                                searchFieldAlignment: "left",
 
-                                                    <div className='membership-sec'>
-                                                        <div className='d-flex   align-items-center me-5'>
-                                                            <div className='d-flex'>
-                                                                <i className="fa-solid fa-calendar-days me-1"></i>
-                                                                <p>30 th November 2022</p>
-                                                            </div>
-                                                            <div className='Event-registration-btn'>
-                                                                <button className='btn px-4 rounded-pill shadow-sm border bg-success' style={{ color: "rgb(245, 245, 245)", fontWeight: '400', marginLeft: 65, fontSize: 14 }}>Event registraion </button>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h5 style={{fontWeight: 400}}>Nayeem Yusuf</h5>
-                                                            <p>Alumni</p>
-                                                            <p style={{marginTop:"-15px"}}>Other Information</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
+                                                // paging:false
 
 
-                                            <div className="col-6 d-flex paid-sec">
-                                                <div className='d-flex'>
-                                                    <button className='btn shadow-sm border btn-unpaid' style={{fontSize: 14}}>Unpaid</button>
+                                            }}
 
-                                                    <button className='btn shadow-sm border btn-noti'><i className="fa-solid fa-message me-1" style={{fontSize: 14}}></i>Notify</button>
-                                                </div>
 
-                                                <h4 style={{fontSize: 20, marginRight:"6px"}}><i class="fa-sharp fa-solid fa-dollar-sign"></i>5</h4>
-                                            </div>
-                                        </div>
-                                       
+
+
+                                        />
+
+
                                     </div>
-                                </div>
-                                <div className='position-sticky'>
-                                <TablePagination
-                                    component="div"
-                                    count={100}
-                                    page={page}
-                                    onPageChange={handleChangePage}
-                                    rowsPerPage={rowsPerPage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                  />
                                 </div>
                             </div>
 
-                            
 
-                        
-                          
-                            
-                            
 
 
 
