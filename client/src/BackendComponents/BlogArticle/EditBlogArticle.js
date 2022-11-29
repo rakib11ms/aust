@@ -471,8 +471,6 @@ function EditBlogArticle() {
 
 
 
-
-
                                     </form>
 
                                 </div>
