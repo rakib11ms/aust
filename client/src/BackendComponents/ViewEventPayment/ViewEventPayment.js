@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-
-
+import './ViewEventPayment.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
@@ -9,77 +9,62 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-import './ViewEventPayment.css'
 
 import MaterialTable from "material-table";
 import moment from 'moment';
-import { Paper } from '@material-ui/core';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Box, ThemeProvider, createTheme } from '@mui/system';
-
-
 
 function ViewEventPayment() {
+
+
+
     const [loading, setLoading] = useState(true);
 
-    const [allEvents, setallEvents] = useState([]);
+    const [allBlogArticle, setallBlogArticle] = useState([]);
+    console.log('allll postsss', allBlogArticle)
 
-    const [totalEvents, setTotalEvents] = useState([]);
-    const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
-
-
-
-
-    console.log('all events', allEvents)
+    const [totalPosts, setTotalPosts] = useState('');
+    const [activePosts, setActivePosts] = useState('');
+    const [pendingPosts, setPendingPosts] = useState('');
+    const [renderAllBlogArticle, setRenderAllBlogArticle] = useState('');
 
 
-    const [renderAllEvents, setRenderAllEvents] = useState('');
 
-    // console.log('all posts check', allEvents)
-
-    //add functionality for post category
+    const [checkboxStatus, setCheckBoxStatus] = useState(false)
 
 
 
 
 
+    ////handle post approval
 
-    const formData = new FormData();
+
+
 
     const handlePostApproval = (e, id) => {
-
+        // setCheckBoxStatus(!checkboxStatus)
+        // console.log('checked check', e.target.checked)
+        // setSpecificPost(id);
+        // const IsApprovedValue = e.target.checked === true ? 1 : 0;
         if (e.target.checked === true) {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
+            formData.append('isArchived', id.isArchived);
             // formData.append('_method', 'PUT');
 
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
             formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
+            formData.append('date', id.date);
             formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
+            formData.append('tag', id.tag);
 
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllEvents(res.data);
+                    setRenderAllBlogArticle(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -103,24 +88,23 @@ function ViewEventPayment() {
             formData.append('isPublished', 0);
             // formData.append('_method', 'PUT');
 
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
             formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
+            formData.append('date', id.date);
             formData.append('image', id.image);
+            formData.append('tag', id.tag);
             formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
 
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllEvents(res.data);
+                    setRenderAllBlogArticle(res.data);
+
                     // setIdChange('');
+
                     // closeAddPostCategoryModal();
                     // setAddPostType({
                     //     type_name: "",
@@ -137,31 +121,42 @@ function ViewEventPayment() {
                 // }
             })
         }
+
+
+
+
     }
 
-    const archiveEventPost = (e, id) => {
 
-        // console.log('arhcive check row',id)
-
-
-        // console.log('arhcive update',archiveUpdate)
+    const archivePost = (e, id) => {
 
         if (id.isArchived == 0) {
+            // console.log('acrhived holom 0 ',id)
 
-            const archiveUpdate = {
-                isArchived: 1
-            }
+            const formData = new FormData();
+
+            formData.append('isPublished', 0);
+            formData.append('isArchived', 1);
+            // formData.append('_method', 'PUT');
 
 
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
+
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllEvents(res.data);
+                    // Swal.fire(res.data.message, '', 'success')
+                    setRenderAllBlogArticle(res.data);
 
                     // setIdChange('');
+
                     // closeAddPostCategoryModal();
                     // setAddPostType({
                     //     type_name: "",
@@ -180,19 +175,30 @@ function ViewEventPayment() {
 
         }
         if (id.isArchived == 1) {
-            const archiveUpdate = {
-                isArchived: 0
-            }
+            // console.log('acrhived holom 1 ',id)
 
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
+            const formData = new FormData();
+
+            formData.append('isPublished', 1);
+            formData.append('isArchived', 0);
+            formData.append('post_title', id.post_title);
+            formData.append('post_type', id.post_type);
+            formData.append('post_description', id.post_description);
+            formData.append('posted_by', id.posted_by);
+            formData.append('date', id.date);
+            formData.append('image', id.image);
+            formData.append('tag', id.tag);
+
+
+            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllEvents(res.data);
+                    // Swal.fire(res.data.message, '', 'success')
+                    setRenderAllBlogArticle(res.data);
 
                     // setIdChange('');
+
                     // closeAddPostCategoryModal();
                     // setAddPostType({
                     //     type_name: "",
@@ -212,73 +218,177 @@ function ViewEventPayment() {
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+    ////modal functionality start 
+
+
+
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
     // console.log('pip', storageData)
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '45vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "60vw",
-            height: "90vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-
-    const [viewEventDescription, setViewEventDescription] = useState('');
-
-
-    const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
-    function openViewEventPostModal(e, viewEventPost) {
-        e.preventDefault();
-        setViewEventDescription(viewEventPost)
-        setviewJobPostModalIsOpen(true)
-        setAllImagesfromDatabase(viewEventPost.image.split(','))
-
-    }
-    function closeViewJobPostModal(e) {
-        setviewJobPostModalIsOpen(false);
-
-    }
-
 
 
 
 
 
     useEffect(() => {
-        axios.get(`/api/all-event-posts`).then(res => {
+        axios.get(`/api/all-article-blogs`).then(res => {
             if (res.data.status == 200) {
-                setallEvents(res.data.all_events);
-                setTotalArchiveEvents(res.data.total_archive_events);
-                setTotalEvents(res.data.total_events);
+                setallBlogArticle(res.data.article_blogs);
+                setTotalPosts(res.data.total_posts)
+                setActivePosts(res.data.total_active_posts)
+                setPendingPosts(res.data.total_pending_posts)
                 setLoading(false);
-
             }
         })
-        // Modal.setAppElement('body');
 
-    }, [renderAllEvents])
+        Modal.setAppElement('body');
 
-
-
+    }, [])
 
 
 
 
-    const deleteEvent = (e, id) => {
+    const columns = [
+        // {
+        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
 
-        console.log('id11111111111111', id)
+        //     width: "40 !important"
+        // },
+        {
+            title: 'ALL  ', field: ``
 
+            ,
+            render: (row) =>
+
+                <div className=''>
+                    <div class="tooops d-flex align-items-center justify-content-between">
+                        <div className=''>
+                            <div className='text-secondary'>
+                                <span>
+                                    <i className='fa fa-calendar'></i>
+
+                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} | <span class="mx-1"> {moment(row.created_at).format("LT")}</span> </span>
+                                </span>
+                            </div>
+                            <div className='d-flex align-items-center text-secondary'>
+                                <h6 className='my-1'>Posted By:<span>{row.full_name}</span></h6>
+                                {/* <i className='fa fa-eye mx-2'></i> */}
+                            </div>
+                        </div>
+                        <div>
+
+
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.category_name}</span> </button>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h5 className='my-1 '>
+                            {row.article_blog_title}
+                        </h5>
+
+
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                marginLeft: 50,
+                maxWidth: 200
+                // width: 400
+            },
+        },
+        {
+            title: "", field: `isPublished`, render: (row) =>
+                <div>
+                    {
+                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                    }
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'right'
+            },
+        },
+
+
+
+        {
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
+                <div class="form-check form-switch mx-2  text-danger">
+                    <form encType="multipart/form-data" method='POST' >
+                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                            value={checkboxStatus}
+
+                            checked={row.isPublished == 1 ? true : false}
+
+                            onChange={(e) => {
+
+                                handlePostApproval(e, row)
+
+                            }} />
+                    </form>
+
+                </div>
+
+                <div className='mx-2 ' onClick={(e) => deleteArticleBlog(e, row.id)}>
+                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                </div>
+
+                <div className='mx-2' onClick={(e) => archivePost(e, row)}>
+
+
+                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
+                    {
+                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+
+
+                    }
+                </div>
+
+
+            </div>,
+            cellStyle: {
+                marginLeft: 50,
+                textAlign: 'right'
+            },
+        },
+    ];
+
+
+
+    //delete functionality start 
+
+    const deleteArticleBlog = (e, id) => {
         e.preventDefault();
         const thisClicked = e.currentTarget;
         //  thisClicked.innerText = "Deleting";
@@ -293,7 +403,7 @@ function ViewEventPayment() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-event/${id}`).then(res => {
+                axios.post(`/api/delete-article-blogs/${id}`).then(res => {
                     if (res.data.status === 200) {
                         thisClicked.closest("tr").remove();
                         //   swal("Success", res.data.message, "success");
@@ -307,170 +417,65 @@ function ViewEventPayment() {
             }
         })
 
-
     }
 
 
-    const columns = [
-        // {
-        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
-
-        //     width: "40 !important"
-        // },
 
 
-
-        {
-            title: '  ', field: ``
-
-            ,
-            render: (row) =>
-
-                <div className=''>
-
-                        <div className='my-0 py-0 d-flex justify-content-end '>
+    const [postFiltering, setPostFiltering] = useState('all');
 
 
-                            <div className='d-flex paid-div mt-5 '>
-                                <button className='paid-btn me-5'>
-                                    Paid
-                                </button>
-                                <div style={{fontSize: 22}}>
-                                    <span className='ms-5'><i class="fa-solid fa-dollar-sign"></i> 500</span>
-                                </div>
-                            </div>
+    // console.log('filtered post val',allBlogArticle)
+    // console.log('filter click check', postFiltering)
+
+
+    // useEffect(() => {
+    //     axios.get(`/api/filter-post/${postFiltering}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallBlogArticle(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
+
+    // }, [postFiltering])
 
 
 
+    // searchPostByRadioButton functionality
+    const [searchRadioButtonValue, setSearchRadioButtonValue] = useState('');
+    const [searchInputValue, setSearchInputValue] = useState('');
+    console.log('search input val', searchInputValue)
+    console.log('radio button seracg ', searchRadioButtonValue)
 
+    const searchPostByRadioButton = (e, searchBy) => {
 
-                            {/* <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
+        // e.preventDefault();
+        console.log('seacrh by', searchBy)
+        setSearchRadioButtonValue(searchBy)
 
-                                <div className='text-secondary'>
-                                    <Link to={`/edit-events/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
-
-                                </div>
-
-
-                                <div className='mx-2 ' onClick={(e) => deleteEvent(e, row.id)}>
-                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
-                                </div>
-
-
-                                <div className='text-secondary mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                  
-
-                                    {
-                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
-                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                                : ''
-
-                                    }
-
-                                </div>
-
-                                <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                    {
-                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
-                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                                : ''
-
-                                    }
-
-
-
-                                </div> 
-
-
-                                <div className='text-secondary mx-2'>
-
-                                    <div onClick={(e) => {
-                                        openViewEventPostModal(e, row)
-                                    }
-                                    }>
-                                        <i className='fa fa-eye  '  >
-                                        </i>
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>*/}
-
-
-                        </div>
-                    
-
-                    <div class="tooops   " >
-                        <div className='d-flex'>
-                            <div style={{ color: '#777777' }}>
-                                <i className='fa fa-calendar'></i>
-                                <span className='mx-2'>{row.event_date}</span>
-                            </div>
-                            <div>
-                                <button className='membership-btnn'>
-                                    <span>Membership fees</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 style={{fontWeight: 400}}>Md. Fazla Arafat</h5>
-                        </div>
-                        <div>
-                            <p>Alumni</p>
-                        </div>
-                        <div>
-                            <p style={{ marginTop: "-15px", color:"rgb(87, 87, 87)" }}>Other information</p>
-                        </div>
-
-
-
-                    </div>
-
-
-                </div>
-
-            ,
-
-
-
-
-            cellStyle: {
-                // marginLeft: 50,
-                // maxWidth: 300,
-                // width: 600
-            },
-        },
-
-
-
-    ];
-
-
-
-
-
-
-
-
-
-    const [eventPostFiltering, seteventPostFiltering] = useState('all');
-
-    // console.log('filtered post val',allEvents)
-    console.log('filter click check', eventPostFiltering)
-
+    }
 
     useEffect(() => {
-        axios.get(`/api/filter-event-posts/${eventPostFiltering}`).then(res => {
+
+        axios.get(`/api/filter-post-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+            console.log('reesssssssssssss', res)
             if (res.data.status == 200) {
-                setallEvents(res.data.event_posts);
+                setallBlogArticle(res.data.posts);
                 setLoading(false);
             }
         })
+        // }
+        console.log('useefefct run')
 
-    }, [eventPostFiltering])
+    }, [searchRadioButtonValue, searchInputValue])
+
+
+
+
+
+
+
+    //selection tracking
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -509,10 +514,10 @@ function ViewEventPayment() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`/api/delete-multiple-event-posts/${selectedRowsIds}`).then(res => {
+                axios.post(`/api/delete-multiple-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllEvents(res.data)
-                        // window.location.reload();
+                        setRenderAllBlogArticle(res.data)
+                        window.location.reload();
                     }
                 });
                 Swal.fire(
@@ -527,68 +532,53 @@ function ViewEventPayment() {
     }
 
 
+    const handleAllBlogArticletatus = (e) => {
 
-
-
-    /////slider code ////////////
-
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        // cssEase: "linear",
-        // variableWidth: 90,
-
-
-        responsive: [{
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2
-            }
-        }]
-    };
-
-    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
-    console.log('checking', allImagesFromDatabase)
-
-
-    const handleAllEventStatus = (e) => {
-        if (e.target.value == 'archive') {
-            axios.put(`/api/archive-all-events-by-update/${selectedRowsIds}`).then(res => {
+        if (e.target.value === 'archive') {
+            axios.put(`/api/archive-all-posts-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
-                    // window.location.reload();
-                    setallEvents(res.data.allEvents)
-                    setRenderAllEvents(res.data);
+                    window.location.reload();
+                    setallBlogArticle(res.data.posts)
+                    setRenderAllBlogArticle(res.data);
 
                 }
 
             })
         }
-        else if (e.target.value == 'active') {
-            axios.put(`/api/active-all-events-by-update/${selectedRowsIds}`).then(res => {
+        else if (e.target.value === 'active') {
+            axios.put(`/api/active-all-posts-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
-                    // window.location.reload();
-                    setallEvents(res.data.allEvents)
-                    setRenderAllEvents(res.data);
+                    window.location.reload();
+                    setallBlogArticle(res.data.posts)
+
+                    setRenderAllBlogArticle(res.data);
 
                 }
 
             })
+        }
+        else if (e.target.value === 'pending') {
+            axios.put(`/api/pending-all-posts-by-update/${selectedRowsIds}`).then(res => {
+                if (res.data.status == 200) {
+
+                    // Swal.fire(res.data.message, '', 'success')
+                    window.location.reload();
+                    setallBlogArticle(res.data.posts)
+
+                    setRenderAllBlogArticle(res.data);
+
+                }
+
+            })
+        }
+        else {
+
         }
     }
-
-
-    const [value, setValue] = React.useState([null, null]);
-
 
 
     return (
@@ -604,42 +594,44 @@ function ViewEventPayment() {
 
                         <div className='container-fluid'>
 
-                            <section className='view-event-header d-flex justify-content-center rounded-3 mt-3 pt-4 pb-4'>
-                                <div class="col-5 ">
-                                    <div class="view-event-header-form  px-3 ">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search by event name, date etc." aria-label="Username" aria-describedby="basic-addon1" />
+                            <div className='post-top-con border rounded mt-2'>
 
-                                            <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
+                                <div class="post-top-con-left  p-4 bg-success d-flex justify-content-center">
+
+                                    <div className='mb-3 input-search mt-3 bg-success'>
+                                        <div class="input-group py-2">
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
+
+                                            <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
+
                                     </div>
 
+                                    {/* <div className='text-center  mt-4'>
+                                        <div className='shadow-sm mx-3 border py-2 px-2  cat-btn mb-1 ' onClick={openAddPostCategoryModal}>
+                                            <h6 className='mt-1' > + Category</h6>
+
+                                        </div>
+                                        <span className=''> View All Categories </span>
+                                    </div> */}
+
+
+
+
+
+
                                 </div>
-
-                            </section>
-
+                               
 
 
+
+                            </div>
 
                             <div className="col-md-12 mt-3">
-                                <div className='showi-div mb-3'>
-                                    <div>
-                                        <h5 style={{ fontWeight: 400 }}>Showing</h5>
-                                        <span><i class="fa-solid fa-calendar-days"></i>12 Sept, 2022 - 20 Sept, 2022</span>
-                                    </div>
-                                    <div>
-                                        <button className='export-btn'>
-                                            <span><i className="fa-sharp fa-solid fa-file-invoice me-1"></i>EXPORT</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* <div className='mb-3' style={{ position: 'relative', zIndex: '9999' }}>
-
-                                   asd
-                                </div> */}
+                                <h5 className=''>ALL Article/Blog</h5>
 
                                 <div className="card bg-white">
+
 
                                     <div className="card-body ">
 
@@ -647,16 +639,17 @@ function ViewEventPayment() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${eventPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => seteventPostFiltering('all')}>All</h6>
-                                                <h6 className={`${eventPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(1)}>Membership</h6>
-                                                <h6 className={`${eventPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering(0)}>Events</h6>
-                                                <h6 className={`${eventPostFiltering === 'upcoming_filter' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('upcoming_filter')}>Annual fees</h6>
-                                                <h6 className={`${eventPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('archive')}>Donation</h6>
-                                                <h6 className={`${eventPostFiltering === 'pendings' ? 'filterTrack' : ""} mx-3`} onClick={() => seteventPostFiltering('pendings')}>Pendings</h6>
+                                                <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
+                                                <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
+                                                <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 
                                             <div className='d-flex align-items-center'>
+
+
+
                                                 {
                                                     selectedRowsLength > 1 &&
                                                     <>
@@ -671,9 +664,10 @@ function ViewEventPayment() {
                                                         </div>
 
                                                         <div className='mx-2'>
-                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllEventStatus}>
+                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllBlogArticletatus}>
                                                                 <option selected>Action</option>
                                                                 <option value="active">Active</option>
+                                                                <option value="pending">Pending</option>
                                                                 <option value="archive">Archive</option>
                                                             </select>
                                                         </div>
@@ -684,30 +678,25 @@ function ViewEventPayment() {
                                                 }
 
 
-                                                <div className='mx-3'>
+                                            </div>
 
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border' noti-btnn> <span><i class="fa-solid fa-message me-1"></i></span>NOTIFY </button>
+                                            <div className='mx-3'>
 
-                                                    <button className='btn px-4 rounded-pill shadow-sm border delete-btnn'> <span><i class="fa-solid fa-trash me-1"></i></span>DELETE </button>
 
-                                                </div>
-
+                                                <Link to="/create-blog-article"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
 
                                             </div>
+
 
                                         </div>
                                         <hr />
 
                                         <MaterialTable
-                                            //        components={{
-                                            //         Container: props => <Paper {...props} />
-                                            //    }}
                                             columns={columns}
-                                            data={allEvents}
+                                            data={allBlogArticle}
                                             isLoading={loading === true ? true : false}
                                             onSelectionChange={selectionCheck}
-
 
                                             options={{
                                                 search: true,
@@ -727,139 +716,15 @@ function ViewEventPayment() {
 
                                             }}
 
-
-
-
                                         />
 
 
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-                            {/* add post category modal */}
-                            <Modal
-                                isOpen={viewJobPostModalIsOpen}
-                                onRequestClose={closeViewJobPostModal}
-                                style={customStyles1}
-                                contentLabel="Example Modal"
-                            >
-
-                                <div className='card-body '>
-                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
-
-                                    <h5 className=""> Full Event View</h5>
-                                    <hr />
-
-
-
-                                    <div className="row">
-
-                                        <div className="col-12 ">
-
-                                            <div className='col-6 mx-auto'>
-
-                                                <Slider {...settings}>
-
-                                                    {
-                                                        allImagesFromDatabase.map((item, i) => {
-                                                            return (
-                                                                <>
-                                                                    <div class="rounded-3">
-                                                                        <img src={`${global.img_url}/images/${item.trim()}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
-                                                                    </div>
-                                                                </>
-                                                            )
-                                                        })
-                                                    }
-
-
-
-
-
-                                                </Slider>
-
-                                            </div>
-
-
-                                            <div className='d-flex justify-content-between mt-3'>
-                                                <div className='mt-3'>
-                                                    <h5>{viewEventDescription.event_title}</h5>
-                                                    <div className='d-flex'>
-                                                        <div>
-                                                            <i class="fas fa-calendar"></i>
-                                                            <span className='mx-2'>Event Date: {viewEventDescription.event_date}</span>
-                                                        </div>
-                                                        <div className='mx-3'>
-                                                            <i class="fas fa-clock"></i>
-                                                            <span className='mx-2'>Event Time: {moment(viewEventDescription.event_time).format("LT")}</span>
-                                                        </div>
-                                                    </div>
-
-
-
-
-
-
-
-                                                </div>
-
-                                                <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type_name}</span> </button>
-
-
-                                                </div>
-                                            </div>
-
-                                            <div className='d-flex justify-content-between mt-2'>
-                                                <div className=''>
-
-                                                    Event Fee: <span>{viewEventDescription.event_fee}</span>
-
-                                                </div>
-
-                                                <div className=''>
-                                                    Contact Persons:
-
-                                                    <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
-
-                                                        {viewEventDescription.dept_name}
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewEventDescription.event_description }}
-                                            />
-
-
-
-
-
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
-                            </Modal>
-
-
-
-
-
                         </div>
 
                     </div>
-
-
 
 
 
