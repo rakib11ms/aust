@@ -28,6 +28,9 @@ import NoRouteMatch from './BackendComponents/NoRouteMatch';
 import BlogArticleConfiguration from './BackendComponents/BlogArticle/BlogArticleConfiguration';
 import CreateBlogArticle from './BackendComponents/BlogArticle/CreateBlogArticle';
 import ViewBlogArticle from './BackendComponents/BlogArticle/ViewArticleBlog';
+import CreateBanner from './BackendComponents/Banner/CreateBanner';
+import ViewAllBanner from './BackendComponents/Banner/ViewBanner';
+import EditBlogArticle from './BackendComponents/BlogArticle/EditBlogArticle';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -168,8 +171,14 @@ function App() {
 
           <Route path="view-blog-article" element={<ViewBlogArticle />}></Route>
           <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>
+          <Route path="edit-blog-article/:id" element={<EditBlogArticle />}></Route>
           <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
 
+
+
+          <Route path="create-banner" element={<CreateBanner />}></Route>
+          <Route path="view-all-banner" element={<ViewAllBanner />}></Route>
+          {/* <Route path="edit-banner/:id" element={<EditAdvertisement />}></Route> */}
 
 
 

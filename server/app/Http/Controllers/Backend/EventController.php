@@ -72,6 +72,7 @@ class EventController extends Controller
         $event->contact_person = $request->contact_person;
         // $event->event_date = date('d-m-Y', strtotime($request->event_date));
         $event->event_date = $request->event_date;
+        $event->show_banner = $request->show_banner;
 
         $event->payment_type = $request->payment_type;
 
@@ -195,6 +196,7 @@ class EventController extends Controller
         $event->event_description = $request->event_description;
         $event->contact_person = $request->contact_person;
         $event->event_date = $request->event_date;
+        $event->show_banner = $request->show_banner;
 
         $event->posted_by = $request->posted_by;
         $event->event_time = $request->event_time;
@@ -381,23 +383,5 @@ class EventController extends Controller
         }
     }
 
-/////mobile banner event latest one/////////////
-    public function latestEventMobileBanner(){
 
-                $first = DB::table('aussta_events')->where('isArchived',0)->get();
-                $second = DB::table('advertisements')->where('isPublished',1)->get();
-
-                // $p = $first->unionAll($second->getQuery());
-                $merged = $second->merge($first); // Contains foo and bar.
-
-
-   
-
-               return response()->json([
-                'status' => 200,
-                // 'first' => $first,
-                // 'second'=>$second,
-                'merged'=>$merged
-            ]);
-    }
 }

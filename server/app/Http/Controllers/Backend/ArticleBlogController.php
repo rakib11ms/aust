@@ -64,13 +64,13 @@ class ArticleBlogController extends Controller
 
        public function edit($id)
     {
-        $post = ArticleBlog::find($id);
+        $article_blog = ArticleBlog::find($id);
 
-        if ($post)
+        if ($article_blog)
         {
             return response()->json([
                 'status' => 200,
-                'post' => $post,
+                'article_blog' => $article_blog,
             ]);
 
         }else{

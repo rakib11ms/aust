@@ -15,6 +15,7 @@ function Sidebar() {
     const [isActive6, setIsActive6] = useState(true);
     const [isActive7, setIsActive7] = useState(true);
     const [isActive8, setIsActive8] = useState(true);
+    const [isActive9, setIsActive9] = useState(true);
     console.log('is active cheking', isActive)
 
 
@@ -240,7 +241,7 @@ function Sidebar() {
                             {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
-                                    <li>
+                                        <li>
                                             <Link to="/view-blog-article" className='text-light text-form '>View Article/Blog</Link>
 
                                         </li>
@@ -248,7 +249,7 @@ function Sidebar() {
                                             <Link to="/create-blog-article" className='text-light text-form '>Add Article/Blog</Link>
 
                                         </li>
-                                     
+
                                         <li>
                                             <Link to="/blog-article-configuration" className='text-light text-form '>Configuration</Link>
 
@@ -376,13 +377,14 @@ function Sidebar() {
                             }
                         </div>
                     </div>
+
                     <div className=''>
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive8(!isActive8)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i class="fa-solid fa-rectangle-ad mt-1"></i>
 
-                                <h6 className='mx-2 mt-3'>Settings</h6>
+                                <h6 className='mx-2 mt-3'>Banner</h6>
 
                             </div>
                             <div className='menu-content text-white mx-2 '>
@@ -396,6 +398,41 @@ function Sidebar() {
 
                             {
                                 isActive8 && <>
+                                    <ul className='text-light mx-4 '>
+                                    <li class="mt-1">
+                                            <Link to='/view-all-banner' className='text-light text-form'>View Banner</Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/create-banner' className='text-light text-form'>Create</Link>
+                                        </li>
+                              
+
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive9(!isActive9)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i class="fa-solid fa-rectangle-ad mt-1"></i>
+
+                                <h6 className='mx-2 mt-3'>Settings</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive9 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive9 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
                                             <Link to='/settings' className='text-light text-form' >Get In <EastIcon /></Link>

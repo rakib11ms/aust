@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\ArticleBlogCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
 
 use App\Http\Controllers\Backend\ArticleBlogController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
@@ -180,9 +181,19 @@ Route::delete('/delete-multiple-event-posts/{id}', [EventController::class, 'del
 Route::put('/active-all-events-by-update/{id}', [EventController::class, 'activeAllEventByUpdate']);
 
 
+
+/////banner mobile /////////////////
+
+Route::get('/all-banner', [BannerController::class, 'index']);
+Route::post('/add-banner', [BannerController::class, 'store']);
+Route::get('/edit-banner/{id}', [BannerController::class, 'edit']);
+Route::post('/delete-banner/{id}', [BannerController::class, 'destroy']);
+Route::post('/update-banner/{id}', [BannerController::class, 'update']);
+Route::delete('/delete-multiple-banner/{id}', [BannerController::class, 'deleteMultipleBanner']);
+
 /////mobile banner event latest one/////////////
 
-Route::get('/latest-event-mobile-banner', [EventController::class, 'latestEventMobileBanner']);
+Route::get('/latest-event-mobile-banner', [BannerController::class, 'latestEventMobileBanner']);
 
 
 //web upcoming event,archive post (tab)filtering

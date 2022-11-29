@@ -359,6 +359,10 @@ function ViewBlogArticle() {
 
                 </div>
 
+                <div className='mx-2'>
+                    <Link to={`/edit-blog-article/${row.id}`}> <i class="fa-solid fa-edit icon-table-archive" ></i></Link>
+                </div>
+
                 <div className='mx-2 ' onClick={(e) => deleteArticleBlog(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>

@@ -58,6 +58,7 @@ function CreateEvent() {
     const [payment_type, setpayment_type] = useState(0);
     const [showMobile, setshowMobile] = useState(1);
     const [showDesktop, setshowDesktop] = useState(1);
+    const [showBanner, setshowBanner] = useState(0);
 
     const [contactPerson, setcontactPerson] = React.useState([]);
     // const [contactPersonId, setcontactPersonId] =useState([]);
@@ -614,6 +615,10 @@ function CreateEvent() {
                                                                     <i class="fa-solid fa-globe"></i>
                                                                     <span className='mx-2'>Show  Web</span>
                                                                 </div>
+                                                                <div className='mt-4'>
+                                                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                                    <span className='mx-2'>Show  Banner</span>
+                                                                </div>
 
                                                                 <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
@@ -663,8 +668,8 @@ function CreateEvent() {
                                                                         </LocalizationProvider>
                                                                     </Stack> */}
 
-                                                                    <input type='date' class="col-12"  value={event_date} onChange={(e)=>setevent_date(e.target.value)}
-/>
+                                                                    <input type='date' class="col-12" value={event_date} onChange={(e) => setevent_date(e.target.value)}
+                                                                    />
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <div class="form-check">
@@ -702,7 +707,7 @@ function CreateEvent() {
 
 
 
-                                                                <div class="my-3">
+                                                                <div class="my-4">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -735,6 +740,24 @@ function CreateEvent() {
                                                                         <label class="form-check-label" for="flexSwitchCheckDefault">Yes</label>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="my-3">
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"  onChange={
+                                                                            (e) => {
+                                                                                if (e.target.checked) {
+                                                                                    setshowBanner(1)
+                                                                                }
+                                                                                else {
+                                                                                    setshowBanner(0)
+
+                                                                                }
+                                                                            }
+                                                                        } />
+                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner==0?"No":"Yes"}</label>
+                                                                    </div>
+                                                                </div>
+
 
                                                                 <div class="">
                                                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
