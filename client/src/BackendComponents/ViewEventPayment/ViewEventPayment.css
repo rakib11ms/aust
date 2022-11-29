@@ -151,31 +151,47 @@
     cursor: pointer;
 }
 
-.membership-sec {
-    margin-left: 30px;
+.showi-div{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+.export-btn{
+    background-color: black;
+    color: rgb(214, 214, 214);
+    padding: 8px 17px 8px 17px;
+    border-radius: 20px;
 }
 
-.paid-sec {
-    justify-content: space-around;
-    align-items: center;
+.noti-btnn{
+    color: #cccccc;
+    font-Weight: 450;
+    border-color: #cccccc;
 }
+.delete-btnn{
+    background-color: #FC3B3B;
+    color: #e7e7e7;
+    font-Weight: 450;
+}
+.membership-btnn{
+    background-color:#6eaaf8;
+    padding: 5px 15px 5px 15px;
+    border: none;
+    border-radius: 30px;
+    margin-left: 100px;
+}
+.paid-btn{
+    background-color: #219653;
+    color: rgb(230, 230, 230);
+    border: none;
+    padding: 3px 40px 3px 40px;
+    border-radius: 30px;
+}
+/* .paid-div{
+    margin-top: 20px;
+    border: 1px solid black;
+} */
 
-.btn-unpaid {
-    background-color: #FF4242;
-    color: white;
-    padding: 5px 30px 5px 30px;
-    font-Weight: 400;
-    margin-right: 0px;
-    border-start-start-radius: 15px;
-}
-
-.btn-noti {
-    background-color: #828282;
-    color: white;
-    padding: 5px 30px 5px 30px;
-    font-Weight: 400;
-    border-end-end-radius: 15px;
-}
 
 @media only screen and (min-width: 1380px){
     .membership-sec{
