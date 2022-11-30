@@ -47,6 +47,7 @@ class JobPostController extends Controller
 
            $post->company_name = $request->company_name;
            $post->job_title = $request->job_title;
+           // $post->job_sub_title = $request->job_sub_title;
            $post->job_type = $request->job_type;
            $post->job_description = $request->job_description;
            $post->job_link = $request->job_link;
@@ -111,6 +112,7 @@ class JobPostController extends Controller
            $post->job_description = $request->job_description;
            $post->job_link = $request->job_link;
            // $post->image = $request->image;
+           // $post->job_sub_title = $request->job_sub_title;
 
            $post->posted_by = $request->posted_by;
            // $post->date = $request->date;
