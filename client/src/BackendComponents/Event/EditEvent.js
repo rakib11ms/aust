@@ -46,7 +46,6 @@ function EditEvent() {
 
 
 
-
     ///add event functionality start//
     const [event_time, setevent_time] = React.useState(null);
     const [event_date, setevent_date] = React.useState(null);
