@@ -58,6 +58,7 @@ function EditEvent() {
     const [showDesktop, setshowDesktop] = useState();
 
     const [contactPerson, setcontactPerson] = React.useState([]);
+    const [showBanner, setshowBanner] = useState(0);
 
 
 
@@ -167,6 +168,8 @@ function EditEvent() {
         formData.append("priority", priority);
         formData.append("contact_person", result);
         formData.append("event_fee", event_fee);
+        formData.append("showBanner", showBanner);
+
         formData.append("event_description", content1);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -262,6 +265,8 @@ function EditEvent() {
                 setpriority(res.data.event.priority)
                 setAllImagesfromDatabase(res.data.event.image.split(','))
                 setcontactPerson(res.data.users)
+                setshowBanner(res.data.banner.showBanner)
+
                 // setcontactPerson(res.data.event.contact_person.split(','))
                 // setRenderAllEventTypes(res.data)
                 // setLoading(false);
@@ -454,7 +459,10 @@ function EditEvent() {
                                                                     <i class="fa-solid fa-globe"></i>
                                                                     <span className='mx-2'>Show  Web</span>
                                                                 </div>
-
+                                                                <div className='mt-4'>
+                                                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                                    <span className='mx-2'>Show  Banner</span>
+                                                                </div>
                                                                 <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Priority</span>
@@ -574,6 +582,24 @@ function EditEvent() {
                                                                             }
                                                                         } />
                                                                         <label class="form-check-label" for="flexSwitchCheckDefault">Yes</label>
+                                                                    </div>
+                                                                </div>
+
+                                                                
+                                                                <div class="my-3">
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"  checked={showBanner==1}onChange={
+                                                                            (e) => {
+                                                                                if (e.target.checked) {
+                                                                                    setshowBanner(1)
+                                                                                }
+                                                                                else {
+                                                                                    setshowBanner(0)
+
+                                                                                }
+                                                                            }
+                                                                        } />
+                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner==0?"No":"Yes"}</label>
                                                                     </div>
                                                                 </div>
 

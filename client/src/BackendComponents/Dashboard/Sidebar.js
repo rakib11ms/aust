@@ -118,16 +118,16 @@ function Sidebar() {
                                             <Link to="/view-all-users" className='text-light text-form '>View All Users</Link>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Create User</a>
+                                            <a href='#' className='text-light text-form'>Create User</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Aproval List</a>
+                                            <a href='#' className='text-light text-form'>Aproval List</a>
                                         </li>
                                         <li>
                                             <Link to="/role-management" className='text-light text-form '>Role Management</Link>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>E-Resister Users </a>
+                                            <a href='#' className='text-light text-form'>E-Resister Users </a>
                                         </li>
                                     </ul>
                                 </>
@@ -137,7 +137,7 @@ function Sidebar() {
                     </div>
                     <div className=''>
                         {/* {`menu-name  d-flex justify-content-between align-items-center ${isActive2?'px-2 menu-left rounded-2':'' } `}  */}
-                        <div className={`menu-name  d-flex justify-content-between align-items-center`} onClick={() => setIsActive2(!isActive2)}>
+                        {/* <div className={`menu-name  d-flex justify-content-between align-items-center`} onClick={() => setIsActive2(!isActive2)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i class="fa-solid fa-newspaper d-block"></i>
 
@@ -151,8 +151,8 @@ function Sidebar() {
                                     <b className=''>+</b>
                                 }
                             </div>
-                        </div>
-                        <div class="menu-content ">
+                        </div> */}
+                        {/* <div class="menu-content ">
                             {
                                 isActive2 && <>
                                     <ul className='text-light mx-4 '>
@@ -172,7 +172,7 @@ function Sidebar() {
                                 </>
 
                             }
-                        </div>
+                        </div> */}
                     </div>
                     <div className=''>
 

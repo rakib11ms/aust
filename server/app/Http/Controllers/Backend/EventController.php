@@ -72,7 +72,7 @@ class EventController extends Controller
         $event->contact_person = $request->contact_person;
         // $event->event_date = date('d-m-Y', strtotime($request->event_date));
         $event->event_date = $request->event_date;
-        $event->show_banner = $request->show_banner;
+        $event->showBanner = $request->showBanner;
 
         $event->payment_type = $request->payment_type;
 
@@ -196,7 +196,7 @@ class EventController extends Controller
         $event->event_description = $request->event_description;
         $event->contact_person = $request->contact_person;
         $event->event_date = $request->event_date;
-        $event->show_banner = $request->show_banner;
+        $event->showBanner = $request->showBanner;
 
         $event->posted_by = $request->posted_by;
         $event->event_time = $request->event_time;

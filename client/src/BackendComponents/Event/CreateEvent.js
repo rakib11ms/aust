@@ -182,6 +182,7 @@ function CreateEvent() {
         formData.append("priority", priority);
         formData.append("contact_person", result);
         formData.append("event_fee", event_fee);
+        formData.append("showBanner", showBanner);
         formData.append("payment_type", payment_type);
         formData.append("event_description", content1);
         multipleImageFiles.files.forEach(file => {
