@@ -84,38 +84,35 @@ class ArticleBlogController extends Controller
 
     public function update(Request $request,$id){
 
-             $post=ArticleBlog::find($id);
+             $article_blog=ArticleBlog::find($id);
 
-          
+               if($request->hasFile('article_blog_image')){
+            $file=$request->file('article_blog_image');
+            $extension=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extension;
+            $file->move('images/',$filename);
+            $article_blog->article_blog_image =$filename ;
+         } 
 
- if ($files = $request->file('image')) {
-            $names = $files->getClientOriginalName();
-            $name = rand(111, 99999).$names;
-            $files->move('images/', $name);
-        }
-           
-            if($files!=null){
-             $post->image=$name;
 
-            }
 
-            $post->job_title = $request->job_title;
-           $post->job_type = $request->job_type;
-           $post->job_description = $request->job_description;
-           $post->job_link = $request->job_link;
-           // $post->image = $request->image;
+           $article_blog->category_id = $request->category_id;
+           $article_blog->subcategory_id = $request->subcategory_id;
+           $article_blog->article_blog_title = $request->article_blog_title;
+           $article_blog->posted_by = $request->posted_by;
+           $article_blog->updated_by = $request->updated_by;
+           $article_blog->article_blog_description = $request->article_blog_description;
 
-           $post->posted_by = $request->posted_by;
-           // $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
-           $post->isArchived = $request->isArchived;
-           $post->application_deadline = $request->application_deadline;
-            $post->update();
+            $article_blog->save();
+
+                $count = ArticleBlog::orderBy('id','desc')->get()->count();
 
  return response()->json([
                 'status' => 200,
-                'message' => 'Job Post Updated Successfully',
-            ]);   
+                 'count'=>$count,
+                 'article_blog'=>$article_blog ,
+                'message' => 'Article Blog Added Successfully',
+            ]);  
     }
 
 

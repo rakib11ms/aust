@@ -42,22 +42,22 @@ function ViewBlogArticle() {
 
     const handlePostApproval = (e, id) => {
 
+        // alert(e.target.checked)
+
         if (e.target.checked === true) {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
             formData.append('isArchived', id.isArchived);
-            // formData.append('_method', 'PUT');
+            formData.append('category_id', id.category_id);
+            formData.append('subcategory_id', id.subcategory_id);
+            formData.append('article_blog_title', id.article_blog_title);
+            formData.append('article_blog_description', id.content1);
+            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('posted_by', 1);
+    
 
-            formData.append('post_title', id.post_title);
-            formData.append('post_type', id.post_type);
-            formData.append('post_description', id.post_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('date', id.date);
-            formData.append('image', id.image);
-            formData.append('tag', id.tag);
-
-            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
@@ -83,18 +83,15 @@ function ViewBlogArticle() {
             const formData = new FormData();
 
             formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('post_title', id.post_title);
-            formData.append('post_type', id.post_type);
-            formData.append('post_description', id.post_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('date', id.date);
-            formData.append('image', id.image);
-            formData.append('tag', id.tag);
             formData.append('isArchived', id.isArchived);
+            formData.append('category_id', id.category_id);
+            formData.append('subcategory_id', id.subcategory_id);
+            formData.append('article_blog_title', id.article_blog_title);
+            formData.append('article_blog_description', id.content1);
+            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('posted_by', 1);
 
-            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
