@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\AdvertisementMultipleImage;
 class AdvertisementController extends Controller
 {
     public function index()
@@ -58,17 +58,22 @@ class AdvertisementController extends Controller
         // dd($request->all());
 
         $advertisement = new Advertisement();
-
-
-        foreach ($request->file('image') as $image) {
+   foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('images/', $upload_image_name);
+
+            // $advertisement_multiple_table=new AdvertisementMultipleImage();
+            // $advertisement_multiple_table->advertisement_id=$advertisement->id;
+            // $advertisement_multiple_table->image=$upload_image_name;
+            // $advertisement_multiple_table->save();
             $name[] = $upload_image_name;
 
             $advertisement->image =  implode(', ', $name);
             // $event->save();   
         }
+
+
 
 
         $advertisement->advertisement_title = $request->advertisement_title;
@@ -95,7 +100,7 @@ class AdvertisementController extends Controller
         $advertisement->redirect_link = $request->redirect_link;
         $advertisement->save();
 
-
+   
 
         return response()->json([
             'status' => 200,

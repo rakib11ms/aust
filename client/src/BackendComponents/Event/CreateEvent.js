@@ -24,10 +24,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
-// import Checkbox from '@mui/material/Checkbox';
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
-// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-
 function CreateEvent() {
 
     const editor1 = useRef(null)
@@ -43,7 +39,8 @@ function CreateEvent() {
 
     // console.log('all users check', allUsers)
 
-
+    const [createEventErrorList, setCreateEventErrorList] = useState('');
+    console.log('error', createEventErrorList)
 
     const [clickedRender, setClickedRender] = useState(false)
 
@@ -219,11 +216,11 @@ function CreateEvent() {
                 // setPicture('');
                 // document.getElementById('job_post_logo').value = "";
             }
-            // else if (res.data.status == 400) {
-            //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
-            //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+            else if (res.data.status == 400) {
+                setCreateEventErrorList(res.data.errors);
+                setClickedRender(false)
 
-            // }
+            }
         })
 
     }
@@ -385,8 +382,8 @@ function CreateEvent() {
 
                                                     <div class="input-group mb-3">
 
-                                                        <select class="form-select" aria-label="Default select example" onChange={handleInputChange} value={eventState.event_type_id} name="event_type_id">
-                                                            <option selected>Choose</option>
+                                                        <select class="form-select" aria-label="Default select example" onChange={handleInputChange} value={eventState.event_type_id} name="event_type_id" required>
+                                                            <option selected value="" disabled>Choose</option>
 
                                                             {
                                                                 allEventTypes.map((item, i) => {
@@ -484,8 +481,10 @@ function CreateEvent() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="event_title" value={eventState.event_title} />
-
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="event_title" value={eventState.event_title} required />
+                                                </div>
+                                                <div class="mt-2">
+                                                    <span class="text-danger ">{createEventErrorList.event_title}</span>
                                                 </div>
 
                                                 <div class="mt-3">
@@ -551,12 +550,15 @@ function CreateEvent() {
 
 
                                                 </div>
+                                                <div class="mt-2">
+                                                    <span class="text-danger ">{createEventErrorList.contact_person}</span>
+                                                </div>
 
                                                 <div class="mt-4">
                                                     <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
+                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles} required
                                                         />
 
                                                         <div className='d-flex mt-2 ' >
@@ -607,7 +609,7 @@ function CreateEvent() {
 
 
 
-                                                                <div className='mt-4'>
+                                                                {/* <div className='mt-4'>
                                                                     <i class="fa fa-mobile" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Show Mobile</span>
                                                                 </div>
@@ -615,9 +617,9 @@ function CreateEvent() {
                                                                 <div className='mt-4'>
                                                                     <i class="fa-solid fa-globe"></i>
                                                                     <span className='mx-2'>Show  Web</span>
-                                                                </div>
+                                                                </div> */}
                                                                 <div className='mt-4'>
-                                                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Show  Banner</span>
                                                                 </div>
 
@@ -669,7 +671,7 @@ function CreateEvent() {
                                                                         </LocalizationProvider>
                                                                     </Stack> */}
 
-                                                                    <input type='date' class="col-12" value={event_date} onChange={(e) => setevent_date(e.target.value)}
+                                                                    <input type='date' class="col-12" value={event_date} onChange={(e) => setevent_date(e.target.value)} required
                                                                     />
                                                                 </div>
                                                                 <div className='mt-4'>
@@ -708,7 +710,7 @@ function CreateEvent() {
 
 
 
-                                                                <div class="my-4">
+                                                                {/* <div class="my-4">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -740,11 +742,11 @@ function CreateEvent() {
                                                                         } />
                                                                         <label class="form-check-label" for="flexSwitchCheckDefault">Yes</label>
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
 
-                                                                <div class="my-3">
+                                                                <div class="my-4">
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"  onChange={
+                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setshowBanner(1)
@@ -754,8 +756,10 @@ function CreateEvent() {
 
                                                                                 }
                                                                             }
-                                                                        } />
-                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner==0?"No":"Yes"}</label>
+                                                                        }
+
+                                                                        />
+                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner == 0 ? "No" : "Yes"}</label>
                                                                     </div>
                                                                 </div>
 
@@ -783,7 +787,7 @@ function CreateEvent() {
 
 
                                         <div class="">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>
+                                            <button type="submit" className='btn btn-success rounded-3 mt-1 px-4 mx-2' onSubmit={handleSubmit}>
 
                                                 SAVE
                                                 {

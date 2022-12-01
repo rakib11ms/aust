@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use App\Notifications\EventNotification;
 use Illuminate\Support\Facades\Auth;
 use Notification;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -48,7 +49,21 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
+        $validator = Validator::make($request->all(),[
+            'event_title' => 'unique:aussta_events',
+            'contact_person'=>'required'
+        ]);
+           
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+
+        }else{
 
         $event = new AusstaEvent();
 
@@ -107,8 +122,8 @@ class EventController extends Controller
         $data = [
             "registration_ids" => $firebaseToken,
             "notification" => [
-                "title" => "hello final title",
-                "body" => "oreeeeeeeeee khaise",
+                "title" => $request->event_title,
+                "body" => date('Y-m-d'),
             ]
         ];
         $dataString = json_encode($data);
@@ -139,6 +154,7 @@ class EventController extends Controller
             'message' => 'Event Created Successfully',
         ]);
     }
+}
 
 
 

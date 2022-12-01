@@ -97,6 +97,7 @@ function EditEvent() {
     console.log('checking', allImagesFromDatabase)
 
     const [multipleImages, setMultipleImages] = useState([]);
+    console.log('images check',multipleImages)
     const [multipleImageFiles, setMultipleImageFiles] = useState({
         files: []
     });
@@ -264,7 +265,7 @@ function EditEvent() {
                 setpriority(res.data.event.priority)
                 setAllImagesfromDatabase(res.data.event.image.split(','))
                 setcontactPerson(res.data.users)
-                setshowBanner(res.data.banner.showBanner)
+                setshowBanner(res.data.event.showBanner)
 
                 // setcontactPerson(res.data.event.contact_person.split(','))
                 // setRenderAllEventTypes(res.data)
@@ -366,7 +367,7 @@ function EditEvent() {
                                                             options={allUsers}
                                                             value={contactPerson}
 
-                                                            getOptionLabel={(option) => option.name}
+                                                            getOptionLabel={(option) => option.full_name}
                                                             // defaultValue={[allUsers[1]]}
                                                             onChange={handlePersonChange}
                                                             // renderOption={(option) => (
@@ -449,7 +450,7 @@ function EditEvent() {
 
 
 
-                                                                <div className='mt-4'>
+                                                                {/* <div className='mt-4'>
                                                                     <i class="fa fa-mobile" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Show Mobile</span>
                                                                 </div>
@@ -457,9 +458,9 @@ function EditEvent() {
                                                                 <div className='mt-4'>
                                                                     <i class="fa-solid fa-globe"></i>
                                                                     <span className='mx-2'>Show  Web</span>
-                                                                </div>
+                                                                </div> */}
                                                                 <div className='mt-4'>
-                                                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Show  Banner</span>
                                                                 </div>
                                                                 <div className='mt-4'>
@@ -550,7 +551,7 @@ function EditEvent() {
 
 
 
-                                                                <div class="my-3">
+                                                                {/* <div class="my-3">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked onChange={
                                                                             (e) => {
@@ -582,12 +583,12 @@ function EditEvent() {
                                                                         } />
                                                                         <label class="form-check-label" for="flexSwitchCheckDefault">Yes</label>
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
 
-                                                                
-                                                                <div class="my-3">
+
+                                                                <div class="my-4">
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"  checked={showBanner==1}onChange={
+                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={showBanner ==1? true:false} onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setshowBanner(1)
@@ -598,7 +599,7 @@ function EditEvent() {
                                                                                 }
                                                                             }
                                                                         } />
-                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner==0?"No":"Yes"}</label>
+                                                                        <label class="form-check-label" for="flexSwitchCheckDefault">{showBanner == 0 ? "No" : "Yes"}</label>
                                                                     </div>
                                                                 </div>
 

@@ -41,10 +41,7 @@ function ViewBlogArticle() {
 
 
     const handlePostApproval = (e, id) => {
-        // setCheckBoxStatus(!checkboxStatus)
-        // console.log('checked check', e.target.checked)
-        // setSpecificPost(id);
-        // const IsApprovedValue = e.target.checked === true ? 1 : 0;
+
         if (e.target.checked === true) {
             const formData = new FormData();
 
@@ -326,7 +323,7 @@ function ViewBlogArticle() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>

@@ -43,9 +43,9 @@ class User extends Authenticatable
     ];
 
      public function userPost() {
-        return $this->hasMany('App\Models\Post','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0);
+        return $this->hasMany('App\Models\Post','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
     }
      public function jobPost() {
-        return $this->hasMany('App\Models\jobPost','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0);
+        return $this->hasMany('App\Models\jobPost','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
     }
 }

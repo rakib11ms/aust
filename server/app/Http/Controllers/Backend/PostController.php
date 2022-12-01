@@ -18,10 +18,10 @@ class PostController extends Controller
                 $total_active_posts = Post::where('isPublished',1)->orderBy('id','desc')->get()->count();
                 $total_pending_posts = Post::where('isPublished',0)->orderBy('id','desc')->get()->count();
 
-         // $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->select('posts.*','post_types.*')->orderBy('posts.id','desc')->get();
 
 
-         $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+         // $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
 
 
 
