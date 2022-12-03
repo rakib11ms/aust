@@ -24,7 +24,7 @@ import EditAdvertisement from './BackendComponents/Advertisement/EditAdvertiseme
 import AdminPasswordReset from './Authentication/AdminPasswordReset';
 import AdminPasswordResetForm from './Authentication/AdminPasswordResetForm';
 
-import NoRouteMatch from './BackendComponents/NoRouteMatch';
+
 import BlogArticleConfiguration from './BackendComponents/BlogArticle/BlogArticleConfiguration';
 import CreateBlogArticle from './BackendComponents/BlogArticle/CreateBlogArticle';
 import ViewBlogArticle from './BackendComponents/BlogArticle/ViewArticleBlog';
@@ -35,6 +35,7 @@ import NoticeNewsConfiguration from './BackendComponents/NoticeNews/NoticeNewsCo
 import CreateNoticeNews from './BackendComponents/NoticeNews/CreateNoticeNews';
 import ViewNoticeNews from './BackendComponents/NoticeNews/ViewNoticeNews';
 import EditBanner from './BackendComponents/Banner/EditBanner';
+import NotFound from './BackendComponents/NotFound/NotFound';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -116,7 +117,6 @@ function App() {
     <>
       <Routes>
 
-        <Route path="*" element={<NoRouteMatch />}></Route>
 
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
 
@@ -200,7 +200,7 @@ function App() {
 
 
         </Route>
-
+        <Route path="*" element={<NotFound />}></Route>
 
 
       </Routes>
