@@ -319,7 +319,6 @@ function ViewAllAdvertisement() {
 
                                     <span class="badge bg-warning text-dark px-2 mx-2 ">{row.last_show_days}</span>
 
-
                                 </span>
                             </div>
 
