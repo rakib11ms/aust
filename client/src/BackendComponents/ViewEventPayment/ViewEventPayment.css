@@ -164,7 +164,7 @@
 }
 
 .noti-btnn{
-    color: #cccccc;
+    color: #535353;
     font-Weight: 450;
     border-color: #cccccc;
 }
@@ -178,7 +178,7 @@
     padding: 5px 15px 5px 15px;
     border: none;
     border-radius: 30px;
-    margin-left: 100px;
+    margin-right: -100px;
 }
 .paid-btn{
     background-color: #219653;

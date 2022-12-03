@@ -277,27 +277,27 @@ function ViewEventPayment() {
                                 <span>
                                     <i className='fa fa-calendar'></i>
 
-                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} | <span class="mx-1"> {moment(row.created_at).format("LT")}</span> </span>
+                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} </span>
                                 </span>
                             </div>
-                            <div className='d-flex align-items-center text-secondary'>
-                                <h6 className='my-1'>Posted By:<span>{row.full_name}</span></h6>
+                            <div className='d-flex align-items-center text-dark'>
+                                <h6 className='my-1'><span>{row.full_name}</span></h6>
                                 {/* <i className='fa fa-eye mx-2'></i> */}
                             </div>
                         </div>
                         <div>
 
 
-                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.category_name}</span> </button>
+                            <button className='membership-btnn'>Membership fees</button>
 
                         </div>
 
                     </div>
 
                     <div>
-                        <h5 className='my-1 '>
-                            {row.article_blog_title}
-                        </h5>
+                        <p className='my-1 '>
+                            Alumni
+                        </p>
 
 
                         <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
@@ -325,10 +325,9 @@ function ViewEventPayment() {
         {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
-                    {
-                        row.isPublished === 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
-                    }
-
+                    <button className='paid-btn'>
+                        Paid
+                    </button>
                 </div>
 
 
@@ -343,36 +342,106 @@ function ViewEventPayment() {
 
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
-                <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
-                            value={checkboxStatus}
 
-                            checked={row.isPublished == 1 ? true : false}
+                <div>
+                    <h5><span><i class="fa-solid fa-dollar-sign"></i></span>5</h5>
+                </div>
 
-                            onChange={(e) => {
 
-                                handlePostApproval(e, row)
+            </div>,
+            cellStyle: {
+                marginLeft: 50,
+                textAlign: 'right'
+            },
+        },
+    ];
+    const columns1 = [
+        // {
+        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
 
-                            }} />
-                    </form>
+        //     width: "40 !important"
+        // },
+        {
+            title: 'ALL  ', field: ``
+
+            ,
+            render: (row) =>
+
+                <div className=''>
+                    <div class="tooops d-flex align-items-center justify-content-between">
+                        <div className=''>
+                            <div className='text-secondary'>
+                                <span>
+                                    <i className='fa fa-calendar'></i>
+
+                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} </span>
+                                </span>
+                            </div>
+                            <div className='d-flex align-items-center text-dark'>
+                                <h6 className='my-1'><span>{row.full_name}</span></h6>
+                                {/* <i className='fa fa-eye mx-2'></i> */}
+                            </div>
+                        </div>
+                        <div>
+
+
+                            <button className='membership-btnn'>Membership fees</button>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <p className='my-1 '>
+                            Alumni
+                        </p>
+
+
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
+
+
+
+                    </div>
+
+
+
 
                 </div>
 
-                <div className='mx-2 ' onClick={(e) => deleteArticleBlog(e, row.id)}>
-                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+            ,
+
+
+
+
+            cellStyle: {
+                marginLeft: 50,
+                maxWidth: 200
+                // width: 400
+            },
+        },
+        {
+            title: "", field: `isPublished`, render: (row) =>
+                <div>
+                    <button className='paid-btn'>
+                        Paid
+                    </button>
                 </div>
 
-                <div className='mx-2' onClick={(e) => archivePost(e, row)}>
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'right'
+            },
+        },
 
 
-                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
-                    {
-                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
 
+        {
+            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
 
-                    }
+                <div>
+                    <h5><span><i class="fa-solid fa-dollar-sign"></i></span>5</h5>
                 </div>
 
 
@@ -386,38 +455,7 @@ function ViewEventPayment() {
 
 
 
-    //delete functionality start 
-
-    const deleteArticleBlog = (e, id) => {
-        e.preventDefault();
-        const thisClicked = e.currentTarget;
-        //  thisClicked.innerText = "Deleting";
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-article-blogs/${id}`).then(res => {
-                    if (res.data.status === 200) {
-                        thisClicked.closest("tr").remove();
-                        //   swal("Success", res.data.message, "success");
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'Your data has been deleted.',
-                    'success'
-                )
-            }
-        })
-
-    }
+   
 
 
 
@@ -478,8 +516,10 @@ function ViewEventPayment() {
     //selection tracking
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
+    const [selectedRowsLength1, setselectedRowsLength1] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
     const [selectedRowsIds, setSelectedRowsIds] = useState([]);
+    const [selectedRowsIds1, setSelectedRowsIds1] = useState([]);
     console.log("selcted rows ids", selectedRowsIds)
 
 
@@ -496,40 +536,23 @@ function ViewEventPayment() {
 
 
     }
+    const selectionCheck1 = (selectedRows1) => {
 
+        setselectedRowsLength1(selectedRows1.length)
 
+        // setSelectedRowsIds(selectedRows)
+        let result = selectedRows1.map(a => a.id);
+        // console.log('result',result)
 
-
-    const deleteAllRecords = (e) => {
-
-        e.preventDefault();
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-multiple-posts/${selectedRowsIds}`).then(res => {
-                    if (res.data.status === 200) {
-                        setRenderAllBlogArticle(res.data)
-                        window.location.reload();
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'All Posts deleted successfully',
-                    'success'
-                )
-            }
-        })
+        setSelectedRowsIds1(result);
 
 
     }
+
+
+
+
+   
 
 
     const handleAllBlogArticletatus = (e) => {
@@ -621,14 +644,24 @@ function ViewEventPayment() {
 
 
                                 </div>
-                               
+
 
 
 
                             </div>
 
                             <div className="col-md-12 mt-3">
-                                <h5 className=''>ALL Article/Blog</h5>
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <h5 className=''>Showing </h5>
+                                        <p><span><i className="fa-solid fa-calendar-days"></i></span> 12 Sept, 2022 - 20 Sept, 2022</p>
+                                    </div>
+                                    <div>
+                                        <button className='export-btn'>
+                                            <span><i className="fa-solid fa-file"></i> EXPORT</span>
+                                        </button>
+                                    </div>
+                                </div>
 
                                 <div className="card bg-white">
 
@@ -640,42 +673,17 @@ function ViewEventPayment() {
                                             <div className='d-flex table-filter-menus align-items-center'>
 
                                                 <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
-                                                <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Membership</h6>
+                                                <h6 className={`${postFiltering === 'events' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('events')}>Events</h6>
+                                                <h6 className={`${postFiltering === 'annual fees' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('annual fees')}> Annual fees</h6>
+                                                <h6 className={`${postFiltering === 'donation' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('donation')}> Donation</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
+
+
 
                                             </div>
 
                                             <div className='d-flex align-items-center'>
-
-
-
-                                                {
-                                                    selectedRowsLength > 1 &&
-                                                    <>
-
-
-                                                        <div className='mx-2 '
-                                                            onClick={
-                                                                deleteAllRecords
-                                                            }
-                                                        >
-                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                        </div>
-
-                                                        <div className='mx-2'>
-                                                            <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllBlogArticletatus}>
-                                                                <option selected>Action</option>
-                                                                <option value="active">Active</option>
-                                                                <option value="pending">Pending</option>
-                                                                <option value="archive">Archive</option>
-                                                            </select>
-                                                        </div>
-
-
-
-                                                    </>
-                                                }
 
 
                                             </div>
@@ -684,7 +692,8 @@ function ViewEventPayment() {
                                             <div className='mx-3'>
 
 
-                                                <Link to="/create-blog-article"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
+                                                <button className='btn px-4 rounded-pill border noti-btnn'> <span><i className="fa-solid fa-message"></i> </span>NOTIFY</button>
+                                                <button className='btn px-4 rounded-pill  border delete-btnn' > <span><i className="fa-solid fa-trash"></i> </span>DELETE</button>
 
                                             </div>
 
@@ -697,6 +706,31 @@ function ViewEventPayment() {
                                             data={allBlogArticle}
                                             isLoading={loading === true ? true : false}
                                             onSelectionChange={selectionCheck}
+
+                                            options={{
+                                                search: true,
+                                                // filtering: true,
+                                                toolbar: false,
+                                                showTitle: false,
+                                                searchFieldAlignment: "left",
+                                                pageSize: 5,
+                                                emptyRowsWhenPaging: false,
+                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                selection: true,
+                                                sorting: false,
+                                                searchFieldAlignment: "left",
+
+                                                // paging:false
+
+
+                                            }}
+
+                                        />
+                                        <MaterialTable
+                                            columns1={columns1}
+                                            data={allBlogArticle}
+                                            isLoading={loading === true ? true : false}
+                                            onSelectionChange={selectionCheck1}
 
                                             options={{
                                                 search: true,
