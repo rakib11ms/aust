@@ -449,14 +449,14 @@ function PostType() {
                                 </span>
                             </div>
                             <div className='d-flex align-items-center text-secondary'>
-                                <h6 className='my-1'>Posted By:<span> rakib </span></h6>
+                                <h6 className='my-1'>Posted By:<span> {row.full_name}</span></h6>
                                 {/* <i className='fa fa-eye mx-2'></i> */}
                             </div>
                         </div>
                         <div>
 
 
-                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.post_type_name}</span> </button>
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.type_name}</span> </button>
 
                         </div>
 

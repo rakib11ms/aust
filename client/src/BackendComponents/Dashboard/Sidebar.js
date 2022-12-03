@@ -52,11 +52,11 @@ function Sidebar() {
     // window.addEventListener('scroll', stickNavbar);
     const [trigger, setTrigger] = useState('')
     console.log('trigger', trigger);
-    const handleTrigger=(val)=>{
+    const handleTrigger = (val) => {
         setTrigger(val)
     }
-    var path=window.location.pathname;
-    console.log('widnow',path)
+    var path = window.location.pathname;
+    console.log('widnow', path)
     return (
         <>
             <div className="">
@@ -136,6 +136,9 @@ function Sidebar() {
                                         <li>
                                             <a href='#' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>E-Resister Users </a>
                                         </li>
+                                        <li>
+                                            <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-warning' : 'text-light '}`} >Configuration</Link>
+                                        </li>
                                     </ul>
                                 </>
 
@@ -207,10 +210,10 @@ function Sidebar() {
                                             <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-warning' : 'text-light '}`}>View All Jobs</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/job-configuration"  className={`text-form ${path == '/job-configuration' ? 'text-warning' : 'text-light '}`}>Job Configuration</Link>
+                                            <Link to="/job-configuration" className={`text-form ${path == '/job-configuration' ? 'text-warning' : 'text-light '}`}>Job Configuration</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/create-job-post"  className={`text-form ${path == '/create-job-post' ? 'text-warning' : 'text-light '}`}>Create a Job</Link>
+                                            <Link to="/create-job-post" className={`text-form ${path == '/create-job-post' ? 'text-warning' : 'text-light '}`}>Create a Job</Link>
                                         </li>
                                         {/* <li className='mt-1'>
                                             <Link to="" className={`text-form ${path == '/view-all-banner' ? 'text-warning' : 'text-light '}`}>Approval List</Link>
@@ -249,16 +252,16 @@ function Sidebar() {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-blog-article"  className={`text-form ${path == '/view-blog-article' ? 'text-warning' : 'text-light '}`}>View Article/Blog</Link>
+                                            <Link to="/view-blog-article" className={`text-form ${path == '/view-blog-article' ? 'text-warning' : 'text-light '}`}>View Article/Blog</Link>
 
                                         </li>
                                         <li>
-                                            <Link to="/create-blog-article"  className={`text-form ${path == '/create-blog-article' ? 'text-warning' : 'text-light '}`}>Add Article/Blog</Link>
+                                            <Link to="/create-blog-article" className={`text-form ${path == '/create-blog-article' ? 'text-warning' : 'text-light '}`}>Add Article/Blog</Link>
 
                                         </li>
 
                                         <li>
-                                            <Link to="/blog-article-configuration"  className={`text-form ${path == '/blog-article-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
+                                            <Link to="/blog-article-configuration" className={`text-form ${path == '/blog-article-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
 
                                         </li>
                                     </ul>
@@ -293,7 +296,7 @@ function Sidebar() {
                                 isActive5 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/post-type'className={`text-form ${path == '/post-type' ? 'text-warning' : 'text-light '}`} >User Posts </Link>
+                                            <Link to='/post-type' className={`text-form ${path == '/post-type' ? 'text-warning' : 'text-light '}`} >User Posts </Link>
                                         </li>
                                         {/* <li>
                                             <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>About</a>
@@ -333,16 +336,16 @@ function Sidebar() {
                                 isActive6 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/create-event'className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Create Event</Link>
+                                            <Link to='/create-event' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Create Event</Link>
                                         </li>
                                         <li>
-                                            <Link to='/view-all-events'className={`text-form ${path == '/view-all-events' ? 'text-warning' : 'text-light '}`}>View All Events</Link>
+                                            <Link to='/view-all-events' className={`text-form ${path == '/view-all-events' ? 'text-warning' : 'text-light '}`}>View All Events</Link>
                                         </li>
                                         <li>
-                                            <Link to='/event-configuration'className={`text-form ${path == '/event-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
+                                            <Link to='/event-configuration' className={`text-form ${path == '/event-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
                                         </li>
                                         <li>
-                                            <Link to='/view-event-payment'className={`text-form ${path == '/view-event-payment' ? 'text-warning' : 'text-light '}`}>View Payment</Link>
+                                            <Link to='/view-event-payment' className={`text-form ${path == '/view-event-payment' ? 'text-warning' : 'text-light '}`}>View Payment</Link>
                                         </li>
 
                                     </ul>
@@ -494,7 +497,7 @@ function Sidebar() {
                                 isActive9 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings'className={`text-form ${path == '/settings' ? 'text-warning' : 'text-light '}`}>Get In <EastIcon /></Link>
+                                            <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-warning' : 'text-light '}`}>Get In <EastIcon /></Link>
                                         </li>
 
                                     </ul>

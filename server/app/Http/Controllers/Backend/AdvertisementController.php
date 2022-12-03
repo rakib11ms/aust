@@ -98,6 +98,22 @@ class AdvertisementController extends Controller
         $advertisement->add_event_page = $request->add_event_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
+
+             if($request->hasFile('advertisement_file')){
+            $file=$request->file('advertisement_file');
+            $extension=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extension;
+            $file->move('images/',$filename);
+            $advertisement->advertisement_file =$filename ;
+         } 
+
+            $advertisement->advertiser_name = $request->advertiser_name;
+            $advertisement->advertiser_phone = $request->advertiser_phone;
+            $advertisement->advertiser_email = $request->advertiser_email;
+            $advertisement->reference_no = $request->reference_no;
+            $advertisement->po_no = $request->advertiser_name;
+
+
         $advertisement->save();
 
    
@@ -190,6 +206,20 @@ class AdvertisementController extends Controller
         $advertisement->add_event_page = $request->add_event_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
+
+                   if($request->hasFile('advertisement_file')){
+            $file=$request->file('advertisement_file');
+            $extension=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extension;
+            $file->move('images/',$filename);
+            $advertisement->advertisement_file =$filename ;
+         } 
+
+            $advertisement->advertiser_name = $request->advertiser_name;
+            $advertisement->advertiser_phone = $request->advertiser_phone;
+            $advertisement->advertiser_email = $request->advertiser_email;
+            $advertisement->reference_no = $request->reference_no;
+            $advertisement->po_no = $request->advertiser_name;
         $advertisement->update();
 
         return response()->json([

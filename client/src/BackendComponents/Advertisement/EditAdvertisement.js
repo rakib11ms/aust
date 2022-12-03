@@ -28,7 +28,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 function EditAdvertisement() {
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
@@ -90,7 +90,11 @@ function EditAdvertisement() {
     const [show_time, setshow_time] = useState("");
     const [show_days, setshow_days] = useState("");
 
-
+    const [advertiser_name, setadvertiser_name] = useState('');
+    const [advertiser_phone, setadvertiser_phone] = useState('');
+    const [advertiser_email, setadvertiser_email] = useState('');
+    const [po_no, setpo_no] = useState('');
+    const [reference_no, setreference_no] = useState('');
     const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
 
     //////////images code ///////////
@@ -173,6 +177,15 @@ function EditAdvertisement() {
     const [payment_type, setpayment_type] = useState();
     const [advertisement_fee, setadvertisement_fee] = useState('');
 
+    ////advertisment file ///
+
+    const [advertisement_file, setadvertisement_file] = useState('')
+    console.log('ad', advertisement_file)
+    const handleAdvertisementFile = (e) => {
+        setadvertisement_file(e.target.files[0])
+    }
+
+
 
     function handleUpdate(e) {
         e.preventDefault();
@@ -192,6 +205,12 @@ function EditAdvertisement() {
         formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
         formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
         formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
+        formData.append("advertiser_name", advertiser_name);
+        formData.append("advertiser_phone", advertiser_phone);
+        formData.append("advertiser_email", advertiser_email);
+        formData.append("reference_no", reference_no);
+        formData.append("po_no", po_no);
+        formData.append("advertisement_file", advertisement_file);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
 
@@ -260,6 +279,12 @@ function EditAdvertisement() {
                 setadvertisement_title(res.data.advertisement.advertisement_title)
                 setadvertisement_fee(res.data.advertisement.advertisement_fee)
                 setpayment_type(res.data.advertisement.payment_type)
+                setadvertiser_email(res.data.advertisement.advertiser_email)
+                setadvertiser_name(res.data.advertisement.advertiser_name)
+                setadvertiser_phone(res.data.advertisement.advertiser_phone)
+                setreference_no(res.data.advertisement.reference_no)
+                setpo_no(res.data.advertisement.po_no)
+                setadvertisement_file(res.data.advertisement.advertisement_file)
 
                 setAllCheckBox({
                     home_page: res.data.advertisement.home_page,
@@ -605,6 +630,77 @@ function EditAdvertisement() {
                                                             </div>
 
                                                         </div>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="row bg-light rounded-3 mt-4 ">
+
+                                                    <div className='py-4  '>
+                                                        <h6 className=''>Advertiser Information</h6>
+                                                        <div className=' mt-3 d-flex align-items-stretch ' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
+
+                                                            <div className=' ' style={{ width: '100%' }} >
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Name *</label>
+
+                                                                    <input type="text" class="form-control " id="exampleFormControlInput1" onChange={(e) => setadvertiser_name(e.target.value)} name="advertiser_name" value={advertiser_name} />
+
+                                                                </div>
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Phone *</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertiser_phone(e.target.value)} name="advertiser_phone" value={advertiser_phone} />
+
+                                                                </div>
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Email</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertiser_email(e.target.value)} name="advertiser_email" value={advertiser_email} />
+
+                                                                </div>
+
+
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Reference No</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setreference_no(e.target.value)} name="reference_no" value={reference_no} />
+
+                                                                </div>
+
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">P.O/W.O No *</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setpo_no(e.target.value)} name="po_no" value={po_no} />
+
+                                                                </div>
+
+                                                                <div class="">
+                                                                    <label for="exampleFormControlInput1" class="form-label ">Upload Attachment Pdf,Doc</label>
+
+                                                                    <input class="form-control" type="file" id="formFileImage" onChange={handleAdvertisementFile}
+                                                                    />
+
+
+
+
+
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+
+
 
                                                     </div>
                                                 </div>

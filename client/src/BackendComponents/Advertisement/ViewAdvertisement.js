@@ -315,7 +315,7 @@ function ViewAllAdvertisement() {
                             <div className='mx-2'>
                                 <i class="fa fa-calendar"></i>
                                 <span className='mx-1'>
-                                    Las showing days
+                                    Last showing days
 
                                     <span class="badge bg-warning text-dark px-2 mx-2 ">{row.last_show_days}</span>
 

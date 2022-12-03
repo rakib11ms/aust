@@ -32,6 +32,12 @@ return new class extends Migration
                  $table->string('redirect_link')->nullable();
                  $table->string('position')->nullable();
                  $table->string('advertisement_fee')->nullable();
+                 $table->string('advertiser_name')->nullable();
+                 $table->string('advertiser_email')->nullable();
+                 $table->string('advertiser_phone')->nullable();
+                 $table->string('reference_no')->nullable();
+                 $table->string('po_no')->nullable();
+                 $table->string('advertisement_file')->nullable();
                  $table->boolean('showMobile')->default(1);
                  $table->boolean('showDesktop')->default(1);
                  // $table->boolean('isArchived')->default(0);

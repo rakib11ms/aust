@@ -65,6 +65,13 @@ function CreateAdvertisement() {
     const [payment_type, setpayment_type] = useState(0);
 
 
+    const [advertiser_name, setadvertiser_name] = useState('');
+    const [advertiser_phone, setadvertiser_phone] = useState('');
+    const [advertiser_email, setadvertiser_email] = useState('');
+    const [po_no, setpo_no] = useState('');
+    const [reference_no, setreference_no] = useState('');
+
+
     //////////images code ///////////
 
     const [multipleImages, setMultipleImages] = useState([]);
@@ -140,6 +147,13 @@ function CreateAdvertisement() {
         });
     };
 
+////advertisment file ///
+
+const [advertisement_file,setadvertisement_file]=useState('')
+console.log('ad',advertisement_file)
+    const handleAdvertisementFile=(e)=>{
+            setadvertisement_file(e.target.files[0])
+    }
 
 
 
@@ -162,6 +176,12 @@ function CreateAdvertisement() {
         formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
 
         formData.append("showMobile", showMobile);
+        formData.append("advertiser_name", advertiser_name);
+        formData.append("advertiser_phone", advertiser_phone);
+        formData.append("advertiser_email", advertiser_email);
+        formData.append("reference_no", reference_no);
+        formData.append("po_no", po_no);
+        formData.append("advertisement_file", advertisement_file);
         formData.append("showDesktop", showDesktop);
 
         formData.append("position", position);
@@ -217,7 +237,7 @@ function CreateAdvertisement() {
 
     console.log('heelloo yeeeeees', allCheckBox)
 
-
+  
 
     return (
         <div className="container-fluid">
@@ -474,52 +494,7 @@ function CreateAdvertisement() {
 
                                                             </div>
                                                         </div>
-                                                        {/* <div className='mt-2'>
-                                                            <Stack spacing={5} sx={{ width: '100%' }}>
-                                                                <Autocomplete
-                                                                    multiple
-                                                                    id="tags-standard"
-                                                                    options={allViewPage}
-                                                                    getOptionLabel={(option) => option.page_name}
-                                                                    // defaultValue={[allUsers[1]]}
-                                                                    onChange={handlePersonChange}
-                                                                    // renderOption={(option) => (
-                                                                    //     <>
-                                                                    //       {option.name} ({option.user_role})
-                                                                    //     </>
-                                                                    //   )}
-                                                                    getOptionSelected={(option, value) =>
-                                                                        option.page_name === value.page_name
-                                                                    }
 
-                                                                    renderInput={(params) => (
-
-                                                                        <TextField
-
-                                                                            {...params}
-                                                                            // variant="standard"
-                                                                            // label="Multiple values"
-                                                                            placeholder="Search..."
-                                                                            size="small"
-
-                                                                        />
-                                                                    )}
-
-                                                                // renderOption={option => {
-                                                                //     return (
-                                                                //         <Fragment>
-                                                                //                 <IconButton color="primary">
-                                                                //                     <img src={'../src/img/Tables.svg'}/> {/Mock image, attribute in option/}
-                                                                //                 </IconButton>
-                                                                //             {option.title}
-                                                                //         </Fragment>
-                                                                //     );
-                                                                // }}
-
-
-                                                                />
-                                                            </Stack>
-                                                        </div> */}
 
                                                         <div class="mt-2">
                                                             <div class="d-flex flex-wrap ">
@@ -563,6 +538,75 @@ function CreateAdvertisement() {
                                                             </div>
 
                                                         </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row bg-light rounded-3 mt-4 ">
+
+                                                    <div className='py-4  '>
+                                                        <h6 className=''>Advertiser Information</h6>
+                                                        <div className=' mt-3 d-flex align-items-stretch ' style={{ color: '#777777', fontWeight: '400', fontSize: '15px' }}>
+
+                                                            <div className=' ' style={{ width: '100%' }} >
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Name *</label>
+
+                                                                    <input type="text" class="form-control " id="exampleFormControlInput1" onChange={(e) => setadvertiser_name(e.target.value)} name="advertiser_name" value={advertiser_name} />
+
+                                                                </div>
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Phone *</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertiser_phone(e.target.value)} name="advertiser_phone" value={advertiser_phone} />
+
+                                                                </div>
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Email</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertiser_email(e.target.value)} name="advertiser_email" value={advertiser_email} />
+
+                                                                </div>
+
+
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Reference No</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setreference_no(e.target.value)} name="reference_no" value={reference_no} />
+
+                                                                </div>
+
+
+                                                                <div class="mb-1">
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">P.O/W.O No *</label>
+
+                                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setpo_no(e.target.value)} name="po_no" value={po_no} />
+
+                                                                </div>
+
+                                                                <div class="">
+                                                        <label for="exampleFormControlInput1" class="form-label ">Upload Attachment Pdf,Doc</label>
+
+                                                        <input class="form-control" type="file" id="formFileImage"  onChange={handleAdvertisementFile}
+                                                        />
+
+                             
+
+
+
+
+                                                    </div>
+
+                                                            </div>
+
+                                                        </div>
+
+
+
 
                                                     </div>
                                                 </div>
