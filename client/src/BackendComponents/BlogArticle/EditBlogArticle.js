@@ -43,6 +43,8 @@ function EditBlogArticle() {
     const [allUsers, setAllUsers] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
     const [allSubCategory, setAllSubCategory] = useState([]);
+    const [isArchived, setisArchived] = useState('');
+    const [isPublished, setIsPublished] = useState('');
 
     const [category_id, setcategory_id] = useState([]);
     const [subcategory_id, setsubcategory_id] = useState([]);
@@ -91,6 +93,8 @@ function EditBlogArticle() {
                 setContent1(res.data.article_blog.article_blog_description)
                 setcategory_id(res.data.article_blog.category_id)
                 setsubcategory_id(res.data.article_blog.subcategory_id)
+                setisArchived(res.data.article_blog.isArchived)
+                setIsPublished(res.data.article_blog.isPublished)
                 // setLoading(false);
             }
         })
@@ -281,7 +285,7 @@ function EditBlogArticle() {
     };
 
 
-    const submitBlogArticle = (e) => {
+    const updateBlogArticle = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('category_id', category_id);
@@ -289,14 +293,15 @@ function EditBlogArticle() {
         formData.append('article_blog_title', article_blog_title);
         formData.append('article_blog_description', content1);
         formData.append('article_blog_image', image);
-        formData.append('posted_by', 1);
+        formData.append('isArchived', isArchived);
+        formData.append('isPublished', isPublished);
 
 
         console.log('check all data', formData);
 
 
 
-        axios.post(`/api/add-article-blogs`, formData).then(res => {
+        axios.post(`/api/update-article-blogs/${editId}`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 navigate('/view-blog-article')
@@ -343,7 +348,7 @@ function EditBlogArticle() {
 
                                 </div>
                                 <div className='card-body '>
-                                    <form onSubmit={submitBlogArticle}>
+                                    <form onSubmit={updateBlogArticle}>
 
                                         <div className='row '>
 
@@ -458,7 +463,7 @@ function EditBlogArticle() {
                                                 }
 
                                                 <div class="text mt-2">
-                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> Update</button>
+                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={updateBlogArticle}> Update</button>
                                                 </div>
 
                                             </div>

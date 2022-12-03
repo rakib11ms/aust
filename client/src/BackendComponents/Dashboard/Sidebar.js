@@ -16,6 +16,7 @@ function Sidebar() {
     const [isActive7, setIsActive7] = useState(true);
     const [isActive8, setIsActive8] = useState(true);
     const [isActive9, setIsActive9] = useState(true);
+    const [isActive10, setIsActive10] = useState(true);
     console.log('is active cheking', isActive)
 
 
@@ -49,7 +50,13 @@ function Sidebar() {
 
     // };
     // window.addEventListener('scroll', stickNavbar);
-
+    const [trigger, setTrigger] = useState('')
+    console.log('trigger', trigger);
+    const handleTrigger=(val)=>{
+        setTrigger(val)
+    }
+    var path=window.location.pathname;
+    console.log('widnow',path)
     return (
         <>
             <div className="">
@@ -115,19 +122,19 @@ function Sidebar() {
                                 isActive && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-all-users" className='text-light text-form '>View All Users</Link>
+                                            <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-warning' : 'text-light '}`}  >View All Users</Link>
                                         </li>
                                         <li>
-                                            <a href='#' className='text-light text-form'>Create User</a>
+                                            <a href='#' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Create User</a>
                                         </li>
                                         <li>
-                                            <a href='#' className='text-light text-form'>Aproval List</a>
+                                            <a href='#' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Aproval List</a>
                                         </li>
                                         <li>
-                                            <Link to="/role-management" className='text-light text-form '>Role Management</Link>
+                                            <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-warning' : 'text-light '}`}  >Role Management</Link>
                                         </li>
                                         <li>
-                                            <a href='#' className='text-light text-form'>E-Resister Users </a>
+                                            <a href='#' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>E-Resister Users </a>
                                         </li>
                                     </ul>
                                 </>
@@ -157,16 +164,16 @@ function Sidebar() {
                                 isActive2 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <a href='' className='text-light text-form' >Home</a>
+                                            <a href=''className={`text-form ${path == '/create-blog-article' ? 'text-warning' : 'text-light '}`}>Home</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>About</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>About</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Contact</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Contact</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Home</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Home</a>
                                         </li>
                                     </ul>
                                 </>
@@ -197,20 +204,20 @@ function Sidebar() {
                                     <ul className='text-light mx-4 '>
 
                                         <li className='mt-1'>
-                                            <Link to="/view-all-jobs" className='text-light text-form '>View All Jobs</Link>
+                                            <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-warning' : 'text-light '}`}>View All Jobs</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/job-configuration" className='text-light text-form '>Job Configuration</Link>
+                                            <Link to="/job-configuration"  className={`text-form ${path == '/job-configuration' ? 'text-warning' : 'text-light '}`}>Job Configuration</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/create-job-post" className='text-light text-form '>Create a Job</Link>
+                                            <Link to="/create-job-post"  className={`text-form ${path == '/create-job-post' ? 'text-warning' : 'text-light '}`}>Create a Job</Link>
                                         </li>
                                         {/* <li className='mt-1'>
-                                            <Link to="" className='text-light text-form '>Approval List</Link>
+                                            <Link to="" className={`text-form ${path == '/view-all-banner' ? 'text-warning' : 'text-light '}`}>Approval List</Link>
                                         </li>
 
                                         <li className='mt-1'>
-                                            <Link to="" className='text-light text-form '>Archeived</Link>
+                                            <Link to="" className={`text-form ${path == '/view-all-banner' ? 'text-warning' : 'text-light '}`}>Archeived</Link>
                                         </li> */}
                                     </ul>
                                 </>
@@ -242,16 +249,16 @@ function Sidebar() {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-blog-article" className='text-light text-form '>View Article/Blog</Link>
+                                            <Link to="/view-blog-article"  className={`text-form ${path == '/view-blog-article' ? 'text-warning' : 'text-light '}`}>View Article/Blog</Link>
 
                                         </li>
                                         <li>
-                                            <Link to="/create-blog-article" className='text-light text-form '>Add Article/Blog</Link>
+                                            <Link to="/create-blog-article"  className={`text-form ${path == '/create-blog-article' ? 'text-warning' : 'text-light '}`}>Add Article/Blog</Link>
 
                                         </li>
 
                                         <li>
-                                            <Link to="/blog-article-configuration" className='text-light text-form '>Configuration</Link>
+                                            <Link to="/blog-article-configuration"  className={`text-form ${path == '/blog-article-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
 
                                         </li>
                                     </ul>
@@ -260,6 +267,8 @@ function Sidebar() {
                             }
                         </div>
                     </div>
+
+
 
 
                     <div className=''>
@@ -284,16 +293,16 @@ function Sidebar() {
                                 isActive5 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/post-type' className='text-light text-form' >User Posts </Link>
+                                            <Link to='/post-type'className={`text-form ${path == '/post-type' ? 'text-warning' : 'text-light '}`} >User Posts </Link>
                                         </li>
                                         {/* <li>
-                                            <a href='' className='text-light text-form'>About</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>About</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Contact</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Contact</a>
                                         </li>
                                         <li>
-                                            <a href='' className='text-light text-form'>Home</a>
+                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Home</a>
                                         </li> */}
                                     </ul>
                                 </>
@@ -324,16 +333,16 @@ function Sidebar() {
                                 isActive6 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/create-event' className='text-light text-form' >Create Event</Link>
+                                            <Link to='/create-event'className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Create Event</Link>
                                         </li>
                                         <li>
-                                            <Link to='/view-all-events' className='text-light text-form' >View All Events</Link>
+                                            <Link to='/view-all-events'className={`text-form ${path == '/view-all-events' ? 'text-warning' : 'text-light '}`}>View All Events</Link>
                                         </li>
                                         <li>
-                                            <Link to='/event-configuration' className='text-light text-form' >Configuration</Link>
+                                            <Link to='/event-configuration'className={`text-form ${path == '/event-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
                                         </li>
                                         <li>
-                                            <Link to='/view-event-payment' className='text-light text-form' >View Payment</Link>
+                                            <Link to='/view-event-payment'className={`text-form ${path == '/view-event-payment' ? 'text-warning' : 'text-light '}`}>View Payment</Link>
                                         </li>
 
                                     </ul>
@@ -364,10 +373,10 @@ function Sidebar() {
                                 isActive7 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/create-advertisement' className='text-light text-form'>Create Advment</Link>
+                                            <Link to='/create-advertisement' className={`text-form ${path == '/create-advertisement' ? 'text-warning' : 'text-light '}`}>Create Advment</Link>
                                         </li>
                                         <li class="mt-1">
-                                            <Link to='/view-all-advertisement' className='text-light text-form'>View All Advment</Link>
+                                            <Link to='/view-all-advertisement' className={`text-form ${path == '/view-all-advertisement' ? 'text-warning' : 'text-light '}`}>View All Advment</Link>
                                         </li>
 
 
@@ -399,13 +408,13 @@ function Sidebar() {
                             {
                                 isActive8 && <>
                                     <ul className='text-light mx-4 '>
-                                    <li class="mt-1">
-                                            <Link to='/view-all-banner' className='text-light text-form'>View Banner</Link>
+                                        <li class="mt-1">
+                                            <Link to='/view-all-banner' className={`text-form ${path == '/view-all-banner' ? 'text-warning' : 'text-light '}`}>View Banner</Link>
                                         </li>
                                         <li>
-                                            <Link to='/create-banner' className='text-light text-form'>Create</Link>
+                                            <Link to='/create-banner' className={`text-form ${path == '/create-banner' ? 'text-warning' : 'text-light '}`}>Create</Link>
                                         </li>
-                              
+
 
                                     </ul>
                                 </>
@@ -413,6 +422,56 @@ function Sidebar() {
                             }
                         </div>
                     </div>
+
+
+                    <div className=''>
+
+                        <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive10(!isActive10)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i className='fa-solid fa-blog d-block' />
+
+                                <h6 className='mx-2 mt-3'>Notice & News</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive10 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive10 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to="/view-notice-news" className={`text-form ${path == '/view-notice-news' ? 'text-warning' : 'text-light '}`}>View Notice/News</Link>
+
+                                        </li>
+                                        <li>
+                                            <Link to="/create-notice-news" className={`text-form ${path == '/create-notice-news' ? 'text-warning' : 'text-light '}`}>Add Notice/News</Link>
+
+                                        </li>
+
+                                        <li>
+                                            <Link to="/notice-news-configuration" className={`text-form ${path == '/notice-news-configuration' ? 'text-warning' : 'text-light '}`}>Configuration</Link>
+
+                                        </li>
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
                     <div className=''>
 
                         <div className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive9(!isActive9)}>
@@ -435,7 +494,7 @@ function Sidebar() {
                                 isActive9 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings' className='text-light text-form' >Get In <EastIcon /></Link>
+                                            <Link to='/settings'className={`text-form ${path == '/settings' ? 'text-warning' : 'text-light '}`}>Get In <EastIcon /></Link>
                                         </li>
 
                                     </ul>

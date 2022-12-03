@@ -13,19 +13,19 @@ import Modal from 'react-modal';
 import MaterialTable from "material-table";
 import moment from 'moment';
 
-function ViewBlogArticle() {
+function ViewNoticeNews() {
 
 
 
     const [loading, setLoading] = useState(true);
 
-    const [allBlogArticle, setallBlogArticle] = useState([]);
-    console.log('allll postsss', allBlogArticle)
+    const [allNoticeNews, setallNoticeNews] = useState([]);
+    console.log('allll postsss', allNoticeNews)
 
     const [totalPosts, setTotalPosts] = useState('');
     const [activePosts, setActivePosts] = useState('');
     const [pendingPosts, setPendingPosts] = useState('');
-    const [renderAllBlogArticle, setRenderAllBlogArticle] = useState('');
+    const [renderAllNoticeNews, setRenderAllNoticeNews] = useState('');
 
 
 
@@ -51,16 +51,16 @@ function ViewBlogArticle() {
             formData.append('isArchived', id.isArchived);
             formData.append('category_id', id.category_id);
             formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('notice_news_title', id.notice_news_title);
+            formData.append('notice_news_description', id.content1);
+            formData.append('notice_news_image', id.notice_news_image);
 
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-notice-news/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddcategoryType({
@@ -85,16 +85,16 @@ function ViewBlogArticle() {
             formData.append('isArchived', id.isArchived);
             formData.append('category_id', id.category_id);
             formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('notice_news_title', id.notice_news_title);
+            formData.append('notice_news_description', id.content1);
+            formData.append('notice_news_image', id.notice_news_image);
             formData.append('posted_by', 1);
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-notice-news/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
 
                     // setIdChange('');
 
@@ -141,17 +141,17 @@ function ViewBlogArticle() {
             formData.append('isArchived', 1);
             formData.append('category_id', id.category_id);
             formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('notice_news_title', id.notice_news_title);
+            formData.append('notice_news_description', id.content1);
+            formData.append('notice_news_image', id.notice_news_image);
 
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-notice-news/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
                     // Swal.fire(res.data.message, '', 'success')
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
 
                     // setIdChange('');
 
@@ -181,17 +181,17 @@ function ViewBlogArticle() {
             formData.append('isArchived', 0);
             formData.append('category_id', id.category_id);
             formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
+            formData.append('notice_news_title', id.notice_news_title);
+            formData.append('notice_news_description', id.content1);
+            formData.append('notice_news_image', id.notice_news_image);
 
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/update-notice-news/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
                     // Swal.fire(res.data.message, '', 'success')
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
 
                     // setIdChange('');
 
@@ -237,9 +237,9 @@ function ViewBlogArticle() {
 
 
     useEffect(() => {
-        axios.get(`/api/all-article-blogs`).then(res => {
+        axios.get(`/api/all-notice-news`).then(res => {
             if (res.data.status == 200) {
-                setallBlogArticle(res.data.article_blogs);
+                setallNoticeNews(res.data.notice_news);
                 setTotalPosts(res.data.total_posts)
                 setActivePosts(res.data.total_active_posts)
                 setPendingPosts(res.data.total_pending_posts)
@@ -292,11 +292,11 @@ function ViewBlogArticle() {
 
                     <div>
                         <h5 className='my-1 '>
-                            {row.article_blog_title}
+                            {row.notice_news_title}
                         </h5>
 
 
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.notice_news_description.length > 50 ? `${row.notice_news_description.substring(0, 50)}...` : row.notice_news_description }} />
 
 
 
@@ -356,7 +356,7 @@ function ViewBlogArticle() {
                 </div>
 
                 <div className='mx-2'>
-                    <Link to={`/edit-blog-article/${row.id}`}> <i class="fa-solid fa-edit icon-table-archive" ></i></Link>
+                    <Link to={`/edit-notice-news/${row.id}`}> <i class="fa-solid fa-edit icon-table-archive" ></i></Link>
                 </div>
 
                 <div className='mx-2 ' onClick={(e) => deleteArticleBlog(e, row.id)}>
@@ -403,7 +403,7 @@ function ViewBlogArticle() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-article-blogs/${id}`).then(res => {
+                axios.post(`/api/delete-notice-news/${id}`).then(res => {
                     if (res.data.status === 200) {
                         thisClicked.closest("tr").remove();
                         //   swal("Success", res.data.message, "success");
@@ -425,14 +425,14 @@ function ViewBlogArticle() {
     const [postFiltering, setPostFiltering] = useState('all');
 
 
-    // console.log('filtered post val',allBlogArticle)
+    // console.log('filtered post val',allNoticeNews)
     // console.log('filter click check', postFiltering)
 
 
     useEffect(() => {
-        axios.get(`/api/filtering-article-blogs-by-status/${postFiltering}`).then(res => {
+        axios.get(`/api/filtering-notice-news-by-status/${postFiltering}`).then(res => {
             if (res.data.status == 200) {
-                setallBlogArticle(res.data.article_blogs);
+                setallNoticeNews(res.data.notice_news);
                 setLoading(false);
             }
         })
@@ -457,10 +457,10 @@ function ViewBlogArticle() {
 
     useEffect(() => {
 
-        axios.get(`/api/filter-article-blogs-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+        axios.get(`/api/filter-notice-news-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
             console.log('reesssssssssssss', res)
             if (res.data.status == 200) {
-                setallBlogArticle(res.data.article_blogs);
+                setallNoticeNews(res.data.notice_news);
                 setLoading(false);
             }
         })
@@ -514,9 +514,9 @@ function ViewBlogArticle() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/api/delete-multiple-article-blogs/${selectedRowsIds}`).then(res => {
+                axios.post(`/api/delete-multiple-notice-news/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllBlogArticle(res.data)
+                        setRenderAllNoticeNews(res.data)
                         // window.location.reload();
                     }
                 });
@@ -532,7 +532,7 @@ function ViewBlogArticle() {
     }
 
 
-    const handleAllBlogArticletatus = (e) => {
+    const handleAllNoticeNewstatus = (e) => {
 
         if (e.target.value === 'archive') {
             axios.put(`/api/archive-all-posts-by-update/${selectedRowsIds}`).then(res => {
@@ -540,8 +540,8 @@ function ViewBlogArticle() {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallBlogArticle(res.data.posts)
-                    setRenderAllBlogArticle(res.data);
+                    setallNoticeNews(res.data.posts)
+                    setRenderAllNoticeNews(res.data);
 
                 }
 
@@ -553,9 +553,9 @@ function ViewBlogArticle() {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallBlogArticle(res.data.posts)
+                    setallNoticeNews(res.data.posts)
 
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
 
                 }
 
@@ -567,9 +567,9 @@ function ViewBlogArticle() {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallBlogArticle(res.data.posts)
+                    setallNoticeNews(res.data.posts)
 
-                    setRenderAllBlogArticle(res.data);
+                    setRenderAllNoticeNews(res.data);
 
                 }
 
@@ -699,7 +699,7 @@ function ViewBlogArticle() {
                             </div>
 
                             <div className="col-md-12 mt-3">
-                                <h5 className=''>ALL Article/Blog</h5>
+                                <h5 className=''>ALL Notice/News</h5>
 
                                 <div className="card bg-white">
 
@@ -737,7 +737,7 @@ function ViewBlogArticle() {
                                                             </div>
 
                                                             <div className='mx-2'>
-                                                                <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllBlogArticletatus}>
+                                                                <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAllNoticeNewstatus}>
                                                                     <option selected>Action</option>
                                                                     <option value="active">Active</option>
                                                                     <option value="pending">Pending</option>
@@ -757,7 +757,7 @@ function ViewBlogArticle() {
                                                 <div className='mx-3'>
 
 
-                                                    <Link to="/create-blog-article"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
+                                                    <Link to="/create-notice-news"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
 
                                                 </div>
                                             </div>
@@ -767,7 +767,7 @@ function ViewBlogArticle() {
 
                                         <MaterialTable
                                             columns={columns}
-                                            data={allBlogArticle}
+                                            data={allNoticeNews}
                                             isLoading={loading === true ? true : false}
                                             onSelectionChange={selectionCheck}
 
@@ -811,4 +811,4 @@ function ViewBlogArticle() {
 
 }
 
-export default ViewBlogArticle
+export default ViewNoticeNews

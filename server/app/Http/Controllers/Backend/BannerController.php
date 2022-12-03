@@ -59,19 +59,19 @@ class BannerController extends Controller
 
        public function edit($id)
     {
-        $post = Banner::find($id);
+        $banner = Banner::find($id);
 
-        if ($post)
+        if ($banner)
         {
             return response()->json([
                 'status' => 200,
-                'post' => $post,
+                'banner' => $banner,
             ]);
 
         }else{
             return response()->json([
                 'status' => 404,
-                'message' => 'No Posts Found',
+                'message' => 'No banners Found',
             ]);
         }
 
@@ -79,37 +79,35 @@ class BannerController extends Controller
 
     public function update(Request $request,$id){
 
-             $post=Banner::find($id);
+              $banner = Banner::find($id);
+             if ($request->file('image')) {
+            foreach ($request->file('image') as $image) {
 
-          
+                $upload_image_name = time() . $image->getClientOriginalName();
+                $image->move('images/', $upload_image_name);
+                $name[] = $upload_image_name;
 
- if ($files = $request->file('image')) {
-            $names = $files->getClientOriginalName();
-            $name = rand(111, 99999).$names;
-            $files->move('images/', $name);
-        }
-           
-            if($files!=null){
-             $post->image=$name;
-
+                $banner->image =  implode(', ', $name);
+                // $event->save();   
             }
+        }
 
-            $post->job_title = $request->job_title;
-           $post->job_type = $request->job_type;
-           $post->job_description = $request->job_description;
-           $post->job_link = $request->job_link;
-           // $post->image = $request->image;
 
-           $post->posted_by = $request->posted_by;
-           // $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
-           $post->isArchived = $request->isArchived;
-           $post->application_deadline = $request->application_deadline;
-            $post->update();
+
+           $banner->banner_title = $request->banner_title;
+           $banner->posted_by = auth('sanctum')->user()->id;
+           $banner->updated_by = auth('sanctum')->user()->id;
+           $banner->banner_description = $request->banner_description;
+
+            $banner->update();
+
+            $count = Banner::orderBy('id','desc')->get()->count();
 
  return response()->json([
                 'status' => 200,
-                'message' => 'Job Post Updated Successfully',
+                 'count'=>$count,
+                 'banner'=>$banner ,
+                'message' => 'Banner Updated Successfully',
             ]);   
     }
 

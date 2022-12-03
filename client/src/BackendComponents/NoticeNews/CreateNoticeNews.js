@@ -26,7 +26,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 
-function CreateBlogArticle() {
+function CreateNoticeNews() {
 
 
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ function CreateBlogArticle() {
 
 
     useEffect(() => {
-        axios.get(`/api/article-blogs-category`).then(res => {
+        axios.get(`/api/notice-news-category`).then(res => {
             if (res.data.status == 200) {
                 setAllCategory(res.data.category);
                 // setLoading(false);
@@ -59,13 +59,13 @@ function CreateBlogArticle() {
 
 
 
-        axios.get(`/api/article-blogs-subcategory`).then(res => {
+        axios.get(`/api/notice-news-subcategory`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.category);
             }
         })
 
-        axios.get(`/api/get-article-blogs-subcategories-by-category-id/${category_id}`).then(res => {
+        axios.get(`/api/get-notice-news-subcategories-by-category-id/${category_id}`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.sub_categories);
             }
@@ -100,7 +100,7 @@ function CreateBlogArticle() {
 
 
 
-    const [article_blog_title, setarticle_blog_title] = useState("");
+    const [notice_news_title, setnotice_news_title] = useState("");
 
 
     //////////images code ///////////
@@ -186,7 +186,7 @@ function CreateBlogArticle() {
     //     e.preventDefault();
     //     const formData = new FormData();
     //     // formData.append("posted_by", 1);
-    //     formData.append("article_blog_title", article_blog_title);
+    //     formData.append("notice_news_title", notice_news_title);
     //     formData.append("advertisement_description", content1);
     //     formData.append("redirect_link", redirect_link);
     //     formData.append("show_time", show_time);
@@ -228,7 +228,7 @@ function CreateBlogArticle() {
 
     //             // setImage('');
     //             // setPicture('');
-    //             // document.getElementById('article_blog_image').value = "";
+    //             // document.getElementById('notice_news_image').value = "";
     //         }
     //         // else if (res.data.status == 400) {
     //         //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
@@ -265,14 +265,14 @@ function CreateBlogArticle() {
     };
 
 
-    const submitBlogArticle = (e) => {
+    const submitNoticeNews = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('category_id', category_id);
         formData.append('subcategory_id', subcategory_id);
-        formData.append('article_blog_title', article_blog_title);
-        formData.append('article_blog_description', content1);
-        formData.append('article_blog_image', image);
+        formData.append('notice_news_title', notice_news_title);
+        formData.append('notice_news_description', content1);
+        formData.append('notice_news_image', image);
         formData.append('posted_by', 1);
 
 
@@ -280,19 +280,19 @@ function CreateBlogArticle() {
 
 
 
-        axios.post(`/api/add-article-blogs`, formData).then(res => {
+        axios.post(`/api/add-notice-news`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                navigate('/view-blog-article')
+                navigate('/view-notice-news')
                 setcategory_id('');
                 setsubcategory_id('');
-                setarticle_blog_title('')
+                setnotice_news_title('')
 
                 setContent1('');
 
                 setImage('');
                 setPicture('');
-                document.getElementById('article_blog_image').value = "";
+                document.getElementById('notice_news_image').value = "";
             }
             // else if (res.data.status == 400) {
             //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
@@ -322,12 +322,12 @@ function CreateBlogArticle() {
 
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
-                                    <h5>Create a Blog/Article</h5>
-                                    <Link to="/view-blog-article"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <h5>Create a Notice/News</h5>
+                                    <Link to="/view-notice-news"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>
-                                    <form onSubmit={submitBlogArticle}>
+                                    <form onSubmit={submitNoticeNews}>
 
                                         <div className='row '>
 
@@ -375,7 +375,7 @@ function CreateBlogArticle() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setarticle_blog_title(e.target.value)} name="article_blog_title" value={article_blog_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setnotice_news_title(e.target.value)} name="notice_news_title" value={notice_news_title} />
 
                                                 </div>
 
@@ -422,7 +422,7 @@ function CreateBlogArticle() {
                                                 <div class="row mt-2">
                                                     <div class="mb-3 col-md-6 ">
                                                         <label for="formFile" class="form-label fs-6">Job Logo/Image</label>
-                                                        <input class="form-control" type="file" id="article_blog_image" name="article_blog_image" onChange={onChangePicture} />
+                                                        <input class="form-control" type="file" id="notice_news_image" name="notice_news_image" onChange={onChangePicture} />
                                                     </div>
 
                                                     {/* <div class="mb-3 col-md-6">
@@ -441,7 +441,7 @@ function CreateBlogArticle() {
                                                 }
 
                                                 <div class="text-center mt-1">
-                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
+                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={submitNoticeNews}> PUBLISH NOW</button>
                                                 </div>
 
                                             </div>
@@ -468,4 +468,4 @@ function CreateBlogArticle() {
         </div>
     )
 }
-export default CreateBlogArticle;
+export default CreateNoticeNews;

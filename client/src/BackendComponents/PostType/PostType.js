@@ -20,7 +20,7 @@ function PostType() {
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
-    // console.log('allll postsss', allPosts)
+    console.log('allll postsss', allPosts)
 
     const [totalPosts, setTotalPosts] = useState('');
     const [activePosts, setActivePosts] = useState('');
@@ -456,7 +456,7 @@ function PostType() {
                         <div>
 
 
-                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.post_type}</span> </button>
+                            <button className='btn btn-warning  table-cat-btns btn-sm '> <span className='text-center'>{row.post_type_name}</span> </button>
 
                         </div>
 

@@ -253,7 +253,7 @@ class PostController extends Controller
 
 
 
-
+//filtering web tab table (user post)////
 
 
 
@@ -371,14 +371,6 @@ class PostController extends Controller
             ]);
         }
      }
-
-
-
-
-
-
-
-
 
 
 

@@ -16,6 +16,10 @@ use App\Http\Controllers\Backend\ArticleBlogCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
 
 use App\Http\Controllers\Backend\ArticleBlogController;
+
+use App\Http\Controllers\Backend\NoticeNewsCategoryController;
+use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
+use App\Http\Controllers\Backend\NoticeNewsController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -99,7 +103,7 @@ Route::put('/active-all-posts-by-update/{id}', [PostController::class, 'activeAl
 Route::put('/pending-all-posts-by-update/{id}', [PostController::class, 'pendingAllPostsByUpdate']);
 
 
-//web 
+//web posts(table)
 Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultiplePosts']);
 
 Route::get('/filter-post/{filterByStatus}', [PostController::class, 'filterByStatus']);
@@ -251,9 +255,40 @@ Route::get('/edit-article-blogs/{id}', [ArticleBlogController::class, 'edit']);
 Route::post('/delete-article-blogs/{id}', [ArticleBlogController::class, 'destroy']);
 Route::post('/update-article-blogs/{id}', [ArticleBlogController::class, 'update']);
 
+//web article blogs(table) filtering
+Route::get('/filtering-article-blogs-by-status/{name}', [ArticleBlogController::class, 'articleBlogfilterByStatus']);
+
+Route::get('/filter-article-blogs-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}', [ArticleBlogController::class, 'articleBlogfilterBySearchInputRadioButton']);
+
+Route::post('/delete-multiple-article-blogs/{id}', [ArticleBlogController::class, 'deleteMultipleArticleBlogs']);
 
 
 
+//notice news category
+
+
+Route::get('/notice-news-category', [NoticeNewsCategoryController::class, 'index']);
+Route::post('/add-notice-news-category', [NoticeNewsCategoryController::class, 'store']);
+Route::get('/edit-notice-news-category/{id}', [NoticeNewsCategoryController::class, 'edit']);
+Route::post('/update-notice-news-category/{id}', [NoticeNewsCategoryController::class, 'update']);
+Route::delete('/delete-notice-news-category/{id}', [NoticeNewsCategoryController::class, 'destroy']);
+
+//notice news subcategory
+
+Route::get('/notice-news-subcategory', [NoticeNewsSubCategoryController::class, 'index']);
+Route::post('/add-notice-news-subcategory', [NoticeNewsSubCategoryController::class, 'store']);
+Route::get('/edit-notice-news-subcategory/{id}', [NoticeNewsSubCategoryController::class, 'edit']);
+Route::post('/update-notice-news-subcategory/{id}', [NoticeNewsSubCategoryController::class, 'update']);
+Route::delete('/delete-article-blogs-subcategory/{id}', [NoticeNewsSubCategoryController::class, 'destroy']);
+
+//dependent sub categories based on category id dropdown web (notice news cat,subcat)
+Route::get('/get-notice-news-subcategories-by-category-id/{id}', [NoticeNewsSubCategoryController::class, 'getAllSubCatByCategoryId']);
+
+Route::get('/all-notice-news', [NoticeNewsController::class, 'index']);
+Route::post('/add-notice-news', [NoticeNewsController::class, 'store']);
+Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
+Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
+Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update']);
 
 
 

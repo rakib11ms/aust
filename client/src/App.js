@@ -31,6 +31,10 @@ import ViewBlogArticle from './BackendComponents/BlogArticle/ViewArticleBlog';
 import CreateBanner from './BackendComponents/Banner/CreateBanner';
 import ViewAllBanner from './BackendComponents/Banner/ViewBanner';
 import EditBlogArticle from './BackendComponents/BlogArticle/EditBlogArticle';
+import NoticeNewsConfiguration from './BackendComponents/NoticeNews/NoticeNewsConfiguration';
+import CreateNoticeNews from './BackendComponents/NoticeNews/CreateNoticeNews';
+import ViewNoticeNews from './BackendComponents/NoticeNews/ViewNoticeNews';
+import EditBanner from './BackendComponents/Banner/EditBanner';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -175,10 +179,16 @@ function App() {
           <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
 
 
+          <Route path="create-notice-news" element={<CreateNoticeNews />}></Route>
+          <Route path="view-notice-news" element={<ViewNoticeNews />}></Route>
+          <Route path="notice-news-configuration" element={<NoticeNewsConfiguration />}></Route>
+
+
+
 
           <Route path="create-banner" element={<CreateBanner />}></Route>
           <Route path="view-all-banner" element={<ViewAllBanner />}></Route>
-          {/* <Route path="edit-banner/:id" element={<EditAdvertisement />}></Route> */}
+          <Route path="edit-banner/:id" element={<EditBanner />}></Route>
 
 
 

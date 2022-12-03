@@ -55,105 +55,24 @@ function ViewAllBanner() {
 
     const formData = new FormData();
 
-    const handlePostApproval = (e, id) => {
-
-        if (e.target.checked === true) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllBanners(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-        if (e.target.checked == false) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllBanners(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-    }
-
-    const archiveEventPost = (e, id) => {
-
-        // console.log('arhcive check row',id)
 
 
-        // console.log('arhcive update',archiveUpdate)
+    const archiveBanner = (e, id) => {
 
         if (id.isArchived == 0) {
 
-            const archiveUpdate = {
-                isArchived: 1
-            }
+            const formData = new FormData();
 
+            // formData.append('_method', 'PUT');
 
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
+            formData.append('posted_by', id.posted_by);
+            formData.append('update_by', id.update_by);
+            formData.append('banner_description', id.banner_description);
+            formData.append('image', id.image);
+            formData.append('isArchived', 1);
+            formData.append('banner_title', id.banner_title);
+
+            axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
@@ -180,11 +99,19 @@ function ViewAllBanner() {
 
         }
         if (id.isArchived == 1) {
-            const archiveUpdate = {
-                isArchived: 0
-            }
 
-            axios.put(`/api/update-archive-status/${id.id}`, archiveUpdate).then(res => {
+            const formData = new FormData();
+
+            // formData.append('_method', 'PUT');
+
+            formData.append('posted_by', id.posted_by);
+            formData.append('update_by', id.update_by);
+            formData.append('banner_description', id.banner_description);
+            formData.append('image', id.image);
+            formData.append('isArchived', 0);
+            formData.append('banner_title', id.banner_title);
+
+            axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
@@ -210,7 +137,6 @@ function ViewAllBanner() {
             })
 
         }
-
     }
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
@@ -353,7 +279,7 @@ function ViewAllBanner() {
 
 
                                 <div className='text-secondary'>
-                                    <Link to={`/edit-events/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
+                                    <Link to={`/edit-banner/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
                                 </div>
 
@@ -363,7 +289,7 @@ function ViewAllBanner() {
                                 </div>
 
 
-                                <div className='text-secondary mx-2' onClick={(e) => archiveEventPost(e, row)}>
+                                <div className='text-secondary mx-2' onClick={(e) => archiveBanner(e, row)}>
                                     {/* <i className='fa fa-archive mx-2 icon-table-archive'></i>  */}
 
                                     {
@@ -375,17 +301,7 @@ function ViewAllBanner() {
 
                                 </div>
 
-                                {/* <div className='mx-2' onClick={(e) => archiveEventPost(e, row)}>
-                                    {
-                                        row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
-                                            row.isArchived == 0 ? <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-                                                : ''
-
-                                    }
-
-
-
-                                </div> */}
+                             
 
 
                                 <div className='text-secondary mx-2'>
@@ -840,13 +756,13 @@ function ViewAllBanner() {
                                                 </div>
 
                                                 <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewBanner.isArchived==0?"Published":'Archived'}</span> </button>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewBanner.isArchived == 0 ? "Published" : 'Archived'}</span> </button>
 
 
                                                 </div>
                                             </div>
 
-                                        
+
 
 
                                             <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewBanner.banner_description }}
