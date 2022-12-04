@@ -97,18 +97,15 @@ function CreateAdvertisement() {
     // })
 
     function removeArray(i) {
-        console.log('index clicked', i)
         // setMultipleImageFiles({
         //     files:
         // });
 
         const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
-            console.log('kosuy', item)
             return index !== i
         })
 
         const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
-            console.log('kosuy', item)
             return index !== i
         })
         // console.log('checking333333',filterRemoveImgs)
@@ -125,6 +122,7 @@ function CreateAdvertisement() {
 
     // Functions to preview multiple images
     const changeMultipleFiles = (e) => {
+        // console.log('video',e.target.files);
         setMultipleImageFiles({
             files: [...multipleImageFiles.files, ...e.target.files]
         })
@@ -142,7 +140,12 @@ function CreateAdvertisement() {
                 removeArray(i);
             }}>
                 <i class="fa fa-close image-close text-danger" ></i>
+                {/* {console.log("yeeo",image.split("."))} */}
+
                 <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+                {/* <video width="150" height="100" controls>
+  <source src={image} type="video/ogg"></source>
+  </video> */}
             </div>
         });
     };
@@ -313,6 +316,10 @@ console.log('ad',advertisement_file)
 
 
                                                 </div>
+                                                <div class="mt-1">
+                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                        </div>
+
 
                                             </div>
                                             <div class="" style={{ width: '27%' }}>
@@ -616,9 +623,9 @@ console.log('ad',advertisement_file)
 
 
 
-                                        <div class="">
+                                        {/* <div class="">
                                             <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
-                                        </div>
+                                        </div> */}
 
 
 

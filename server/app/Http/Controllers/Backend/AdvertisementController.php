@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
 use App\Models\User;
-use Illuminate\Support\Facades\File;
+// use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AdvertisementMultipleImage;
+use File;
 class AdvertisementController extends Controller
 {
     public function index()
@@ -58,22 +59,6 @@ class AdvertisementController extends Controller
         // dd($request->all());
 
         $advertisement = new Advertisement();
-   foreach ($request->file('image') as $image) {
-
-            $upload_image_name = time() . $image->getClientOriginalName();
-            $image->move('images/', $upload_image_name);
-
-            // $advertisement_multiple_table=new AdvertisementMultipleImage();
-            // $advertisement_multiple_table->advertisement_id=$advertisement->id;
-            // $advertisement_multiple_table->image=$upload_image_name;
-            // $advertisement_multiple_table->save();
-            $name[] = $upload_image_name;
-
-            $advertisement->image =  implode(', ', $name);
-            // $event->save();   
-        }
-
-
 
 
         $advertisement->advertisement_title = $request->advertisement_title;
@@ -103,7 +88,7 @@ class AdvertisementController extends Controller
             $file=$request->file('advertisement_file');
             $extension=$file->getClientOriginalExtension();
             $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
+            $file->move('check/',$filename);
             $advertisement->advertisement_file =$filename ;
          } 
 
@@ -116,6 +101,20 @@ class AdvertisementController extends Controller
 
         $advertisement->save();
 
+   foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('check/', $upload_image_name);
+
+            $advertisement_multiple_table=new AdvertisementMultipleImage();
+            $advertisement_multiple_table->advertisement_id=$advertisement->id;
+            $advertisement_multiple_table->image=$upload_image_name;
+            $advertisement_multiple_table->save();
+            // $name[] = $upload_image_name;
+
+            // $advertisement->image =  implode(', ', $name);
+            // $event->save();   
+        }
    
 
         return response()->json([
@@ -132,10 +131,13 @@ class AdvertisementController extends Controller
     {
         $advertisement = Advertisement::find($id);
 
+        $advertisement_images=AdvertisementMultipleImage::where('advertisement_id',$id)->get();
+
         if ($advertisement) {
             return response()->json([
                 'status' => 200,
                 'advertisement' => $advertisement,
+                'advertisement_images'=>$advertisement_images
             ]);
         } else {
             return response()->json([
@@ -162,7 +164,7 @@ class AdvertisementController extends Controller
 
         $currentDate=date("Y-m-d");
         if($add_days < $advertisment_create_date){
-            dd("Your date is finished you can extended more");
+            // dd("Your date is finished you can extended more");
 
         return response()->json([
             'status' => 400,
@@ -170,17 +172,17 @@ class AdvertisementController extends Controller
         ]);
         }
         else{
-            if ($request->file('image')) {
-            foreach ($request->file('image') as $image) {
+        //     if ($request->file('image')) {
+        //     foreach ($request->file('image') as $image) {
 
-                $upload_image_name = time() . $image->getClientOriginalName();
-                $image->move('images/', $upload_image_name);
-                $name[] = $upload_image_name;
+        //         $upload_image_name = time() . $image->getClientOriginalName();
+        //         $image->move('images/', $upload_image_name);
+        //         $name[] = $upload_image_name;
 
-                $advertisement->image =  implode(', ', $name);
-                // $event->save();   
-            }
-        }
+        //         $advertisement->image =  implode(', ', $name);
+        //         // $event->save();   
+        //     }
+        // }
 
 
 
@@ -211,7 +213,7 @@ class AdvertisementController extends Controller
             $file=$request->file('advertisement_file');
             $extension=$file->getClientOriginalExtension();
             $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
+            $file->move('check/',$filename);
             $advertisement->advertisement_file =$filename ;
          } 
 
@@ -220,6 +222,21 @@ class AdvertisementController extends Controller
             $advertisement->advertiser_email = $request->advertiser_email;
             $advertisement->reference_no = $request->reference_no;
             $advertisement->po_no = $request->advertiser_name;
+
+           foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('check/', $upload_image_name);
+
+            $advertisement_multiple_table=new AdvertisementMultipleImage();
+            $advertisement_multiple_table->advertisement_id=$advertisement->id;
+            $advertisement_multiple_table->image=$upload_image_name;
+            $advertisement_multiple_table->save();
+            // $name[] = $upload_image_name;
+
+            // $advertisement->image =  implode(', ', $name);
+            // $event->save();   
+        }
         $advertisement->update();
 
         return response()->json([
@@ -253,6 +270,17 @@ class AdvertisementController extends Controller
     {
 
         $advertisement = Advertisement::find($id);
+
+        $advertisement_images=AdvertisementMultipleImage::where('advertisement_id',$id)->get();
+
+
+        foreach($advertisement_images as $image){
+            if(File::exists('check/'.$image->image)){
+                File::delete('check/'.$image->image);
+            }
+
+        }
+
         // $file=$event->image;
         // $filename = public_path().'/images/'.$file;
         // File::delete($filename);
@@ -261,6 +289,20 @@ class AdvertisementController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Advertisement deleted successfully',
+        ]);
+    }
+
+    public function deleteMultipleImage($id){
+        $advertisement = AdvertisementMultipleImage::find($id);
+
+        $file=$advertisement->image;
+        $filename = public_path().'/check/'.$file;
+        File::delete($filename);
+        $advertisement->delete();
+
+              return response()->json([
+            'status' => 200,
+            'message' => 'Advertisement Image deleted successfully',
         ]);
     }
 

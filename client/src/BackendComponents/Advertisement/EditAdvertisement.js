@@ -27,6 +27,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 function EditAdvertisement() {
+    const [renderData, setRenderData] = useState('')
 
     const navigate = useNavigate();
 
@@ -96,6 +97,8 @@ function EditAdvertisement() {
     const [po_no, setpo_no] = useState('');
     const [reference_no, setreference_no] = useState('');
     const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+
+    console.log('all image from database', allImagesFromDatabase)
 
     //////////images code ///////////
 
@@ -272,7 +275,8 @@ function EditAdvertisement() {
                 setshowDesktop(res.data.advertisement.showDesktop)
                 setshowMobile(res.data.advertisement.showMobile)
                 setposition(res.data.advertisement.position)
-                setAllImagesfromDatabase(res.data.advertisement.image.split(','))
+                // setAllImagesfromDatabase(res.data.advertisement.image.split(','))
+                setAllImagesfromDatabase(res.data.advertisement_images)
                 setshow_days(res.data.advertisement.show_days)
                 setshow_time(res.data.advertisement.show_time)
                 setredirect_link(res.data.advertisement.redirect_link);
@@ -298,7 +302,7 @@ function EditAdvertisement() {
             }
         })
 
-    }, [])
+    }, [renderData])
 
     const [allCheckBox, setAllCheckBox] = useState({
         home_page: '',
@@ -316,6 +320,21 @@ function EditAdvertisement() {
         })
 
     }
+
+    // const[deleteImageId,setDeleteImageId]=useState('');
+    // console.log('del id',deleteImageId)
+
+
+    // function deleteImageFromDatabase(e,$deleteImageId) {
+    //     e.preventDefault();
+    //     setDeleteImageId($deleteImageId)
+    //     axios.post(`/api/delete-advertisement-multiple-image/${deleteImageId}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setRenderData(res.data)
+    //         }
+    //     })
+    // }
+
 
     return (
         <div className="container-fluid">
@@ -380,7 +399,7 @@ function EditAdvertisement() {
                                                         />
 
                                                         <div className='d-flex mt-2 ' >
-                                                            {
+                                                            {/* {
                                                                 multipleImages.length >= 1 ?
                                                                     render(multipleImages)
                                                                     :
@@ -389,14 +408,55 @@ function EditAdvertisement() {
                                                                         // console.log('bal item',item)
                                                                         return (
                                                                             <>
-                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/check/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
 
                                                                             </>
                                                                         )
                                                                     })
 
 
+                                                            } */}
+
+
+                                                            {
+                                                                render(multipleImages)
+
+
+
+
+
                                                             }
+                                                            {
+
+                                                                allImagesFromDatabase.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
+                                                                            <div class="" style={{ position: 'relative' }} >
+                                                                                <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
+                                                                                    {
+                                                                                        axios.post(`/api/delete-advertisement-multiple-image/${item.id}`).then(res => {
+                                                                                            if (res.data.status == 200) {
+                                                                                                setRenderData(res.data)
+                                                                                            }
+                                                                                        })
+                                                                                    }
+
+                                                                                }}>
+                                                                                    <i class="fa fa-close text-danger"></i>
+
+                                                                                </div>
+
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/check/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                                            </div>
+
+                                                                        </>
+                                                                    )
+                                                                })
+
+                                                            }
+
 
 
                                                         </div>
@@ -405,7 +465,9 @@ function EditAdvertisement() {
 
 
                                                     </div>
-
+                                                    <div class="mt-1">
+                                                        <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE</button>
+                                                    </div>
 
                                                 </div>
 
@@ -712,9 +774,9 @@ function EditAdvertisement() {
 
 
 
-                                        <div class="mt-2">
+                                        {/* <div class="mt-2">
                                             <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE</button>
-                                        </div>
+                                        </div> */}
 
 
 

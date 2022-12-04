@@ -16,6 +16,8 @@ use App\Http\Controllers\Backend\ArticleBlogCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
 
 use App\Http\Controllers\Backend\ArticleBlogController;
+use App\Http\Controllers\Backend\AusttaaJobSectorController;
+use App\Http\Controllers\Backend\AusttaaJobSubSectorController;
 
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
@@ -76,6 +78,25 @@ Route::get('/specific-user/{id}', [AuthenticationController::class, 'specificUse
 //all users 
 Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
 
+
+
+//ausstta job sector (user configuration) Master Setup
+
+
+Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
+Route::post('/add-job-sector', [AusttaaJobSectorController::class, 'store']);
+Route::get('/edit-job-sector/{id}', [AusttaaJobSectorController::class, 'edit']);
+Route::post('/update-job-sector/{id}', [AusttaaJobSectorController::class, 'update']);
+Route::delete('/delete-job-sector/{id}', [AusttaaJobSectorController::class, 'destroy']);
+
+
+//ausstta job sub sector
+
+Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index']);
+Route::post('/add-job-sub-sector', [AusttaaJobSubSectorController::class, 'store']);
+Route::get('/edit-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'edit']);
+Route::post('/update-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'update']);
+Route::delete('/delete-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'destroy']);
 
 
 
@@ -210,6 +231,7 @@ Route::get('/all-advertisements', [AdvertisementController::class, 'index']);
 Route::post('/add-advertisement', [AdvertisementController::class, 'store']);
 Route::get('/edit-advertisement/{id}', [AdvertisementController::class, 'edit']);
 Route::post('/delete-advertisement/{id}', [AdvertisementController::class, 'destroy']);
+Route::post('/delete-advertisement-multiple-image/{id}', [AdvertisementController::class, 'deleteMultipleImage']);
 Route::post('/update-advertisement/{id}', [AdvertisementController::class, 'update']);
 
 // /web upcoming advertisement,archive post (tab)filtering

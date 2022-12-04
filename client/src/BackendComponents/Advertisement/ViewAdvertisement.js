@@ -229,7 +229,7 @@ function ViewAllAdvertisement() {
             title: "ALL", field: `image`, render: (row) =>
                 <div className=''>
 
-                    <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" />
+                    {/* <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" /> */}
 
 
                 </div>

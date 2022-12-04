@@ -36,6 +36,7 @@ import CreateNoticeNews from './BackendComponents/NoticeNews/CreateNoticeNews';
 import ViewNoticeNews from './BackendComponents/NoticeNews/ViewNoticeNews';
 import EditBanner from './BackendComponents/Banner/EditBanner';
 import NotFound from './BackendComponents/NotFound/NotFound';
+import UserConfiguration from './BackendComponents/User/configuration/UserConfiguration';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -148,8 +149,9 @@ function App() {
           <Route path="view-all-users" element={<ViewAllUsers />}></Route>
           <Route path="role-management" element={<RoleManagement />}></Route>
 
-          <Route path="view-all-users" element={<ViewAllUsers />}></Route>
-          <Route path="role-management" element={<RoleManagement />}></Route>
+          <Route path="user-configuration" element={<UserConfiguration />}></Route>
+
+    
 
 
           <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
