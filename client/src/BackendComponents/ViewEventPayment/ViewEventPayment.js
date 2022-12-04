@@ -355,103 +355,7 @@ function ViewEventPayment() {
             },
         },
     ];
-    const columns1 = [
-        // {
-        //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
-
-        //     width: "40 !important"
-        // },
-        {
-            title: 'ALL  ', field: ``
-
-            ,
-            render: (row) =>
-
-                <div className=''>
-                    <div class="tooops d-flex align-items-center justify-content-between">
-                        <div className=''>
-                            <div className='text-secondary'>
-                                <span>
-                                    <i className='fa fa-calendar'></i>
-
-                                    <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} </span>
-                                </span>
-                            </div>
-                            <div className='d-flex align-items-center text-dark'>
-                                <h6 className='my-1'><span>{row.full_name}</span></h6>
-                                {/* <i className='fa fa-eye mx-2'></i> */}
-                            </div>
-                        </div>
-                        <div>
-
-
-                            <button className='membership-btnn'>Membership fees</button>
-
-                        </div>
-
-                    </div>
-
-                    <div>
-                        <p className='my-1 '>
-                            Alumni
-                        </p>
-
-
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
-
-
-
-                    </div>
-
-
-
-
-                </div>
-
-            ,
-
-
-
-
-            cellStyle: {
-                marginLeft: 50,
-                maxWidth: 200
-                // width: 400
-            },
-        },
-        {
-            title: "", field: `isPublished`, render: (row) =>
-                <div>
-                    <button className='paid-btn'>
-                        Paid
-                    </button>
-                </div>
-
-
-            , cellStyle: {
-                // marginLeft: 50,
-                // maxWidth: 0,
-                textAlign: 'right'
-            },
-        },
-
-
-
-        {
-            title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
-
-                <div>
-                    <h5><span><i class="fa-solid fa-dollar-sign"></i></span>5</h5>
-                </div>
-
-
-            </div>,
-            cellStyle: {
-                marginLeft: 50,
-                textAlign: 'right'
-            },
-        },
-    ];
+   
 
 
 
@@ -534,20 +438,8 @@ function ViewEventPayment() {
 
         setSelectedRowsIds(result);
 
-
     }
-    const selectionCheck1 = (selectedRows1) => {
-
-        setselectedRowsLength1(selectedRows1.length)
-
-        // setSelectedRowsIds(selectedRows)
-        let result = selectedRows1.map(a => a.id);
-        // console.log('result',result)
-
-        setSelectedRowsIds1(result);
-
-
-    }
+   
 
 
 
@@ -726,31 +618,7 @@ function ViewEventPayment() {
                                             }}
 
                                         />
-                                        <MaterialTable
-                                            columns1={columns1}
-                                            data={allBlogArticle}
-                                            isLoading={loading === true ? true : false}
-                                            onSelectionChange={selectionCheck1}
-
-                                            options={{
-                                                search: true,
-                                                // filtering: true,
-                                                toolbar: false,
-                                                showTitle: false,
-                                                searchFieldAlignment: "left",
-                                                pageSize: 5,
-                                                emptyRowsWhenPaging: false,
-                                                pageSizeOptions: [5, 10, 20, 50, 100],
-                                                selection: true,
-                                                sorting: false,
-                                                searchFieldAlignment: "left",
-
-                                                // paging:false
-
-
-                                            }}
-
-                                        />
+                                        
 
 
                                     </div>
