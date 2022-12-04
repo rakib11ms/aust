@@ -13,7 +13,7 @@ class AusttaaJobSubSectorController extends Controller
     {
         // $total_job_sub_sector = AusttaaJobSubSector::orderBy('id', 'desc')->get()->count();
 
-        $job_sub_sector = DB::table('austtaa_job_sub_sectors')->leftJoin('austtaa_job_sectors', 'austtaa_job_sectors.id', '=', 'austtaa_job_sub_sectors.job_sector_id',)->select('austtaa_job_sub_sectors.*', 'austtaa_job_sectors.job_sub_sector_name')->orderBy('austtaa_job_sub_sectors.id', 'desc')->get();
+        $job_sub_sector = DB::table('austtaa_job_sub_sectors')->leftJoin('austtaa_job_sectors', 'austtaa_job_sectors.id', '=', 'austtaa_job_sub_sectors.job_sector_id',)->select('austtaa_job_sub_sectors.*', 'austtaa_job_sub_sectors.job_sub_sector_name')->orderBy('austtaa_job_sub_sectors.id', 'desc')->get();
 
         return response()->json([
             'status' => 200,

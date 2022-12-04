@@ -31,43 +31,188 @@ function UserConfiguration() {
 
     const navigate = useNavigate();
 
+    const [create_job_sector, setcreate_job_sector] = useState('');
+    const [create_job_sub_sector, setcreate_job_sub_sector] = useState('');
 
-    const[create_job_sector,setcreate_job_sector]=useState('');
-    const[create_job_sub_sector,setcreate_job_sub_sector]=useState('');
+    const createJobSectorArrayData = create_job_sector.split(',');
+    const createJobSubSectorArrayData = create_job_sub_sector.split(',');
 
-    const createJobSectorArrayData=create_job_sector.split(',');
-    const createJobSubSectorArrayData=create_job_sub_sector.split(',');
+    console.log('yyy', createJobSectorArrayData)
 
-    console.log('yyy',createJobSectorArrayData)
+    // const resetCreateConfiguration=()=>{
+    //     if(e.target.onClick){
+    //         setcreate_job_sector(''),
+    //         setcreate_job_sub_sector('');
+    //     }
 
-
-    const submitCreateConfiguration=(e)=>{
+    // }
+    const submitCreateConfiguration = (e) => {
         e.preventDefault();
-        if(create_job_sector !==null){
-            e.preventDefault();
-            // const createJobSectorArrayData=create_job_sector.split(',');
-            createJobSectorArrayData.map((item,i)=>{
-                axios.post(`/api/add-job-sector`, createJobSectorArrayData).then(res => {
+        if (create_job_sector !== null) {
+
+            createJobSectorArrayData.map((item, i) => {
+                const data = {
+                    job_sector_name: item
+                }
+                axios.post(`/api/add-job-sector`, data).then(res => {
                     if (res.data.status == 200) {
                         Swal.fire(res.data.message, '', 'success')
                         // setRenderAllPosts(res.data);
                         // closeAddPostCategoryModal();
                         setcreate_job_sector("");
-        
+
                     }
                     // else if (res.data.status == 400) {
                     //     setAddPostType({ ...addPostType, error_list: res.data.errors });
                     //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-        
+
                     // }
                 })
             })
-    
-        }
-        if(create_job_sub_sector !==null){
 
         }
+        if (create_job_sub_sector !== null) {
+            createJobSubSectorArrayData.map((item, i) => {
+                const data = {
+                    job_sub_sector_name: item
+                }
+                axios.post(`/api/add-job-sub-sector`, data).then(res => {
+                    if (res.data.status == 200) {
+                        Swal.fire(res.data.message, '', 'success')
+                        // setRenderAllPosts(res.data);
+                        // closeAddPostCategoryModal();
+                        setcreate_job_sub_sector("");
+
+                    }
+                    // else if (res.data.status == 400) {
+                    //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                    // }
+                })
+            })
+        }
     }
+
+    ///create job sector and job sub sector state mapping and submit///
+
+    const [job_sector_id_state,setjob_sector_id_state]=useState('');
+    const [job_sub_sector_name_state,setjob_sub_sector_name_state]=useState('');
+
+    const submitCreateJobMap=()=>{
+        const data={
+            job_sub_sector_name:job_sub_sector_name_state,
+            job_sector_id:job_sector_id_state
+        }
+        axios.post(`/api/update-job-sub-sector/${job_sector_id_state}`, data).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                // setRenderAllPosts(res.data);
+                // closeAddPostCategoryModal();
+                // setjob_sector_id_state("");
+                // job_sub_sector_name_state("")
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+    ////create map job sector and job sub sector and view modal functionality start
+
+
+    const customStyles1 = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "50vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+    const customStyles2 = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "70vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+
+    const [addJobSectorJobSubSectorModalIsOpen, setaddJobSectorJobSubSectorModalIsOpen] = useState(false);
+    function openAddJobSectorJobSubSectorModal(e) {
+        e.preventDefault();
+        setaddJobSectorJobSubSectorModalIsOpen(true)
+    }
+    function closeAddJobSectorJobSubSectorModal(e) {
+        setaddJobSectorJobSubSectorModalIsOpen(false);
+
+    }
+
+    const [addPostModalIsOpen, setaddPostModalIsOpen] = useState(false);
+
+    function openAddPostModal(e) {
+        e.preventDefault();
+        setaddPostModalIsOpen(true)
+    }
+    function closeAddPostModal(e) {
+        setaddPostModalIsOpen(false);
+
+    }
+
+
+    ////create map job sector and job sub sector and view modal functionality end
+
+
+    ////all job sector job sub sector fetch useffect start
+
+    const [alljobSector, setAllJobSector] = useState([]);
+    const [alljobSubSector, setAllJobSubSector] = useState([]);
+    console.log('all job sub sector', alljobSubSector)
+
+    useEffect(() => {
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSector(res.data.job_sector);
+
+            }
+        })
+
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSector(res.data.job_sub_sector);
+
+            }
+        })
+
+        Modal.setAppElement('body');
+    }, [])
+    ////all job sector job sub sector fetch useffect end
+
+
+
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -157,15 +302,17 @@ function UserConfiguration() {
                                                     </div>
 
                                                     <div class="">
-                                                        <input type="text" class="form-control my-1 py-1" id="exampleFormControlInput1" onChange={(e) => {setcreate_job_sector(e.target.value);
-                                                            console.log('check create',create_job_sector)
-                                                        }} name="create_job_sector" value={create_job_sector}  />
+                                                        <input type="text" class="form-control my-1 py-1" id="exampleFormControlInput1" onChange={(e) => {
+                                                            setcreate_job_sector(e.target.value);
+                                                            console.log('check create', create_job_sector)
+                                                        }} name="create_job_sector" value={create_job_sector} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control my-1 py-1" id="exampleFormControlInput1" onChange={(e) => {setcreate_job_sub_sector(e.target.value);
-                                                            console.log('check create',create_job_sub_sector)
-                                                        }} name="create_job_sub_sector" value={create_job_sub_sector}  />
+                                                        <input type="text" class="form-control my-1 py-1" id="exampleFormControlInput1" onChange={(e) => {
+                                                            setcreate_job_sub_sector(e.target.value);
+                                                            console.log('check create', create_job_sub_sector)
+                                                        }} name="create_job_sub_sector" value={create_job_sub_sector} />
 
                                                     </div>
                                                     <div class="">
@@ -192,9 +339,79 @@ function UserConfiguration() {
                                                         <div className=''>
                                                             <p>View All</p>
                                                         </div>
-                                                        <div className=''>
+                                                        <div className='' onClick={openAddJobSectorJobSubSectorModal}>
                                                             <p className='border border-success rounded-3 px-2 mx-2'>Map</p>
                                                         </div>
+
+                                                        {/* add post category modal */}
+                                                        <Modal
+                                                            isOpen={addJobSectorJobSubSectorModalIsOpen}
+                                                            onRequestClose={closeAddJobSectorJobSubSectorModal}
+                                                            style={customStyles1}
+                                                            contentLabel="Example Modal"
+                                                        >
+
+                                                            <div className='card-body '>
+                                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddJobSectorJobSubSectorModal}><i class="fa fa-times"></i></span>
+
+                                                                <h6 className=""> Mapping</h6>
+                                                                <hr />
+
+
+                                                                <div className="row">
+
+                                                                    <div className="col-12">
+
+                                                                        <div className=''>
+                                                                            <select class="form-select" aria-label="Default select example" onChange={(e)=>setjob_sector_id_state(e.target.value)}>
+                                                                                <option selected disabled>Choose Job Sector</option>
+                                                                                {
+                                                                                    alljobSector.map((item, i) => {
+                                                                                        return (
+                                                                                            <>
+                                                                                                <option value={item.id}>{item.job_sector_name}</option>
+                                                                                            </>
+                                                                                        )
+                                                                                    })
+                                                                                }
+
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div className='my-3'>
+                                                                            <select class="form-select" aria-label="Default select example" onChange={(e)=>setjob_sub_sector_name_state(e.target.value)}>
+                                                                                <option selected disabled>Choose Job Sub Sector</option>
+                                                                                {
+                                                                                    alljobSubSector.map((item, i) => {
+                                                                                        return (
+                                                                                            <>
+                                                                                                <option value={item.job_sub_sector_name}>{item.job_sub_sector_name}</option>
+                                                                                            </>
+                                                                                        )
+                                                                                    })
+                                                                                }
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                        <div className='text-center'>
+                                                                        <button className='btn btn-success btn-sm  me-5 rounded-3 px-4 py-2 mt-1' onClick={submitCreateJobMap}>Map</button>
+
+                                                                        </div>
+
+
+
+
+
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </Modal>
+
                                                     </div>
 
                                                     <div className=''>
@@ -217,7 +434,7 @@ function UserConfiguration() {
 
 
                                         <div class="mt-5 text-center">
-                                            <button type="submit" className='btn btn-success rounded-3 text-success px-5 mx-2 bg-white' onSubmit="">RESET</button>
+                                            <button type="button" className='btn btn-success rounded-3 text-success px-5 mx-2 bg-white' onClick="{resetCreateConfiguration}">RESET</button>
                                             <button type="submit" className='btn btn-success rounded-3 px-5 mx-2' onSubmit={submitCreateConfiguration}>SAVE</button>
                                         </div>
 

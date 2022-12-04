@@ -98,7 +98,8 @@ Route::get('/edit-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, '
 Route::post('/update-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'update']);
 Route::delete('/delete-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'destroy']);
 
-
+// //dependent sub job sector based on job sector id dropdown web
+// Route::get('/get-article-blogs-subcategories-by-category-id/{id}', [ArticleBlogSubCategoryController::class, 'getAllSubCatByCatId']);
 
 
 
