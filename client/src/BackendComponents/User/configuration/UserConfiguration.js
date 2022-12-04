@@ -62,7 +62,7 @@ function UserConfiguration() {
                     // }
                 })
             })
-     
+    
         }
         if(create_job_sub_sector !==null){
 
