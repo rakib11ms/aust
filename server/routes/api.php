@@ -18,7 +18,9 @@ use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogController;
 use App\Http\Controllers\Backend\AusttaaJobSectorController;
 use App\Http\Controllers\Backend\AusttaaJobSubSectorController;
+use App\Http\Controllers\Backend\AusttaaCompanyNameController;
 
+use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsController;
@@ -79,6 +81,13 @@ Route::get('/specific-user/{id}', [AuthenticationController::class, 'specificUse
 Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
 
 
+//ausstta company name (user configuration) Master Setup
+
+Route::get('/company-name', [AusttaaCompanyNameController::class, 'index']);
+Route::post('/add-company-name', [AusttaaCompanyNameController::class, 'store']);
+Route::get('/edit-company-name/{id}', [AusttaaCompanyNameController::class, 'edit']);
+Route::post('/update-company-name/{id}', [AusttaaCompanyNameController::class, 'update']);
+Route::delete('/delete-company-name/{id}', [AusttaaCompanyNameController::class, 'destroy']);
 
 //ausstta job sector (user configuration) Master Setup
 
@@ -98,8 +107,17 @@ Route::get('/edit-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, '
 Route::post('/update-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'update']);
 Route::delete('/delete-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'destroy']);
 
-// //dependent sub job sector based on job sector id dropdown web
-// Route::get('/get-article-blogs-subcategories-by-category-id/{id}', [ArticleBlogSubCategoryController::class, 'getAllSubCatByCatId']);
+//austtaa job sector job sub sector mapping 
+
+Route::get('/job-sector-job-sub-sector-map', [AusttaaJobSectorJobSubSectorMapController::class, 'index']);
+Route::post('/add-job-sector-job-sub-sector-map', [AusttaaJobSectorJobSubSectorMapController::class, 'store']);
+Route::get('/edit-job-sector-job-sub-sector-map/{id}', [AusttaaJobSectorJobSubSectorMapController::class, 'edit']);
+Route::post('/update-job-sector-job-sub-sector-map/{id}', [AusttaaJobSectorJobSubSectorMapController::class, 'update']);
+Route::delete('/delete-job-sector-job-sub-sector-map/{id}', [AusttaaJobSectorJobSubSectorMapController::class, 'destroy']);
+
+
+//dependent sub job sector based on job sector id dropdown web
+Route::get('/get-all-job-sub-sectors-by-job-sector-id/{id}', [AusttaaJobSectorJobSubSectorMapController::class, 'getAllSubByJobSectorId']);
 
 
 
