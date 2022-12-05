@@ -95,14 +95,14 @@ class AuthenticationController extends Controller
         $registration_pay_validity = Carbon::now()->diffInDays($end_date);
 
         // dd($registration_pay_validity);
-            $check=true;
-        if ($registration_pay_validity < 15 && $check) {
-            $event = new AusstaEvent();
+            // $check=true;
+        // if ($registration_pay_validity < 15 && $check) {
+        //     $event = new AusstaEvent();
 
-            $event->event_title = "Email for Subscription 15 days left";
-            // dd($event);
-            Mail::to("rakib10ms@gmail.com")->send(new EventMail($event));
-        }
+        //     $event->event_title = "Email for Subscription 15 days left";
+        //     // dd($event);
+        //     Mail::to("rakib10ms@gmail.com")->send(new EventMail($event));
+        // }
 
 
 
