@@ -15,22 +15,22 @@ function JobConfiguration() {
 
     console.log('all job types', allJobTypes)
 
-    const [totalDepartment,setTotalDepartment]=useState([])
-    const [totalJobType,setTotalJobType]=useState([])
+    const [totalDepartment, setTotalDepartment] = useState([])
+    const [totalJobType, setTotalJobType] = useState([])
 
-    console.log('ass',totalDepartment)
+    console.log('ass', totalDepartment)
 
-    
-    const [editJobTypeId,setEditJobTypeId]=useState('');
 
-    const [editJobTypeData,setEditJobTypeData]=useState([]);
-    console.log('editjobtype  ',editJobTypeData)
+    const [editJobTypeId, setEditJobTypeId] = useState('');
 
-    const [editDepartmentData,setEditDepartmentData]=useState([]);
+    const [editJobTypeData, setEditJobTypeData] = useState([]);
+    console.log('editjobtype  ', editJobTypeData)
+
+    const [editDepartmentData, setEditDepartmentData] = useState([]);
 
 
     useEffect(() => {
-  
+
         Modal.setAppElement('body');
 
     }, [])
@@ -43,7 +43,7 @@ function JobConfiguration() {
 
     })
 
-    console.log('job type data typing',addJobType)
+    console.log('job type data typing', addJobType)
 
     const handleInput = (e) => {
         setAddJobType({
@@ -52,9 +52,9 @@ function JobConfiguration() {
 
 
     }
-    const handleEditJobTypeInput=(e)=>{
+    const handleEditJobTypeInput = (e) => {
         setEditJobTypeData({
-            ...editJobTypeData,[e.target.name]: e.target.value
+            ...editJobTypeData, [e.target.name]: e.target.value
         })
     }
 
@@ -133,9 +133,9 @@ function JobConfiguration() {
 
     }
 
-    
+
     const [editJobTypeModalIsOpen, seteditJobTypeModalIsOpen] = useState(false);
-    function openEditJobTypeModal(e,editId) {
+    function openEditJobTypeModal(e, editId) {
         e.preventDefault();
         seteditJobTypeModalIsOpen(true)
         setEditJobTypeId(editId);
@@ -196,10 +196,10 @@ function JobConfiguration() {
             }
         })
 
-  
 
 
-    }, [renderAllJobTypes,editJobTypeId])
+
+    }, [renderAllJobTypes, editJobTypeId])
     const customStyles1 = {
         content: {
             // marginTop: '70px',
@@ -284,7 +284,7 @@ function JobConfiguration() {
         error_list: []
 
     })
-    console.log('eror dekh',addDepartment)
+    console.log('eror dekh', addDepartment)
 
     const handleAddDepartment = (e) => {
         setAddDepartment({
@@ -293,10 +293,10 @@ function JobConfiguration() {
 
 
     }
-    
 
 
-    
+
+
     const handleDepartmentSave = (e) => {
         e.preventDefault();
         const addDept = {
@@ -325,10 +325,10 @@ function JobConfiguration() {
 
 
     }
-    const [editDepartmentId,setEditDepartmentId]=useState('');
+    const [editDepartmentId, setEditDepartmentId] = useState('');
 
     const [editDepartmentModalIsOpen, seteditDepartmentModalIsOpen] = useState(false);
-    function openEditDepartmentModal(e,editId) {
+    function openEditDepartmentModal(e, editId) {
         e.preventDefault();
         seteditDepartmentModalIsOpen(true)
         setEditDepartmentId(editId);
@@ -355,10 +355,10 @@ function JobConfiguration() {
 
 
     }
-    
 
 
-    
+
+
     const handleDepartmentUpdate = (e) => {
         e.preventDefault();
         const updateDept = {
@@ -389,7 +389,7 @@ function JobConfiguration() {
     }
 
 
-    console.log('edit dep data ',editDepartmentId)
+    console.log('edit dep data ', editDepartmentId)
 
 
 
@@ -413,10 +413,10 @@ function JobConfiguration() {
         })
 
 
-    }, [renderAllDepartment,editDepartmentId])
+    }, [renderAllDepartment, editDepartmentId])
 
 
-    
+
 
     const deleteDepartment = (e, id) => {
         e.preventDefault();
@@ -462,7 +462,7 @@ function JobConfiguration() {
                         <section class="job-config m-3 border  rounded-3">
                             {/* <div class="row"> */}
                             <div class="job-config-header text-light rounded-top ">
-                                <div class="inside ">
+                                <div class="inside " data-aos="fade-right">
                                     <div class="item1">
                                         <h2 className=' mb-0'>{totalJobType}</h2>
                                         <p className=''>Job Types</p>
@@ -478,9 +478,9 @@ function JobConfiguration() {
 
 
                                 </div>
-                                <div class=" ">
+                                <div class=" " data-aos="flip-down">
 
-                                <Link to="/create-job-post"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{textDecoration:'none'}}>  Create A job </span></button> </Link>
+                                    <Link to="/create-job-post"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A job </span></button> </Link>
 
                                 </div>
 
@@ -554,7 +554,7 @@ function JobConfiguration() {
                                             </Modal>
 
                                             {/* edit job type modal */}
-                                            
+
                                             <Modal
                                                 isOpen={editJobTypeModalIsOpen}
                                                 onRequestClose={closeEditJobTypeModal}
@@ -623,20 +623,20 @@ function JobConfiguration() {
                                                                 value={item.id}> <span> {item.type_name}</span>
 
                                                                 <span onClick={(e) => {
-                                                                    deleteJobType(e,item.id)
-                                                                
+                                                                    deleteJobType(e, item.id)
+
                                                                 }}>
-                                                                <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
+                                                                    <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
                                                                 </span>
 
                                                                 <span onClick={(e) => {
-                                                                      openEditJobTypeModal(e,item.id)
+                                                                    openEditJobTypeModal(e, item.id)
 
                                                                 }
                                                                 }>
-                                                                <i class="fa fa-edit  " aria-hidden="true" ></i>
+                                                                    <i class="fa fa-edit  " aria-hidden="true" ></i>
                                                                 </span>
-                                                           
+
 
                                                             </button>
 
@@ -672,119 +672,119 @@ function JobConfiguration() {
 
 
                                         <Modal
-                                                isOpen={addDepartmentModalIsOpen}
-                                                onRequestClose={closeAddDepartmentModal}
-                                                style={addDepartmentModalStyle}
-                                                contentLabel="Example Modal"
-                                            >
+                                            isOpen={addDepartmentModalIsOpen}
+                                            onRequestClose={closeAddDepartmentModal}
+                                            style={addDepartmentModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
 
-                                                <div className='card-body '>
-                                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddDepartmentModal}><i class="fa fa-times"></i></span>
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddDepartmentModal}><i class="fa fa-times"></i></span>
 
-                                                    <h5 className=""> Create Department</h5>
-                                                    <hr />
-
-
-                                                    <div className="row">
-
-                                                        <div className="col-12">
-
-                                                            <div className='d-flex align-items-center'>
-                                                                <div class="mb-3" style={{ width: '60%' }}>
-                                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
-                                                                    <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addDepartment.type_name} name="department_name" onChange={handleAddDepartment} />
-                                                                </div>
-
-                                                                <div>
-                                                                </div>
+                                                <h5 className=""> Create Department</h5>
+                                                <hr />
 
 
-                                                                <div style={{ width: '40%' }} className="mx-2 mt-1">
-                                                                    <span className='text-danger'> {addDepartment.error_list.department_name}</span>
-                                                                </div>
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className='d-flex align-items-center'>
+                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addDepartment.type_name} name="department_name" onChange={handleAddDepartment} />
+                                                            </div>
+
+                                                            <div>
                                                             </div>
 
 
-
-
-
-
-
-                                                            <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentSave}>Save</button>
-
-
-
-
-
+                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                <span className='text-danger'> {addDepartment.error_list.department_name}</span>
+                                                            </div>
                                                         </div>
 
 
 
+
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentSave}>Save</button>
+
+
+
+
+
                                                     </div>
+
+
+
                                                 </div>
+                                            </div>
 
-                                            </Modal>
-
-
-                                            <Modal
-                                                isOpen={editDepartmentModalIsOpen}
-                                                onRequestClose={closeEditDepartmentModal}
-                                                style={addDepartmentModalStyle}
-                                                contentLabel="Example Modal"
-                                            >
-
-                                                <div className='card-body '>
-                                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditDepartmentModal}><i class="fa fa-times"></i></span>
-
-                                                    <h5 className=""> Edit Department</h5>
-                                                    <hr />
+                                        </Modal>
 
 
-                                                    <div className="row">
+                                        <Modal
+                                            isOpen={editDepartmentModalIsOpen}
+                                            onRequestClose={closeEditDepartmentModal}
+                                            style={addDepartmentModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
 
-                                                        <div className="col-12">
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditDepartmentModal}><i class="fa fa-times"></i></span>
 
-                                                            <div className='d-flex align-items-center'>
-                                                                <div class="mb-3" style={{ width: '60%' }}>
-                                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
-                                                                    <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editDepartmentData.department_name} name="department_name" onChange={handleEditDepartment} />
-                                                                </div>
-
-                                                                <div>
-                                                                </div>
+                                                <h5 className=""> Edit Department</h5>
+                                                <hr />
 
 
-                                                                <div style={{ width: '40%' }} className="mx-2 mt-1">
-                                                                    {/* <span className='text-danger'> {editDepartmentData.error_list.department_name}</span> */}
-                                                                </div>
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className='d-flex align-items-center'>
+                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editDepartmentData.department_name} name="department_name" onChange={handleEditDepartment} />
+                                                            </div>
+
+                                                            <div>
                                                             </div>
 
 
-
-
-
-
-
-                                                            <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentUpdate}>Update</button>
-
-
-
-
-
+                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                {/* <span className='text-danger'> {editDepartmentData.error_list.department_name}</span> */}
+                                                            </div>
                                                         </div>
 
 
 
-                                                    </div>
-                                                </div>
 
-                                            </Modal>
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentUpdate}>Update</button>
+
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </Modal>
 
                                     </div>
 
                                     <div className='job-type-secs '>
 
-                                  
+
 
                                         {
                                             allDepartments.map((item, i) => {
@@ -795,20 +795,20 @@ function JobConfiguration() {
                                                                 value={item.id}> <span> {item.department_name}</span>
 
                                                                 <span onClick={(e) => {
-                                                                    deleteDepartment(e,item.id)
-                                                                
+                                                                    deleteDepartment(e, item.id)
+
                                                                 }}>
-                                                                <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
+                                                                    <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
                                                                 </span>
 
                                                                 <span onClick={(e) => {
-                                                                      openEditDepartmentModal(e,item.id)
+                                                                    openEditDepartmentModal(e, item.id)
 
                                                                 }
                                                                 }>
-                                                                <i class="fa fa-edit  " aria-hidden="true" ></i>
+                                                                    <i class="fa fa-edit  " aria-hidden="true" ></i>
                                                                 </span>
-                                                           
+
 
                                                             </button>
 
@@ -821,7 +821,7 @@ function JobConfiguration() {
                                         }
 
 
-                                 
+
 
 
                                     </div>

@@ -654,7 +654,7 @@ function ViewAllEvent() {
 
                         <div className='container-fluid'>
 
-                            <section className='view-event-header d-flex justify-content-end rounded-3 mt-3'>
+                            <section className='view-event-header d-flex justify-content-end rounded-3 mt-3' data-aos="flip-up">
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">

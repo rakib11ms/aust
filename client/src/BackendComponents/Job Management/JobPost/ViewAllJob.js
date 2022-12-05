@@ -593,7 +593,7 @@ function ViewAllJob() {
 
             })
         }
-        else{
+        else {
 
         }
     }
@@ -616,7 +616,7 @@ function ViewAllJob() {
                             <div className='   job-config mt-3 border  rounded-3'>
 
                                 <div class="job-config-header text-light rounded-top ">
-                                    <div class="inside ">
+                                    <div class="inside " data-aos="fade-right">
                                         <div class="item1">
                                             <h2 className=' mb-0'>{totalActiveJobs}</h2>
                                             <p className=''>Available</p>
@@ -629,7 +629,7 @@ function ViewAllJob() {
 
 
                                     </div>
-                                    <div class=" ">
+                                    <div class=" " data-aos="flip-down">
 
                                         <Link to="/create-job-post" > <button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1'> Create A job</span></button> </Link>
 

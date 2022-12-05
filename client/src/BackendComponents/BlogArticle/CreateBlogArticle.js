@@ -323,7 +323,7 @@ function CreateBlogArticle() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Blog/Article</h5>
-                                    <Link to="/view-blog-article"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <Link to="/view-blog-article"> <button data-aos="fade-left" className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>
@@ -440,7 +440,7 @@ function CreateBlogArticle() {
                                                     image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
                                                 }
 
-                                                <div class="text-center mt-1">
+                                                <div class="text-center mt-1" data-aos="flip-up">
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
                                                 </div>
 

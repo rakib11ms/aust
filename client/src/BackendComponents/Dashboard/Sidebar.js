@@ -124,20 +124,20 @@ function Sidebar() {
                                         <li>
                                             <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create User</a>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-warning' : 'text-light '}`}>Aproval List</a>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light'}`}  >Role Management</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>E-Resister Users </a>
                                         </li>
-                                        <li>
-                                            <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
+                                        <li className='mt-1'>
+                                            <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-dark pt-1 pe-3 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
                                         </li>
                                     </ul>
                                 </>
@@ -335,16 +335,16 @@ function Sidebar() {
                             {
                                 isActive6 && <>
                                     <ul className='text-light mx-4 '>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to='/create-event' className={`text-form ${path == '/create-event' ? 'text-light bg-dark ps-2 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create Event</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to='/view-all-events' className={`text-form ${path == '/view-all-events' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>View All Events</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to='/event-configuration' className={`text-form ${path == '/event-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to='/view-event-payment' className={`text-form ${path == '/view-event-payment' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Payment</Link>
                                         </li>
 
@@ -414,7 +414,7 @@ function Sidebar() {
                                         <li class="mt-1">
                                             <Link to='/view-all-banner' className={`text-form ${path == '/view-all-banner' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Banner</Link>
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to='/create-banner' className={`text-form ${path == '/create-banner' ? 'text-light bg-dark ps-1 pt-1 pe-5 pb-1 rounded' : 'text-light '}`}>Create</Link>
                                         </li>
 
@@ -452,12 +452,12 @@ function Sidebar() {
                                             <Link to="/view-notice-news" className={`text-form ${path == '/view-notice-news' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Notices / News</Link>
 
                                         </li>
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to="/create-notice-news" className={`text-form ${path == '/create-notice-news' ? 'text-light bg-dark ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Add Notice/News</Link>
 
                                         </li>
 
-                                        <li>
+                                        <li className='mt-1'>
                                             <Link to="/notice-news-configuration" className={`text-form ${path == '/notice-news-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
 
                                         </li>
@@ -467,12 +467,6 @@ function Sidebar() {
                             }
                         </div>
                     </div>
-
-
-
-
-
-
 
 
                     <div className=''>
@@ -497,7 +491,7 @@ function Sidebar() {
                                 isActive9 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Get In <EastIcon className='ms-3' /></Link>
+                                            <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Get In <EastIcon className='ms-3' /></Link>
                                         </li>
 
                                     </ul>

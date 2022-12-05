@@ -765,7 +765,7 @@ function PostType() {
                                 <div class="post-top-con-left  p-4">
 
                                     <div className='mb-3 input-search mt-3'>
-                                        <div class="input-group py-2">
+                                        <div class="input-group py-2" data-aos="fade-right">
                                             <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
@@ -820,7 +820,7 @@ function PostType() {
 
                                     </div>
 
-                                    <div className='text-center  mt-4'>
+                                    <div className='text-center  mt-4' data-aos="fade-right">
                                         <div className='shadow-sm mx-3 border py-2 px-2  cat-btn mb-1 ' onClick={openAddPostCategoryModal}>
                                             <h6 className='mt-1' > + Category</h6>
 
@@ -834,7 +834,7 @@ function PostType() {
 
 
                                 </div>
-                                <div class="post-top-con-right text-light text-center rounded-end px-5 py-2">
+                                <div class="post-top-con-right text-light text-center rounded-end px-5 py-2" data-aos="flip-right">
 
                                     <div className=' mb-0'>
 

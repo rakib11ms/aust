@@ -32,11 +32,10 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-  <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-/>  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
+  <!-- AOS Animated -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
   <title>Austta</title>
@@ -75,19 +74,23 @@
     integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
-      (function (window, document) {
-          var loader = function () {
-              var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-              script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
-              tag.parentNode.insertBefore(script, tag);
-          };
-  
-          window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-      })(window, document);
+  <script>
+    (function (window, document) {
+      var loader = function () {
+        var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+        script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+        tag.parentNode.insertBefore(script, tag);
+      };
+
+      window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
   </script>
+  <!-- AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
 </body>
 
 </html>
-

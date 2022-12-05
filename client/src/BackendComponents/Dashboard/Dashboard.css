@@ -32,9 +32,9 @@ body {
 }
 
 /* Toolbar */
-.toolbar-input-div {
+/* .toolbar-input-div {
     margin-left: -10px;
-}
+} */
 
 .text-form {
     text-decoration: none;
@@ -189,8 +189,6 @@ body {
 
 }
 
-
-
 .card-no-1>.card-h>.card-image-tops {
     width: 100%;
     height: 100%;
@@ -239,7 +237,7 @@ body {
 }
 
 @media only screen and (min-width: 1430px) {
-    .toolbar-input-div {
+    /* .toolbar-input-div {
         margin-left: 130px;
-    }
+    } */
 }

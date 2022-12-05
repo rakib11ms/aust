@@ -514,7 +514,7 @@ function ViewEventPayment() {
                                 <div class="post-top-con-left  p-4 bg-success d-flex justify-content-center">
 
                                     <div className='mb-3 input-search mt-3 bg-success'>
-                                        <div class="input-group py-2">
+                                        <div class="input-group py-2" data-aos="flip-up">
                                             <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
@@ -548,7 +548,7 @@ function ViewEventPayment() {
                                         <h5 className=''>Showing </h5>
                                         <p><span><i className="fa-solid fa-calendar-days"></i></span> 12 Sept, 2022 - 20 Sept, 2022</p>
                                     </div>
-                                    <div>
+                                    <div data-aos="fade-left">
                                         <button className='export-btn'>
                                             <span><i className="fa-solid fa-file"></i> EXPORT</span>
                                         </button>
@@ -581,11 +581,11 @@ function ViewEventPayment() {
                                             </div>
 
 
-                                            <div className='mx-3'>
+                                            <div className='mx-3' >
 
 
-                                                <button className='btn px-4 rounded-pill border noti-btnn'> <span><i className="fa-solid fa-message"></i> </span>NOTIFY</button>
-                                                <button className='btn px-4 rounded-pill  border delete-btnn' > <span><i className="fa-solid fa-trash"></i> </span>DELETE</button>
+                                                <button className='btn px-4 rounded-pill border noti-btnn' data-aos="zoom-out-up"> <span><i className="fa-solid fa-message"></i> </span>NOTIFY</button>
+                                                <button className='btn px-4 rounded-pill  border delete-btnn' data-aos="zoom-out-up" > <span><i className="fa-solid fa-trash"></i> </span>DELETE</button>
 
                                             </div>
 
