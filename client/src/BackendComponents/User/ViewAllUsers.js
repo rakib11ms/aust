@@ -592,27 +592,28 @@ function ViewAllUsers() {
                             <div className='user-config mt-3 border  rounded-3'>
                                 <div className='user-config1 container'>
 
-                                    <div className="input-icon input-group-sm p-5 ">
+                                    <div className="input-icon input-group-sm p-5 " data-aos="zoom-out-right">
                                         <input id='res-input-icon' style={{ position: "relative", width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-84px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
                                         <span className="input-group-text bg-transparent" id="icon">
                                             <SearchRoundedIcon />
                                         </span>
                                     </div>
                                     <div className='d-flex ms-5'>
-                                        <div className='pending mx-2'>
+                                        <div className='pending mx-2' data-aos="zoom-out-left">
                                             <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
                                             <span className='num1'><h4
                                                 className='num1-h4'
                                                 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
                                         </div>
-                                        <div className='active'>
+                                        <div className='active' data-aos="zoom-out-left">
                                             <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
                                             <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
                                         </div>
                                     </div>
                                 </div>
                                 <Container>
-                                    <div className='user-config2'>
+                                    <div className='user-config2' data-aos="fade-up"
+                                        data-aos-anchor-placement="top-bottom">
                                         <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
                                             Male
                                         </Button>

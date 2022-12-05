@@ -516,7 +516,7 @@ function BlogArticleConfiguration() {
 
                         <section class="job-config m-3 border  rounded-3">
                             {/* <div class="row"> */}
-                            <div class="job-config-header text-light rounded-top ">
+                            <div class="job-config-header text-light rounded-top " data-aos="flip-down">
                                 <div class="inside ">
                                     <div class="item1">
                                         <h2 className=' mb-0'>{totalCategory}</h2>

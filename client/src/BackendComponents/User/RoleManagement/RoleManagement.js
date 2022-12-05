@@ -648,7 +648,7 @@ function RoleManagement() {
                                     </div>
 
 
-                                    <div>
+                                    <div data-aos="fade-left">
                                         <Button style={{ backgroundColor: "#00602B", color: "white", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 10, padding: "13px 15px" }} variant="contained" startIcon={<AddIcon />}>
                                             Create Role
                                         </Button>
@@ -1325,10 +1325,10 @@ function RoleManagement() {
 
                                 </div>
                                 <div className='tab-button '>
-                                    <Button style={{ marginRight: 10 }} variant="outlined" color="success">
+                                    <Button style={{ marginRight: 10 }} variant="outlined" color="success" data-aos="flip-up">
                                         Revert
                                     </Button>
-                                    <Button variant="contained" color="success">
+                                    <Button variant="contained" color="success" data-aos="flip-up">
                                         Grant
                                     </Button>
                                 </div>
