@@ -654,10 +654,10 @@ function ViewAllEvent() {
 
                         <div className='container-fluid'>
 
-                            <section className='view-event-header d-flex justify-content-end rounded-3 mt-3' data-aos="flip-up">
+                            <section className='view-event-header d-flex justify-content-end rounded-3 mt-3' >
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
-                                        <div class="input-group">
+                                        <div class="input-group" data-aos="flip-up">
                                             <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>

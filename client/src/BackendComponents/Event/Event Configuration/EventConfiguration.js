@@ -266,7 +266,7 @@ function EventConfiguration() {
                                                 </div>
 
                                                 <div>
-                                                    <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddEventTypeModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
+                                                    <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddEventTypeModal} data-aos="fade-left"> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
 
 
                                                     <Modal

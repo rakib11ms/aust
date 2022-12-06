@@ -635,7 +635,7 @@ function Settings() {
                                     <Box
                                         sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
                                     >
-                                        <Tabs
+                                        <Tabs data-aos="fade-right"
                                             orientation="vertical"
                                             variant="scrollable"
                                             value={value}
@@ -652,7 +652,7 @@ function Settings() {
 
                                         <TabPanel value={value} index={0}>
                                             <div>
-                                             <h3 className='table-head-text'>Auto approval</h3>
+                                             <h5 className='table-head-text'>Auto approval</h5>
                                             </div>
                                             <div className="table-responsive table-sec">
                                                 <table className="table ">
@@ -808,7 +808,7 @@ function Settings() {
 
                                         <TabPanel value={value} index={2}>
                                         <div>
-                                        <h3 className='table-head-text'>API Configuration</h3>
+                                        <h5 className='table-head-text'>API Configuration</h5>
                                        </div>
                                             <div className="table-responsive table-sec">
                                                 <table class="table">
@@ -971,7 +971,7 @@ function Settings() {
                                         </TabPanel>
                                         <TabPanel value={value} index={3}>
                                         <div>
-                                        <h3 className='table-head-text'>Proview previllage</h3>
+                                        <h5 className='table-head-text'>Proview previllage</h5>
                                        </div>
                                             <div className="table-responsive table-sec">
                                                 <table class="table">

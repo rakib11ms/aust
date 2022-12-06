@@ -257,10 +257,6 @@ function ViewAllAdvertisement() {
                             <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
 
 
-
-
-
-
                                 <div className='text-secondary'>
                                     <Link to={`/edit-advertisement/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
@@ -517,7 +513,7 @@ function ViewAllAdvertisement() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" data-aos="flip-up"/>
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
