@@ -196,7 +196,7 @@ function CreateBanner() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Banner</h5>
-                                    <Link to="/view-all-events"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <Link to="/view-all-events"> <button className='btn btn-sm btn-success float-end' data-aos="fade-left">Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>

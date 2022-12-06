@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
 import Swal from 'sweetalert2';
@@ -535,7 +535,7 @@ function NoticeNewsConfiguration() {
                                 </div>
                                 <div class=" ">
 
-                                    <Link to="/create-notice-news"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A Notice/News </span></button> </Link>
+                                    <Link to="/create-notice-news"><button type='button' className='btn border btn-sm text-light' data-aos="fade-left"> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A Notice/News </span></button> </Link>
 
                                 </div>
 
@@ -551,7 +551,7 @@ function NoticeNewsConfiguration() {
                                         </div>
 
                                         <div>
-                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddCategoryModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
+                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddCategoryModal} data-aos="fade-left"> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
 
 
                                             <Modal
@@ -721,7 +721,7 @@ function NoticeNewsConfiguration() {
                                         </div>
 
                                         <div>
-                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-3' onClick={openAddSubCategoryModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
+                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-3' onClick={openAddSubCategoryModal} data-aos="fade-left"> <span className='mx-1 ' > Add New</span> <i class="fa-solid fa-plus "></i></button>
 
                                         </div>
 

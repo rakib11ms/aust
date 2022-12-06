@@ -605,7 +605,8 @@ function ViewBlogArticle() {
                                             <span class="input-group-text bg-white inp shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
 
-                                        <div class="search-by d-flex mt-3">
+                                        <div class="search-by d-flex mt-3" data-aos="fade-up"
+                                            data-aos-duration="1000">
 
                                             <div className='fw-bold'>
                                                 Search By

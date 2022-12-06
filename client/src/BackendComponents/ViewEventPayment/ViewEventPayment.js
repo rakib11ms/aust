@@ -359,11 +359,6 @@ function ViewEventPayment() {
 
 
 
-   
-
-
-
-
     const [postFiltering, setPostFiltering] = useState('all');
 
 
