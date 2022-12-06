@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('full_name')->nullable();
             $table->string('nick_name')->nullable();
             $table->string('email')->unique();
+            $table->longText('bio')->nullable();
             $table->string('phone_no')->unique()->nullable();
             $table->string('batch')->nullable();
             $table->string('blood_group')->nullable();
@@ -26,9 +27,8 @@ return new class extends Migration
             $table->string('user_role')->nullable();
             $table->string('job_sector')->nullable();
             $table->string('job_sub_sector')->nullable();
-            $table->string('office_email')->nullable();
-            $table->string('office_address')->nullable();
-            $table->string('name_of_company')->nullable();
+            $table->string('user_professional_info_id')->nullable();
+            $table->string('user_educational_info_id')->nullable();
             $table->string('present_address')->nullable();
             $table->string('permanent_address')->nullable();
             $table->string('image')->nullable();

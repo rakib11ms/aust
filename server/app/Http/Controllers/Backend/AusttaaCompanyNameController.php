@@ -100,8 +100,11 @@ class AusttaaCompanyNameController extends Controller
 
 
         $company_name->delete();
+            $company_name = AusttaaCompanyName::orderBy('id', 'desc')->get();
+
         return response()->json([
             'status' => 200,
+            'company_name'=>$company_name,
             'message' => 'company_name deleted successfully',
         ]);
     }

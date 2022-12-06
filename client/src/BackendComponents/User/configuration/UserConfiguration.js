@@ -56,6 +56,8 @@ function UserConfiguration() {
 
         }, 1500)
 
+
+
         if (create_job_sector !== null) {
 
             createJobSectorArrayData.map((item, i) => {
@@ -65,7 +67,8 @@ function UserConfiguration() {
                 axios.post(`/api/add-job-sector`, data).then(res => {
                     if (res.data.status == 200) {
                         // Swal.fire(res.data.message, '', 'success')
-                        // setRenderAllPosts(res.data);
+                        setRenderAllCompanyName(res.data);
+                        setRenderAllJobSectorSubSectorMapData(res.data);
                         // closeAddPostCategoryModal();
                         setcreate_job_sector("");
 
@@ -90,7 +93,8 @@ function UserConfiguration() {
                         // setRenderAllPosts(res.data);
                         // closeAddPostCategoryModal();
                         setcreate_job_sub_sector("");
-
+                        setRenderAllCompanyName(res.data);
+                        setRenderAllJobSectorSubSectorMapData(res.data);
                     }
                     // else if (res.data.status == 400) {
                     //     setAddPostType({ ...addPostType, error_list: res.data.errors });
@@ -112,7 +116,8 @@ function UserConfiguration() {
                         // setRenderAllPosts(res.data);
                         // closeAddPostCategoryModal();
                         setcreate_company_name("");
-
+                        setRenderAllCompanyName(res.data);
+                        setRenderAllJobSectorSubSectorMapData(res.data);
                     }
                     // else if (res.data.status == 400) {
                     //     setAddPostType({ ...addPostType, error_list: res.data.errors });
@@ -425,7 +430,226 @@ function UserConfiguration() {
     //job sector sub sector table map end ///
 
 
+    //company name functionality view,edit,delete start //
+    const companyNameViewModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '50vh',
+            left: '20%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "80vw",
+            height: "80vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1000 }
 
+    };
+    const companyNameEditModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "40vw",
+            height: "45vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1200 }
+
+    };
+
+
+    const [viewCompayNameModalIsOpen, setviewCompayNameModalIsOpen] = useState(false);
+    function openViewComapnyNameModal(e) {
+        e.preventDefault();
+        setviewCompayNameModalIsOpen(true)
+    }
+    function closeViewCompanyNameModal(e) {
+        setviewCompayNameModalIsOpen(false);
+
+    }
+
+
+    const [editCompanyName, setEditCompanyName] = useState('');
+    const [editCompanyNameId, setEditCompanyNameId] = useState('');
+
+    const [editCompayNameModalIsOpen, setEditCompayNameModalIsOpen] = useState(false);
+    function openEditComapnyNameModal(e, editId) {
+        e.preventDefault();
+        setEditCompayNameModalIsOpen(true)
+        setEditCompanyNameId(editId)
+    }
+    function closeEditCompanyNameModal(e) {
+        setEditCompayNameModalIsOpen(false);
+
+    }
+
+    const [allCompanyName, setAllCompanyName] = useState([]);
+    const [renderAllCompanyName, setRenderAllCompanyName] = useState('');
+
+    useEffect(() => {
+        axios.get(`/api/company-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllCompanyName(res.data.company_name);
+
+            }
+        })
+
+        axios.get(`/api/edit-company-name/${editCompanyNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditCompanyName(res.data.company_name.company_name);
+
+            }
+        })
+
+    }, [renderAllCompanyName, editCompanyNameId])
+
+    function updateCompanyName() {
+        const data = {
+            company_name: editCompanyName,
+        }
+
+        axios.post(`/api/update-company-name/${editCompanyNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllCompanyName(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                closeEditCompanyNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const companycolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: "Company Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.company_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditComapnyNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-company-name/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllCompanyName(res.data.company_name)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+
+
+    //company name functionality view,edit,delete end
 
 
 
@@ -703,7 +927,7 @@ function UserConfiguration() {
                                                                         </div>
 
                                                                         <div className='my-3'>
-                                                                        <label className='mb-2 fs-6 text-secondary'>Job Sub Sector</label>
+                                                                            <label className='mb-2 fs-6 text-secondary'>Job Sub Sector</label>
 
                                                                             <select class="form-select" aria-label="Default select example" value={edit_job_sub_sector_id_state} onChange={(e) => setedit_job_sub_sector_id_state(e.target.value)}>
                                                                                 <option selected disabled>Choose Job Sub Sector</option>
@@ -741,9 +965,124 @@ function UserConfiguration() {
 
                                                     </div>
 
-                                                    <div className=''>
+                                                    <div className='' onClick={openViewComapnyNameModal}>
                                                         <p>View All</p>
+
                                                     </div>
+
+                                                    {/* edit company name modal start */}
+                                                    <Modal
+                                                        isOpen={viewCompayNameModalIsOpen}
+                                                        onRequestClose={closeViewCompanyNameModal}
+                                                        style={companyNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewCompanyNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Company Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={companycolumns}
+                                                                            data={allCompanyName}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit jobsector job subsector mapping modal */}
+                                                    <Modal
+                                                        isOpen={editCompayNameModalIsOpen}
+                                                        onRequestClose={closeEditCompanyNameModal}
+                                                        style={companyNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditCompanyNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Company Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Company Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="" value={editCompanyName} onChange={(e) => setEditCompanyName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateCompanyName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
 
 
                                                 </div>

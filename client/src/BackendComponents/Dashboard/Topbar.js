@@ -33,10 +33,8 @@ function Topbar() {
         <>
             <div className={`topbar d-flex p-2 justify-content-between align-items-center row border-bottom border-success sticky ${stickyClass}`}>
                 <div className="topbar-left col-7 ">
-                    <h5 className="fw-bold text-success">
-                        {/* Dashboard */}
-
-                        {/* {console.log('href',window.location.href)} */}
+                    <h5 className="text-success mt-1 ">
+                    AUST Textile Alumni Association
 
 
                     </h5>

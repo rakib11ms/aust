@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\UserProfessionalInfo;
+use App\Models\UserEducationalInfo;
 use App\Models\LoginEmailOtp;
 use Illuminate\Support\Facades\Hash;
 use DB;
@@ -59,14 +61,18 @@ class MobileAuthenticationController extends Controller
                 $user->user_role = 1;
                 $user->batch = $request->batch;
                 $user->phone_no = $request->phone_no;
+                $user->bio = $request->bio;
                 $user->blood_group = $request->blood_group;
                 $user->stream = $request->stream;
                 $user->job_sector = $request->job_sector;
                 $user->job_sub_sector = $request->job_sub_sector;
-                $user->office_email = $request->office_email;
-                $user->office_address = $request->office_address;
 
-                $user->name_of_company = $request->name_of_company;
+                // if($request->office_email !==null && ){
+
+                // }
+    
+
+
                 $user->present_address = $request->present_address;
                 $user->permanent_address = $request->permanent_address;
                 // $user->otp_verify = 0;
@@ -74,6 +80,25 @@ class MobileAuthenticationController extends Controller
                 $user->confirm_password = Hash::make($request->confirm_password);
 
                 $user->save();
+
+
+
+                $user_professional=new UserProfessionalInfo();
+                $user_professional->office_email = $request->office_email;
+                $user_professional->office_address = $request->office_address;
+                $user_professional->name_of_company = $request->name_of_company;
+                $user_professional->year = $request->year;
+                $user_professional->designation= $request->designation;
+                $user_professional->user_id= $user->id;
+                $user_professional->save();
+
+                $user_educational=new UserEducationalInfo();
+                $user_educational->user_id= $user->id;
+                $user_educational->passing_year= $request->passing_year;
+                $user_educational->board= $request->board;
+                $user_educational->grade= $request->grade;
+
+                $user_educational->save();
 
                 $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
@@ -86,6 +111,7 @@ class MobileAuthenticationController extends Controller
 
 
                 Mail::to($user->email)->send(new Welcome($otp));
+
 
 
                 return response()->json([
