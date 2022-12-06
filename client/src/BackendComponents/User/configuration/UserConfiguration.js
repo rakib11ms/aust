@@ -140,6 +140,7 @@ function UserConfiguration() {
             job_sub_sector_id: job_sub_sector_id_state,
             job_sector_id: job_sector_id_state
         }
+        
 
         console.log('state value check', data)
         axios.post(`/api/add-job-sector-job-sub-sector-map`, data).then(res => {
