@@ -11,16 +11,14 @@ class NoticeNewsController extends Controller
 {
     public function index()
     {
-                // $active_jobs = NoticeNews::where('isPublished',1)->where('isArchived',0)->get()->count();
-                //   $pending_jobs = NoticeNews::where('isPublished',0)->get()->count();
-                // $latest_jobs = DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->latest()->take(3)->get();
+
+           $active_notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->orderBy('notice_news.id','desc')->get();
 
            $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get();
         return response()->json([
            'status' => 200,
-             // 'active_jobs'=>$active_jobs,
-             // 'pending_jobs'=>$pending_jobs,
-// 'latest_jobs'=>$latest_jobs,
+
+'active_notice_news'=>$active_notice_news,
             'notice_news' => $notice_news
          ]);
     }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsController;
+use App\Http\Controllers\Backend\DashboardHomeController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -64,6 +65,11 @@ Route::post('/user-login', [MobileAuthenticationController::class, 'userLogin'])
 Route::post('/user-forgot-password', [MobileAuthenticationController::class, 'userForgotPassword']);
 Route::post('/user-forgot-password-otp-verification', [MobileAuthenticationController::class, 'forgotPasswordOtpVerification']);
 Route::post('/change-user-forgot-password', [MobileAuthenticationController::class, 'changeUserforgotPassword']);
+
+Route::post('/user-professional-add-more', [MobileAuthenticationController::class, 'userProfessionalAddMore']);
+
+
+Route::post('/edit-user-educational-info/{userId}', [MobileAuthenticationController::class, 'editUserEducationalInfo']);
 
 // Route::post('/user-logout',[MobileAuthenticationController::class,'UserLogout']);
 
@@ -331,6 +337,13 @@ Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
 Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
 Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update']);
 
+
+
+///////admin home admin dashboard start////
+
+Route::get('/total-users-jobs-posts-announce-advertisements', [DashboardHomeController::class, 'totalStatus']);
+
+///////admin home admin dashboard end////
 
 
 

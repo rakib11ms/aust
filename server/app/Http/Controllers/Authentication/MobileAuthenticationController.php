@@ -94,10 +94,6 @@ class MobileAuthenticationController extends Controller
 
                 $user_educational=new UserEducationalInfo();
                 $user_educational->user_id= $user->id;
-                $user_educational->passing_year= $request->passing_year;
-                $user_educational->board= $request->board;
-                $user_educational->grade= $request->grade;
-
                 $user_educational->save();
 
                 $token = $user->createToken($user->email . '_Token')->plainTextToken;
@@ -129,6 +125,46 @@ class MobileAuthenticationController extends Controller
                 ]);
             }
         }
+    }
+
+    public function userProfessionalAddMore(Request $request){
+            
+            $save_more_professional=new UserProfessionalInfo();
+            $save_more_professional->user_id=auth('sanctum')->user()->id;
+            $save_more_professional->name_of_company= $request->name_of_company;
+            $save_more_professional->year= $request->year;
+            $save_more_professional->designation=$request->designation;
+            $save_more_professional->save();
+            return response()->json([
+                    'status' => 200,
+                    'message' => 'User Professional added one more'
+                ]);
+
+
+    }
+
+    public function editUserEducationalInfo(Request $request,$id){
+            $update_educational=UserEducationalInfo::where('user_id',$id)->first();
+            // $update_educational->user_id=auth('sanctum')->user()->id;
+            $update_educational->user_id=$update_educational->user_id;
+            $update_educational->ssc_passing_year=$request->ssc_passing_year;
+            $update_educational->hsc_passing_year=$request->hsc_passing_year;
+            $update_educational->bsc_passing_year=$request->bsc_passing_year;
+            $update_educational->msc_passing_year=$request->msc_passing_year;
+            $update_educational->ssc_grade=$request->ssc_grade;
+            $update_educational->hsc_grade=$request->hsc_grade;
+            $update_educational->bsc_grade=$request->bsc_grade;
+            $update_educational->msc_grade=$request->msc_grade;
+            $update_educational->ssc_institution=$request->ssc_institution;
+            $update_educational->bsc_institution=$request->bsc_institution;
+            $update_educational->hsc_institution=$request->hsc_institution;
+            $update_educational->msc_institution=$request->msc_institution;
+            $update_educational->update();
+
+            return response()->json([
+                    'status' => 200,
+                    'update_educational_data' =>$update_educational
+                ]);
     }
 
 

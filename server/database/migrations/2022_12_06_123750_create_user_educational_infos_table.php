@@ -16,9 +16,18 @@ return new class extends Migration
         Schema::create('user_educational_infos', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
-            $table->string('passing_year')->nullable();
-            $table->string('board')->nullable();
-            $table->string('grade')->nullable();
+            $table->string('ssc_passing_year')->nullable();
+            $table->string('hsc_passing_year')->nullable();
+            $table->string('bsc_passing_year')->nullable();
+            $table->string('msc_passing_year')->nullable();
+            $table->string('ssc_institution')->nullable();
+            $table->string('hsc_institution')->nullable();
+            $table->string('bsc_institution')->nullable();
+            $table->string('msc_institution')->nullable();
+            $table->string('ssc_grade')->nullable();
+            $table->string('hsc_grade')->nullable();
+            $table->string('bsc_grade')->nullable();
+            $table->string('msc_grade')->nullable();
             $table->timestamps();
         });
     }
