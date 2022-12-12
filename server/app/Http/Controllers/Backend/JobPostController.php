@@ -11,17 +11,21 @@ class JobPostController extends Controller
 {
     public function index()
     {
-                $active_jobs = JobPost::where('isPublished',1)->where('isArchived',0)->get()->count();
+                $total_active_jobs = JobPost::where('isPublished',1)->where('isArchived',0)->get()->count();
                   $pending_jobs = JobPost::where('isPublished',0)->get()->count();
                 $latest_jobs = DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->latest()->take(3)->get();
 
            $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
+
+                $active_jobs=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isPublished',1)->where('isArchived',0)->orderBy('job_posts.id','desc')->limit(5)->get();
+
         return response()->json([
            'status' => 200,
              'active_jobs'=>$active_jobs,
+             'total_active_jobs'=>$total_active_jobs,
              'pending_jobs'=>$pending_jobs,
 'latest_jobs'=>$latest_jobs,
-            'posts' => $posts
+            'posts' => $posts,
          ]);
     }
 

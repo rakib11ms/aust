@@ -27,7 +27,7 @@ class EventController extends Controller
 
         $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
 
-                $all_active_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->where('isArchived',0)->orderBy('aussta_events.id', 'desc')->get();
+                $all_active_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->where('isArchived',0)->orderBy('aussta_events.id', 'desc')->limit(5)->get();
 
         // $contact_person_information=$all_events['event_title'];
 

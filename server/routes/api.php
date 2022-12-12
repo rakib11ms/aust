@@ -342,6 +342,7 @@ Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update'])
 ///////admin home admin dashboard start////
 
 Route::get('/total-users-jobs-posts-announce-advertisements', [DashboardHomeController::class, 'totalStatus']);
+Route::get('/job-filtering-admin-homepage/{name}', [DashboardHomeController::class, 'jobFilteringAdminHomePage']);
 
 ///////admin home admin dashboard end////
 

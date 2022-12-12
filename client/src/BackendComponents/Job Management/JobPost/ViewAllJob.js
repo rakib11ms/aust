@@ -257,7 +257,7 @@ function ViewAllJob() {
         axios.get(`/api/all-job-post`).then(res => {
             if (res.data.status == 200) {
                 setallJobPosts(res.data.posts);
-                settotalActiveJobs(res.data.active_jobs)
+                settotalActiveJobs(res.data.total_active_jobs)
                 settotalPendingJobs(res.data.pending_jobs)
                 setLoading(false);
 

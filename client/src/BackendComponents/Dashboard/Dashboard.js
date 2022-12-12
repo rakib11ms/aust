@@ -9,12 +9,88 @@ import axios from 'axios';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import moment from "moment/moment";
 function Dashboard() {
+
+
+    const [totalPosts, settotalPosts] = useState('');
+    const [totalUsers, settotalUsers] = useState('');
+    const [totalAnnouncements, settotalAnnouncements] = useState('');
+    const [totalJobs, settotalJobs] = useState('');
+    const [totalAdvertisements, settotalAdverisements] = useState('');
+
+    //card section job management//
+    const [totalNewJobs, settotalNewJobs] = useState('');
+    const [totalArchiveJobs, setTotalArchiveJobs] = useState('');
+    const [totalPendingJobs, setTotalPendingJobs] = useState('');
+
+
+    const [allActiveNoticeNews, setAllActiveNoticeNews] = useState([]);
+    const [allActiveEvents, setAllActiveEvents] = useState([]);
+    const [allActiveJobs, setAllActiveJobs] = useState([]);
+    console.log('hola', allActiveEvents,allActiveNoticeNews)
+    const [jobpostFiltering, setJobPostFiltering] = useState(true)
+
+    const [postTabSection, setPostTabSection] = useState('news');
+    const [jobTabSection, setJobTabSection] = useState('All');
+    const [advertisementTabSection, setAdvertisementTabSection] = useState('All');
+    console.log('job tab section ', jobTabSection)
+    useEffect(() => {
+        axios.get(`/api/total-users-jobs-posts-announce-advertisements`).then(res => {
+            if (res.data.status == 200) {
+                settotalUsers(res.data.total_users);
+                settotalAdverisements(res.data.total_advertisements)
+                settotalJobs(res.data.total_Jobs)
+                settotalPosts(res.data.total_posts)
+                settotalNewJobs(res.data.total_new_jobs)
+                setTotalArchiveJobs(res.data.total_archived_jobs)
+                setTotalPendingJobs(res.data.total_pending_jobs);
+            }
+        });
+        axios.get(`/api/all-notice-news`).then(res => {
+            if (res.data.status == 200) {
+
+                setAllActiveNoticeNews(res.data.active_notice_news)
+            }
+        });
+
+        axios.get(`/api/all-event-posts`).then(res => {
+            if (res.data.status == 200) {
+
+                setAllActiveEvents(res.data.all_active_events)
+            }
+        });
+        axios.get(`/api/all-job-post`).then(res => {
+            if (res.data.status == 200) {
+                // setJobPostFiltering(false);
+
+                setAllActiveJobs(res.data.active_jobs)
+            }
+        });
+
+
+
+
+    }, [advertisementTabSection])
+
+
+    useEffect(() => {
+
+        axios.get(`/api/job-filtering-admin-homepage/${jobTabSection}`).then(res => {
+            if (res.data.status == 200) {
+                setJobPostFiltering(false);
+
+                setAllActiveJobs(res.data.data)
+            }
+        });
+    }, [jobTabSection])
+
+
     var settings = {
         dots: true,
         infinite: true,
         speed: 3500,
+        // slidesToShow: `${allActiveJobs.length<=1?1:2}`,
         slidesToShow: 2,
         slidesToScroll: 2,
         autoplay: true,
@@ -32,41 +108,6 @@ function Dashboard() {
         }]
     };
 
-    const [totalPosts, settotalPosts] = useState('');
-    const [totalUsers, settotalUsers] = useState('');
-    const [totalAnnouncements, settotalAnnouncements] = useState('');
-    const [totalJobs, settotalJobs] = useState('');
-    const [totalAdvertisements, settotalAdverisements] = useState('');
-
-    const [allActiveNoticeNews, setAllActiveNoticeNews] = useState([]);
-    const [allActiveEvents, setAllActiveEvents] = useState([]);
-    // console.log('hola',allActiveEvents,allActiveNoticeNews)
-    useEffect(() => {
-        axios.get(`/api/total-users-jobs-posts-announce-advertisements`).then(res => {
-            if (res.data.status == 200) {
-                settotalUsers(res.data.total_users);
-                settotalAdverisements(res.data.total_advertisements)
-                settotalJobs(res.data.total_Jobs)
-                settotalPosts(res.data.total_posts)
-            }
-        });
-        axios.get(`/api/all-notice-news`).then(res => {
-            if (res.data.status == 200) {
-
-                setAllActiveNoticeNews(res.data.active_notice_news)
-            }
-        });
-
-        axios.get(`/api/all-event-posts`).then(res => {
-            if (res.data.status == 200) {
-
-                setAllActiveEvents(res.data.all_active_events)
-            }
-        });
-
-    }, [])
-
-    const [postTabSection, setPostTabSection] = useState('news');
     return (
         <>
             {/* <MasterDashboardLayout>
@@ -209,11 +250,19 @@ function Dashboard() {
                                     <li className={`${postTabSection == 'blogs' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('blogs')}>
                                         Blogs
                                     </li>
-                                    <li className="pending-btn px-2 ">
+                                    {/* <li className={`${postTabSection == 'pending' ? 'fw-bold' : ""} pending-btn px-2 `} onClick={() => setPostTabSection('pending')}>
+                                        Pendings
+                                        <span class="badge bg-danger badge-sm badge-noti">4</span>
+
+                                    </li> */}
+
+                                    <li className={`pending-btn px-2 `}>
                                         Pendings
                                         <span class="badge bg-danger badge-sm badge-noti">4</span>
 
                                     </li>
+
+
 
                                 </ul>
 
@@ -311,15 +360,21 @@ function Dashboard() {
 
 
                                 <div className="px-3 ">
+                                    {
+                                        jobpostFiltering == true && 'Loading...'
+                                    }
+                                    {
+                                        postTabSection=='events'?
+                                        <Slider {...settings}>
+                                        
 
-                                    <Slider {...settings}>
                                         {
 
                                             allActiveEvents.map((item, i) => {
                                                 return (
                                                     <>
-                                                        <div className="cards border p-2 border-success rounded-side bb " >
-                                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+                                                        <div className="cards border  border-success rounded-side bb px-1 " >
+                                                            <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
 
 
 
@@ -486,19 +541,191 @@ function Dashboard() {
                                             </div>
                                         </div> */}
                                     </Slider>
+                                    :
+                                    postTabSection=='news'?
+                                    <Slider {...settings}>
+                                        
+
+                                    {
+
+                                        allActiveNoticeNews.map((item, i) => {
+                                            return (
+                                                <>
+                                                    <div className="cards border  border-success rounded-side bb px-1 " >
+                                                        <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
+
+
+
+                                                            <div className="calenda-icon d-flex align-items-center ">
+                                                                <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+
+
+
+                                                            </div>
+                                                            <div className="d-flex align-items-center">
+                                                                <div>
+                                                                    <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
+
+                                                                </div>
+                                                                <div>
+                                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                                                </div>
+                                                                <div>
+                                                                    <div class="form-check form-switch form-check-sm mx-2">
+                                                                        <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+
+
+                                                        </nav>
+                                                        <div className="mt-3">
+                                                            <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </>
+                                            )
+                                        })
+
+                                    }
+                                    {/* <div className="cards border p-2 border-success rounded-side bb " >
+                                        <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                            <div className="calenda-icon d-flex align-items-center ">
+                                                <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+
+
+
+                                            </div>
+                                            <div className="d-flex align-items-center">
+                                                <div>
+                                                    <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
+
+                                                </div>
+                                                <div>
+                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                                </div>
+                                                <div>
+                                                    <div class="form-check form-switch form-check-sm mx-2">
+                                                        <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+                                        </nav>
+                                        <div className="mt-3">
+                                            <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
+                                        </div>
+
+                                    
+                                    </div>
+
+                                    <div className="cards border p-2 border-success rounded-side bb" >
+                                        <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                            <div className="calenda-icon d-flex align-items-center ">
+                                                <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+
+
+
+                                            </div>
+                                            <div className="d-flex align-items-center">
+                                                <div>
+                                                    <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
+
+                                                </div>
+                                                <div>
+                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                                </div>
+                                                <div>
+                                                    <div class="form-check form-switch form-check-sm mx-2">
+                                                        <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+                                        </nav>
+                                        <div className="mt-3">
+                                            <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
+                                        </div>
+                                    </div>
+                                    <div className="cards border p-2 border-success rounded-side bb" >
+                                        <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                            <div className="calenda-icon d-flex align-items-center ">
+                                                <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+
+
+
+                                            </div>
+                                            <div className="d-flex align-items-center">
+                                                <div>
+                                                    <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
+
+                                                </div>
+                                                <div>
+                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                                </div>
+                                                <div>
+                                                    <div class="form-check form-switch form-check-sm mx-2">
+                                                        <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+                                        </nav>
+                                        <div className="mt-3">
+                                            <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
+                                        </div>
+                                    </div> */}
+                                </Slider>
+                                :
+''
+                                    }
+                               
                                 </div>
 
                             </div>
-
-
-
-
-
-
-
-
-
-
                         </div>
 
                     </section>
@@ -518,26 +745,32 @@ function Dashboard() {
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">
-                                    <li className="fw-bold">
+                                    <li className={`${jobTabSection == 'All' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('All')}>
                                         All
                                     </li>
                                     {/* <li>
                                         Pendings
                                     </li> */}
-                                    <li>
+                                    <li className={`${jobTabSection == 'Full Time' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Full Time')}>
                                         Full Time
                                     </li>
-                                    <li>
+                                    <li className={`${jobTabSection == 'Part Time' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Part Time')}>
                                         Part Time
                                     </li>
-                                    <li>
+                                    <li className={`${jobTabSection == 'Contractual' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Contractual')}>
                                         Contractual
                                     </li>
-                                    <li className="pending-btn px-2 ">
+                                    <li className={`${jobTabSection == 'Pending' ? 'fw-bold' : ""} pending-btn px-2`} onClick={() => setJobTabSection('Pending')}>
                                         Pendings
-                                        <span class="badge bg-danger badge-sm badge-noti">4</span>
+                                        <span class="badge bg-danger badge-sm badge-noti">{totalPendingJobs}</span>
 
                                     </li>
+                                    {/* 
+                                    <li className={`pending-btn px-2`} >
+                                        Pendings
+                                        <span class="badge bg-danger badge-sm badge-noti">{totalPendingJobs}</span>
+
+                                    </li> */}
 
                                 </ul>
 
@@ -570,15 +803,15 @@ function Dashboard() {
                         <div className="total-publication-card  mt-4 row">
                             <div className="total-pu-card-left   col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3">
                                 <div className="d-flex">
-                                    <h4 className="publiction-num">14</h4>
-                                    <p className="mx-4 mt-1">News Are posted</p>
+                                    <h4 className="publiction-num">{totalNewJobs}</h4>
+                                    <p className="mx-4 mt-1">New Jobs Are posted</p>
                                 </div>
 
 
 
                                 <div className="d-flex">
-                                    <h4 className="publiction-num">08</h4>
-                                    <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                    <h4 className="publiction-num">{totalArchiveJobs}</h4>
+                                    <p className="mx-4 mt-1">Jobs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                 </div>
                             </div>
 
@@ -587,9 +820,117 @@ function Dashboard() {
 
 
                                 <div className="px-3 ">
-
+                                    {
+                                        jobpostFiltering == true && 'Loading...'
+                                    }
                                     <Slider {...settings}>
-                                        <div className="cards border p-2 border-success rounded-side bb " >
+
+                                        {
+                                            allActiveJobs.map((item, i) => {
+                                                return (
+
+                                                    <div className="cards border p-2 border-success rounded-side bb ">
+                                                        <Link to={`/edit-jobs/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+
+                                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                                                <div className="calenda-icon d-flex align-items-center ">
+                                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                    <span className="mx-2 d-block  publiction-num">  {moment(item.created_at).format('LL')}</span>
+
+
+
+                                                                </div>
+                                                                <div className="d-flex align-items-center">
+                                                                    <div>
+                                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.type_name}</button>
+
+                                                                    </div>
+                                                                    <div>
+                                                                        <i class="fa fa-archive d-block mx-2" aria-hidden="true"></i>
+
+                                                                    </div>
+                                                                    <div>
+                                                                        <div class="form-check form-switch form-check-sm mx-2">
+                                                                            {
+                                                                                item.isPublished==0?
+                                                                                <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                                                :
+                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked id="flexSwitchCheckDefault" />
+
+
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+
+
+
+                                                            </nav>
+                                                            <div className="mt-3">
+                                                                <span>{item.job_title}</span>
+                                                                <div className="m-0 p-0"
+                                                                    dangerouslySetInnerHTML={{ __html: item.job_description.length > 100 ? `${item.job_description.substring(0, 50)}...` : item.job_description }}
+                                                                />
+                                                                <div className="d-flex justify-content-between fs-7 mt-3">
+                                                                    <p className="">Deadline: <b> {item.application_deadline} </b></p>
+                                                                    <p className="">Posted: <b> {item.full_name} </b></p>
+
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        {/* <div className="cards border p-2 border-success rounded-side bb " >
+                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                                <div className="calenda-icon d-flex align-items-center ">
+                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+
+
+
+                                                </div>
+                                                <div className="d-flex align-items-center">
+                                                    <div>
+                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
+
+                                                    </div>
+                                                    <div>
+                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                                    </div>
+                                                    <div>
+                                                        <div class="form-check form-switch form-check-sm mx-2">
+                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+
+
+                                            </nav>
+                                            <div className="mt-3">
+                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
+                                            </div>
+                                        </div> */}
+
+                                        {/* <div className="cards border p-2 border-success rounded-side bb" >
                                             <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
@@ -628,7 +969,6 @@ function Dashboard() {
                                                 <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
                                             </div>
                                         </div>
-
                                         <div className="cards border p-2 border-success rounded-side bb" >
                                             <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
@@ -667,46 +1007,7 @@ function Dashboard() {
                                             <div className="mt-3">
                                                 <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
                                             </div>
-                                        </div>
-                                        <div className="cards border p-2 border-success rounded-side bb" >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div>
+                                        </div> */}
                                     </Slider>
                                 </div>
 
@@ -740,16 +1041,16 @@ function Dashboard() {
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6 ">
                                 <ul className="d-flex justify-content-start all-left-public-li m-0 p-0">
-                                    <li className="fw-bold">
+                                    <li className={`${advertisementTabSection == 'All' ? 'fw-bold' : ""}`} onClick={() => setAdvertisementTabSection('All')}>
                                         All
                                     </li>
-                                    <li className="mx-4">
+                                    <li className={`${advertisementTabSection == 'Pending' ? 'fw-bold' : ""} mx-4`} onClick={() => setAdvertisementTabSection('Pending')}>
                                         Pendings
                                     </li>
-                                    <li className="mx-3">
+                                    <li className={`${advertisementTabSection == 'Running' ? 'fw-bold' : ""} mx-3`} onClick={() => setAdvertisementTabSection('Running')}>
                                         Running
                                     </li>
-                                    <li className="mx-3">
+                                    <li className={`${advertisementTabSection == 'Archived' ? 'fw-bold' : ""} mx-3`} onClick={() => setAdvertisementTabSection('Archived')}>
                                         Archieved
                                     </li>
 
@@ -763,12 +1064,16 @@ function Dashboard() {
                         </div> */}
 
                             <div className="publication-right col-md-6  d-flex justify-content-end align-items-center">
+                                <Link to="/create-advertisement" style={{ textDecoration: 'none', color: "black" }}>
 
-                                <div className="right-fn-icon me-3 border px-1 text-success border-success rounded">
-                                    <i class="fas fa-plus"></i>
-                                </div>
+                                    <div className="right-fn-icon me-3 border px-1 text-success border-success rounded">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                </Link>
                                 <div className="">
-                                    <button className="btn btn-sm btn-success text-light px-3   rounded-pill"> View All</button>
+                                    <Link to="/view-all-advertisement" style={{ textDecoration: 'none', color: "black" }}>
+                                        <button className="btn btn-sm btn-success text-light px-3   rounded-pill"> View All</button>
+                                    </Link>
 
 
                                 </div>
