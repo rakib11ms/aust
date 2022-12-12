@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\JobPost;
 use App\Models\Post;
+use App\Models\NoticeNews;
 use App\Models\Advertisement;
 use DB;
 class DashboardHomeController extends Controller
@@ -16,6 +17,9 @@ class DashboardHomeController extends Controller
             $total_advertisements=Advertisement::get()->count();
             $total_Jobs=JobPost::get()->count();
             $total_posts=Post::get()->count();
+
+            $total_news=NoticeNews::where('isPublished',1)->where('isArchived',0)->get()->count();
+
 
             //job management card section//
 
@@ -74,7 +78,7 @@ class DashboardHomeController extends Controller
 
 
      else if($name=='Pending'){
-       $data=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->leftJoin('users', 'users.id', '=', 'job_posts.posted_by')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name','users.full_name')->where('type_name',$name)->where('isPublished',0)->orderBy('job_posts.id','desc')->limit(5)->get();
+       $data=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->leftJoin('users', 'users.id', '=', 'job_posts.posted_by')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name','users.full_name')->where('job_posts.isPublished',0)->orderBy('job_posts.id','desc')->limit(5)->get();
                  return response()->json([
            'status' => 200,
       
