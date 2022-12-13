@@ -804,7 +804,7 @@ function UserConfiguration() {
                                                                     <div className="col-12 px-4">
 
                                                                         <div className=''>
-                                                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_id_state(e.target.value)}>
+                                                                            <select class="form-select " aria-label="Default select example" onChange={(e) => setjob_sector_id_state(e.target.value)}>
                                                                                 <option selected disabled>Choose Job Sector</option>
                                                                                 {
                                                                                     alljobSector.map((item, i) => {

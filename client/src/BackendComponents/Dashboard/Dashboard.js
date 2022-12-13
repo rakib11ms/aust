@@ -369,16 +369,16 @@ function Dashboard() {
                                     } */}
                                     {
                                         postTabSection == 'events' &&
-                                            <Slider {...settings}>
+                                        <Slider {...settings}>
 
 
-                                                {
+                                            {
 
-                                                    allActiveEvents.map((item, i) => {
-                                                        return (
-                                                            <>
-                                                                <div className="cards border  border-success rounded-side bb px-1 " >
-                                                                    <Link to={`/edit-events/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                allActiveEvents.map((item, i) => {
+                                                    return (
+                                                        <>
+                                                            <div className="cards border  border-success rounded-side bb px-1 " >
+                                                                <Link to={`/edit-events/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
 
 
@@ -416,16 +416,16 @@ function Dashboard() {
                                                                     <div className="mt-3">
                                                                         <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
                                                                     </div>
-                                                                    </Link>
+                                                                </Link>
 
-                                                                </div>
+                                                            </div>
 
-                                                            </>
-                                                        )
-                                                    })
+                                                        </>
+                                                    )
+                                                })
 
-                                                }
-                                                {/* <div className="cards border p-2 border-success rounded-side bb " >
+                                            }
+                                            {/* <div className="cards border p-2 border-success rounded-side bb " >
                                             <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
@@ -545,73 +545,73 @@ function Dashboard() {
                                                 <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
                                             </div>
                                         </div> */}
-                                            </Slider>
-}
-{
-                                            
-                                            postTabSection == 'news' &&
-                                                <Slider {...settings}>
+                                        </Slider>
+                                    }
+                                    {
+
+                                        postTabSection == 'news' &&
+                                        <Slider {...settings}>
 
 
-                                                    {
+                                            {
 
-                                                        allActiveNoticeNews.map((item, i) => {
-                                                            return (
-                                                                <>
-                                                                    <div className="cards border p-2  border-success rounded-side bb  " >
-                                                                        <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                                            <div className="calenda-icon d-flex align-items-center ">
-                                                                                <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                                <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                allActiveNoticeNews.map((item, i) => {
+                                                    return (
+                                                        <>
+                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
 
-                                                                            </div>
-                                                                            <div className="d-flex align-items-center">
-                                                                                <div>
-                                                                                    <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.subcategory_name}</button>
+                                                                    <div className="calenda-icon d-flex align-items-center ">
+                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
 
-                                                                                </div>
-                                                                                {/* <div>
-                                                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                                                </div> */}
-                                                                                <div>
-                                                                                    <div class="form-check form-switch form-check-sm mx-2">
-                                                                                        <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-
-
-
-
-
-
-                                                                        </nav>
-                                                                        <div className="mt-3">
-                                                                            <p className="m-0 p-0">{item.notice_news_title}</p>
-
-                                                                        </div>
-                                                                        <div className="my-2 p-0"
-                                                                            dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
-                                                                        />
 
 
                                                                     </div>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <div>
+                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.subcategory_name}</button>
 
-                                                                </>
-                                                            )
-                                                        })
+                                                                        </div>
+                                                                        {/* <div>
+                                                                                    <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
 
-                                                    }
+                                                                                </div> */}
+                                                                        <div>
+                                                                            <div class="form-check form-switch form-check-sm mx-2">
+                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            </div>
+                                                                        </div>
 
-                                                </Slider>
-                                             
+                                                                    </div>
+
+
+
+
+
+
+                                                                </nav>
+                                                                <div className="mt-3">
+                                                                    <p className="m-0 p-0">{item.notice_news_title}</p>
+
+                                                                </div>
+                                                                <div className="my-2 p-0"
+                                                                    dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
+                                                                />
+
+
+                                                            </div>
+
+                                                        </>
+                                                    )
+                                                })
+
+                                            }
+
+                                        </Slider>
+
                                     }
 
                                 </div>

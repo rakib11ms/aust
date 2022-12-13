@@ -501,6 +501,43 @@ function Sidebar() {
                         </div>
                     </div>
 
+                    <div className=''>
+
+                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive10(!isActive10)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i class="fa-solid fa-rectangle-ad mt-1"></i>
+
+                                <h6 className='mx-2 mt-3'>Vlog</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive10 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive10 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/create-vlog' className={`text-form ${path == '/create-vlog' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/view-vlog' className={`text-form ${path == '/view-vlog' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/vlog-configuration' className={`text-form ${path == '/vlog-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Configuration</Link>
+                                        </li>
+
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
 
                 </div>
 

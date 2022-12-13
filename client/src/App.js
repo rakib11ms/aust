@@ -37,6 +37,9 @@ import ViewNoticeNews from './BackendComponents/NoticeNews/ViewNoticeNews';
 import EditBanner from './BackendComponents/Banner/EditBanner';
 import NotFound from './BackendComponents/NotFound/NotFound';
 import UserConfiguration from './BackendComponents/User/configuration/UserConfiguration';
+import VlogConfiguration from './BackendComponents/Vlog/VlogConfiguration';
+import CreateVlog from './BackendComponents/Vlog/CreateVlog';
+import ViewVlog from './BackendComponents/Vlog/ViewVlog';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -151,7 +154,7 @@ function App() {
 
           <Route path="user-configuration" element={<UserConfiguration />}></Route>
 
-    
+
 
 
           <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
@@ -197,6 +200,11 @@ function App() {
           <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>
           <Route path="view-all-advertisement" element={<ViewAllAdvertisement />}></Route>
           <Route path="edit-advertisement/:id" element={<EditAdvertisement />}></Route>
+
+          <Route path="create-vlog" element={<CreateVlog />}></Route>
+          <Route path="view-vlog" element={<ViewVlog />}></Route>
+          <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
+
           <Route path="settings" element={<Settings />}></Route>
 
 

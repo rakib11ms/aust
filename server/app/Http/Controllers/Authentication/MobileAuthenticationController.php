@@ -66,6 +66,7 @@ class MobileAuthenticationController extends Controller
                 $user->stream = $request->stream;
                 $user->job_sector = $request->job_sector;
                 $user->job_sub_sector = $request->job_sub_sector;
+                $user->office_email = $request->office_email;
 
                 // if($request->office_email !==null && ){
 
@@ -84,7 +85,6 @@ class MobileAuthenticationController extends Controller
 
 
                 $user_professional=new UserProfessionalInfo();
-                $user_professional->office_email = $request->office_email;
                 $user_professional->office_address = $request->office_address;
                 $user_professional->name_of_company = $request->name_of_company;
                 $user_professional->year = $request->year;
@@ -130,16 +130,37 @@ class MobileAuthenticationController extends Controller
     public function userProfessionalAddMore(Request $request){
             
             $save_more_professional=new UserProfessionalInfo();
-            $save_more_professional->user_id=auth('sanctum')->user()->id;
+            $save_more_professional->user_id=$request->user_id;
             $save_more_professional->name_of_company= $request->name_of_company;
             $save_more_professional->year= $request->year;
             $save_more_professional->designation=$request->designation;
             $save_more_professional->save();
+            $user_professional_infos=UserProfessionalInfo::where('user_id',$request->user_id)->get();
             return response()->json([
                     'status' => 200,
-                    'message' => 'User Professional added one more'
+                    'message' => 'User Professional added one more',
+                    'user_professional_infos'=>$user_professional_infos,
                 ]);
 
+
+    }
+
+        public function userProfessionalUpdate(Request $request,$id){
+
+            $update_user_profession=UserProfessionalInfo::find($id);
+        $update_user_profession->user_id=$request->user_id;
+            $update_user_profession->office_address=$request->office_address;
+            $update_user_profession->year=$request->year;
+            $update_user_profession->designation=$request->designation;
+            $update_user_profession->name_of_company=$request->name_of_company;
+       
+            $update_user_profession->update();
+            $update_user_profession_data=UserProfessionalInfo::where('id',$id)->first();
+
+              return response()->json([
+                    'status' => 200,
+                    'update_user_profession_data' =>$update_user_profession_data
+                ]);
 
     }
 
@@ -349,4 +370,57 @@ class MobileAuthenticationController extends Controller
                 'message'=>'User Logged Out Successfull'
             ]);
 }
+
+
+//user profile mobile 
+
+
+    public function specificUser($id)
+    {
+
+        // dd($formatChange);
+
+         $user_info=User::where('id',$id)->with(['professionalInfo','educationalInfo'])->get();
+
+
+
+        // $pay_date = $user_info->registration_pay_date;
+        // $end_date = $user_info->registration_pay_end_date;
+        // // dd($end_date);
+        // $formatChange= date('d-m-Y',strtotime($pay_date));
+        // $formatChange2= date('d-m-Y',strtotime($end_date));
+
+        // dd($end_date);
+
+        // dd($formatChange);
+        // $futureDate=date('d-m-Y', strtotime('+1 year'));
+        // dd($futureDate);
+
+        // $futureDate=date('d-m-Y', strtotime('+1 year', strtotime($pay_date)) );
+
+
+        // dd($futureDate);
+
+        // $registration_pay_validity = Carbon::now()->diffInDays($end_date);
+
+        // dd($registration_pay_validity);
+            // $check=true;
+        // if ($registration_pay_validity < 15 && $check) {
+        //     $event = new AusstaEvent();
+
+        //     $event->event_title = "Email for Subscription 15 days left";
+        //     // dd($event);
+        //     Mail::to("rakib10ms@gmail.com")->send(new EventMail($event));
+        // }
+
+
+
+        return response()->json([
+            'status' => 200,
+            // 'pay_date' => $pay_date,
+            // 'registration_pay_validity' => $registration_pay_validity,
+            'user_info' => $user_info
+        ]);
+    }
+
 }

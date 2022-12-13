@@ -24,6 +24,8 @@ use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsController;
+use App\Http\Controllers\Backend\VlogCategoryController;
+use App\Http\Controllers\Backend\VlogController;
 use App\Http\Controllers\Backend\DashboardHomeController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -58,7 +60,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
 
-//mobile api authentication 
+//mobile api authentication and user profile
 Route::post('/register', [MobileAuthenticationController::class, 'register']);
 Route::post('/login-otp-verification', [MobileAuthenticationController::class, 'loginValideOtp']);
 Route::post('/user-login', [MobileAuthenticationController::class, 'userLogin']);
@@ -67,9 +69,12 @@ Route::post('/user-forgot-password-otp-verification', [MobileAuthenticationContr
 Route::post('/change-user-forgot-password', [MobileAuthenticationController::class, 'changeUserforgotPassword']);
 
 Route::post('/user-professional-add-more', [MobileAuthenticationController::class, 'userProfessionalAddMore']);
+Route::post('/update-user-professional/{id}', [MobileAuthenticationController::class, 'userProfessionalUpdate']);
+
+Route::post('/update-user-educational-info/{userId}', [MobileAuthenticationController::class, 'editUserEducationalInfo']);
 
 
-Route::post('/edit-user-educational-info/{userId}', [MobileAuthenticationController::class, 'editUserEducationalInfo']);
+Route::get('/specific-user/{id}', [MobileAuthenticationController::class, 'specificUser']);
 
 // Route::post('/user-logout',[MobileAuthenticationController::class,'UserLogout']);
 
@@ -80,7 +85,6 @@ Route::post('/admin-login', [AuthenticationController::class, 'adminLogin']);
 Route::post('/admin-forget-password', [AuthenticationController::class, 'submitForgetPasswordForm']); 
 Route::post('/reset-admin-password', [AuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-Route::get('/specific-user/{id}', [AuthenticationController::class, 'specificUser']);
 
 
 //all users 
@@ -336,6 +340,26 @@ Route::post('/add-notice-news', [NoticeNewsController::class, 'store']);
 Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
 Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
 Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update']);
+
+
+
+
+//vlog category
+Route::get('/vlog-category', [VlogCategoryController::class, 'index']);
+Route::post('/add-vlog-category', [VlogCategoryController::class, 'store']);
+Route::get('/edit-vlog-category/{id}', [VlogCategoryController::class, 'edit']);
+Route::post('/update-vlog-category/{id}', [VlogCategoryController::class, 'update']);
+Route::delete('/delete-vlog-category/{id}', [VlogCategoryController::class, 'destroy']);
+
+//vlog 
+Route::get('/vlog', [VlogController::class, 'index']);
+Route::post('/add-vlog', [VlogController::class, 'store']);
+Route::get('/edit-vlog/{id}', [VlogController::class, 'edit']);
+Route::post('/update-vlog/{id}', [VlogController::class, 'update']);
+Route::delete('/delete-vlog/{id}', [VlogController::class, 'destroy']);
+
+
+
 
 
 

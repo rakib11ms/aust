@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_professional_infos', function (Blueprint $table) {
+        Schema::create('vlog_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->nullable();
-            $table->string('office_address')->nullable();
-            $table->string('name_of_company')->nullable();
-            $table->string('year')->nullable();
-            $table->string('designation')->nullable();
+               $table->string('category_name')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_professional_infos');
+        Schema::dropIfExists('vlog_categories');
     }
 };
