@@ -70,6 +70,8 @@ Route::post('/change-user-forgot-password', [MobileAuthenticationController::cla
 
 Route::post('/user-professional-add-more', [MobileAuthenticationController::class, 'userProfessionalAddMore']);
 Route::post('/update-user-professional/{id}', [MobileAuthenticationController::class, 'userProfessionalUpdate']);
+Route::post('/update-user-bio/{id}', [MobileAuthenticationController::class, 'updateUserBio']);
+Route::post('/update-contact-social-information/{id}', [MobileAuthenticationController::class, 'updateUserContactSocialInformation']);
 
 Route::post('/update-user-educational-info/{userId}', [MobileAuthenticationController::class, 'editUserEducationalInfo']);
 

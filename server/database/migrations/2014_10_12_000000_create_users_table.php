@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('user_role')->nullable();
             $table->string('job_sector')->nullable();
             $table->string('job_sub_sector')->nullable();
+            $table->string('office_email')->nullable();
             $table->string('user_professional_info_id')->nullable();
             $table->string('user_educational_info_id')->nullable();
             $table->string('present_address')->nullable();
@@ -35,9 +36,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();       
             $table->string('otp_verify')->nullable();
             $table->string('device_token')->nullable();
-
             $table->string('password')->nullable();
             $table->string('confirm_password')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('twitter_link')->nullable();
+            $table->string('linkedin_link')->nullable();
             $table->rememberToken();
 
             $table->timestamps();

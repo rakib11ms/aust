@@ -187,6 +187,34 @@ class MobileAuthenticationController extends Controller
                     'update_educational_data' =>$update_educational
                 ]);
     }
+     public function updateUserBio(Request $request,$id){
+ $update_bio=User::where('id',$id)->first();
+            $update_bio->bio=$request->bio;
+  
+            $update_bio->update();
+            $updated_bio=User::where('id',$id)->first();
+
+            return response()->json([
+                    'status' => 200,
+                    'updated_bio' =>$updated_bio
+                ]);
+    }
+       public function updateUserContactSocialInformation(Request $request,$id){
+ $update_contact_social=User::where('id',$id)->first();
+            $update_contact_social->office_email=$request->office_email;
+            $update_contact_social->facebook_link=$request->facebook_link;
+            $update_contact_social->linkedin_link=$request->linkedin_link;
+            $update_contact_social->twitter_link=$request->twitter_link;
+            $update_contact_social->phone_no=$request->phone_no;
+  
+            $update_contact_social->update();
+            $updated_contact_social=User::where('id',$id)->first();
+
+            return response()->json([
+                    'status' => 200,
+                    'updated_contact_social' =>$updated_contact_social
+                ]);
+    }
 
 
     public function loginValideOtp(Request $request)
@@ -380,9 +408,15 @@ class MobileAuthenticationController extends Controller
 
         // dd($formatChange);
 
-         $user_info=User::where('id',$id)->with(['professionalInfo','educationalInfo'])->get();
+         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch')->with(['professionalInfo','educationalInfo'])->get();
 
-
+   // $user_info=User::where('id',$id)->select('users.full_name','users.bio','users.nick_name','users.email','users.phone_no','users.twitter_link','users.linkedin_link','users.facebook_link','users.image')
+   //  ->with(['professionalInfo' => function ($query) {
+   //      $query->select('id');
+   //  }],['educationalInfo' => function ($query) {
+   //      $query->select('id');
+   //  }])
+   //  ->get();
 
         // $pay_date = $user_info->registration_pay_date;
         // $end_date = $user_info->registration_pay_end_date;
@@ -422,5 +456,7 @@ class MobileAuthenticationController extends Controller
             'user_info' => $user_info
         ]);
     }
+
+   
 
 }

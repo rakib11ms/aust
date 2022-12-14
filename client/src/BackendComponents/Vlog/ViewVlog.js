@@ -33,7 +33,7 @@ function ViewVlog() {
 
     const [allVlog, setallVlog] = useState([]);
 
-    console.log('all vlog',allVlog)
+    console.log('all vlog', allVlog)
 
     const [totalEvents, setTotalEvents] = useState([]);
     const [totalArchiveEvents, setTotalArchiveEvents] = useState([]);
@@ -275,7 +275,7 @@ function ViewVlog() {
                                 <span>
                                     <i className='fa fa-calendar'></i>
                                     {/* <span className='mx-2'>{moment(row.application_deadline).format("L")}</span> */}
-                                    <span className='mx-2'>{row.created_at}</span>
+                                    <span className='mx-2'>{moment(row.created_at).format("LL")}</span>
                                 </span>
                             </div>
 
@@ -283,8 +283,8 @@ function ViewVlog() {
                         <div>
 
 
-                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.category_name}</span> </button>
-                    {/* {
+                            <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.category_name}</span> </button>
+                            {/* {
                         row.isPublished == 1 ?
                             <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
                             :
@@ -292,7 +292,7 @@ function ViewVlog() {
 
                     } */}
 
-                </div>
+                        </div>
 
                     </div>
 
@@ -303,12 +303,13 @@ function ViewVlog() {
 
 
                         <div className='text-secondary'>
-                            {
+                            <a href={row.streaming_link} target="_blank">{
                                 row.streaming_link
                             }
+                            </a>
                         </div>
 
-{/* 
+                        {/* 
                         <div className=' bg-light d-inline-block rounded '>
 
                             <span className='py-1 px-1 text-secondary'>{row.streaming_link}</span>
@@ -356,7 +357,7 @@ function ViewVlog() {
 
                 </div> */}
                 <div className='text-secondary'>
-                    <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
+                    <Link to={`/edit-vlog/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
                 </div>
 
@@ -600,7 +601,7 @@ function ViewVlog() {
 
 
                             <div className="col-md-12 mt-3">
-                                <h5 className=''>ALL Banner</h5>
+                                <h5 className=''>ALL Vlog</h5>
 
                                 {/* <div className='mb-3' style={{ position: 'relative', zIndex: '9999' }}>
 

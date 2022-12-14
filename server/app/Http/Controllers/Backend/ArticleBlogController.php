@@ -11,15 +11,17 @@ class ArticleBlogController extends Controller
 {
     public function index()
     {
-                // $active_jobs = ArticleBlog::where('isPublished',1)->where('isArchived',0)->get()->count();
-                //   $pending_jobs = ArticleBlog::where('isPublished',0)->get()->count();
-                // $latest_jobs = DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->latest()->take(3)->get();
+        
+
+             $active_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->where('article_blog_categories.category_name','Blog')->orderBy('article_blogs.id','desc')->get();
+
+              $active_articles=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->where('article_blog_categories.category_name','Article')->orderBy('article_blogs.id','desc')->get();
 
            $article_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->orderBy('article_blogs.id','desc')->get();
         return response()->json([
            'status' => 200,
-             // 'active_jobs'=>$active_jobs,
-             // 'pending_jobs'=>$pending_jobs,
+             'active_blogs'=>$active_blogs,
+             'active_articles'=>$active_articles,
 // 'latest_jobs'=>$latest_jobs,
             'article_blogs' => $article_blogs
          ]);

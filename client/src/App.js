@@ -40,6 +40,7 @@ import UserConfiguration from './BackendComponents/User/configuration/UserConfig
 import VlogConfiguration from './BackendComponents/Vlog/VlogConfiguration';
 import CreateVlog from './BackendComponents/Vlog/CreateVlog';
 import ViewVlog from './BackendComponents/Vlog/ViewVlog';
+import EditVlog from './BackendComponents/Vlog/EditVlog';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -203,6 +204,7 @@ function App() {
 
           <Route path="create-vlog" element={<CreateVlog />}></Route>
           <Route path="view-vlog" element={<ViewVlog />}></Route>
+          <Route path="edit-vlog/:id" element={<EditVlog />}></Route>
           <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
 
           <Route path="settings" element={<Settings />}></Route>

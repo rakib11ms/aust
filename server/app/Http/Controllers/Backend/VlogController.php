@@ -53,6 +53,57 @@ class VlogController extends Controller
      }
 
 
+            public function edit($id)
+    {
+        $vlog = Vlog::find($id);
+
+        if ($vlog)
+        {
+            return response()->json([
+                'status' => 200,
+                'vlog' => $vlog,
+            ]);
+
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No vlogs Found',
+            ]);
+        }
+
+    }
+
+      public function update(Request $request,$id){
+
+             $vlog=Vlog::find($id);
+
+          
+
+ if ($files = $request->file('image')) {
+            $names = $files->getClientOriginalName();
+            $name = rand(111, 99999).$names;
+            $files->move('images/', $name);
+        }
+           
+            if($files!=null){
+             $vlog->image=$name;
+
+            }
+
+                $vlog->streaming_link = $request->streaming_link;
+           $vlog->vlog_title = $request->vlog_title;
+           $vlog->category_id = $request->category_id;
+           $vlog->created_by = $request->created_by;
+            $vlog->update();
+
+ return response()->json([
+                'status' => 200,
+                'message' => 'vlog Updated Successfully',
+            ]);   
+    }
+
+
+
 
        public function destroy($id)
     {

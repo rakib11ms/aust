@@ -528,6 +528,7 @@ function Sidebar() {
                                         <li>
                                             <Link to='/view-vlog' className={`text-form ${path == '/view-vlog' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
                                         </li>
+                                        
                                         <li>
                                             <Link to='/vlog-configuration' className={`text-form ${path == '/vlog-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Configuration</Link>
                                         </li>

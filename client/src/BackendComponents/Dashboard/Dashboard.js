@@ -32,7 +32,9 @@ function Dashboard() {
     const [allActiveNoticeNews, setAllActiveNoticeNews] = useState([]);
     const [allActiveEvents, setAllActiveEvents] = useState([]);
     const [allActiveJobs, setAllActiveJobs] = useState([]);
-    console.log('hola', allActiveEvents)
+    const [allActiveBlogs, setAllActiveBlogs] = useState([]);
+    const [allActiveArticles, setAllActiveArticles] = useState([]);
+    console.log('all blogs', allActiveBlogs)
     const [jobpostFiltering, setJobPostFiltering] = useState(true)
 
     const [postTabSection, setPostTabSection] = useState('news');
@@ -69,6 +71,13 @@ function Dashboard() {
                 // setJobPostFiltering(false);
 
                 setAllActiveJobs(res.data.active_jobs)
+            }
+        });
+        axios.get(`/api/all-article-blogs`).then(res => {
+            if (res.data.status == 200) {
+                // setJobPostFiltering(false);
+                setAllActiveArticles(res.data.active_articles)
+                setAllActiveBlogs(res.data.active_blogs);
             }
         });
 
@@ -364,9 +373,7 @@ function Dashboard() {
 
 
                                 <div className="px-3 ">
-                                    {/* {
-                                        jobpostFiltering == true && 'Loading...'
-                                    } */}
+
                                     {
                                         postTabSection == 'events' &&
                                         <Slider {...settings}>
@@ -385,7 +392,7 @@ function Dashboard() {
 
                                                                         <div className="calenda-icon d-flex align-items-center ">
                                                                             <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                            <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
+                                                                            <span className="mx-2 d-block  publiction-num"> {item.created_at}</span>
 
 
 
@@ -414,8 +421,10 @@ function Dashboard() {
 
                                                                     </nav>
                                                                     <div className="mt-3">
-                                                                        <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                                                    </div>
+                                                                        <p className="m-0 p-0">{item.event_title}</p>
+                                                                        <div className="my-2 p-0"
+                                                                            dangerouslySetInnerHTML={{ __html: item.event_description.length > 50 ? `${item.event_description.substring(0, 100)}...` : item.event_description }}
+                                                                        />                                                                    </div>
                                                                 </Link>
 
                                                             </div>
@@ -559,6 +568,8 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " >
+                                                            <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+
                                                                 <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
@@ -572,7 +583,7 @@ function Dashboard() {
                                                                     </div>
                                                                     <div className="d-flex align-items-center">
                                                                         <div>
-                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.subcategory_name}</button>
+                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
 
                                                                         </div>
                                                                         {/* <div>
@@ -601,6 +612,73 @@ function Dashboard() {
                                                                     dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
                                                                 />
 
+</Link>
+                                                            </div>
+
+                                                        </>
+                                                    )
+                                                })
+
+                                            }
+
+                                        </Slider>
+
+                                    }
+
+                                    {
+
+                                        postTabSection == 'blogs' &&
+                                        <Slider {...settings}>
+
+
+                                            {
+
+                                                allActiveBlogs.map((item, i) => {
+                                                    return (
+                                                        <>
+                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                                                    <div className="calenda-icon d-flex align-items-center ">
+                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+
+
+
+                                                                    </div>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <div>
+                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+
+                                                                        </div>
+                                                                        {/* <div>
+                                            <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                        </div> */}
+                                                                        <div>
+                                                                            <div class="form-check form-switch form-check-sm mx-2">
+                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+
+
+
+                                                                </nav>
+                                                                <div className="mt-3">
+                                                                    <p className="m-0 p-0">{item.article_blog_title}</p>
+
+                                                                </div>
+                                                                <div className="my-2 p-0"
+                                                                    dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                />
+
 
                                                             </div>
 
@@ -613,6 +691,74 @@ function Dashboard() {
                                         </Slider>
 
                                     }
+
+                                    {
+
+                                        postTabSection == 'articles' &&
+                                        <Slider {...settings}>
+
+
+                                            {
+
+                                                allActiveArticles.map((item, i) => {
+                                                    return (
+                                                        <>
+                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+
+
+
+                                                                    <div className="calenda-icon d-flex align-items-center ">
+                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+
+
+
+                                                                    </div>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <div>
+                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+
+                                                                        </div>
+                                                                        {/* <div>
+                                            <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
+
+                                        </div> */}
+                                                                        <div>
+                                                                            <div class="form-check form-switch form-check-sm mx-2">
+                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+
+
+
+                                                                </nav>
+                                                                <div className="mt-3">
+                                                                    <p className="m-0 p-0">{item.article_blog_title}</p>
+
+                                                                </div>
+                                                                <div className="my-2 p-0"
+                                                                    dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                />
+
+
+                                                            </div>
+
+                                                        </>
+                                                    )
+                                                })
+
+                                            }
+
+                                        </Slider>
+
+                                    }
+
 
                                 </div>
 
