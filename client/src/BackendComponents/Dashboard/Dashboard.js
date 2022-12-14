@@ -24,9 +24,32 @@ function Dashboard() {
     const [totalArchiveJobs, setTotalArchiveJobs] = useState('');
     const [totalPendingJobs, setTotalPendingJobs] = useState('');
 
-    //card section posts
+    //card section posts total count start
     const [totalNews, settotalNews] = useState('');
     const [totalArchiveNews, setTotalArchiveNews] = useState('');
+    const [totalPendingNews, setTotalPendingNews] = useState('');
+
+    const [totalEvents, setTotalEvents] = useState('');
+    const [totalArchiveEvents, setTotalArchiveEvents] = useState('');
+    const [totalPendingEvents, setTotalPendingEvents] = useState('');
+
+    const [totalBlogs, settotalBlogs] = useState('');
+    const [totalArchiveBlogs, setTotalArchiveBlogs] = useState('');
+    const [totalPendingBlogs, setTotalPendingBlogs] = useState('');
+
+    const [totalArticles, settotalArticles] = useState('');
+    const [totalArchiveArticles, setTotalArchiveArticles] = useState('');
+    const [totalPendingArticles, setTotalPendingArticles] = useState('');
+
+
+
+    console.log('eee', totalBlogs)
+
+
+
+
+
+    //card section total count end
 
 
     const [allActiveNoticeNews, setAllActiveNoticeNews] = useState([]);
@@ -51,6 +74,28 @@ function Dashboard() {
                 settotalNewJobs(res.data.total_new_jobs)
                 setTotalArchiveJobs(res.data.total_archived_jobs)
                 setTotalPendingJobs(res.data.total_pending_jobs);
+
+                settotalNews(res.data.total_news);
+                setTotalArchiveNews(res.data.total_news_archived);
+                setTotalPendingNews(res.data.total_news_pending);
+
+                setTotalEvents(res.data.total_events);
+                setTotalArchiveEvents(res.data.total_events_archived);
+                setTotalPendingEvents(res.data.total_events_pending);
+
+
+                settotalBlogs(res.data.total_blogs);
+                setTotalArchiveBlogs(res.data.total_blogs_archived);
+                setTotalPendingBlogs(res.data.total_blogs_pending);
+
+                settotalArticles(res.data.total_articles);
+                setTotalArchiveArticles(res.data.total_articles_archived);
+                setTotalPendingArticles(res.data.total_articles_pending);
+
+
+
+
+
             }
         });
         axios.get(`/api/all-notice-news`).then(res => {
@@ -269,11 +314,36 @@ function Dashboard() {
 
                                     </li> */}
 
-                                    <li className={`pending-btn px-2 `}>
-                                        Pendings
-                                        <span class="badge bg-danger badge-sm badge-noti">4</span>
+                                    {
+                                        postTabSection == 'news' && <li className={`pending-btn px-2 `}>
+                                            Pendings
+                                            <span class="badge bg-danger badge-sm badge-noti">{totalPendingNews}</span>
 
-                                    </li>
+                                        </li>
+                                    }
+                                    {
+                                        postTabSection == 'events' && <li className={`pending-btn px-2 `}>
+                                            Pendings
+                                            <span class="badge bg-danger badge-sm badge-noti">{totalPendingEvents}</span>
+
+                                        </li>
+                                    }
+                                    {
+                                        postTabSection == 'articles' && <li className={`pending-btn px-2 `}>
+                                            Pendings
+                                            <span class="badge bg-danger badge-sm badge-noti">{totalPendingArticles}</span>
+
+                                        </li>
+                                    }
+                                    {
+                                        postTabSection == 'blogs' && <li className={`pending-btn px-2 `}>
+                                            Pendings
+                                            <span class="badge bg-danger badge-sm badge-noti">{totalPendingBlogs}</span>
+
+                                        </li>
+                                    }
+
+
 
 
 
@@ -355,17 +425,67 @@ function Dashboard() {
                     <section className="publication-content  px-2 mt-4 ">
                         <div className="total-publication-card  row  ">
                             <div className="total-pu-card-left    col-3 rounded-3 bg-white border d-flex flex-column  justify-content-center shadow-sm">
-                                <div className="d-flex">
-                                    <h4 className="publiction-num">17</h4>
-                                    <p className="mx-4 mt-1">News Are posted</p>
-                                </div>
+                                {
+                                    postTabSection == 'news' && <>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalNews}</h4>
+                                            <p className="mx-4 mt-1">News Are posted</p>
+                                        </div>
 
 
 
-                                <div className="d-flex">
-                                    <h4 className="publiction-num">08</h4>
-                                    <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
-                                </div>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalArchiveNews}</h4>
+                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                        </div>
+                                    </>
+                                }
+                                {
+                                    postTabSection == 'events' && <>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalEvents}</h4>
+                                            <p className="mx-4 mt-1">News Are posted</p>
+                                        </div>
+
+
+
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalArchiveEvents}</h4>
+                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                        </div>
+                                    </>
+                                }
+                                {
+                                    postTabSection == 'articles' && <>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalArticles}</h4>
+                                            <p className="mx-4 mt-1">News Are posted</p>
+                                        </div>
+
+
+
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalArchiveArticles}</h4>
+                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                        </div>
+                                    </>
+                                }
+                                {
+                                    postTabSection == 'blogs' && <>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalBlogs}</h4>
+                                            <p className="mx-4 mt-1">News Are posted</p>
+                                        </div>
+
+
+
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{totalArchiveBlogs}</h4>
+                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                        </div>
+                                    </>
+                                }
+
                             </div>
 
 
@@ -568,51 +688,51 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " >
-                                                            <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
-                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                                    <div className="calenda-icon d-flex align-items-center ">
-                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                    <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
 
-                                                                    </div>
-                                                                    <div className="d-flex align-items-center">
-                                                                        <div>
-                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+                                                                        <div className="calenda-icon d-flex align-items-center ">
+                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+
+
 
                                                                         </div>
-                                                                        {/* <div>
+                                                                        <div className="d-flex align-items-center">
+                                                                            <div>
+                                                                                <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+
+                                                                            </div>
+                                                                            {/* <div>
                                                                                     <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
 
                                                                                 </div> */}
-                                                                        <div>
-                                                                            <div class="form-check form-switch form-check-sm mx-2">
-                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            <div>
+                                                                                <div class="form-check form-switch form-check-sm mx-2">
+                                                                                    <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
 
+
+
+
+
+
+                                                                    </nav>
+                                                                    <div className="mt-3">
+                                                                        <p className="m-0 p-0">{item.notice_news_title}</p>
+
                                                                     </div>
+                                                                    <div className="my-2 p-0"
+                                                                        dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
+                                                                    />
 
-
-
-
-
-
-                                                                </nav>
-                                                                <div className="mt-3">
-                                                                    <p className="m-0 p-0">{item.notice_news_title}</p>
-
-                                                                </div>
-                                                                <div className="my-2 p-0"
-                                                                    dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
-                                                                />
-
-</Link>
+                                                                </Link>
                                                             </div>
 
                                                         </>
@@ -637,49 +757,50 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " >
-                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+                                                                <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                    <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
 
-                                                                    <div className="calenda-icon d-flex align-items-center ">
-                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                        <div className="calenda-icon d-flex align-items-center ">
+                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
 
 
-
-                                                                    </div>
-                                                                    <div className="d-flex align-items-center">
-                                                                        <div>
-                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
 
                                                                         </div>
-                                                                        {/* <div>
+                                                                        <div className="d-flex align-items-center">
+                                                                            <div>
+                                                                                <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+
+                                                                            </div>
+                                                                            {/* <div>
                                             <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
 
                                         </div> */}
-                                                                        <div>
-                                                                            <div class="form-check form-switch form-check-sm mx-2">
-                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            <div>
+                                                                                <div class="form-check form-switch form-check-sm mx-2">
+                                                                                    <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
 
+
+
+
+
+
+                                                                    </nav>
+                                                                    <div className="mt-3">
+                                                                        <p className="m-0 p-0">{item.article_blog_title}</p>
+
                                                                     </div>
+                                                                    <div className="my-2 p-0"
+                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                    />
 
-
-
-
-
-
-                                                                </nav>
-                                                                <div className="mt-3">
-                                                                    <p className="m-0 p-0">{item.article_blog_title}</p>
-
-                                                                </div>
-                                                                <div className="my-2 p-0"
-                                                                    dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
-                                                                />
-
-
+                                                                </Link>
                                                             </div>
 
                                                         </>
@@ -704,48 +825,50 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " >
-                                                                <nav className="card-tops-con d-flex align-items-center justify-content-between ">
+                                                                <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+
+                                                                    <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
 
-                                                                    <div className="calenda-icon d-flex align-items-center ">
-                                                                        <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                        <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                        <div className="calenda-icon d-flex align-items-center ">
+                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
 
 
-
-                                                                    </div>
-                                                                    <div className="d-flex align-items-center">
-                                                                        <div>
-                                                                            <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
 
                                                                         </div>
-                                                                        {/* <div>
+                                                                        <div className="d-flex align-items-center">
+                                                                            <div>
+                                                                                <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">{item.category_name}</button>
+
+                                                                            </div>
+                                                                            {/* <div>
                                             <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
 
                                         </div> */}
-                                                                        <div>
-                                                                            <div class="form-check form-switch form-check-sm mx-2">
-                                                                                <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                            <div>
+                                                                                <div class="form-check form-switch form-check-sm mx-2">
+                                                                                    <input class="form-check-input form-check-sm" type="checkbox" checked={item.isPublished == 1} id="flexSwitchCheckDefault" />
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
 
+
+
+
+
+
+                                                                    </nav>
+                                                                    <div className="mt-3">
+                                                                        <p className="m-0 p-0">{item.article_blog_title}</p>
+
                                                                     </div>
-
-
-
-
-
-
-                                                                </nav>
-                                                                <div className="mt-3">
-                                                                    <p className="m-0 p-0">{item.article_blog_title}</p>
-
-                                                                </div>
-                                                                <div className="my-2 p-0"
-                                                                    dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
-                                                                />
-
+                                                                    <div className="my-2 p-0"
+                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                    />
+                                                                </Link>
 
                                                             </div>
 

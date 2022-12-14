@@ -9,6 +9,7 @@ use App\Models\JobPost;
 use App\Models\Post;
 use App\Models\NoticeNews;
 use App\Models\Advertisement;
+use App\Models\AusstaEvent;
 use DB;
 class DashboardHomeController extends Controller
 {
@@ -18,7 +19,29 @@ class DashboardHomeController extends Controller
             $total_Jobs=JobPost::get()->count();
             $total_posts=Post::get()->count();
 
-            $total_news=NoticeNews::where('isPublished',1)->where('isArchived',0)->get()->count();
+
+
+            $total_news=NoticeNews::get()->count();
+            $total_news_archived=NoticeNews::where('isPublished',0)->where('isArchived',1)->get()->count();
+            $total_news_pending=NoticeNews::where('isPublished',0)->get()->count();
+
+            $total_events=AusstaEvent::get()->count();
+            $total_events_archived=AusstaEvent::where('isArchived',1)->get()->count();
+            $total_events_pending=0;
+
+
+    $total_articles=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Article')->get()->count();
+
+            $total_articles_archived=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Article')->where('isArchived',0)->get()->count();
+
+            $total_articles_pending=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Article')->where('isPublished',0)->get()->count();
+
+
+   $total_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Blog')->get()->count();
+
+            $total_blogs_archived=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Blog')->where('isArchived',1)->get()->count();
+
+            $total_blogs_pending=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','Blog')->where('isPublished',0)->get()->count();
 
 
             //job management card section//
@@ -36,6 +59,31 @@ class DashboardHomeController extends Controller
                     'total_new_jobs' => $total_new_jobs,
                     'total_archived_jobs' => $total_archived_jobs,
                    'total_pending_jobs'=>$total_pending_jobs,
+
+
+                   'total_news'=>$total_news,
+                   'total_news_archived'=>$total_news_archived,
+                   'total_news_pending'=>$total_news_pending,
+
+
+                   'total_events'=>$total_events,
+                   'total_events_archived'=>$total_events_archived,
+                   'total_events_pending'=>$total_events_pending,
+
+   '                total_articles'=>$total_articles,
+                   'total_articles_archived'=>$total_articles_archived,
+                   'total_articles_pending'=>$total_articles_pending,
+
+
+                   'total_blogs'=>$total_blogs,
+                   'total_blogs_archived'=>$total_blogs_archived,
+                   'total_blogs_pending'=>$total_events_pending,
+
+
+
+
+
+
                 ]);
    }
 

@@ -122,6 +122,7 @@ function App() {
     <>
       <Routes>
 
+      <Route path="/" element={<Navigate to='/admin-login'/>} />
 
         <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
 
