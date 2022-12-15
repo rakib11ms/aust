@@ -15,11 +15,19 @@ class NoticeNewsController extends Controller
            $active_notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->where('notice_news_categories.category_name','News')->orderBy('notice_news.id','desc')->get();
 
            $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get();
+
+
+           $total_news=NoticeNews::get()->count();
+           $total_active=NoticeNews::where('isPublished',1)->where('isArchived',0)->get()->count();
+           $total_pending=NoticeNews::where('isPublished',0)->get()->count();
         return response()->json([
            'status' => 200,
 
 'active_notice_news'=>$active_notice_news,
-            'notice_news' => $notice_news
+            'notice_news' => $notice_news,
+            'total_active' => $total_active,
+            'total_pending' => $total_pending,
+            'total_news' => $total_news
          ]);
     }
 

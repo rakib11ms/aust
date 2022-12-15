@@ -21,6 +21,10 @@ body {
     background-color: #00602B;
 }
 
+.bg-active-color{
+    background-color:#00602B ;
+}
+
 
 /* SideBar Active */
 #user-mange:active {

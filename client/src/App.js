@@ -41,6 +41,7 @@ import VlogConfiguration from './BackendComponents/Vlog/VlogConfiguration';
 import CreateVlog from './BackendComponents/Vlog/CreateVlog';
 import ViewVlog from './BackendComponents/Vlog/ViewVlog';
 import EditVlog from './BackendComponents/Vlog/EditVlog';
+import EditNoticeNews from './BackendComponents/NoticeNews/EditNoticeNews';
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -188,6 +189,7 @@ function App() {
 
           <Route path="create-notice-news" element={<CreateNoticeNews />}></Route>
           <Route path="view-notice-news" element={<ViewNoticeNews />}></Route>
+          <Route path="edit-notice-news/:id" element={<EditNoticeNews />}></Route>
           <Route path="notice-news-configuration" element={<NoticeNewsConfiguration />}></Route>
 
 

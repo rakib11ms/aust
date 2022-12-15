@@ -289,7 +289,7 @@ function Dashboard() {
                 <div className="publication mt-3">
                     <h6 className="text-success ">Publications & Posts</h6>
 
-                    <nav className="publication-nav text-normal fw-300 ">
+                    <nav className="publication-nav text-normal fw-300 " style={{cursor:'pointer'}}>
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">
@@ -444,14 +444,14 @@ function Dashboard() {
                                     postTabSection == 'events' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalEvents}</h4>
-                                            <p className="mx-4 mt-1">News Are posted</p>
+                                            <p className="mx-4 mt-1">Events Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveEvents}</h4>
-                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 mt-1">Events Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -459,14 +459,14 @@ function Dashboard() {
                                     postTabSection == 'articles' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArticles}</h4>
-                                            <p className="mx-4 mt-1">News Are posted</p>
+                                            <p className="mx-4 mt-1">Articles Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveArticles}</h4>
-                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 mt-1">Articles Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -474,14 +474,14 @@ function Dashboard() {
                                     postTabSection == 'blogs' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalBlogs}</h4>
-                                            <p className="mx-4 mt-1">News Are posted</p>
+                                            <p className="mx-4 mt-1">Blogs Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveBlogs}</h4>
-                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 mt-1">Blogs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -901,7 +901,7 @@ function Dashboard() {
 
                     <h6 className="text-success ">Job Management</h6>
 
-                    <nav className="publication-nav text-normal fw-300">
+                    <nav className="publication-nav text-normal fw-300" style={{cursor:'pointer'}}>
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">

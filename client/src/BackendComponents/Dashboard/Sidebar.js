@@ -122,22 +122,22 @@ function Sidebar() {
                                 isActive && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</Link>
+                                            <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create User</a>
+                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create User</a>
                                         </li>
                                         <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-warning' : 'text-light '}`}>Aproval List</a>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light'}`}  >Role Management</Link>
+                                            <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light'}`}  >Role Management</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>E-Resister Users </a>
+                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>E-Resister Users </a>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-dark pt-1 pe-3 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
+                                            <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-active-color pt-1 pe-3 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
                                         </li>
                                     </ul>
                                 </>
@@ -207,13 +207,13 @@ function Sidebar() {
                                     <ul className='text-light mx-4 '>
 
                                         <li className='mt-1'>
-                                            <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View All Jobs</Link>
+                                            <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View All Jobs</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/job-configuration" className={`text-form ${path == '/job-configuration' ? 'text-light bg-dark pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Job Configuration</Link>
+                                            <Link to="/job-configuration" className={`text-form ${path == '/job-configuration' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Job Configuration</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/create-job-post" className={`text-form ${path == '/create-job-post' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create a Job</Link>
+                                            <Link to="/create-job-post" className={`text-form ${path == '/create-job-post' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create a Job</Link>
                                         </li>
                                         {/* <li className='mt-1'>
                                             <Link to="" className={`text-form ${path == '/view-all-banner' ? 'text-warning' : 'text-light '}`}>Approval List</Link>
@@ -252,16 +252,16 @@ function Sidebar() {
                                 isActive4 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-blog-article" className={`text-form ${path == '/view-blog-article' ? 'text-light bg-dark ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>View Article/Blog</Link>
+                                            <Link to="/view-blog-article" className={`text-form ${path == '/view-blog-article' ? 'text-light bg-active-color ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>View Article/Blog</Link>
 
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/create-blog-article" className={`text-form ${path == '/create-blog-article' ? 'text-light bg-dark ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Add Article/Blog</Link>
+                                            <Link to="/create-blog-article" className={`text-form ${path == '/create-blog-article' ? 'text-light bg-active-color ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Add Article/Blog</Link>
 
                                         </li>
 
                                         <li className='mt-1'>
-                                            <Link to="/blog-article-configuration" className={`text-form ${path == '/blog-article-configuration' ? 'text-light bg-dark ps-2 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
+                                            <Link to="/blog-article-configuration" className={`text-form ${path == '/blog-article-configuration' ? 'text-light bg-active-color ps-2 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
 
                                         </li>
                                     </ul>
@@ -296,7 +296,7 @@ function Sidebar() {
                                 isActive5 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/post-type' className={`text-form ${path == '/post-type' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >User Posts </Link>
+                                            <Link to='/post-type' className={`text-form ${path == '/post-type' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >User Posts </Link>
                                         </li>
                                         {/* <li>
                                             <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>About</a>
@@ -336,16 +336,16 @@ function Sidebar() {
                                 isActive6 && <>
                                     <ul className='text-light mx-4 '>
                                         <li className='mt-1'>
-                                            <Link to='/create-event' className={`text-form ${path == '/create-event' ? 'text-light bg-dark ps-2 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create Event</Link>
+                                            <Link to='/create-event' className={`text-form ${path == '/create-event' ? 'text-light bg-active-color ps-2 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create Event</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to='/view-all-events' className={`text-form ${path == '/view-all-events' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>View All Events</Link>
+                                            <Link to='/view-all-events' className={`text-form ${path == '/view-all-events' ? 'text-light bg-active-color ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>View All Events</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to='/event-configuration' className={`text-form ${path == '/event-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
+                                            <Link to='/event-configuration' className={`text-form ${path == '/event-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to='/view-event-payment' className={`text-form ${path == '/view-event-payment' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Payment</Link>
+                                            <Link to='/view-event-payment' className={`text-form ${path == '/view-event-payment' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Payment</Link>
                                         </li>
 
                                     </ul>
@@ -376,10 +376,10 @@ function Sidebar() {
                                 isActive7 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/create-advertisement' className={`text-form ${path == '/create-advertisement' ? 'text-light bg-dark ps-1 pt-1 pe-2 pb-1 rounded' : 'text-light '}`}>Create Advment</Link>
+                                            <Link to='/create-advertisement' className={`text-form ${path == '/create-advertisement' ? 'text-light bg-active-color ps-1 pt-1 pe-2 pb-1 rounded' : 'text-light '}`}>Create</Link>
                                         </li>
                                         <li class="mt-1">
-                                            <Link to='/view-all-advertisement' className={`text-form ${path == '/view-all-advertisement' ? 'text-light bg-dark ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>View All Advment</Link>
+                                            <Link to='/view-all-advertisement' className={`text-form ${path == '/view-all-advertisement' ? 'text-light bg-active-color ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>View</Link>
                                         </li>
 
 
@@ -412,10 +412,10 @@ function Sidebar() {
                                 isActive8 && <>
                                     <ul className='text-light mx-4 '>
                                         <li class="mt-1">
-                                            <Link to='/view-all-banner' className={`text-form ${path == '/view-all-banner' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Banner</Link>
+                                            <Link to='/view-all-banner' className={`text-form ${path == '/view-all-banner' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View Banner</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to='/create-banner' className={`text-form ${path == '/create-banner' ? 'text-light bg-dark ps-1 pt-1 pe-5 pb-1 rounded' : 'text-light '}`}>Create</Link>
+                                            <Link to='/create-banner' className={`text-form ${path == '/create-banner' ? 'text-light bg-active-color ps-1 pt-1 pe-5 pb-1 rounded' : 'text-light '}`}>Create</Link>
                                         </li>
 
 
@@ -449,16 +449,16 @@ function Sidebar() {
                                 isActive10 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-notice-news" className={`text-form ${path == '/view-notice-news' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Notices / News</Link>
+                                            <Link to="/view-notice-news" className={`text-form ${path == '/view-notice-news' ? 'text-light bg-active-color ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Notices / News</Link>
 
                                         </li>
                                         <li className='mt-1'>
-                                            <Link to="/create-notice-news" className={`text-form ${path == '/create-notice-news' ? 'text-light bg-dark ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Add Notice/News</Link>
+                                            <Link to="/create-notice-news" className={`text-form ${path == '/create-notice-news' ? 'text-light bg-active-color ps-1 pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Add Notice/News</Link>
 
                                         </li>
 
                                         <li className='mt-1'>
-                                            <Link to="/notice-news-configuration" className={`text-form ${path == '/notice-news-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
+                                            <Link to="/notice-news-configuration" className={`text-form ${path == '/notice-news-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-3 pb-1 rounded' : 'text-light '}`}>Configuration</Link>
 
                                         </li>
                                     </ul>
@@ -491,7 +491,7 @@ function Sidebar() {
                                 isActive9 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Get In <EastIcon className='ms-3' /></Link>
+                                            <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Get In <EastIcon className='ms-3' /></Link>
                                         </li>
 
                                     </ul>
@@ -523,14 +523,14 @@ function Sidebar() {
                                 isActive10 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to='/create-vlog' className={`text-form ${path == '/create-vlog' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
+                                            <Link to='/create-vlog' className={`text-form ${path == '/create-vlog' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
                                         </li>
                                         <li>
-                                            <Link to='/view-vlog' className={`text-form ${path == '/view-vlog' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
+                                            <Link to='/view-vlog' className={`text-form ${path == '/view-vlog' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
                                         </li>
-                                        
+
                                         <li>
-                                            <Link to='/vlog-configuration' className={`text-form ${path == '/vlog-configuration' ? 'text-light bg-dark ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Configuration</Link>
+                                            <Link to='/vlog-configuration' className={`text-form ${path == '/vlog-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Configuration</Link>
                                         </li>
 
                                     </ul>

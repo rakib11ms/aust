@@ -20,11 +20,11 @@ function ViewNoticeNews() {
     const [loading, setLoading] = useState(true);
 
     const [allNoticeNews, setallNoticeNews] = useState([]);
-    console.log('allll postsss', allNoticeNews)
+    console.log('allll NoticeNewsss', allNoticeNews)
 
-    const [totalPosts, setTotalPosts] = useState('');
-    const [activePosts, setActivePosts] = useState('');
-    const [pendingPosts, setPendingPosts] = useState('');
+    const [totalNoticeNews, setTotalNoticeNews] = useState('');
+    const [activeNoticeNews, setActiveNoticeNews] = useState('');
+    const [pendingNoticeNews, setPendingNoticeNews] = useState('');
     const [renderAllNoticeNews, setRenderAllNoticeNews] = useState('');
 
 
@@ -240,9 +240,9 @@ function ViewNoticeNews() {
         axios.get(`/api/all-notice-news`).then(res => {
             if (res.data.status == 200) {
                 setallNoticeNews(res.data.notice_news);
-                setTotalPosts(res.data.total_posts)
-                setActivePosts(res.data.total_active_posts)
-                setPendingPosts(res.data.total_pending_posts)
+                setTotalNoticeNews(res.data.total_news)
+                setActiveNoticeNews(res.data.total_active)
+                setPendingNoticeNews(res.data.total_pending)
                 setLoading(false);
             }
         })
@@ -522,7 +522,7 @@ function ViewNoticeNews() {
                 });
                 Swal.fire(
                     'Deleted!',
-                    'All Posts deleted successfully',
+                    'All NoticeNews deleted successfully',
                     'success'
                 )
             }
@@ -535,12 +535,12 @@ function ViewNoticeNews() {
     const handleAllNoticeNewstatus = (e) => {
 
         if (e.target.value === 'archive') {
-            axios.put(`/api/archive-all-posts-by-update/${selectedRowsIds}`).then(res => {
+            axios.put(`/api/archive-all-NoticeNews-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallNoticeNews(res.data.posts)
+                    setallNoticeNews(res.data.NoticeNews)
                     setRenderAllNoticeNews(res.data);
 
                 }
@@ -548,12 +548,12 @@ function ViewNoticeNews() {
             })
         }
         else if (e.target.value === 'active') {
-            axios.put(`/api/active-all-posts-by-update/${selectedRowsIds}`).then(res => {
+            axios.put(`/api/active-all-NoticeNews-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallNoticeNews(res.data.posts)
+                    setallNoticeNews(res.data.NoticeNews)
 
                     setRenderAllNoticeNews(res.data);
 
@@ -562,12 +562,12 @@ function ViewNoticeNews() {
             })
         }
         else if (e.target.value === 'pending') {
-            axios.put(`/api/pending-all-posts-by-update/${selectedRowsIds}`).then(res => {
+            axios.put(`/api/pending-all-NoticeNews-by-update/${selectedRowsIds}`).then(res => {
                 if (res.data.status == 200) {
 
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
-                    setallNoticeNews(res.data.posts)
+                    setallNoticeNews(res.data.NoticeNews)
 
                     setRenderAllNoticeNews(res.data);
 
@@ -673,22 +673,22 @@ function ViewNoticeNews() {
 
                                     <div className=' mb-0'>
 
-                                        <h5 className=' m-0'>{totalPosts}</h5>
-                                        <p className='mb-2'>Total Posts</p>
+                                        <h5 className=' m-0'>{totalNoticeNews}</h5>
+                                        <p className='mb-2'>Total Notice/News</p>
                                     </div>
 
 
                                     <div className='mb-0'>
 
-                                        <h5 className=' m-0'>{activePosts}</h5>
-                                        <p className='mb-2'>Active Posts</p>
+                                        <h5 className=' m-0'>{activeNoticeNews}</h5>
+                                        <p className='mb-2'>Active Notice/News</p>
                                     </div>
 
 
                                     <div className='mb-0'>
 
-                                        <h5 className=' m-0'>{pendingPosts}</h5>
-                                        <p className='mb-1'>Pending Posts</p>
+                                        <h5 className=' m-0'>{pendingNoticeNews}</h5>
+                                        <p className='mb-1'>Pending Notice/News</p>
                                     </div>
 
 

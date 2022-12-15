@@ -99,23 +99,23 @@ class AdvertisementController extends Controller
             $advertisement->po_no = $request->advertiser_name;
 
 
-        $advertisement->save();
 
    foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
-            $image->move('check/', $upload_image_name);
+            $image->move('images/', $upload_image_name);
 
-            $advertisement_multiple_table=new AdvertisementMultipleImage();
-            $advertisement_multiple_table->advertisement_id=$advertisement->id;
-            $advertisement_multiple_table->image=$upload_image_name;
-            $advertisement_multiple_table->save();
-            // $name[] = $upload_image_name;
+            // $advertisement_multiple_table=new AdvertisementMultipleImage();
+            // $advertisement_multiple_table->advertisement_id=$advertisement->id;
+            // $advertisement_multiple_table->image=$upload_image_name;
+            // $advertisement_multiple_table->save();
+            $name[] = $upload_image_name;
 
-            // $advertisement->image =  implode(', ', $name);
-            // $event->save();   
+            $advertisement->image =  implode(', ', $name);
+        // $advertisement->save();
         }
-   
+           $advertisement->save();
+
 
         return response()->json([
             'status' => 200,

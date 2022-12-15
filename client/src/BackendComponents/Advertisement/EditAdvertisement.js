@@ -399,7 +399,7 @@ function EditAdvertisement() {
                                                         />
 
                                                         <div className='d-flex mt-2 ' >
-                                                            {/* {
+                                                            {
                                                                 multipleImages.length >= 1 ?
                                                                     render(multipleImages)
                                                                     :
@@ -408,16 +408,16 @@ function EditAdvertisement() {
                                                                         // console.log('bal item',item)
                                                                         return (
                                                                             <>
-                                                                                <img className="rounded mx-2" src={`${global.img_url}/check/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
 
                                                                             </>
                                                                         )
                                                                     })
 
 
-                                                            } */}
+                                                            }
 
-
+{/* 
                                                             {
                                                                 render(multipleImages)
 
@@ -425,7 +425,7 @@ function EditAdvertisement() {
 
 
 
-                                                            }
+                                                            } */}
                                                             {
 
                                                                 allImagesFromDatabase.map((item, i) => {
@@ -447,7 +447,7 @@ function EditAdvertisement() {
 
                                                                                 </div>
 
-                                                                                <img className="rounded mx-2" src={`${global.img_url}/check/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
 
                                                                             </div>
 

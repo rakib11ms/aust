@@ -123,10 +123,8 @@ function PostType() {
 
 
     const handlePostApproval = (e, id) => {
-        // setCheckBoxStatus(!checkboxStatus)
-        // console.log('checked check', e.target.checked)
-        // setSpecificPost(id);
-        // const IsApprovedValue = e.target.checked === true ? 1 : 0;
+        console.log('update',id)
+       
         if (e.target.checked === true) {
             const formData = new FormData();
 
@@ -164,7 +162,7 @@ function PostType() {
                 }
             })
         }
-        if (e.target.checked == false) {
+        if (e.target.checked === false) {
             const formData = new FormData();
 
             formData.append('isPublished', 0);

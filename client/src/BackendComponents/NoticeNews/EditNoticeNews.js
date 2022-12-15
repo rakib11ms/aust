@@ -26,7 +26,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 
-function EditBlogArticle() {
+function EditNoticeNews() {
 
 
     const navigate = useNavigate();
@@ -40,7 +40,6 @@ function EditBlogArticle() {
         height: "300",
 
     };
-    const [allUsers, setAllUsers] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
     const [allSubCategory, setAllSubCategory] = useState([]);
     const [isArchived, setisArchived] = useState('');
@@ -54,10 +53,10 @@ function EditBlogArticle() {
     const params = useParams();
 
     const editId = params.id;
-    const [EditBlogArticleData, setEditBlogArticleData] = useState('');
-    console.log('edit article blogs data', EditBlogArticleData)
+    const [EditNoticeNewsData, setEditNoticeNewsData] = useState('');
+    console.log('edit article blogs data', EditNoticeNewsData)
     useEffect(() => {
-        axios.get(`/api/article-blogs-category`).then(res => {
+        axios.get(`/api/notice-news-category`).then(res => {
             if (res.data.status == 200) {
                 setAllCategory(res.data.category);
                 // setLoading(false);
@@ -66,23 +65,21 @@ function EditBlogArticle() {
 
 
 
-        axios.get(`/api/article-blogs-subcategory`).then(res => {
+        axios.get(`/api/notice-news-subcategory`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.category);
             }
         })
 
- 
+  
 
 
 
     }, [])
 
 
-
-
     useEffect(()=>{
-        axios.get(`/api/get-article-blogs-subcategories-by-category-id/${category_id}`).then(res => {
+        axios.get(`/api/get-notice-news-subcategories-by-category-id/${category_id}`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.sub_categories);
             }
@@ -93,15 +90,15 @@ function EditBlogArticle() {
 
 
     useEffect(() => {
-        axios.get(`/api/edit-article-blogs/${editId}`).then(res => {
+        axios.get(`/api/edit-notice-news/${editId}`).then(res => {
             if (res.data.status == 200) {
-                setEditBlogArticleData(res.data.article_blog);
-                setarticle_blog_title(res.data.article_blog.article_blog_title)
-                setContent1(res.data.article_blog.article_blog_description)
-                setcategory_id(res.data.article_blog.category_id)
-                setsubcategory_id(res.data.article_blog.subcategory_id)
-                setisArchived(res.data.article_blog.isArchived)
-                setIsPublished(res.data.article_blog.isPublished)
+                setEditNoticeNewsData(res.data.notice_news);
+                setnotice_news_title(res.data.notice_news.notice_news_title)
+                setContent1(res.data.notice_news.notice_news_description)
+                setcategory_id(res.data.notice_news.category_id)
+                setsubcategory_id(res.data.notice_news.subcategory_id)
+                setisArchived(res.data.notice_news.isArchived)
+                setIsPublished(res.data.notice_news.isPublished)
                 // setLoading(false);
             }
         })
@@ -127,7 +124,7 @@ function EditBlogArticle() {
 
 
 
-    const [article_blog_title, setarticle_blog_title] = useState("");
+    const [notice_news_title, setnotice_news_title] = useState("");
 
 
     //////////images code ///////////
@@ -213,7 +210,7 @@ function EditBlogArticle() {
     //     e.preventDefault();
     //     const formData = new FormData();
     //     // formData.append("posted_by", 1);
-    //     formData.append("article_blog_title", article_blog_title);
+    //     formData.append("notice_news_title", notice_news_title);
     //     formData.append("advertisement_description", content1);
     //     formData.append("redirect_link", redirect_link);
     //     formData.append("show_time", show_time);
@@ -255,7 +252,7 @@ function EditBlogArticle() {
 
     //             // setImage('');
     //             // setPicture('');
-    //             // document.getElementById('article_blog_image').value = "";
+    //             // document.getElementById('notice_news_image').value = "";
     //         }
     //         // else if (res.data.status == 400) {
     //         //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
@@ -297,9 +294,9 @@ function EditBlogArticle() {
         const formData = new FormData();
         formData.append('category_id', category_id);
         formData.append('subcategory_id', subcategory_id);
-        formData.append('article_blog_title', article_blog_title);
-        formData.append('article_blog_description', content1);
-        formData.append('article_blog_image', image);
+        formData.append('notice_news_title', notice_news_title);
+        formData.append('notice_news_description', content1);
+        formData.append('notice_news_image', image);
         formData.append('isArchived', isArchived);
         formData.append('isPublished', isPublished);
 
@@ -308,19 +305,19 @@ function EditBlogArticle() {
 
 
 
-        axios.post(`/api/update-article-blogs/${editId}`, formData).then(res => {
+        axios.post(`/api/update-notice-news/${editId}`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                navigate('/view-blog-article')
+                navigate('/view-notice-news')
                 setcategory_id('');
                 setsubcategory_id('');
-                setarticle_blog_title('')
+                setnotice_news_title('')
 
                 setContent1('');
 
                 setImage('');
                 setPicture('');
-                document.getElementById('article_blog_image').value = "";
+                document.getElementById('notice_news_image').value = "";
             }
             // else if (res.data.status == 400) {
             //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
@@ -350,8 +347,8 @@ function EditBlogArticle() {
 
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
-                                    <h5>Edit a Blog/Article</h5>
-                                    <Link to="/view-blog-article"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <h5>Edit a Notice/News</h5>
+                                    <Link to="/view-notice-news"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>
@@ -403,7 +400,7 @@ function EditBlogArticle() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setarticle_blog_title(e.target.value)} name="article_blog_title" value={article_blog_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setnotice_news_title(e.target.value)} name="notice_news_title" value={notice_news_title} />
 
                                                 </div>
 
@@ -450,14 +447,14 @@ function EditBlogArticle() {
                                                 <div class="row mt-2">
                                                     <div class="mb-3 col-md-6 ">
                                                         <label for="formFile" class="form-label fs-6">Image</label>
-                                                        <input class="form-control" type="file" id="article_blog_image" name="article_blog_image" onChange={onChangePicture} />
+                                                        <input class="form-control" type="file" id="notice_news_image" name="notice_news_image" onChange={onChangePicture} />
                                                     </div>
 
 
                                                 </div>
                                                 {
                                                     picture == '' ? <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
-                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${EditBlogArticleData.article_blog_image}`} style={{ width: '100px', height: '90px' }}></img>
+                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${EditNoticeNewsData.notice_news_image}`} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
                                                         :
                                                         <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
@@ -495,4 +492,4 @@ function EditBlogArticle() {
         </div>
     )
 }
-export default EditBlogArticle;
+export default EditNoticeNews;

@@ -18,7 +18,7 @@ class PostController extends Controller
                 $total_active_posts = Post::where('isPublished',1)->orderBy('id','desc')->get()->count();
                 $total_pending_posts = Post::where('isPublished',0)->orderBy('id','desc')->get()->count();
 
-         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('advertisements.*')->select('posts.*','post_types.*','users.full_name')->orderBy('posts.id','desc')->get();
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
 
 
          // $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
@@ -190,7 +190,8 @@ class PostController extends Controller
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -214,7 +215,8 @@ class PostController extends Controller
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -239,7 +241,8 @@ class PostController extends Controller
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
+
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -262,7 +265,9 @@ class PostController extends Controller
 
 
                 if($name=='all'){
-       $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('advertisements.*')->select('posts.*','post_types.*','users.full_name')->orderBy('posts.id','desc')->get();
+      
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
+
 
         return response()->json([
                 'status' => 200,
@@ -270,23 +275,26 @@ class PostController extends Controller
             ]);
         }
         else if($name==1){
-      $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',1)->orderBy('posts.id','desc')->get(); 
-       return response()->json([
+   
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->orderBy('posts.id','desc')->get();
+
+             return response()->json([
                 'status' => 200,
                 'posts' => $posts,
-
             ]);
         }
         else if($name==0){
-                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
+             
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->where('isPublished',0)->orderBy('posts.id','desc')->get();
+
 
    return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
         }
-            else if($name=='archive'){
-                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
+        else if($name=='archive'){
+                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->where('isArchived',1)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
 
    return response()->json([
                 'status' => 200,
@@ -294,7 +302,8 @@ class PostController extends Controller
             ]);
         }
         else{
-   $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('advertisements.*')->select('posts.*','post_types.*','users.full_name')->orderBy('posts.id','desc')->get();
+         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->orderBy('posts.id','desc')->get();
+
 
         return response()->json([
                 'status' => 200,
@@ -309,14 +318,14 @@ class PostController extends Controller
     function filterBySearchInputValandRadioButtonValue($searchInputValue,$searchRadioButtonValue){
 
            if($searchRadioButtonValue=='postType'){
-        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('post_type','like','%' .$searchInputValue . '%')->orderBy('posts.id','desc')->get();  
+        $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->where('post_type','like','%' .$searchInputValue . '%')->orderBy('posts.id','desc')->get();  
         return response()->json([
                 'status' => 200,
                 'posts' => $posts,
             ]);
         }
         else if($searchRadioButtonValue=='postTitle'){
-      $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('posts.post_title','like', '%' .$searchInputValue. '%' )->orderBy('posts.id','desc')->get(); 
+      $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->where('posts.post_title','like', '%' .$searchInputValue. '%' )->orderBy('posts.id','desc')->get(); 
        return response()->json([
                 'status' => 200,
                 'posts' => $posts,
@@ -324,7 +333,7 @@ class PostController extends Controller
             ]);
         }
         else if($searchRadioButtonValue=='userName'){
-                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
+                  $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
 
    return response()->json([
                 'status' => 200,
@@ -332,7 +341,7 @@ class PostController extends Controller
             ]);
         }
         else{
-              $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as post_type_name')->orderBy('posts.id','desc')->get();  
+              $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->orderBy('posts.id','desc')->get();  
         return response()->json([
                 'status' => 200,
                 'posts' => $posts,
