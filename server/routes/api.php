@@ -20,6 +20,10 @@ use App\Http\Controllers\Backend\AusttaaJobSectorController;
 use App\Http\Controllers\Backend\AusttaaJobSubSectorController;
 use App\Http\Controllers\Backend\AusttaaCompanyNameController;
 
+use App\Http\Controllers\Backend\AusttaaBatchController;
+use App\Http\Controllers\Backend\AusttaaBloodGroupController;
+use App\Http\Controllers\Backend\AusttaaStreamController;
+
 use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
 use App\Http\Controllers\Backend\NoticeNewsSubCategoryController;
@@ -91,6 +95,33 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 //all users 
 Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
+
+
+
+//austtaa batch 
+
+Route::get('/batch-name', [AusttaaBatchController::class, 'index']);
+Route::post('/add-batch-name', [AusttaaBatchController::class, 'store']);
+Route::get('/edit-batch-name/{id}', [AusttaaBatchController::class, 'edit']);
+Route::post('/update-batch-name/{id}', [AusttaaBatchController::class, 'update']);
+Route::delete('/delete-batch-name/{id}', [AusttaaBatchController::class, 'destroy']);
+
+
+//austtaa blood group 
+
+Route::get('/blood-group-name', [AusttaaBloodGroupController::class, 'index']);
+Route::post('/add-blood-group-name', [AusttaaBloodGroupController::class, 'store']);
+Route::get('/edit-blood-group-name/{id}', [AusttaaBloodGroupController::class, 'edit']);
+Route::post('/update-blood-group-name/{id}', [AusttaaBloodGroupController::class, 'update']);
+Route::delete('/delete-blood-group-name/{id}', [AusttaaBloodGroupController::class, 'destroy']);
+
+//austtaa stream
+
+Route::get('/stream-name', [AusttaaStreamController::class, 'index']);
+Route::post('/add-stream-name', [AusttaaStreamController::class, 'store']);
+Route::get('/edit-stream-name/{id}', [AusttaaStreamController::class, 'edit']);
+Route::post('/update-stream-name/{id}', [AusttaaStreamController::class, 'update']);
+Route::delete('/delete-stream-name/{id}', [AusttaaStreamController::class, 'destroy']);
 
 
 //ausstta company name (user configuration) Master Setup
@@ -236,6 +267,8 @@ Route::put('/archive-all-events-by-update/{id}', [EventController::class, 'archi
 Route::delete('/delete-multiple-event-posts/{id}', [EventController::class, 'deleteMultipleEventPosts']);
 Route::put('/active-all-events-by-update/{id}', [EventController::class, 'activeAllEventByUpdate']);
 
+//event gloabl all search (web) searchbar field
+Route::get('/get-all-event-related-data/{name}', [EventController::class, 'getAllEventRelatedDataByName']);
 
 
 /////banner mobile /////////////////

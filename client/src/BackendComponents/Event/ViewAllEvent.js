@@ -639,6 +639,22 @@ function ViewAllEvent() {
 
     const [value, setValue] = React.useState([null, null]);
 
+    const [liveSearchVal,setLiveSearchVal]=useState('')
+
+    useEffect(()=>{
+        axios.get(`/api/get-all-event-related-data/${liveSearchVal}`).then(res => {
+            if (res.data.status == 200) {
+
+                // Swal.fire(res.data.message, '', 'success')
+                // window.location.reload();
+                setallEvents(res.data.event_posts)
+                // setRenderAllEvents(res.data);
+
+            }
+
+        })
+    },[liveSearchVal])
+
 
 
     return (
@@ -658,7 +674,7 @@ function ViewAllEvent() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group" data-aos="flip-up">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" onChange={(e)=>setLiveSearchVal(e.target.value)} />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>

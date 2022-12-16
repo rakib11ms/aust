@@ -289,7 +289,7 @@ function Dashboard() {
                 <div className="publication mt-3">
                     <h6 className="text-success ">Publications & Posts</h6>
 
-                    <nav className="publication-nav text-normal fw-300 " style={{cursor:'pointer'}}>
+                    <nav className="publication-nav text-normal fw-300 " style={{ cursor: 'pointer' }}>
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">
@@ -901,7 +901,7 @@ function Dashboard() {
 
                     <h6 className="text-success ">Job Management</h6>
 
-                    <nav className="publication-nav text-normal fw-300" style={{cursor:'pointer'}}>
+                    <nav className="publication-nav text-normal fw-300" style={{ cursor: 'pointer' }}>
                         <div className="row d-flex align-items-center">
                             <div className="publication-left col-md-6">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">

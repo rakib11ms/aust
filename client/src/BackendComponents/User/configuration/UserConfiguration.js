@@ -34,12 +34,18 @@ function UserConfiguration() {
     const [create_job_sector, setcreate_job_sector] = useState('');
     const [create_job_sub_sector, setcreate_job_sub_sector] = useState('');
     const [create_company_name, setcreate_company_name] = useState('');
+    const [create_batch, setcreate_batch] = useState('');
+    const [create_stream, setcreate_stream] = useState('');
+    const [create_blood_group, setcreate_blood_group] = useState('');
 
     const createJobSectorArrayData = create_job_sector.split(',');
     const createJobSubSectorArrayData = create_job_sub_sector.split(',');
     const createCompanyNameArrayData = create_company_name.split(',');
+    const createBatchNameArrayData = create_batch.split(',');
+    const createStreamArrayData = create_stream.split(',');
+    const createBloodGroupArrayData = create_blood_group.split(',');
 
-    console.log('yyy', createJobSectorArrayData, createJobSubSectorArrayData, createCompanyNameArrayData)
+    console.log('yyy', createJobSectorArrayData, createJobSubSectorArrayData, createCompanyNameArrayData, createBatchNameArrayData, createStreamArrayData, createBloodGroupArrayData)
 
     const resetCreateForm = (e) => {
         e.preventDefault();
@@ -47,12 +53,14 @@ function UserConfiguration() {
         setcreate_job_sub_sector("")
         setcreate_job_sector("")
         setcreate_company_name("")
-
+        setcreate_blood_group("")
+        setcreate_stream("")
+        setcreate_batch("")
     }
     const submitCreateConfiguration = (e) => {
         e.preventDefault();
         setTimeout(() => {
-            Swal.fire("Data Inserted Successfully", '', 'success')
+            Swal.fire("Your Data Inserted Successfully", '', 'success')
 
         }, 1500)
 
@@ -68,9 +76,9 @@ function UserConfiguration() {
                     if (res.data.status == 200) {
                         // Swal.fire(res.data.message, '', 'success')
                         setRenderAllCompanyName(res.data);
-                        setRenderAllJobSectorSubSectorMapData(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
                         // closeAddPostCategoryModal();
-                        setcreate_job_sector("");
+                        // setcreate_job_sector("");
 
                     }
                     // else if (res.data.status == 400) {
@@ -80,6 +88,8 @@ function UserConfiguration() {
                     // }
                 })
             })
+            setcreate_job_sector("");
+            // Swal.fire("Job Sector Inserted Successfully", '', 'success')
 
         }
         if (create_job_sub_sector !== null) {
@@ -92,9 +102,9 @@ function UserConfiguration() {
                         // Swal.fire(res.data.message, '', 'success')
                         // setRenderAllPosts(res.data);
                         // closeAddPostCategoryModal();
-                        setcreate_job_sub_sector("");
-                        setRenderAllCompanyName(res.data);
-                        setRenderAllJobSectorSubSectorMapData(res.data);
+                        // setcreate_job_sub_sector("");
+                        // setRenderAllCompanyName(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
                     }
                     // else if (res.data.status == 400) {
                     //     setAddPostType({ ...addPostType, error_list: res.data.errors });
@@ -103,6 +113,10 @@ function UserConfiguration() {
                     // }
                 })
             })
+            setcreate_job_sub_sector("");
+
+            // Swal.fire("Job Sub Sector Inserted Successfully", '', 'success')
+
         }
 
         if (create_company_name !== null) {
@@ -115,9 +129,9 @@ function UserConfiguration() {
                         // Swal.fire(res.data.message, '', 'success')
                         // setRenderAllPosts(res.data);
                         // closeAddPostCategoryModal();
-                        setcreate_company_name("");
-                        setRenderAllCompanyName(res.data);
-                        setRenderAllJobSectorSubSectorMapData(res.data);
+                        // setcreate_company_name("");
+                        // setRenderAllCompanyName(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
                     }
                     // else if (res.data.status == 400) {
                     //     setAddPostType({ ...addPostType, error_list: res.data.errors });
@@ -126,6 +140,91 @@ function UserConfiguration() {
                     // }
                 })
             })
+            setcreate_company_name("");
+
+            // Swal.fire("Company Name Inserted Successfully", '', 'success')
+
+        }
+
+        if (create_blood_group !== null) {
+            createBloodGroupArrayData.map((item, i) => {
+                const data = {
+                    blood_group_name: item
+                }
+                axios.post(`/api/add-blood-group-name`, data).then(res => {
+                    if (res.data.status == 200) {
+                        // Swal.fire(res.data.message, '', 'success')
+                        // setRenderAllPosts(res.data);
+                        // closeAddPostCategoryModal();
+                        // setcreate_blood_group("")
+                        // setRenderAllCompanyName(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
+                    }
+                    // else if (res.data.status == 400) {
+                    //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                    // }
+                })
+            })
+            setcreate_blood_group("")
+
+            // Swal.fire("Blood Group Inserted Successfully", '', 'success')
+
+        }
+
+        if (create_stream !== null) {
+            createStreamArrayData.map((item, i) => {
+                const data = {
+                    stream_name: item
+                }
+                axios.post(`/api/add-stream-name`, data).then(res => {
+                    if (res.data.status == 200) {
+                        // Swal.fire(res.data.message, '', 'success')
+                        // setRenderAllPosts(res.data);
+                        // closeAddPostCategoryModal();
+                        // setcreate_stream("")
+                        // setRenderAllCompanyName(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
+                    }
+                    // else if (res.data.status == 400) {
+                    //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                    // }
+                })
+            })
+            setcreate_stream("")
+
+            // Swal.fire("Stream Inserted Successfully", '', 'success')
+
+        }
+
+        if (create_batch !== null) {
+            createBatchNameArrayData.map((item, i) => {
+                const data = {
+                    batch_name: item
+                }
+                axios.post(`/api/add-batch-name`, data).then(res => {
+                    if (res.data.status == 200) {
+                        // Swal.fire(res.data.message, '', 'success')
+                        // setRenderAllPosts(res.data);
+                        // closeAddPostCategoryModal();
+                        // setcreate_batch("");
+                        // setRenderAllCompanyName(res.data);
+                        // setRenderAllJobSectorSubSectorMapData(res.data);
+                    }
+                    // else if (res.data.status == 400) {
+                    //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                    //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                    // }
+                })
+            })
+            setcreate_batch("");
+
+            // Swal.fire("Batch Inserted Successfully", '', 'success')
+
         }
 
     }
@@ -140,7 +239,7 @@ function UserConfiguration() {
             job_sub_sector_id: job_sub_sector_id_state,
             job_sector_id: job_sector_id_state
         }
-        
+
 
         console.log('state value check', data)
         axios.post(`/api/add-job-sector-job-sub-sector-map`, data).then(res => {
@@ -204,9 +303,12 @@ function UserConfiguration() {
     function openAddJobSectorJobSubSectorModal(e) {
         e.preventDefault();
         setaddJobSectorJobSubSectorModalIsOpen(true)
+        setRenderAllJobSectorSubSectorMapData(true)
+
     }
     function closeAddJobSectorJobSubSectorModal(e) {
         setaddJobSectorJobSubSectorModalIsOpen(false);
+        setRenderAllJobSectorSubSectorMapData(false)
 
     }
 
@@ -654,6 +756,416 @@ function UserConfiguration() {
 
 
 
+    //batch name functional start //
+    const BatchNameViewModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '50vh',
+            left: '20%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "80vw",
+            height: "80vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1000 }
+
+    };
+    const BatchNameEditModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "40vw",
+            height: "45vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1200 }
+
+    };
+
+
+    const [viewBatchNameModalIsOpen, setviewBatchNameModalIsOpen] = useState(false);
+    function openViewBatchNameModal(e) {
+        e.preventDefault();
+        setviewBatchNameModalIsOpen(true)
+    }
+    function closeViewBatchNameModal(e) {
+        setviewBatchNameModalIsOpen(false);
+
+    }
+
+
+    const [editBatchName, setEditBatchName] = useState('');
+    const [editBatchNameId, setEditBatchNameId] = useState('');
+
+    const [editBatchNameModalIsOpen, setEditBatchNameModalIsOpen] = useState(false);
+    function openEditBatchNameModal(e, editId) {
+        e.preventDefault();
+        setEditBatchNameModalIsOpen(true)
+        setEditBatchNameId(editId)
+    }
+    function closeEditBatchNameModal(e) {
+        setEditBatchNameModalIsOpen(false);
+
+    }
+
+    const [allBatchName, setAllBatchName] = useState([]);
+    const [renderAllBatchName, setRenderAllBatchName] = useState('');
+
+    useEffect(() => {
+        axios.get(`/api/batch-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllBatchName(res.data.batch_name);
+
+            }
+        })
+
+        axios.get(`/api/edit-batch-name/${editBatchNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditBatchName(res.data.batch_name.batch_name);
+
+            }
+        })
+
+    }, [renderAllBatchName, editBatchNameId])
+
+    function updateBatchName() {
+        const data = {
+            batch_name: editBatchName,
+        }
+
+        axios.post(`/api/update-batch-name/${editBatchNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllBatchName(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                // closeEditBatchNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const Batchcolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: " Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.batch_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditBatchNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-batch-name/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllBatchName(res.data.batch_name)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+
+
+
+    //batch name functional end//
+
+
+    //batch name functional start //
+
+
+    const [viewBloodNameModalIsOpen, setviewBloodNameModalIsOpen] = useState(false);
+    function openViewBloodNameModal(e) {
+        e.preventDefault();
+        setviewBloodNameModalIsOpen(true)
+    }
+    function closeViewBloodNameModal(e) {
+        setviewBloodNameModalIsOpen(false);
+
+    }
+
+
+    const [editBloodName, setEditBloodName] = useState('');
+    const [editBloodNameId, setEditBloodNameId] = useState('');
+
+    const [editBloodNameModalIsOpen, setEditBloodNameModalIsOpen] = useState(false);
+    function openEditBloodNameModal(e, editId) {
+        e.preventDefault();
+        setEditBloodNameModalIsOpen(true)
+        setEditBloodNameId(editId)
+    }
+    function closeEditBloodNameModal(e) {
+        setEditBloodNameModalIsOpen(false);
+
+    }
+
+    const [allBloodName, setAllBloodName] = useState([]);
+    const [renderAllBloodName, setRenderAllBloodName] = useState('');
+
+    useEffect(() => {
+        axios.get(`/api/blood-group-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllBloodName(res.data.blood_group_name);
+
+            }
+        })
+
+        axios.get(`/api/edit-blood-group-name/${editBloodNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditBloodName(res.data.blood_group_name.blood_group_name);
+
+            }
+        })
+
+    }, [renderAllBloodName, editBloodNameId])
+
+    function updateBloodName() {
+        const data = {
+            blood_group_name: editBloodName,
+        }
+
+        axios.post(`/api/update-blood-group-name/${editBloodNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllBloodName(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                // closeEditBatchNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const BloodGroupcolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: " Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.blood_group_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditBloodNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-blood-group-name/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllBloodName(res.data.blood_group_name)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+
+
+
+    //blood group functional end//
 
 
 
@@ -730,15 +1242,21 @@ function UserConfiguration() {
                                                 </div>
                                                 <div className='col-7'>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" />
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                            setcreate_batch(e.target.value);
+                                                        }} name="create_batch" value={create_batch} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" />
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                            setcreate_blood_group(e.target.value);
+                                                        }} name="create_job_sector" value={create_blood_group} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" />
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                            setcreate_stream(e.target.value);
+                                                        }} name="create_stream" value={create_stream} />
 
                                                     </div>
 
@@ -763,12 +1281,256 @@ function UserConfiguration() {
 
                                                 </div>
                                                 <div className='col-2 mx-2 my-3 '>
-                                                    <div className=''>
+                                                    <div className='' onClick={openViewBatchNameModal}>
+                                                        <p>View All</p>
+
+                                                    </div>
+
+                                                    {/* view batch name modal start */}
+                                                    <Modal
+                                                        isOpen={viewBatchNameModalIsOpen}
+                                                        onRequestClose={closeViewBatchNameModal}
+                                                        style={companyNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewBatchNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Batch Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={Batchcolumns}
+                                                                            data={allBatchName}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit batch name modal */}
+                                                    <Modal
+                                                        isOpen={editBatchNameModalIsOpen}
+                                                        onRequestClose={closeEditBatchNameModal}
+                                                        style={companyNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditBatchNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Batch Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Batch Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editBatchName} onChange={(e) => setEditBatchName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateBatchName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+
+
+
+
+
+
+
+
+
+
+                                                    <div className='' onClick={openViewBloodNameModal}>
                                                         <p>View All</p>
                                                     </div>
-                                                    <div className=''>
-                                                        <p>View All</p>
-                                                    </div>
+
+                                                        {/* view blood group name modal start */}
+                                                        <Modal
+                                                        isOpen={viewBloodNameModalIsOpen}
+                                                        onRequestClose={closeViewBloodNameModal}
+                                                        style={companyNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewBloodNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Blood Group Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={BloodGroupcolumns}
+                                                                            data={allBloodName}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit blood group name modal */}
+                                                    <Modal
+                                                        isOpen={editBloodNameModalIsOpen}
+                                                        onRequestClose={closeEditBloodNameModal}
+                                                        style={companyNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditBloodNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Blood Group Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Blood Group Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editBatchName} onChange={(e) => setEditBloodName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateBloodName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+
+
+
                                                     <div className=''>
                                                         <p>View All</p>
                                                     </div>
@@ -971,7 +1733,7 @@ function UserConfiguration() {
 
                                                     </div>
 
-                                                    {/* edit company name modal start */}
+                                                    {/* view company name modal start */}
                                                     <Modal
                                                         isOpen={viewCompayNameModalIsOpen}
                                                         onRequestClose={closeViewCompanyNameModal}
@@ -1041,7 +1803,7 @@ function UserConfiguration() {
 
                                                     </Modal>
 
-                                                    {/* edit jobsector job subsector mapping modal */}
+                                                    {/* edit company name modal */}
                                                     <Modal
                                                         isOpen={editCompayNameModalIsOpen}
                                                         onRequestClose={closeEditCompanyNameModal}

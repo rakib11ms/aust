@@ -490,8 +490,17 @@ function PostType() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished == 1 && <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> 
+                        
                     }
+                    {
+                       row.isPublished == 0 &&   <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+
+                    }
+                    {/* {
+                      row.isArchived == 1 && row.isPublished==0 &&  <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Archived</button>
+  
+                    } */}
 
                 </div>
 
@@ -507,12 +516,14 @@ function PostType() {
 
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
-                <div class="form-check form-switch mx-2  text-danger">
+                {
+                    row.isArchived !==1 && 
+                    <div class="form-check form-switch mx-2  text-danger">
                     <form encType="multipart/form-data" method='POST' >
                         <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
                             value={checkboxStatus}
 
-                            checked={row.isPublished == 1 ? true : false}
+                            checked={row.isPublished == 1 && true }
 
                             onChange={(e) => {
 
@@ -523,6 +534,8 @@ function PostType() {
 
                 </div>
 
+                }
+          
                 <div className='mx-2 ' onClick={(e) => deletePost(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
@@ -530,12 +543,12 @@ function PostType() {
                 <div className='mx-2' onClick={(e) => archivePost(e, row)}>
 
 
-                    {/* <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i> */}
+               
                     {
-                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
-                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
-
-
+                        row.isArchived==1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
+                    }
+                     {
+                        row.isArchived==0 &&  <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
                     }
                 </div>
 
@@ -590,7 +603,7 @@ function PostType() {
 
 
     // console.log('filtered post val',allPosts)
-    // console.log('filter click check', postFiltering)
+    console.log('filter click check', postFiltering)
 
 
     useEffect(() => {

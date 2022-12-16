@@ -404,4 +404,14 @@ class EventController extends Controller
     }
 
 
+ //event gloabl all search (web) searchbar field
+        public function getAllEventRelatedDataByName($name){
+      $event_posts = DB::table('aussta_events')->where('event_title','Like','%'.$name .'%')->where('event_description','Like','%'.$name .'%')->where('event_fee','Like','%'.$name .'%')->orderBy('aussta_events.id', 'desc')->get();
+            return response()->json([
+                'status' => 200,
+                'event_posts' => $event_posts,
+            ]);
+    }
+
+
 }
