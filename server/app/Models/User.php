@@ -55,4 +55,21 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\UserEducationalInfo','user_id');
     }
+       public function bloodGroup()
+    {
+        return $this->belongsTo('App\Models\AusttaaBloodGroup','blood_group');
+    }
+      public function streamName()
+    {
+        return $this->belongsTo('App\Models\AusttaaStream','stream');
+    }
+      public function batchName()
+    {
+        return $this->belongsTo('App\Models\AusttaaBatch','batch');
+    }
+   // public function companyName()
+   //  {
+   //      return $this->belongsTo('App\Models\AusttaaCompanyName','batch');
+   //  }
+
 }

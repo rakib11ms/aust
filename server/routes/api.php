@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\AusttaaCompanyNameController;
 use App\Http\Controllers\Backend\AusttaaBatchController;
 use App\Http\Controllers\Backend\AusttaaBloodGroupController;
 use App\Http\Controllers\Backend\AusttaaStreamController;
+use App\Http\Controllers\Backend\ViewAllUserController;
 
 use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
@@ -93,9 +94,14 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 
 
-//all users 
-Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
+// //all users 
+// Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
 
+
+///view all users (web) view section ///
+
+
+Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 
 
 //austtaa batch 

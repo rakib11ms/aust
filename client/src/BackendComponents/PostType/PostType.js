@@ -123,8 +123,8 @@ function PostType() {
 
 
     const handlePostApproval = (e, id) => {
-        console.log('update',id)
-       
+        console.log('update', id)
+
         if (e.target.checked === true) {
             const formData = new FormData();
 
@@ -490,11 +490,11 @@ function PostType() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished == 1 && <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> 
-                        
+                        row.isPublished == 1 && <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button>
+
                     }
                     {
-                       row.isPublished == 0 &&   <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished == 0 && <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
 
                     }
                     {/* {
@@ -517,25 +517,25 @@ function PostType() {
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
                 {
-                    row.isArchived !==1 && 
+                    row.isArchived !== 1 &&
                     <div class="form-check form-switch mx-2  text-danger">
-                    <form encType="multipart/form-data" method='POST' >
-                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
-                            value={checkboxStatus}
+                        <form encType="multipart/form-data" method='POST' >
+                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                                value={checkboxStatus}
 
-                            checked={row.isPublished == 1 && true }
+                                checked={row.isPublished == 1 && true}
 
-                            onChange={(e) => {
+                                onChange={(e) => {
 
-                                handlePostApproval(e, row)
+                                    handlePostApproval(e, row)
 
-                            }} />
-                    </form>
+                                }} />
+                        </form>
 
-                </div>
+                    </div>
 
                 }
-          
+
                 <div className='mx-2 ' onClick={(e) => deletePost(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
@@ -543,12 +543,12 @@ function PostType() {
                 <div className='mx-2' onClick={(e) => archivePost(e, row)}>
 
 
-               
+
                     {
-                        row.isArchived==1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
+                        row.isArchived == 1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
                     }
-                     {
-                        row.isArchived==0 &&  <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                    {
+                        row.isArchived == 0 && <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
                     }
                 </div>
 
@@ -967,7 +967,7 @@ function PostType() {
 
 
 
-                    {/* add post category modal */}
+                    {/* view profile modal */}
                     <Modal
                         isOpen={addPostCategoryModalIsOpen}
                         onRequestClose={closeAddPostCategoryModal}

@@ -979,16 +979,19 @@ function UserConfiguration() {
     //batch name functional end//
 
 
-    //batch name functional start //
+    //blood name functional start //
 
 
     const [viewBloodNameModalIsOpen, setviewBloodNameModalIsOpen] = useState(false);
     function openViewBloodNameModal(e) {
         e.preventDefault();
         setviewBloodNameModalIsOpen(true)
+        setRenderAllBloodName(true)
+
     }
     function closeViewBloodNameModal(e) {
         setviewBloodNameModalIsOpen(false);
+        setRenderAllBloodName(false)
 
     }
 
@@ -1168,6 +1171,231 @@ function UserConfiguration() {
     //blood group functional end//
 
 
+    //stream name functional start //
+    const StreamNameViewModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '50vh',
+            left: '20%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "80vw",
+            height: "80vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1000 }
+
+    };
+    const StreamNameEditModalStyle = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "40vw",
+            height: "45vh",
+            // background: "#ffffff",
+        },
+        // overlay: { zIndex: 1200 }
+
+    };
+
+
+    const [viewStreamNameModalIsOpen, setviewStreamNameModalIsOpen] = useState(false);
+    function openViewStreamNameModal(e) {
+        e.preventDefault();
+        setRenderAllStreamName(true)
+        setviewStreamNameModalIsOpen(true)
+    }
+    function closeViewStreamNameModal(e) {
+        setviewStreamNameModalIsOpen(false);
+        setRenderAllStreamName(false)
+
+    }
+
+
+    const [editStreamName, setEditStreamName] = useState('');
+    const [editStreamNameId, setEditStreamNameId] = useState('');
+
+    const [editStreamNameModalIsOpen, setEditStreamNameModalIsOpen] = useState(false);
+    function openEditStreamNameModal(e, editId) {
+        e.preventDefault();
+        setEditStreamNameModalIsOpen(true)
+        setEditStreamNameId(editId)
+    }
+    function closeEditStreamNameModal(e) {
+        setEditStreamNameModalIsOpen(false);
+
+    }
+
+    const [allStreamName, setAllStreamName] = useState([]);
+    const [renderAllStreamName, setRenderAllStreamName] = useState('');
+
+    useEffect(() => {
+        axios.get(`/api/stream-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllStreamName(res.data.stream_name);
+
+            }
+        })
+
+        axios.get(`/api/edit-stream-name/${editStreamNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditStreamName(res.data.stream_name.stream_name);
+
+            }
+        })
+
+    }, [renderAllStreamName, editStreamNameId])
+
+    function updateStreamName() {
+        const data = {
+            stream_name: editStreamName,
+        }
+
+        axios.post(`/api/update-stream-name/${editStreamNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllStreamName(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                // closeEditStreamNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const Streamcolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: " Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.stream_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditStreamNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-stream-name/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllStreamName(res.data.stream_name)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+
+
+
+    //stream name functional end//
+
+
 
     return (
         <div className="container-fluid">
@@ -1194,6 +1422,7 @@ function UserConfiguration() {
                                     <form onSubmit={submitCreateConfiguration} id="myForm">
 
                                         <div className='row '>
+                                            <h6 className='text-danger mb-4 mx-4 px-4'>Use Comma In Every Entity</h6>
 
                                             <div class="px-5 d-flex align-items-stretch" style={{ width: '100%' }}>
                                                 {/* 
@@ -1242,38 +1471,38 @@ function UserConfiguration() {
                                                 </div>
                                                 <div className='col-7'>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder="Use comma like 1st,2nd,3rd" onChange={(e) => {
                                                             setcreate_batch(e.target.value);
                                                         }} name="create_batch" value={create_batch} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder=" Use comma like A+,A-,B+" onChange={(e) => {
                                                             setcreate_blood_group(e.target.value);
                                                         }} name="create_job_sector" value={create_blood_group} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder="Use comma like stream1,strem2,stream3" onChange={(e) => {
                                                             setcreate_stream(e.target.value);
                                                         }} name="create_stream" value={create_stream} />
 
                                                     </div>
 
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder="" onChange={(e) => {
                                                             setcreate_job_sector(e.target.value);
                                                         }} name="create_job_sector" value={create_job_sector} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder="" onChange={(e) => {
                                                             setcreate_job_sub_sector(e.target.value);
                                                         }} name="create_job_sub_sector" value={create_job_sub_sector} />
 
                                                     </div>
                                                     <div class="">
-                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" onChange={(e) => {
+                                                        <input type="text" class="form-control form-control-sm my-2" id="exampleFormControlInput1" placeholder="Pakiza Technovation,Square Group Ltd" onChange={(e) => {
                                                             setcreate_company_name(e.target.value);
                                                         }} name="create_company_name" value={create_company_name} />
 
@@ -1402,20 +1631,12 @@ function UserConfiguration() {
 
 
 
-
-
-
-
-
-
-
-
                                                     <div className='' onClick={openViewBloodNameModal}>
                                                         <p>View All</p>
                                                     </div>
 
-                                                        {/* view blood group name modal start */}
-                                                        <Modal
+                                                    {/* view blood group name modal start */}
+                                                    <Modal
                                                         isOpen={viewBloodNameModalIsOpen}
                                                         onRequestClose={closeViewBloodNameModal}
                                                         style={companyNameViewModalStyle}
@@ -1531,9 +1752,129 @@ function UserConfiguration() {
 
 
 
-                                                    <div className=''>
+                                                    <div className='' onClick={openViewStreamNameModal}>
                                                         <p>View All</p>
                                                     </div>
+
+                                                    {/* view stream name modal start */}
+                                                    <Modal
+                                                        isOpen={viewStreamNameModalIsOpen}
+                                                        onRequestClose={closeViewStreamNameModal}
+                                                        style={companyNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewStreamNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Stream Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={Streamcolumns}
+                                                                            data={allStreamName}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit stream name modal */}
+                                                    <Modal
+                                                        isOpen={editStreamNameModalIsOpen}
+                                                        onRequestClose={closeEditStreamNameModal}
+                                                        style={companyNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditStreamNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Stream Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Stream Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editStreamName} onChange={(e) => setEditStreamName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateStreamName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+
+
+
+
+
                                                     <div className=''>
                                                         <p>View All</p>
 

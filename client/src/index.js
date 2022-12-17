@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import './imageUrl'
 import axios from 'axios';
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.baseURL = 'http://172.31.120.58/';
 // axios.defaults.baseURL = 'https://rakib10ms.com/server/public/';
 // axios.defaults.baseURL = 'https://dev.zaimahtech.com/ztl-server/public/api/';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;

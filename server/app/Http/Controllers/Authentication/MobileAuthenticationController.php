@@ -132,6 +132,7 @@ class MobileAuthenticationController extends Controller
             $save_more_professional=new UserProfessionalInfo();
             $save_more_professional->user_id=$request->user_id;
             $save_more_professional->name_of_company= $request->name_of_company;
+            $save_more_professional->office_address= $request->office_address;
             $save_more_professional->year= $request->year;
             $save_more_professional->designation=$request->designation;
             $save_more_professional->save();

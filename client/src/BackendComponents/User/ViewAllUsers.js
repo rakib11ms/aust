@@ -38,6 +38,56 @@ function ViewAllUsers() {
     // console.log('all posts check', allJobPosts)
 
     //add functionality for post category
+    const [allUsers, setallUsers] = useState([]);
+    console.log('users', allUsers)
+
+    useEffect(() => {
+        axios.get(`/api/all-users`).then(res => {
+            if (res.data.status == 200) {
+                setallUsers(res.data.all_users);
+                setLoading(false);
+            }
+        })
+    }, []);
+
+
+
+    ////multiple filter search functionality start 
+
+
+    const multipleFilterStyles = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "50vw",
+            height: "50vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+
+    const [addMultipleFilterModalIsOpen, setaddMultipleFilterModalIsOpen] = useState(false);
+    function openAddMultipleFilterModal(e) {
+        e.preventDefault();
+        setaddMultipleFilterModalIsOpen(true)
+    }
+    function closeAddMultipleFilterModal(e) {
+        setaddMultipleFilterModalIsOpen(false);
+
+    }
+
+
+
+    //// multiple filter search modal functionality end
+
 
 
 
@@ -326,7 +376,8 @@ function ViewAllUsers() {
                 // marginLeft: 50,
                 // maxWidth: 0,
                 // textAlign: 'left',
-                width: 10,
+                width: 0,
+                padding: 0,
             },
         },
 
@@ -336,23 +387,23 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='title-field' style={{ borderRight: "1px solid gray" }}>
+                <div className='title-field d-flex justify-content-between align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <h5 className='my-1 ' style={{ fontSize: 18 }}>
-                            Alena Suvra
+                            {row.full_name}
                         </h5>
 
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>+880100345677</span>
+                            <span className='py-1 px-1 text-secondary'>{row.phone_no}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>@gmail.com</span>
+                            <span className='py-1 px-1 text-secondary'>{row.email}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>AB+</span>
+                            <span className='py-1 px-1 text-secondary'>{row.blood_group == null ? '' : row.blood_group.blood_group_name}</span>
                         </div>
                     </div>
-                    <div className='text-bottom'>
+                    <div className='text-bottom  p-0'>
                         <h3 className="title-text-h">Professional</h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
@@ -370,7 +421,8 @@ function ViewAllUsers() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                // width: 600
+                // width: 600,
+                padding: 0,
             },
         },
         {
@@ -379,23 +431,23 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='educational-field' style={{ borderRight: "1px solid gray" }}>
+                <div className='educational-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Company Name</span>
+                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].name_of_company}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Designation</span>
+                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Location</span>
+                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>Other Information</span>
                         </div>
                     </div>
 
-                    <div className='text-bottom'>
+                    <div className='text-bottom p-0 '>
                         <h3 className="title-text-h">Educational</h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
@@ -411,7 +463,9 @@ function ViewAllUsers() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                // width: 600
+                // width: 600,
+                padding: 0,
+
             },
         },
         {
@@ -420,24 +474,24 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='contact-field' style={{ borderRight: "1px solid gray" }}>
+                <div className='contact-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div style={{ textAlign: "justify" }}>
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Last Degree Information</span>
+                            <span className='py-1 px-1 text-secondary'>BSC </span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Institiute</span>
+                            <span className='py-1 px-1 text-secondary'>{row.educational_info.bsc_institution}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Batch</span>
+                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
                         <div className=' bg-light d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Session</span>
+                            <span className='py-1 px-1 text-secondary'> {row.educational_info.bsc_passing_year}</span>
                         </div>
                     </div>
 
-                    <div className='text-bottom'>
-                        <h3 className="title-text-h">information</h3>
+                    <div className='text-bottom p-0'>
+                        <h3 className="title-text-h">Contact Info</h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
 
@@ -452,7 +506,9 @@ function ViewAllUsers() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                // width: 600
+                // width: 600,
+                padding: 0,
+
             },
         },
 
@@ -464,9 +520,9 @@ function ViewAllUsers() {
 
                 <div className='icon-view-field'>
                     <div className='sites-icon me-3'>
-                        <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div>
-                        <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div>
-                        <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div>
+                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div> </a>
+                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
+                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
                     </div>
                     <div className='text-secondary'>
                         <div style={{ marginLeft: 20 }} onClick={(e) => {
@@ -490,7 +546,9 @@ function ViewAllUsers() {
 
             cellStyle: {
                 marginLeft: 0,
-                textAlign: 'left'
+                textAlign: 'left',
+                padding: 10,
+
             },
         },
     ];
@@ -572,6 +630,44 @@ function ViewAllUsers() {
 
 
     }
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const [blood_group_name, setblood_group_name] = useState('');
+    const [company_name, setcompany_name] = useState('');
+    const [batch_name, setbatch_name] = useState('');
+    const [gender_name, setgender_name] = useState('');
+
+    const[allBloodGroupName,setAllBloodGroupName]=useState([]);
+    const[allCompanyName,setAllCompanyName]=useState([]);
+    const[allBatchName,setAllBatchName]=useState([]);
+    const[allGenderName,setAllGenderName]=useState([]);
+
+
+    useEffect(() => {
+        axios.get(`/api/batch-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllBatchName(res.data.batch_name);
+
+            }
+        })
+        axios.get(`/api/blood-group-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllBloodGroupName(res.data.blood_group_name);
+
+            }
+        })
+        axios.get(`/api/company-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllCompanyName(res.data.company_name);
+
+            }
+        })
+        // axios.get(`/api/gender-name`).then(res => {
+        //     if (res.data.status == 200) {
+        //         setbatch_name(res.data.batch_name);
+
+        //     }
+        // })
+    }, [])
 
 
     return (
@@ -590,14 +686,166 @@ function ViewAllUsers() {
 
 
                             <div className='user-config mt-3 border  rounded-3'>
-                                <div className='user-config1 container'>
+                                <div className='user-config1 container d-flex justify-content-around'>
 
-                                    <div className="input-icon input-group-sm p-5 " data-aos="zoom-out-right">
-                                        <input id='res-input-icon' style={{ position: "relative", width: 400, height: 50, boxShadow: "0px 0px 23px -15px", marginLeft: "-84px" }} type="text" className="form-control bg-transparent input-control" aria-label="Username" aria-describedby="basic-addon1" />
-                                        <span className="input-group-text bg-transparent" id="icon">
-                                            <SearchRoundedIcon />
-                                        </span>
+
+                                    <div className="input-icon input-group-sm p-5 col-7 " data-aos="zoom-out-right">
+
+                                        <div class="input-group py-2 text-secondary" data-aos="fade-right" >
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
+
+                                            <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1"> <i class="fa-solid fa-magnifying-glass" ></i>
+                                                <i class="fa fa-angle-down mx-2" aria-hidden="true"></i>
+
+                                            </span>
+
+
+
+                                            {/* add multiple filter modal */}
+                                            <Modal
+                                                isOpen={addMultipleFilterModalIsOpen}
+                                                onRequestClose={closeAddMultipleFilterModal}
+                                                style={customStyles1}
+                                                contentLabel="Example Modal"
+                                            >
+
+                                                <div className='card-body '>
+                                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddMultipleFilterModal}><i class="fa fa-times"></i></span>
+
+                                                    <h5 className=""> Filter You Search</h5>
+                                                    <hr />
+
+
+                                                    <div className="row col-12 my-4 d-flex justify-content-center align-items-center">
+
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                   
+                                                                    <option value="1">One</option>
+                                                                    <option value="2">Two</option>
+                                                                    <option value="3">Three</option>
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Blood Group</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    {
+                                                                        allBloodGroupName.map((item,i)=>{
+                                                                            return (
+                                                                                <>
+                                                                                 <option value={item.blood_group_name}>{item.blood_group_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Company</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    {
+                                                                        allCompanyName.map((item,i)=>{
+                                                                            return (
+                                                                                <>
+                                                                                 <option value={item.company_name}>{item.company_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>    
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Batch</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    {
+                                                                        allBatchName.map((item,i)=>{
+                                                                            return (
+                                                                                <>
+                                                                                 <option value={item.batch_name}>{item.batch_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>    
+                                                                </div>
+                                                        </div>
+
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    <option value="1">One</option>
+                                                                    <option value="2">Two</option>
+                                                                    <option value="3">Three</option>
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    <option value="1">One</option>
+                                                                    <option value="2">Two</option>
+                                                                    <option value="3">Three</option>
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    <option value="1">One</option>
+                                                                    <option value="2">Two</option>
+                                                                    <option value="3">Three</option>
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    <option value="1">One</option>
+                                                                    <option value="2">Two</option>
+                                                                    <option value="3">Three</option>
+                                                                </select>    </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                            </Modal>
+
+                                        </div>
+
                                     </div>
+
+
                                     <div className='d-flex ms-5'>
                                         <div className='pending mx-2' data-aos="zoom-out-left">
                                             <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
@@ -711,7 +959,7 @@ function ViewAllUsers() {
                                         <MaterialTable
 
                                             columns={columns}
-                                            data={allUserPosts}
+                                            data={allUsers}
                                             isLoading={loading === true ? true : false}
                                             // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
                                             onSelectionChange={selectionCheck}
@@ -794,8 +1042,8 @@ function ViewAllUsers() {
                                                 </div>
 
                                             </div>
-                                            <div className='d-flex  justify-content-between'>
-                                                <div className='d-flex'>
+                                            <div className='d-flex  justify-content-between '>
+                                                <div className='d-flex '>
                                                     <i class="fa fa-briefcase"></i>
                                                     <h6 className='modal-h6 ms-2'>Professional</h6>
                                                 </div>
