@@ -63,6 +63,7 @@ class MobileAuthenticationController extends Controller
                 $user->phone_no = $request->phone_no;
                 $user->bio = $request->bio;
                 $user->blood_group = $request->blood_group;
+                $user->gender = $request->gender;
                 $user->stream = $request->stream;
                 $user->job_sector = $request->job_sector;
                 $user->job_sub_sector = $request->job_sub_sector;

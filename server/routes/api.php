@@ -100,8 +100,12 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 ///view all users (web) view section ///
 
-
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
+
+Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
+
+
+// Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
 
 //austtaa batch 

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import MaleRoundedIcon from '@mui/icons-material/MaleRounded';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
 import FemaleRoundedIcon from '@mui/icons-material/FemaleRounded';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import BloodtypeOutlinedIcon from '@mui/icons-material/BloodtypeOutlined';
@@ -293,14 +297,16 @@ function ViewAllUsers() {
 
     const [viewUserDescription, setViewUserDescription] = useState('');
 
+    console.log('full profile',viewUserDescription);
+
 
     const [viewUserModalIsOpen, setviewUserModalIsOpen] = useState(false);
-    function openViewJobPostModal(e, viewJobPost) {
+    function openViewUserProfileModal(e, viewJobPost) {
         e.preventDefault();
         setViewUserDescription(viewJobPost)
         setviewUserModalIsOpen(true)
     }
-    function closeViewUserPostModal(e) {
+    function closeViewUserProfileModal(e) {
         setviewUserModalIsOpen(false);
 
     }
@@ -393,13 +399,13 @@ function ViewAllUsers() {
                             {row.full_name}
                         </h5>
 
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.phone_no}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.email}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.blood_group == null ? '' : row.blood_group.blood_group_name}</span>
                         </div>
                     </div>
@@ -433,16 +439,16 @@ function ViewAllUsers() {
 
                 <div className='educational-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].name_of_company}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>Other Information</span>
                         </div>
                     </div>
@@ -476,16 +482,16 @@ function ViewAllUsers() {
 
                 <div className='contact-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div style={{ textAlign: "justify" }}>
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>BSC </span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.educational_info.bsc_institution}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
-                        <div className=' bg-light d-inline-block rounded '>
+                        <div className=' bg-white d-inline-block rounded '>
                             <span className='py-1 px-1 text-secondary'> {row.educational_info.bsc_passing_year}</span>
                         </div>
                     </div>
@@ -526,7 +532,7 @@ function ViewAllUsers() {
                     </div>
                     <div className='text-secondary'>
                         <div style={{ marginLeft: 20 }} onClick={(e) => {
-                            openViewJobPostModal(e, row)
+                            openViewUserProfileModal(e, row)
                         }
                         }>
                             <i className='fa fa-eye mx-2 '  >
@@ -631,15 +637,17 @@ function ViewAllUsers() {
 
     }
     const [searchInputValue, setSearchInputValue] = useState('');
-    const [blood_group_name, setblood_group_name] = useState('');
-    const [company_name, setcompany_name] = useState('');
-    const [batch_name, setbatch_name] = useState('');
-    const [gender_name, setgender_name] = useState('');
+    const [blood_group_name, setblood_group_name] = useState(null);
+    const [company_name, setcompany_name] = useState(null);
+    const [batch_name, setbatch_name] = useState(null);
+    const [gender_name, setgender_name] = useState(null);
+    const [stream_name, setstream_name] = useState(null);
 
-    const[allBloodGroupName,setAllBloodGroupName]=useState([]);
-    const[allCompanyName,setAllCompanyName]=useState([]);
-    const[allBatchName,setAllBatchName]=useState([]);
-    const[allGenderName,setAllGenderName]=useState([]);
+    const [allBloodGroupName, setAllBloodGroupName] = useState([]);
+    const [allCompanyName, setAllCompanyName] = useState([]);
+    const [allBatchName, setAllBatchName] = useState([]);
+    const [allGenderName, setAllGenderName] = useState([]);
+    const [allStreamName, setAllStreamName] = useState([]);
 
 
     useEffect(() => {
@@ -661,13 +669,27 @@ function ViewAllUsers() {
 
             }
         })
-        // axios.get(`/api/gender-name`).then(res => {
-        //     if (res.data.status == 200) {
-        //         setbatch_name(res.data.batch_name);
+        axios.get(`/api/stream-name`).then(res => {
+            if (res.data.status == 200) {
+                setAllStreamName(res.data.stream_name);
 
-        //     }
-        // })
+            }
+        })
     }, [])
+
+
+    useEffect(() => {
+        if (blood_group_name !== null || company_name !== null || blood_group_name !== null || stream_name !== null || gender_name !== null) {
+            axios.get(`/api/multiple-filter-search-all-users/${company_name}/${blood_group_name}/${batch_name}/${stream_name}/${gender_name}`).then(res => {
+                if (res.data.status == 200) {
+                    setallUsers(res.data.all_users)
+                    setLoading(false);
+                }
+            })
+        }
+
+
+    }, [blood_group_name, company_name, batch_name, gender_name, stream_name])
 
 
     return (
@@ -694,7 +716,8 @@ function ViewAllUsers() {
                                         <div class="input-group py-2 text-secondary" data-aos="fade-right" >
                                             <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
-                                            <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1"> <i class="fa-solid fa-magnifying-glass" ></i>
+                                            <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1"> 
+                                            {/* <i class="fa-solid fa-magnifying-glass" ></i> */}
                                                 <i class="fa fa-angle-down mx-2" aria-hidden="true"></i>
 
                                             </span>
@@ -718,120 +741,118 @@ function ViewAllUsers() {
 
                                                     <div className="row col-12 my-4 d-flex justify-content-center align-items-center">
 
-
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
-                                                                   
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    <option value="Male">Male</option>
+                                                                    <option value="Female">Female</option>
+
+
+                                                                </select>    </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Stream</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setstream_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+
+                                                                    {
+                                                                        allStreamName.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.stream_name}>{item.stream_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
                                                                 </select>    </div>
                                                         </div>
 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Blood Group</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setblood_group_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
                                                                     {
-                                                                        allBloodGroupName.map((item,i)=>{
+                                                                        allBloodGroupName.map((item, i) => {
                                                                             return (
                                                                                 <>
-                                                                                 <option value={item.blood_group_name}>{item.blood_group_name}</option>
+                                                                                    <option value={item.blood_group_name}>{item.blood_group_name}</option>
 
                                                                                 </>
                                                                             )
                                                                         })
                                                                     }
-                                                                
+
                                                                 </select>    </div>
                                                         </div>
 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Company</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setcompany_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
                                                                     {
-                                                                        allCompanyName.map((item,i)=>{
+                                                                        allCompanyName.map((item, i) => {
                                                                             return (
                                                                                 <>
-                                                                                 <option value={item.company_name}>{item.company_name}</option>
+                                                                                    <option value={item.company_name}>{item.company_name}</option>
 
                                                                                 </>
                                                                             )
                                                                         })
                                                                     }
-                                                                </select>    
-                                                                </div>
+                                                                </select>
+                                                            </div>
                                                         </div>
 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Batch</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
                                                                     {
-                                                                        allBatchName.map((item,i)=>{
+                                                                        allBatchName.map((item, i) => {
                                                                             return (
                                                                                 <>
-                                                                                 <option value={item.batch_name}>{item.batch_name}</option>
+                                                                                    <option value={item.batch_name}>{item.batch_name}</option>
 
                                                                                 </>
                                                                             )
                                                                         })
                                                                     }
-                                                                </select>    
-                                                                </div>
+                                                                </select>
+                                                            </div>
                                                         </div>
 
 
-                                                        <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                        {/* <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Office Location</label>
                                                             <div class="col-sm-10">
                                                                 <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
+                                                                    <option selected disabled>Open this select menu</option>
                                                                     <option value="1">One</option>
                                                                     <option value="2">Two</option>
                                                                     <option value="3">Three</option>
                                                                 </select>    </div>
-                                                        </div>
-
+                                                        </div> */}
+{/* 
                                                         <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Permanent Location</label>
                                                             <div class="col-sm-10">
                                                                 <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
+                                                                    <option selected disabled>Open this select menu</option>
                                                                     <option value="1">One</option>
                                                                     <option value="2">Two</option>
                                                                     <option value="3">Three</option>
                                                                 </select>    </div>
-                                                        </div>
+                                                        </div> */}
 
-                                                        <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>    </div>
-                                                        </div>
 
-                                                        <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Open this select menu</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>    </div>
-                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -862,24 +883,41 @@ function ViewAllUsers() {
                                 <Container>
                                     <div className='user-config2' data-aos="fade-up"
                                         data-aos-anchor-placement="top-bottom">
-                                        <Button style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
-                                            Male
-                                        </Button>
-                                        <Button className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<FemaleRoundedIcon />} endIcon={<CloseIcon />}>
-                                            Female
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
-                                            Savar
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<WorkOutlineOutlinedIcon />} endIcon={<CloseIcon />}>
-                                            Floor in charge
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
-                                            O Positive
-                                        </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<TuneOutlinedIcon />} endIcon={<CloseIcon />}>
-                                            More
-                                        </Button>
+                                        {
+                                            gender_name !== null && <Button onClick={() => setgender_name(null)} style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
+                                                {gender_name}
+                                            </Button>
+                                        }
+
+                                        {
+                                            company_name !== null && <Button onClick={() => setcompany_name(null)} className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
+                                                {company_name}
+                                            </Button>
+                                        }
+
+
+                                        {/* <Button onClick={()=>setstream_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
+                                            Location
+                                        </Button> */}
+                                        {
+                                            batch_name !== null && <Button onClick={() => setbatch_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BatchPredictionIcon />} endIcon={<CloseIcon />}>
+                                                {batch_name}
+                                            </Button>
+                                        }
+
+                                        {
+                                            blood_group_name !== null && <Button onClick={() => setblood_group_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
+                                                {blood_group_name}
+                                            </Button>
+                                        }
+                                        {
+                                            stream_name !== null && <Button onClick={() => setstream_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<AccessTimeIcon />} endIcon={<CloseIcon />}>
+                                                {stream_name}
+                                            </Button>
+                                        }
+
+
+
 
                                     </div>
                                 </Container>
@@ -914,7 +952,7 @@ function ViewAllUsers() {
                                                     </ul>
                                                     <div className='select-div-active'>
                                                         <select className="form-select form-select-sm mb-3 select-active" aria-label=".form-select-sm example">
-                                                            <option selected>Active</option>
+                                                            <option selected disabled>Active</option>
                                                             <option value="1">Inactive</option>
                                                         </select>
                                                     </div>
@@ -1001,13 +1039,13 @@ function ViewAllUsers() {
                             {/* add post category modal */}
                             <Modal
                                 isOpen={viewUserModalIsOpen}
-                                onRequestClose={closeViewUserPostModal}
+                                onRequestClose={closeViewUserProfileModal}
                                 style={customStyles1}
                                 contentLabel="Example Modal"
                             >
 
                                 <div className='card-body '>
-                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewUserPostModal}><i class="fa fa-times"></i></span>
+                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewUserProfileModal}><i class="fa fa-times"></i></span>
 
                                     <div className="row">
 
@@ -1015,15 +1053,28 @@ function ViewAllUsers() {
 
                                             <div className='modal-first'>
                                                 <div className='modal-div-image'>
-                                                    <img className="modal-image" src={modalImge} />
+                                                    <img className="modal-image" src={`${global.img_url}/images/${viewUserDescription.image}`}  />
                                                 </div>
-                                                <div>
-                                                    <h4>Alena  shuvra</h4>
-                                                    <h6 className='modal-h6'>Phone number</h6>
-                                                    <h6 className='modal-h6'>Blood group</h6>
-                                                    <div className='modal-location'>
+                                                <div className=''>
+                                                    <h4>{viewUserDescription.full_name}</h4>
+                                                    <h6 className='modal-h6'>
+                                                        Email: {viewUserDescription.email}</h6>
+                                                    <h6 className='modal-h6'>
+                                                        <div class="d-flex">
+                                                                <div>
+                                                                Phone: {viewUserDescription.phone_no}
+
+                                                                </div>
+                                                                <div className='mx-2'>
+                                                                Blood Group: {viewUserDescription.blood_group!==undefined && viewUserDescription.blood_group.blood_group_name}
+
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        </h6>
+                                                    <div className='modal-location mx-5'>
                                                         <i className="fa fa-map-location me-1 mb-1 modal-icon"></i>
-                                                        <h6 className='modal-h6'>Show Location in map</h6>
+                                                        <h6 className='modal-h6 '>Show Location in map</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1054,14 +1105,40 @@ function ViewAllUsers() {
                                                     <h6 className='modal-h6  ms-2'>Education</h6>
                                                 </div>
                                                 <div>
-                                                    <article className='modal-article'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes
+                                                    <article className='modal-article'>
                                                         <br />
-                                                        <br />
+                                                        <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
 
-                                                        orem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes
-                                                        <br />
-                                                        <br />
-                                                        orem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a efficitur risus, vitae mattis nulla. Phasellus interdum posuere tortor vel tempor. Fusce ligula nisi, scelerisque sed pulvinar sed, condimentum eu orci. Quisque lacinia lacus sed arcu imperdiet, quis lobortis elit maximus. Suspendisse dictum hendrerit odio, sed accumsan libero iaculis sit amet. Integer at turpis sapien. Nunc ut dolor molestie, convallis purus sed, mattis sem. Orci varius natoque penatibus et magnis dis parturient montes</article></div>
+
+                                                        </article></div>
                                             </div>
 
                                             <div>
