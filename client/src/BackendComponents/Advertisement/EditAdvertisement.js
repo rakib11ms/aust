@@ -166,11 +166,11 @@ function EditAdvertisement() {
 
     const render = (data) => {
         return data.map((image, i) => {
-            return <div className='image-main mt-2' onClick={() => {
+            return <div className='image-main mt-1' onClick={() => {
                 removeArray(i);
             }}>
-                <i class="fa fa-close image-close text-danger" ></i>
-                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+                <i class="fa fa-close image-close text-danger " ></i>
+                <img className="image mx-2 mt-3 rounded-3 " src={image} alt="" key={i} style={{ width: '105px', height: '90px', objectFit: 'cover' }} />
             </div>
         });
     };
@@ -321,19 +321,7 @@ function EditAdvertisement() {
 
     }
 
-    // const[deleteImageId,setDeleteImageId]=useState('');
-    // console.log('del id',deleteImageId)
 
-
-    // function deleteImageFromDatabase(e,$deleteImageId) {
-    //     e.preventDefault();
-    //     setDeleteImageId($deleteImageId)
-    //     axios.post(`/api/delete-advertisement-multiple-image/${deleteImageId}`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setRenderData(res.data)
-    //         }
-    //     })
-    // }
 
 
     return (
@@ -399,7 +387,7 @@ function EditAdvertisement() {
                                                         />
 
                                                         <div className='d-flex mt-2 ' >
-                                                            {
+                                                            {/* {
                                                                 multipleImages.length >= 1 ?
                                                                     render(multipleImages)
                                                                     :
@@ -415,9 +403,9 @@ function EditAdvertisement() {
                                                                     })
 
 
-                                                            }
+                                                            } */}
 
-{/* 
+
                                                             {
                                                                 render(multipleImages)
 
@@ -425,7 +413,7 @@ function EditAdvertisement() {
 
 
 
-                                                            } */}
+                                                            }
                                                             {
 
                                                                 allImagesFromDatabase.map((item, i) => {
@@ -450,6 +438,8 @@ function EditAdvertisement() {
                                                                                 <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
 
                                                                             </div>
+
+
 
                                                                         </>
                                                                     )

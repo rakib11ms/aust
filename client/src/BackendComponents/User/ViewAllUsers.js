@@ -297,7 +297,7 @@ function ViewAllUsers() {
 
     const [viewUserDescription, setViewUserDescription] = useState('');
 
-    console.log('full profile',viewUserDescription);
+    console.log('full profile', viewUserDescription);
 
 
     const [viewUserModalIsOpen, setviewUserModalIsOpen] = useState(false);
@@ -716,8 +716,8 @@ function ViewAllUsers() {
                                         <div class="input-group py-2 text-secondary" data-aos="fade-right" >
                                             <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
-                                            <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1"> 
-                                            {/* <i class="fa-solid fa-magnifying-glass" ></i> */}
+                                            <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1">
+                                                {/* <i class="fa-solid fa-magnifying-glass" ></i> */}
                                                 <i class="fa fa-angle-down mx-2" aria-hidden="true"></i>
 
                                             </span>
@@ -840,7 +840,7 @@ function ViewAllUsers() {
                                                                     <option value="3">Three</option>
                                                                 </select>    </div>
                                                         </div> */}
-{/* 
+                                                        {/* 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Permanent Location</label>
                                                             <div class="col-sm-10">
@@ -1053,7 +1053,7 @@ function ViewAllUsers() {
 
                                             <div className='modal-first'>
                                                 <div className='modal-div-image'>
-                                                    <img className="modal-image" src={`${global.img_url}/images/${viewUserDescription.image}`}  />
+                                                    <img className="modal-image" src={`${global.img_url}/images/${viewUserDescription.image}`} />
                                                 </div>
                                                 <div className=''>
                                                     <h4>{viewUserDescription.full_name}</h4>
@@ -1061,17 +1061,17 @@ function ViewAllUsers() {
                                                         Email: {viewUserDescription.email}</h6>
                                                     <h6 className='modal-h6'>
                                                         <div class="d-flex">
-                                                                <div>
+                                                            <div>
                                                                 Phone: {viewUserDescription.phone_no}
 
-                                                                </div>
-                                                                <div className='mx-2'>
-                                                                Blood Group: {viewUserDescription.blood_group!==undefined && viewUserDescription.blood_group.blood_group_name}
+                                                            </div>
+                                                            <div className='mx-2'>
+                                                                Blood Group: {viewUserDescription.blood_group !== undefined && viewUserDescription.blood_group.blood_group_name}
 
-                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        
-                                                        </h6>
+
+                                                    </h6>
                                                     <div className='modal-location mx-5'>
                                                         <i className="fa fa-map-location me-1 mb-1 modal-icon"></i>
                                                         <h6 className='modal-h6 '>Show Location in map</h6>
@@ -1093,52 +1093,154 @@ function ViewAllUsers() {
                                                 </div>
 
                                             </div>
-                                            <div className='d-flex  justify-content-between '>
-                                                <div className='d-flex '>
-                                                    <i class="fa fa-briefcase"></i>
-                                                    <h6 className='modal-h6 ms-2'>Professional</h6>
-                                                </div>
-                                            </div>
-                                            <div className='mt-5'>
+
+                                            <div className='mt-4' >
                                                 <div className='d-flex'>
                                                     <i class="fa fa-graduation-cap"></i>
-                                                    <h6 className='modal-h6  ms-2'>Education</h6>
+                                                    <h6 className='modal-h6  ms-2'>Personal Information</h6>
                                                 </div>
                                                 <div>
                                                     <article className='modal-article'>
-                                                        <br />
                                                         <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+                                                            {/* <thead>
+                                                                <tr>
+                                                                    <th scope="col">Name</th>
+                                                                    <th scope="col">Email</th>
+                                                                    <th scope="col">Year</th>
+                                                                    <th scope="col">Institution</th>
+                                                                </tr>
+                                                            </thead> */}
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Full Name</th>
+                                                                    <td>{viewUserDescription.full_name}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Nick Name</th>
+                                                                    <td>{viewUserDescription.nick_name}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Office Email</th>
+                                                                    <td>{viewUserDescription.office_email}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Batch</th>
+                                                                    <td>{viewUserDescription.batch_name !== undefined && viewUserDescription.batch_name.batch_name}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Gender</th>
+                                                                    <td>{viewUserDescription.gender}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Present Address</th>
+                                                                    <td>{viewUserDescription.present_address}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: "30%" }}>Permanent Address</th>
+                                                                    <td>{viewUserDescription.permanent_address}</td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
 
 
-                                                        </article></div>
+                                                    </article></div>
+                                            </div>
+                                            <div className='mt-3'>
+
+                                                <div className='d-flex  justify-content-between '>
+                                                    <div className='d-flex '>
+                                                        <i class="fa fa-briefcase"></i>
+                                                        <h6 className='modal-h6 ms-2'>Professional Information</h6>
+
+                                                    </div>
+
+                                                </div>
+                                                <div>
+                                                    <article className=''>
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Company</th>
+                                                                    <th scope="col">Designation</th>
+                                                                    <th scope="col">Year Active</th>
+                                                                    <th scope="col">Office Address</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {
+                                                                    viewUserDescription.professional_info !== undefined && viewUserDescription.professional_info.map((item, i) => {
+                                                                        return (
+                                                                            <>
+                                                                                <tr>
+                                                                                    <th scope="row">{item.name_of_company}</th>
+                                                                                    <td>{item.designation}</td>
+                                                                                    <td>{item.year}</td>
+                                                                                    <td>{item.office_address}</td>
+                                                                                </tr>
+                                                                            </>
+                                                                        )
+                                                                    })
+                                                                }
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </article>
+                                                </div>
+                                            </div>
+
+                                            <div className='mt-4'>
+                                                <div className='d-flex'>
+                                                    <i class="fa fa-graduation-cap"></i>
+                                                    <h6 className='modal-h6  ms-2'>Educational Information</h6>
+                                                </div>
+                                                <div>
+                                                    <article className='modal-article'>
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Education</th>
+                                                                    <th scope="col">Grade</th>
+                                                                    <th scope="col">Year</th>
+                                                                    <th scope="col">Institution</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">SSC</th>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_passing_year}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_institution}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">HSC</th>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_passing_year}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_institution}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">BSC</th>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.bsc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.bsc_passing_year}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.bsc_institution}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">MSC</th>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.msc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.msc_passing_year}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.msc_passing_institution}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </article></div>
                                             </div>
 
                                             <div>

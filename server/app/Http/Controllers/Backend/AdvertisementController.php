@@ -19,9 +19,10 @@ class AdvertisementController extends Controller
     {
 
 
-        $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
+        $all_advertisements =Advertisement::where('isPublished',1)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
+        $active_dashboard_advertisements =Advertisement::where('isPublished',1)->with(['AdvertisementImage','userName'])->limit(3)->orderBy('id','desc')->get();
 
-
+        $paused_dashboard_advertisements =Advertisement::where('isPublished',0)->with(['AdvertisementImage','userName'])->limit(3)->orderBy('id','desc')->get();
            $today = date("Y-m-d");
            // dd($today);
 
@@ -47,6 +48,8 @@ class AdvertisementController extends Controller
             'all_advertisements' => $all_advertisements,
             'total_active_advertisements' => $total_active_advertisements,
             'total_pause_advertisements' => $total_pause_advertisements,
+            'active_dashboard_advertisements'=>$active_dashboard_advertisements,
+            'paused_dashboard_advertisements'=>$paused_dashboard_advertisements
         ]);
     }
 
@@ -98,6 +101,7 @@ class AdvertisementController extends Controller
             $advertisement->reference_no = $request->reference_no;
             $advertisement->po_no = $request->advertiser_name;
 
+           $advertisement->save();
 
 
    foreach ($request->file('image') as $image) {
@@ -105,16 +109,16 @@ class AdvertisementController extends Controller
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('images/', $upload_image_name);
 
-            // $advertisement_multiple_table=new AdvertisementMultipleImage();
-            // $advertisement_multiple_table->advertisement_id=$advertisement->id;
-            // $advertisement_multiple_table->image=$upload_image_name;
-            // $advertisement_multiple_table->save();
-            $name[] = $upload_image_name;
+            $advertisement_multiple_table=new AdvertisementMultipleImage();
+            $advertisement_multiple_table->advertisement_id=$advertisement->id;
+            $advertisement_multiple_table->image=$upload_image_name;
+            $advertisement_multiple_table->save();
+            // $name[] = $upload_image_name;
 
-            $advertisement->image =  implode(', ', $name);
+            // $advertisement->image =  implode(', ', $name);
         // $advertisement->save();
         }
-           $advertisement->save();
+           // $advertisement->save();
 
 
         return response()->json([

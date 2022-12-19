@@ -17,6 +17,7 @@ function Sidebar() {
     const [isActive8, setIsActive8] = useState(true);
     const [isActive9, setIsActive9] = useState(true);
     const [isActive10, setIsActive10] = useState(true);
+    const [isActive11, setIsActive11] = useState(true);
     console.log('is active cheking', isActive)
 
 
@@ -503,7 +504,7 @@ function Sidebar() {
 
                     <div className=''>
 
-                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive10(!isActive10)}>
+                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive11(!isActive11)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i class="fa-solid fa-rectangle-ad mt-1"></i>
 
@@ -511,7 +512,7 @@ function Sidebar() {
 
                             </div>
                             <div className='menu-content text-white mx-2 '>
-                                {isActive10 ?
+                                {isActive11 ?
                                     <b className=''>-</b>
                                     :
                                     <b className=''>+</b>
@@ -520,7 +521,7 @@ function Sidebar() {
                         <div class="menu-content ">
 
                             {
-                                isActive10 && <>
+                                isActive11 && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
                                             <Link to='/create-vlog' className={`text-form ${path == '/create-vlog' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>

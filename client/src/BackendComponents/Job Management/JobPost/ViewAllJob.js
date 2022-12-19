@@ -737,7 +737,7 @@ function ViewAllJob() {
 
 
 
-                            {/* add post category modal */}
+                            {/* view jobpost category modal */}
                             <Modal
                                 isOpen={viewJobPostModalIsOpen}
                                 onRequestClose={closeViewJobPostModal}

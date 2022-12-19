@@ -63,7 +63,10 @@ function Dashboard() {
     const [postTabSection, setPostTabSection] = useState('news');
     const [jobTabSection, setJobTabSection] = useState('All');
     const [advertisementTabSection, setAdvertisementTabSection] = useState('All');
-    console.log('post tab section ', postTabSection)
+    const [allActiveAdvertisements, setAllActiveAdvertisements] = useState([]);
+    const [allPausedAdvertisements, setAllPausedAdvertisements] = useState([]);
+
+    console.log('all active adv', allActiveAdvertisements)
     useEffect(() => {
         axios.get(`/api/total-users-jobs-posts-announce-advertisements`).then(res => {
             if (res.data.status == 200) {
@@ -165,6 +168,18 @@ function Dashboard() {
             }
         }]
     };
+
+    useEffect(() => {
+        axios.get(`/api/all-advertisements`).then(res => {
+            if (res.data.status == 200) {
+                // setJobPostFiltering(false);
+
+                setAllActiveAdvertisements(res.data.active_dashboard_advertisements);
+                setAllPausedAdvertisements(res.data.paused_dashboard_advertisements);
+            }
+        });
+    }, [])
+
 
     return (
         <>
@@ -1206,15 +1221,15 @@ function Dashboard() {
                                     <li className={`${advertisementTabSection == 'All' ? 'fw-bold' : ""}`} onClick={() => setAdvertisementTabSection('All')}>
                                         All
                                     </li>
-                                    <li className={`${advertisementTabSection == 'Pending' ? 'fw-bold' : ""} mx-4`} onClick={() => setAdvertisementTabSection('Pending')}>
-                                        Pendings
+                                    <li className={`${advertisementTabSection == 'Paused' ? 'fw-bold' : ""} mx-4`} onClick={() => setAdvertisementTabSection('Paused')}>
+                                        Paused
                                     </li>
                                     <li className={`${advertisementTabSection == 'Running' ? 'fw-bold' : ""} mx-3`} onClick={() => setAdvertisementTabSection('Running')}>
                                         Running
                                     </li>
-                                    <li className={`${advertisementTabSection == 'Archived' ? 'fw-bold' : ""} mx-3`} onClick={() => setAdvertisementTabSection('Archived')}>
+                                    {/* <li className={`${advertisementTabSection == 'Archived' ? 'fw-bold' : ""} mx-3`} onClick={() => setAdvertisementTabSection('Archived')}>
                                         Archieved
-                                    </li>
+                                    </li> */}
 
 
 
@@ -1248,172 +1263,211 @@ function Dashboard() {
                     <section className="publication-content mt-2 px-2 ">
                         <div className="advertisements-card  mt-4 mb-4 ">
 
+                            {advertisementTabSection == 'All' &&
+
+                                allActiveAdvertisements.map((item, i) => {
+                                    return (
+                                        <>
+                                            <Link to={`/edit-advertisement/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+
+                                                <div class="card-no-1 shadow">
+                                                    <div class="card-h">
+                                                        <div class="card-image-tops">
+                                                            <img src={`${global.img_url}/images/${item.advertisement_image[0].image}`} />
+                                                        </div>
+
+                                                        <div class="overlay-radius">
+
+                                                            <p className="text-light px-3 py-1  m-0">{item.isPublished == 1 ? 'RUNNING' : 'PAUSED'}</p>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="content py-3 px-2">
+                                                        {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
+
+                                                        <div className="p-0 mt-2"
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                        />
+                                                        <div class="footer-con ">
+                                                            <div class="">
+                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="me-2">
+                                                                {moment(item.created_at).format("YYYY-MM-DD")}
+                                                            </div>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
+
+                                                            </div>
+
+                                                            <div class="me-2">
+                                                                {item.show_days}days
+                                                            </div>
+
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
+
+                                                            </div>
+
+                                                            <div class="me-2">
+                                                                {item.show_time}Times
+                                                            </div>
+
+                                                            <div className="hr-sign mx-2"></div>
 
 
-                            <div class="card-no-1 shadow">
-                                <div class="card-h">
-                                    <div class="card-image-tops">
-                                        <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
-                                    </div>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-edit text-success"></i>
+                                                            </div>
 
-                                    <div class="overlay-radius">
+                                                        </div>
+                                                    </div>
 
-                                        <p className="text-light px-3 py-1  m-0"> RUNNING</p>
+                                                </div>
+                                            </Link>
+                                        </>
+                                    )
+                                })
 
-                                    </div>
-                                </div>
+                            }
+                            {advertisementTabSection == 'Running' &&
 
-                                <div class="content py-3 px-2">
-                                    <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
+                                allActiveAdvertisements.map((item, i) => {
+                                    return (
+                                        <>
+                                            <Link to={`/edit-advertisement/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
+                                                <div class="card-no-1 shadow">
+                                                    <div class="card-h">
+                                                        <div class="card-image-tops">
+                                                            <img src={`${global.img_url}/images/${item.advertisement_image[0].image}`} />
+                                                        </div>
 
-                                    <div class="footer-con ">
-                                        <div class="">
-                                            <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="me-2">
-                                            15 sept,2022
-                                        </div>
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
+                                                        <div class="overlay-radius">
 
-                                        </div>
+                                                            <p className="text-light px-3 py-1  m-0">{item.isPublished == 1 ? 'RUNNING' : 'PAUSED'}</p>
 
-                                        <div class="me-2">
-                                            30 days
-                                        </div>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
+                                                    <div class="content py-3 px-2">
+                                                        {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
 
-                                        </div>
+                                                        <div className="p-0 mt-2"
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                        />
+                                                        <div class="footer-con ">
+                                                            <div class="">
+                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="me-2">
+                                                                {moment(item.created_at).format("YYYY-MM-DD")}
+                                                            </div>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
 
-                                        <div class="me-2">
-                                            2 Times
-                                        </div>
+                                                            </div>
 
-                                        <div className="hr-sign mx-2"></div>
+                                                            <div class="me-2">
+                                                                {item.show_days}days
+                                                            </div>
 
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
 
-                                        <div class="">
-                                            <i class="fa-solid fa-edit text-success"></i>
-                                        </div>
+                                                            </div>
 
-                                    </div>
-                                </div>
+                                                            <div class="me-2">
+                                                                {item.show_time}Times
+                                                            </div>
 
-                            </div>
-
-
-
-                            <div class="card-no-1 shadow">
-                                <div class="card-h">
-                                    <div class="card-image-tops">
-                                        <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
-                                    </div>
-
-                                    <div class="overlay-radius">
-
-                                        <p className="text-light px-3 py-1  m-0"> RUNNING</p>
-
-                                    </div>
-                                </div>
-
-                                <div class="content py-3 px-2">
-                                    <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
+                                                            <div className="hr-sign mx-2"></div>
 
 
-                                    <div class="footer-con ">
-                                        <div class="">
-                                            <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="me-2">
-                                            15 sept,2022
-                                        </div>
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-edit text-success"></i>
+                                                            </div>
 
-                                        </div>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="me-2">
-                                            30 days
-                                        </div>
+                                                </div>
+                                            </Link>
+                                        </>
+                                    )
+                                })
 
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
+                            }
 
-                                        </div>
+                            {advertisementTabSection == 'Paused' &&
 
-                                        <div class="me-2">
-                                            2 Times
-                                        </div>
+                                allPausedAdvertisements.map((item, i) => {
+                                    return (
+                                        <>
+                                            <Link to={`/edit-advertisement/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
-                                        <div className="hr-sign mx-2"></div>
+                                                <div class="card-no-1 shadow">
+                                                    <div class="card-h">
+                                                        <div class="card-image-tops">
+                                                            <img src={`${global.img_url}/images/${item.advertisement_image[0].image}`} />
+                                                        </div>
 
+                                                        <div class="overlay-radius bg-danger">
 
-                                        <div class="">
-                                            <i class="fa-solid fa-edit text-success"></i>
-                                        </div>
+                                                            <p className="text-light px-3 py-1  m-0">{item.isPublished == 1 ? 'RUNNING' : 'PAUSED'}</p>
 
-                                    </div>
-                                </div>
+                                                        </div>
+                                                    </div>
 
-                            </div>
+                                                    <div class="content py-3 px-2">
+                                                        {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
 
+                                                        <div className="p-0 mt-2"
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                        />
+                                                        <div class="footer-con ">
+                                                            <div class="">
+                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="me-2">
+                                                                {moment(item.created_at).format("YYYY-MM-DD")}
+                                                            </div>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
 
-                            <div class="card-no-1 shadow">
-                                <div class="card-h">
-                                    <div class="card-image-tops">
-                                        <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60" />
-                                    </div>
+                                                            </div>
 
-                                    <div class="overlay-radius">
+                                                            <div class="me-2">
+                                                                {item.show_days}days
+                                                            </div>
 
-                                        <p className="text-light px-3 py-1  m-0"> RUNNING</p>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-clock text-success"></i>
 
-                                    </div>
-                                </div>
+                                                            </div>
 
-                                <div class="content py-3 px-2">
-                                    <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p>
+                                                            <div class="me-2">
+                                                                {item.show_time}Times
+                                                            </div>
 
-
-                                    <div class="footer-con ">
-                                        <div class="">
-                                            <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="me-2">
-                                            15 sept,2022
-                                        </div>
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
-
-                                        </div>
-
-                                        <div class="me-2">
-                                            30 days
-                                        </div>
-
-                                        <div class="">
-                                            <i class="fa-solid fa-clock text-success"></i>
-
-                                        </div>
-
-                                        <div class="me-2">
-                                            2 Times
-                                        </div>
-
-                                        <div className="hr-sign mx-2"></div>
+                                                            <div className="hr-sign mx-2"></div>
 
 
-                                        <div class="">
-                                            <i class="fa-solid fa-edit text-success"></i>
-                                        </div>
+                                                            <div class="">
+                                                                <i class="fa-solid fa-edit text-success"></i>
+                                                            </div>
 
-                                    </div>
-                                </div>
+                                                        </div>
+                                                    </div>
 
-                            </div>
+                                                </div>
+                                            </Link>
+                                        </>
+                                    )
+                                })
+
+                            }
 
 
 
