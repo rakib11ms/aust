@@ -13,13 +13,15 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AdvertisementMultipleImage;
 use File;
+use Illuminate\Support\Facades\Validator;
+
 class AdvertisementController extends Controller
 {
     public function index()
     {
 
 
-        $all_advertisements =Advertisement::where('isPublished',1)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
+        $all_advertisements =Advertisement::orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
         $active_dashboard_advertisements =Advertisement::where('isPublished',1)->with(['AdvertisementImage','userName'])->limit(3)->orderBy('id','desc')->get();
 
         $paused_dashboard_advertisements =Advertisement::where('isPublished',0)->with(['AdvertisementImage','userName'])->limit(3)->orderBy('id','desc')->get();
@@ -59,7 +61,20 @@ class AdvertisementController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        
+   $validator = Validator::make($request->all(),[
+            'advertisement_title' => 'unique:advertisements',
+        ]);
+           
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+
+        }else{
 
         $advertisement = new Advertisement();
 
@@ -78,12 +93,11 @@ class AdvertisementController extends Controller
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
         $advertisement->advertisement_fee = $request->advertisement_fee;
+
+        $advertisement->news_page = $request->news_page;
         $advertisement->home_page = $request->home_page;
-        $advertisement->view_job_page = $request->view_job_page;
-        $advertisement->view_advment_page = $request->view_advment_page;
-        $advertisement->create_advment_page = $request->create_advment_page;
-        $advertisement->add_general_post_page = $request->add_general_post_page;
-        $advertisement->add_event_page = $request->add_event_page;
+        $advertisement->event_page = $request->event_page;
+        $advertisement->blog_page = $request->blog_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
 
@@ -128,7 +142,7 @@ class AdvertisementController extends Controller
             'message' => 'Advertisement Created Successfully',
         ]);
     }
-
+}
 
 
     public function edit($id)
@@ -157,7 +171,6 @@ class AdvertisementController extends Controller
     public function update(Request $request, $id)
     {
 
-        // dd($request->all());
 
         $advertisement = Advertisement::find($id);
 
@@ -205,11 +218,10 @@ class AdvertisementController extends Controller
         $advertisement->home_page = $request->home_page;
         $advertisement->advertisement_fee = $request->advertisement_fee;
 
-        $advertisement->view_job_page = $request->view_job_page;
-        $advertisement->view_advment_page = $request->view_advment_page;
-        $advertisement->create_advment_page = $request->create_advment_page;
-        $advertisement->add_general_post_page = $request->add_general_post_page;
-        $advertisement->add_event_page = $request->add_event_page;
+        $advertisement->news_page = $request->news_page;
+        $advertisement->home_page = $request->home_page;
+        $advertisement->event_page = $request->event_page;
+        $advertisement->blog_page = $request->blog_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
 
@@ -227,10 +239,11 @@ class AdvertisementController extends Controller
             $advertisement->reference_no = $request->reference_no;
             $advertisement->po_no = $request->advertiser_name;
 
-           foreach ($request->file('image') as $image) {
+            if($request->file('image')){
+  foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
-            $image->move('check/', $upload_image_name);
+            $image->move('images/', $upload_image_name);
 
             $advertisement_multiple_table=new AdvertisementMultipleImage();
             $advertisement_multiple_table->advertisement_id=$advertisement->id;
@@ -241,6 +254,9 @@ class AdvertisementController extends Controller
             // $advertisement->image =  implode(', ', $name);
             // $event->save();   
         }
+            }
+
+         
         $advertisement->update();
 
         return response()->json([
@@ -248,6 +264,7 @@ class AdvertisementController extends Controller
             'message' => 'Advertisement Updated Successfully',
         ]);
     }
+
 }
 
 
@@ -382,7 +399,8 @@ class AdvertisementController extends Controller
         // dd($check);
 
         if ($name == 'all') {
-            $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
+        
+        $all_advertisements =Advertisement::orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
             return response()->json([
                 'status' => 200,
                 'all_advertisements' => $all_advertisements,
@@ -391,7 +409,8 @@ class AdvertisementController extends Controller
 
 
 
-     $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',1)->orderBy('advertisements.id', 'desc')->get();
+     
+        $all_advertisements =Advertisement::where('isPublished',1)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
 
             return response()->json([
                 'status' => 200,
@@ -399,7 +418,7 @@ class AdvertisementController extends Controller
             ]);
         }
         else if($name == 0){
-    $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->where('isPublished',0)->orderBy('advertisements.id', 'desc')->get();
+   $all_advertisements =Advertisement::where('isPublished',0)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
             return response()->json([
                 'status' => 200,
                 'all_advertisements' => $all_advertisements,
@@ -418,7 +437,7 @@ class AdvertisementController extends Controller
     public function filterAdvertisementsByDays($days){
 
         if($days=='all'){
-        $all_advertisements = DB::table('advertisements')->leftJoin('users', 'users.id', '=', 'advertisements.posted_by')->select('advertisements.*')->orderBy('advertisements.id', 'desc')->get();
+        $all_advertisements =Advertisement::orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
               return response()->json([
                 'status' => 200,
                 'all_advertisements' => $all_advertisements,
@@ -431,12 +450,23 @@ class AdvertisementController extends Controller
         $add_days = date('Y-m-d', strtotime('+'.$days.'day'));
         // dd($add_show_days);
 
-        $query_days=Advertisement::whereBetween('last_show_days', [$todays_date, $add_days])->orderBy('.id', 'desc')->get();
+        $query_days=Advertisement::where('isPublished',1)->with(['AdvertisementImage','userName'])->whereBetween('last_show_days', [$todays_date, $add_days])->orderBy('.id', 'desc')->get();
               return response()->json([
                 'status' => 200,
                 'all_advertisements' => $query_days,
             ]);
 
 
+    }
+
+//global search web
+    public function advertisementGlobalSearch($name){
+$all_advertisements =Advertisement::where('advertisement_title','Like','%'.$name.'%')->orWhere('advertiser_email','Like','%'.$name.'%')->orWhere('advertiser_phone','Like','%'.$name.'%')->orWhere('reference_no','Like','%'.$name.'%')->orWhere('advertiser_phone','Like','%'.$name.'%')->orWhere('advertiser_email','Like','%'.$name.'%')->orderBy('id','desc')->with(['AdvertisementImage','userName'])->orWhereHas('userName',function($q) use($name){
+        $q->where('full_name','=',$name);
+    })->get();
+     return response()->json([
+                'status' => 200,
+                'all_advertisements' => $all_advertisements,
+            ]);
     }
 }

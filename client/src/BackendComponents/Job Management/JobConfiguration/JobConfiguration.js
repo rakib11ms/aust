@@ -517,8 +517,8 @@ function JobConfiguration() {
 
                                                         <div className="col-12">
 
-                                                            <div className='d-flex align-items-center'>
-                                                                <div class="mb-3" style={{ width: '60%' }}>
+                                                            <div className=''>
+                                                                <div class="mb-1" style={{ width: '100%' }}>
                                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Type Name</label>
                                                                     <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addJobType.type_name} name="type_name" onChange={handleInput} />
                                                                 </div>
@@ -527,8 +527,8 @@ function JobConfiguration() {
                                                                 </div>
 
 
-                                                                <div style={{ width: '40%' }} className="mx-2 mt-1">
-                                                                    <span className='text-danger'> {addJobType.error_list.type_name}</span>
+                                                                <div style={{ width: '100%' }} className="">
+                                                                    <span className='text-danger d-block'> {addJobType.error_list.type_name}</span>
                                                                 </div>
                                                             </div>
 
@@ -538,7 +538,7 @@ function JobConfiguration() {
 
 
 
-                                                            <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>Save</button>
+                                                            <button className='btn btn-success btn-sm rounded-3 px-3' onClick={handleJobTypeSave}>Save</button>
 
 
 
@@ -573,8 +573,8 @@ function JobConfiguration() {
 
                                                         <div className="col-12">
 
-                                                            <div className='d-flex align-items-center'>
-                                                                <div class="mb-3" style={{ width: '60%' }}>
+                                                            <div className=''>
+                                                                <div class="mb-1" style={{ width: '50%' }}>
                                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Type Name</label>
                                                                     <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editJobTypeData.type_name} name="type_name" onChange={handleEditJobTypeInput} />
                                                                 </div>
@@ -583,7 +583,7 @@ function JobConfiguration() {
                                                                 </div>
 
 
-                                                                <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                <div style={{ width: '50%' }} className="mx-2 mt-1">
                                                                     {/* <span className='text-danger'> {editJobTypeData.error_list.type_name !=undefined && editJobTypeData.error_list.type_name  }</span> */}
                                                                 </div>
                                                             </div>
@@ -689,8 +689,8 @@ function JobConfiguration() {
 
                                                     <div className="col-12">
 
-                                                        <div className='d-flex align-items-center'>
-                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                        <div className=''>
+                                                            <div class="mb-1" style={{ width: '100%' }}>
                                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
                                                                 <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addDepartment.type_name} name="department_name" onChange={handleAddDepartment} />
                                                             </div>
@@ -699,7 +699,7 @@ function JobConfiguration() {
                                                             </div>
 
 
-                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                            <div style={{ width: '100%' }} className=" ">
                                                                 <span className='text-danger'> {addDepartment.error_list.department_name}</span>
                                                             </div>
                                                         </div>
@@ -744,8 +744,8 @@ function JobConfiguration() {
 
                                                     <div className="col-12">
 
-                                                        <div className='d-flex align-items-center'>
-                                                            <div class="mb-3" style={{ width: '60%' }}>
+                                                        <div className=''>
+                                                            <div class="mb-1" style={{ width: '100%' }}>
                                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
                                                                 <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editDepartmentData.department_name} name="department_name" onChange={handleEditDepartment} />
                                                             </div>
@@ -754,7 +754,7 @@ function JobConfiguration() {
                                                             </div>
 
 
-                                                            <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                            <div style={{ width: '100%' }} className="mx-2 mt-1">
                                                                 {/* <span className='text-danger'> {editDepartmentData.error_list.department_name}</span> */}
                                                             </div>
                                                         </div>

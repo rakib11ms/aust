@@ -104,8 +104,8 @@ Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 
 Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
-
-// Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
+//global user search web
+Route::get('/user-global-search/{name}', [ViewAllUserController::class, 'userGlobalSearch']);
 
 
 //austtaa batch 
@@ -312,8 +312,8 @@ Route::post('/update-advertisement/{id}', [AdvertisementController::class, 'upda
 Route::get('/filter-advertisement-posts/{filterByName}', [AdvertisementController::class, 'filterAdvertisementsByName']);
   //web filtering between days (advertisement finishing)
 Route::get('/filter-advertisement-finishing-days/{filterByDays}', [AdvertisementController::class, 'filterAdvertisementsByDays']);
-
-
+//global search web
+Route::get('/advertisement-global-search/{name}', [AdvertisementController::class, 'advertisementGlobalSearch']);
 
 
 

@@ -150,17 +150,17 @@ function CreateAdvertisement() {
         });
     };
 
-////advertisment file ///
+    ////advertisment file ///
 
-const [advertisement_file,setadvertisement_file]=useState('')
-console.log('ad',advertisement_file)
-    const handleAdvertisementFile=(e)=>{
-            setadvertisement_file(e.target.files[0])
+    const [advertisement_file, setadvertisement_file] = useState('')
+    console.log('ad', advertisement_file)
+    const handleAdvertisementFile = (e) => {
+        setadvertisement_file(e.target.files[0])
     }
 
 
 
-
+    const [advertisementError, setadvertisementError] = useState('')
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
@@ -172,12 +172,10 @@ console.log('ad',advertisement_file)
         formData.append("show_days", show_days);
         formData.append("advertisement_fee", advertisement_fee);
         formData.append("home_page", allCheckBox.home_page ? 1 : 0);
-        formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
-        formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
-        formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
-        formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
-        formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
-
+        formData.append("news_page", allCheckBox.news_page ? 1 : 0);
+        formData.append("event_page", allCheckBox.event_page ? 1 : 0);
+        formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
+  
         formData.append("showMobile", showMobile);
         formData.append("advertiser_name", advertiser_name);
         formData.append("advertiser_phone", advertiser_phone);
@@ -215,21 +213,19 @@ console.log('ad',advertisement_file)
                 // setPicture('');
                 // document.getElementById('job_post_logo').value = "";
             }
-            // else if (res.data.status == 400) {
-            //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
-            //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+            else if (res.data.status == 400) {
+                setadvertisementError(res.data.errors);
 
-            // }
+            }
         })
 
     }
     const [allCheckBox, setAllCheckBox] = useState({
         home_page: '',
-        view_job_page: '',
-        view_advment_page: '',
-        create_advment_page: '',
-        add_general_post_page: '',
-        add_event_page: ''
+        news_page: '',
+        event_page: '',
+        blog_page: '',
+ 
     });
     function handleCheckbox(e) {
         setAllCheckBox({
@@ -238,9 +234,9 @@ console.log('ad',advertisement_file)
 
     }
 
-    console.log('heelloo yeeeeees', allCheckBox)
+    // console.log('heelloo yeeeeees', allCheckBox)
 
-  
+
 
     return (
         <div className="container-fluid">
@@ -259,7 +255,7 @@ console.log('ad',advertisement_file)
 
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
-                                    <h5>Create a Advirtesment</h5>
+                                    <h5>Create a Advertisement</h5>
                                     <Link to="/view-all-advertisement"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
@@ -271,9 +267,10 @@ console.log('ad',advertisement_file)
                                             <div class="px-4" style={{ width: '73%' }}>
 
                                                 <div class="mt-1">
-                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
+                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Title <span className='text-danger'>*</span></label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertisement_title(e.target.value)} name="advertisement_title" value={advertisement_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" required onChange={(e) => setadvertisement_title(e.target.value)} name="advertisement_title" value={advertisement_title} />
+                                                    <span className='text-danger mt-2 d-block'>{advertisementError.advertisement_title}</span>
 
                                                 </div>
 
@@ -291,17 +288,17 @@ console.log('ad',advertisement_file)
                                                 </div>
 
                                                 <div class="mt-1">
-                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Redirection Link</label>
+                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Redirection Link <span className='text-danger'>*</span></label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setredirect_link(e.target.value)} name="redirect_link" value={redirect_link} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" required onChange={(e) => setredirect_link(e.target.value)} name="redirect_link" value={redirect_link} />
 
                                                 </div>
 
                                                 <div class="mt-4">
                                                     <div class="">
-                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
+                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed <span className='text-danger'>*</span></label>
 
-                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
+                                                        <input class="form-control" type="file" id="formFileImage" required multiple onChange={changeMultipleFiles}
                                                         />
 
                                                         <div className='d-flex mt-2 ' >
@@ -317,8 +314,8 @@ console.log('ad',advertisement_file)
 
                                                 </div>
                                                 <div class="mt-1">
-                                            <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
-                                        </div>
+                                                    <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                                </div>
 
 
                                             </div>
@@ -334,11 +331,11 @@ console.log('ad',advertisement_file)
 
                                                                 <div className='mt-1'>
                                                                     <i className='fa fa-clock' />
-                                                                    <span className='mx-2 '>Show time</span>
+                                                                    <span className='mx-2 '>Show time <span className='text-danger'>*</span></span>
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <i className='fa fa-calendar' />
-                                                                    <span className='mx-2'>Show days</span>
+                                                                    <span className='mx-2'>Show days <span className='text-danger'>*</span></span>
                                                                 </div>
 
 
@@ -376,12 +373,12 @@ console.log('ad',advertisement_file)
 
                                                                 <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
-                                                                    <span className='mx-2'>Position</span>
+                                                                    <span className='mx-2'>Position <span className='text-danger'>*</span></span>
                                                                 </div>
 
                                                                 <div className='mt-4'>
                                                                     <i class="fa fa-eye" aria-hidden="true"></i>
-                                                                    <span className='mx-2'>View In</span>
+                                                                    <span className='mx-2'>View In <span className='text-danger'>*</span></span>
                                                                 </div>
 
                                                             </div>
@@ -389,7 +386,7 @@ console.log('ad',advertisement_file)
                                                                 <div class="d-flex align-items-center">
 
                                                                     <div class="" style={{ width: '65%' }}>
-                                                                        <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={show_time} placeholder="" onChange={(e) => {
+                                                                        <input type="text" class="form-control form-control-sm rounded-3 " required id="formGroupExampleInput" value={show_time} placeholder="" onChange={(e) => {
                                                                             setshow_time(e.target.value)
                                                                         }} />
                                                                     </div>
@@ -403,7 +400,7 @@ console.log('ad',advertisement_file)
                                                                     <div class="d-flex align-items-center">
 
                                                                         <div class="" style={{ width: '65%' }}>
-                                                                            <input type="text" class="form-control form-control-sm rounded-3 " id="formGroupExampleInput" value={show_days} placeholder="" onChange={(e) => {
+                                                                            <input type="text" class="form-control form-control-sm rounded-3 " required id="formGroupExampleInput" value={show_days} placeholder="" onChange={(e) => {
                                                                                 setshow_days(e.target.value)
                                                                             }} />
                                                                         </div>
@@ -485,11 +482,11 @@ console.log('ad',advertisement_file)
                                                                 </div>
 
                                                                 <div class="">
-                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                                                    <select class="form-select form-select-sm" required aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
                                                                             setposition(e.target.value)
                                                                         }}>
-                                                                        <option selected value="">Choose</option>
+                                                                        <option selected disabled>Choose</option>
                                                                         <option value="top" >Top</option>
                                                                         <option value="middle">Middle</option>
                                                                         <option value="bottom">Bottom</option>
@@ -512,36 +509,25 @@ console.log('ad',advertisement_file)
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="view_job_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="event_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                                        View Job
+                                                                        Event
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="view_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="news_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                                        View advertisement
+                                                                        News
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="create_advment_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="blog_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
-                                                                        View Alumni
+                                                                        Blog
                                                                     </label>
                                                                 </div>
-                                                                <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="add_general_post_page" id="flexCheckDefault" onChange={handleCheckbox} />
-                                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                                        Add General Post
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="add_event_page" id="flexCheckDefault" onChange={handleCheckbox} />
-                                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                                        Add Event
-                                                                    </label>
-                                                                </div>
+
                                                             </div>
 
                                                         </div>
@@ -558,14 +544,14 @@ console.log('ad',advertisement_file)
                                                             <div className=' ' style={{ width: '100%' }} >
 
                                                                 <div class="mb-1">
-                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Name *</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Name <span className='text-danger'> *</span></label>
 
                                                                     <input type="text" class="form-control " id="exampleFormControlInput1" onChange={(e) => setadvertiser_name(e.target.value)} name="advertiser_name" value={advertiser_name} />
 
                                                                 </div>
 
                                                                 <div class="mb-1">
-                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Phone *</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Advertiser Phone <span className='text-danger'> *</span></label>
 
                                                                     <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setadvertiser_phone(e.target.value)} name="advertiser_phone" value={advertiser_phone} />
 
@@ -581,7 +567,7 @@ console.log('ad',advertisement_file)
 
 
                                                                 <div class="mb-1">
-                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Reference No</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">Reference No <span className='text-danger'> *</span></label>
 
                                                                     <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setreference_no(e.target.value)} name="reference_no" value={reference_no} />
 
@@ -589,24 +575,24 @@ console.log('ad',advertisement_file)
 
 
                                                                 <div class="mb-1">
-                                                                    <label for="exampleFormControlInput1" class="form-label my-1">P.O/W.O No *</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label my-1">P.O/W.O No <span className='text-danger'> *</span></label>
 
                                                                     <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setpo_no(e.target.value)} name="po_no" value={po_no} />
 
                                                                 </div>
 
                                                                 <div class="">
-                                                        <label for="exampleFormControlInput1" class="form-label ">Upload Attachment Pdf,Doc</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label ">Upload Attachment Pdf,Doc</label>
 
-                                                        <input class="form-control" type="file" id="formFileImage"  onChange={handleAdvertisementFile}
-                                                        />
-
-                             
+                                                                    <input class="form-control" type="file" id="formFileImage" onChange={handleAdvertisementFile}
+                                                                    />
 
 
 
 
-                                                    </div>
+
+
+                                                                </div>
 
                                                             </div>
 

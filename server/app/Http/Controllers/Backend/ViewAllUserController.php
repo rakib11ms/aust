@@ -77,4 +77,18 @@ class ViewAllUserController extends Controller
         ]); 
     }
 
+    public function userGlobalSearch($name){
+ $all_users=User::where('full_name','Like','%'.$name.'%')->orWhere('nick_name','Like','%'.$name.'%')->orWhere('phone_no','Like','%'.$name.'%')->orWhere('gender','Like','%'.$name.'%')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('bloodGroup',function($q) use($name){
+        $q->where('blood_group_name','Like','%'.$name.'%');
+  })->orWhereHas('streamName',function($q) use($name){
+        $q->where('stream_name','Like','%'.$name.'%');
+    })->orWhereHas('professionalInfo',function($q) use($name){
+        $q->where('name_of_company','Like','%'.$name.'%');
+    })->get();
+    return response()->json([
+            'status' => 200,
+            'all_users' => $all_users
+        ]); 
+    }
+
 }

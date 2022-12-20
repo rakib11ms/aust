@@ -143,13 +143,14 @@ function ViewAllAdvertisement() {
 
     const [viewAdvertisementDescription, setViewAdvertisementDescription] = useState('');
 
+    console.log('view advertisement', viewAdvertisementDescription)
+
 
     const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
     function openViewEventPostModal(e, viewEventPost) {
         e.preventDefault();
         setViewAdvertisementDescription(viewEventPost)
         setviewJobPostModalIsOpen(true)
-        setAllImagesfromDatabase(viewEventPost.image.split(','))
 
     }
     function closeViewJobPostModal(e) {
@@ -228,10 +229,11 @@ function ViewAllAdvertisement() {
         {
             title: "ALL", field: `image`, render: (row) =>
                 <div className=''>
+                    {row.advertisement_image !== undefined &&
 
-                    {/* <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" /> */}
+                        <img className="rounded" src={`${global.img_url}/images/${row.advertisement_image[0].image}`} width="130px" height="100px" alt="No Image" />
 
-
+                    }
                 </div>
 
 
@@ -239,7 +241,8 @@ function ViewAllAdvertisement() {
                 // marginLeft: 50,
                 // maxWidth: 0,
                 // textAlign: 'left',
-                width: 10,
+                padding: 0,
+                // width:100,
             },
         },
 
@@ -253,7 +256,7 @@ function ViewAllAdvertisement() {
                     <div className='d-flex justify-content-end'>
 
 
-                        <div className='my-0 py-0 '>
+                        <div className='my-0 px-1 py-0'>
                             <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
 
 
@@ -299,17 +302,29 @@ function ViewAllAdvertisement() {
 
                         <div class="d-flex" style={{ color: '#777777' }}>
 
-                            {/* <div className='badgee'>
-                                <i class="fa-solid fa-users"></i>
-                            </div> */}
+                            {
+                                row.isPublished == 1 &&
+                                <div className='badgee'>
+                                    <i class="fas fa-check-circle text-success fs-5" ></i>
+                                </div>
 
-                            <div className=''>
-                                <i class="fa fa-clock"></i>
+                            }
+                            {
+                                row.isPublished == 0 &&
+                                <div className='badgee'>
+                                    <i class="fas fa-check-circle text-danger fs-5" ></i>
+                                </div>
+
+                            }
+
+
+                            <div className='mx-2'>
+                                <i class="fa-regular fa-clock"></i>
                                 <span className='mx-1'>{row.show_time} Sec</span>
                             </div>
 
                             <div className='mx-2'>
-                                <i class="fa fa-calendar"></i>
+                                <i className="fa-solid fa-calendar-days"></i>
                                 <span className='mx-1'>
                                     Last showing days
 
@@ -327,7 +342,7 @@ function ViewAllAdvertisement() {
 
                         <div className=''>
                             <i class="fas fa-link"></i>
-                            <span className='mx-1'><a href={row.redirect_link}>{row.redirect_link}</a></span>
+                            <span className='mx-1'><a href={row.redirect_link} target="_blank">{row.redirect_link}</a></span>
                         </div>
 
 
@@ -355,7 +370,8 @@ function ViewAllAdvertisement() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                // width: 600
+                width: 800,
+                padding: 0
             },
         },
 
@@ -452,7 +468,7 @@ function ViewAllAdvertisement() {
     var settings = {
         dots: true,
         infinite: true,
-        speed: 1000,
+        speed: 2000,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
@@ -469,9 +485,6 @@ function ViewAllAdvertisement() {
             }
         }]
     };
-
-    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
-    console.log('checking', allImagesFromDatabase)
 
 
     const handleAllAdvertisementStatus = (e) => {
@@ -494,7 +507,19 @@ function ViewAllAdvertisement() {
 
     const [value, setValue] = React.useState([null, null]);
 
+    const[globalSearch,setGlobalSearch]=useState('');
 
+     useEffect(()=>{
+        if(globalSearch !==null){
+            axios.get(`/api/advertisement-global-search/${globalSearch}`).then(res => {
+                if (res.data.status == 200) {
+                    setAllAdvertisements(res.data.all_advertisements)
+                    setLoading(false);
+                }
+            })
+        }
+  
+     },[globalSearch])
 
     return (
         <>
@@ -513,7 +538,7 @@ function ViewAllAdvertisement() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" data-aos="flip-up"/>
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" onChange={(e)=>setGlobalSearch(e.target.value)} aria-describedby="basic-addon1" data-aos="flip-up" />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
@@ -686,11 +711,11 @@ function ViewAllAdvertisement() {
                                                 <Slider {...settings}>
 
                                                     {
-                                                        allImagesFromDatabase.map((item, i) => {
+                                                        viewAdvertisementDescription.advertisement_image !== undefined && viewAdvertisementDescription.advertisement_image.map((item, i) => {
                                                             return (
                                                                 <>
-                                                                    <div class="rounded-3">
-                                                                        <img src={`${global.img_url}/images/${item.trim()}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                    <div class="rounded-3" style={{ objectFit: 'cover' }}>
+                                                                        <img src={`${global.img_url}/images/${item.image}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
                                                                     </div>
                                                                 </>
                                                             )
@@ -711,11 +736,12 @@ function ViewAllAdvertisement() {
                                                     <h5>{viewAdvertisementDescription.advertisement_title}</h5>
                                                     <div className='d-flex'>
                                                         <div>
-                                                            <i class="fas fa-calendar"></i>
-                                                            <span className='mx-2'>Uploaded date: {moment(viewAdvertisementDescription.created_at).format("YYYY-MM-DD")}</span>
+
+                                                            <i className="fa-solid fa-calendar-days"></i>                                                            <span className='mx-2'>Uploaded date: {moment(viewAdvertisementDescription.created_at).format("YYYY-MM-DD")}</span>
                                                         </div>
+
                                                         <div className='mx-3'>
-                                                            <i class="fas fa-clock"></i>
+                                                            <i class="fa-regular fa-clock"></i>
                                                             <span className='mx-2'>Show Days: {viewAdvertisementDescription.show_days} days</span>
                                                         </div>
                                                     </div>

@@ -636,7 +636,6 @@ function ViewAllUsers() {
 
 
     }
-    const [searchInputValue, setSearchInputValue] = useState('');
     const [blood_group_name, setblood_group_name] = useState(null);
     const [company_name, setcompany_name] = useState(null);
     const [batch_name, setbatch_name] = useState(null);
@@ -692,6 +691,20 @@ function ViewAllUsers() {
     }, [blood_group_name, company_name, batch_name, gender_name, stream_name])
 
 
+    const [globalSearch, setGlobalSearch] = useState('');
+
+    useEffect(() => {
+        if (globalSearch !== null) {
+            axios.get(`/api/user-global-search/${globalSearch}`).then(res => {
+                if (res.data.status == 200) {
+                    setallUsers(res.data.all_users)
+                    setLoading(false);
+                }
+            })
+        }
+
+    }, [globalSearch])
+
     return (
         <>
             <div className="container-fluid">
@@ -702,19 +715,19 @@ function ViewAllUsers() {
 
                     <div className="col-md-10 ">
                         <Topbar />
-                        <h4 className='ms-4 pt-3'>User Management</h4>
+                        <h5 className='ms-4 pt-3'>User Management</h5>
 
                         <div className='container-fluid'>
 
 
                             <div className='user-config mt-3 border  rounded-3'>
-                                <div className='user-config1 container d-flex justify-content-around'>
+                                <div className='user-config1 container d-flex justify-content-around  '>
 
 
-                                    <div className="input-icon input-group-sm p-5 col-7 " data-aos="zoom-out-right">
+                                    <div className="input-icon input-group-sm p-3 w-50  " data-aos="zoom-out-right">
 
-                                        <div class="input-group py-2 text-secondary" data-aos="fade-right" >
-                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." value={searchInputValue} onChange={(e) => setSearchInputValue(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
+                                        <div class="input-group py-2 text-secondary " data-aos="fade-right" >
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." onChange={(e) => setGlobalSearch(e.target.value)} aria-label="Username" aria-describedby="basic-addon1" />
 
                                             <span class="input-group-text bg-white p-2 inp shadow-sm text-secondary " onClick={openAddMultipleFilterModal} id="basic-addon1">
                                                 {/* <i class="fa-solid fa-magnifying-glass" ></i> */}
@@ -880,7 +893,7 @@ function ViewAllUsers() {
                                         </div>
                                     </div>
                                 </div>
-                                <Container>
+                                <Container >
                                     <div className='user-config2' data-aos="fade-up"
                                         data-aos-anchor-placement="top-bottom">
                                         {
