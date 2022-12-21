@@ -507,10 +507,10 @@ function ViewAllAdvertisement() {
 
     const [value, setValue] = React.useState([null, null]);
 
-    const[globalSearch,setGlobalSearch]=useState('');
+    const [globalSearch, setGlobalSearch] = useState('');
 
-     useEffect(()=>{
-        if(globalSearch !==null){
+    useEffect(() => {
+        if (globalSearch !== null) {
             axios.get(`/api/advertisement-global-search/${globalSearch}`).then(res => {
                 if (res.data.status == 200) {
                     setAllAdvertisements(res.data.all_advertisements)
@@ -518,8 +518,8 @@ function ViewAllAdvertisement() {
                 }
             })
         }
-  
-     },[globalSearch])
+
+    }, [globalSearch])
 
     return (
         <>
@@ -538,7 +538,7 @@ function ViewAllAdvertisement() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" onChange={(e)=>setGlobalSearch(e.target.value)} aria-describedby="basic-addon1" data-aos="flip-up" />
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" onChange={(e) => setGlobalSearch(e.target.value)} aria-describedby="basic-addon1" data-aos="flip-up" />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>

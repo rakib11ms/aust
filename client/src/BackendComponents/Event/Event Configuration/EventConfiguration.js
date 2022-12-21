@@ -287,8 +287,8 @@ function EventConfiguration() {
 
                                                                 <div className="col-12">
 
-                                                                    <div className='d-flex align-items-center'>
-                                                                        <div class="mb-3" style={{ width: '60%' }}>
+                                                                    <div className=''>
+                                                                        <div class="mb-2" style={{ width: '100%' }}>
                                                                             <label for="exampleFormControlInput1" class="form-label fs-6">Event Type Name</label>
                                                                             <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addEventType.event_type_name} name="event_type_name" onChange={handleInput} />
                                                                         </div>
@@ -297,7 +297,7 @@ function EventConfiguration() {
                                                                         </div>
 
 
-                                                                        <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                        <div style={{ width: '100%' }} className="mx-2 mb-1">
                                                                             <span className='text-danger'> {addEventType.error_list.event_type_name}</span>
                                                                         </div>
                                                                     </div>
@@ -308,7 +308,7 @@ function EventConfiguration() {
 
 
 
-                                                                    <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeSave}>Save</button>
+                                                                    <button className='btn btn-success btn-sm rounded-3 px-3 ' onClick={handleJobTypeSave}>Save</button>
 
 
 
@@ -343,8 +343,8 @@ function EventConfiguration() {
 
                                                                 <div className="col-12">
 
-                                                                    <div className='d-flex align-items-center'>
-                                                                        <div class="mb-3" style={{ width: '60%' }}>
+                                                                    <div className=''>
+                                                                        <div class="mb-1" style={{ width: '100%' }}>
                                                                             <label for="exampleFormControlInput1" class="form-label fs-6">Type Name</label>
                                                                             <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editeventTypeData.event_type_name} name="event_type_name" onChange={handleEditJobTypeInput} />
                                                                         </div>
@@ -353,7 +353,7 @@ function EventConfiguration() {
                                                                         </div>
 
 
-                                                                        <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                                                        <div style={{ width: '100%' }} className="mx-2 mt-1">
                                                                             {/* <span className='text-danger'> {editeventTypeData.error_list.event_type_name !=undefined && editeventTypeData.error_list.event_type_name  }</span> */}
                                                                         </div>
                                                                     </div>
@@ -364,7 +364,7 @@ function EventConfiguration() {
 
 
 
-                                                                    <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobTypeUpdate}>Update</button>
+                                                                    <button className='btn btn-success btn-sm rounded-3 px-3 mt-1' onClick={handleJobTypeUpdate}>Update</button>
 
 
 

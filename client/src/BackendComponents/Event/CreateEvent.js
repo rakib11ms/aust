@@ -625,7 +625,7 @@ function CreateEvent() {
 
                                                                 <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
-                                                                    <span className='mx-2'>Priority</span>
+                                                                    <span className='mx-2 mt-5'>Priority</span>
                                                                 </div>
 
                                                             </div>
@@ -744,7 +744,7 @@ function CreateEvent() {
                                                                     </div>
                                                                 </div> */}
 
-                                                                <div class="my-4">
+                                                                <div class="mt-4">
                                                                     <div class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={
                                                                             (e) => {
@@ -764,7 +764,7 @@ function CreateEvent() {
                                                                 </div>
 
 
-                                                                <div class="">
+                                                                <div class="mt-3">
                                                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
                                                                             setpriority(e.target.value)

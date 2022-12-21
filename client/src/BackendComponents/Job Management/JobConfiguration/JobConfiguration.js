@@ -538,7 +538,7 @@ function JobConfiguration() {
 
 
 
-                                                            <button className='btn btn-success btn-sm rounded-3 px-3' onClick={handleJobTypeSave}>Save</button>
+                                                            <button className='btn btn-success btn-sm rounded-3 my-1 px-3' onClick={handleJobTypeSave}>Save</button>
 
 
 

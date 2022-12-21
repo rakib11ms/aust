@@ -29,6 +29,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 // import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 function EditEvent() {
+    const [renderData, setRenderData] = useState('')
 
     const editor1 = useRef(null)
     const [content1, setContent1] = useState('')
@@ -97,7 +98,7 @@ function EditEvent() {
     console.log('checking', allImagesFromDatabase)
 
     const [multipleImages, setMultipleImages] = useState([]);
-    console.log('images check',multipleImages)
+    console.log('images check', multipleImages)
     const [multipleImageFiles, setMultipleImageFiles] = useState({
         files: []
     });
@@ -145,11 +146,11 @@ function EditEvent() {
 
     const render = (data) => {
         return data.map((image, i) => {
-            return <div className='image-main mt-2' onClick={() => {
+            return <div className='image-main mt-1' onClick={() => {
                 removeArray(i);
             }}>
-                <i class="fa fa-close image-close text-danger" ></i>
-                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+                <i class="fa fa-close image-close text-danger " ></i>
+                <img className="image mx-2 mt-3 rounded-3 " src={image} alt="" key={i} style={{ width: '105px', height: '90px', objectFit: 'cover' }} />
             </div>
         });
     };
@@ -263,7 +264,7 @@ function EditEvent() {
                 setshowDesktop(res.data.event.showDesktop)
                 setshowMobile(res.data.event.showMobile)
                 setpriority(res.data.event.priority)
-                setAllImagesfromDatabase(res.data.event.image.split(','))
+                setAllImagesfromDatabase(res.data.event_images)
                 setcontactPerson(res.data.users)
                 setshowBanner(res.data.event.showBanner)
 
@@ -273,7 +274,7 @@ function EditEvent() {
                 // setTotalJobType(res.data.total_event_types)
             }
         })
-    }, [])
+    }, [renderData])
 
 
 
@@ -588,7 +589,7 @@ function EditEvent() {
 
                                                                 <div class="my-4">
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={showBanner ==1? true:false} onChange={
+                                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={showBanner == 1 ? true : false} onChange={
                                                                             (e) => {
                                                                                 if (e.target.checked) {
                                                                                     setshowBanner(1)
@@ -638,23 +639,45 @@ function EditEvent() {
 
                                         <div className='mb-2 mt-1 d-flex'>
 
+                                
+
                                             {
-                                                multipleImages.length >= 1 ?
-                                                    render(multipleImages)
-                                                    :
-
-                                                    allImagesFromDatabase.map((item, i) => {
-                                                        // console.log('bal item',item)
-                                                        return (
-                                                            <>
-                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
-
-                                                            </>
-                                                        )
-                                                    })
-
+                                                render(multipleImages)
 
                                             }
+                                            {
+
+                                                allImagesFromDatabase.map((item, i) => {
+                                                    return (
+                                                        <>
+                                                            {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
+                                                            <div class="" style={{ position: 'relative' }} >
+                                                                <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
+                                                                    {
+                                                                        axios.post(`/api/delete-event-multiple-image/${item.id}`).then(res => {
+                                                                            if (res.data.status == 200) {
+                                                                                setRenderData(res.data)
+                                                                            }
+                                                                        })
+                                                                    }
+
+                                                                }}>
+                                                                    <i class="fa fa-close text-danger"></i>
+
+                                                                </div>
+
+                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                            </div>
+
+
+
+                                                        </>
+                                                    )
+                                                })
+
+                                            }
+
 
 
                                         </div>

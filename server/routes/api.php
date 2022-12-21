@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\AdminNoticeNotification;
 use App\Http\Controllers\Authentication\MobileAuthenticationController;
 use App\Http\Controllers\Backend\PostTypeController;
 use App\Http\Controllers\Backend\JobTypeController;
@@ -272,7 +273,7 @@ Route::get('/edit-event/{id}', [EventController::class, 'edit']);
 Route::post('/delete-event/{id}', [EventController::class, 'destroy']);
 Route::post('/update-event/{id}', [EventController::class, 'update']);
 Route::put('/update-archive-status/{id}', [EventController::class, 'updateArchiveStatus']);
-
+Route::post('/delete-event-multiple-image/{id}', [EventController::class, 'deleteEventMultipleImage']);
 Route::put('/archive-all-events-by-update/{id}', [EventController::class, 'archiveAllEventsByUpdate']);
 Route::delete('/delete-multiple-event-posts/{id}', [EventController::class, 'deleteMultipleEventPosts']);
 Route::put('/active-all-events-by-update/{id}', [EventController::class, 'activeAllEventByUpdate']);
@@ -289,6 +290,19 @@ Route::get('/edit-banner/{id}', [BannerController::class, 'edit']);
 Route::post('/delete-banner/{id}', [BannerController::class, 'destroy']);
 Route::post('/update-banner/{id}', [BannerController::class, 'update']);
 Route::delete('/delete-multiple-banner/{id}', [BannerController::class, 'deleteMultipleBanner']);
+
+
+
+Route::get('/noti-check',function(){
+    $check=AdminNoticeNotification::with('users')->get();
+    return response()->json([
+         'check'=>$check
+
+    ]);
+
+});
+
+Route::post('/delete-banner-multiple-image/{id}', [BannerController::class, 'deleteBannerMultipleImage']);
 
 /////mobile banner event latest one/////////////
 

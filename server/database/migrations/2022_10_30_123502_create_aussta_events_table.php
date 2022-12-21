@@ -21,7 +21,6 @@ return new class extends Migration
                  $table->string('updated_by')->nullable();
                  $table->longText('event_description')->nullable();
                  $table->string('contact_person')->nullable();
-                 $table->string('image')->nullable();
                  $table->string('event_time')->nullable();
                  $table->string('event_date')->nullable();
                  $table->string('event_fee')->nullable();

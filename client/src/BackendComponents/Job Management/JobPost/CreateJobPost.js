@@ -154,7 +154,7 @@ function CreateJobPost() {
                                                 <div class="">
                                                     <label for="exampleFormControlInput1 " class="form-label fs-6">Job Type</label>
                                                     <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="job_type" value={jobPost.job_type}>
-                                                        <option selected disabled>Select</option>
+                                                        <option selected value="" disabled>Select</option>
                                                         {
                                                             allJobTypes.map((item, i) => {
                                                                 return (
@@ -174,7 +174,7 @@ function CreateJobPost() {
                                                 <div class="">
                                                     <label for="exampleFormControlInput1 " class="form-label fs-6">Department</label>
                                                     <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="department_id" value={jobPost.department_id}>
-                                                        <option selected disabled>Select</option>
+                                                        <option selected value="" disabled>Select</option>
                                                         {
                                                             allDepartments.map((item, i) => {
                                                                 return (
@@ -197,7 +197,7 @@ function CreateJobPost() {
                                                 <div class="">
                                                     <label for="exampleFormControlInput1 " class="form-label fs-6">Job Location</label>
                                                     <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="job_location" value={jobPost.job_location}>
-                                                        <option selected disabled>Select</option>
+                                                        <option selected value="" disabled>Select</option>
 
                                                         <option value="on_site" >On Site</option>
                                                         <option value="remote" >Remote</option>

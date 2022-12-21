@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // import './Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
-import { Link, Navigate, useNavigate, Routes, Route,useParams} from "react-router-dom";
+import { Link, Navigate, useNavigate, Routes, Route, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 
 import Swal from 'sweetalert2';
@@ -29,11 +29,12 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 // import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 function EditBanner() {
+    const [renderData, setRenderData] = useState('')
 
 
-    const params=useParams();
+    const params = useParams();
 
-    const editId=params.id;
+    const editId = params.id;
 
 
     const [clickedRender, setClickedRender] = useState(false);
@@ -45,7 +46,7 @@ function EditBanner() {
 
     })
 
-    // console.log('bannerState', bannerState.event_type_id)
+    console.log('bannerState', bannerState)
 
     const handleInputChange = (e) => {
         setbannerState({
@@ -122,15 +123,14 @@ function EditBanner() {
 
     const render = (data) => {
         return data.map((image, i) => {
-            return <div className='image-main mt-2' onClick={() => {
+            return <div className='image-main mt-1' onClick={() => {
                 removeArray(i);
             }}>
-                <i class="fa fa-close image-close text-danger" ></i>
-                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+                <i class="fa fa-close image-close text-danger " ></i>
+                <img className="image mx-2 mt-3 rounded-3 " src={image} alt="" key={i} style={{ width: '105px', height: '90px', objectFit: 'cover' }} />
             </div>
         });
     };
-
 
 
     const navigate = useNavigate();
@@ -181,22 +181,22 @@ function EditBanner() {
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`/api/edit-banner/${editId}`).then(res => {
             if (res.data.status == 200) {
                 setbannerState({
                     banner_description: res.data.banner.banner_description,
-                    banner_title: res.data.banner.banner_title, 
+                    banner_title: res.data.banner.banner_title,
                 })
-                setAllImagesfromDatabase(res.data.banner.image.split(','))
+                setAllImagesfromDatabase(res.data.banner_images)
 
-                
+
                 // setPicture(res.data.post.image)
-      
+
             }
         })
-    
-    },[])
+
+    }, [renderData])
 
 
 
@@ -219,7 +219,7 @@ function EditBanner() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Edit a Banner</h5>
-                                    <Link to="/view-all-events"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                    <Link to="/view-all-banner"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body '>
@@ -245,7 +245,7 @@ function EditBanner() {
 
                                                 </div>
 
-                                              
+
                                                 <div class="mt-4">
                                                     <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
@@ -255,23 +255,41 @@ function EditBanner() {
 
                                                         <div className='d-flex mt-2 ' >
                                                             {
-                                                                multipleImages.length >= 1 ?
-                                                                    render(multipleImages)
-                                                                    :
-
-                                                                    allImagesFromDatabase.map((item, i) => {
-                                                                        // console.log('bal item',item)
-                                                                        return (
-                                                                            <>
-                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img>
-
-                                                                            </>
-                                                                        )
-                                                                    })
-
+                                                                render(multipleImages)
 
                                                             }
+                                                            {
 
+                                                                allImagesFromDatabase.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
+                                                                            <div class="" style={{ position: 'relative' }} >
+                                                                                <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
+                                                                                    {
+                                                                                        axios.post(`/api/delete-banner-multiple-image/${item.id}`).then(res => {
+                                                                                            if (res.data.status == 200) {
+                                                                                                setRenderData(res.data)
+                                                                                            }
+                                                                                        })
+                                                                                    }
+
+                                                                                }}>
+                                                                                    <i class="fa fa-close text-danger"></i>
+
+                                                                                </div>
+
+                                                                                <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                                            </div>
+
+
+
+                                                                        </>
+                                                                    )
+                                                                })
+
+                                                            }
 
                                                         </div>
 

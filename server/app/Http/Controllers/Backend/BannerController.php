@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\AusstaEvent;
+use App\Models\BannerMultipleImage;
 use Illuminate\Support\Facades\File;   
 use Illuminate\Support\Facades\DB;
 class BannerController extends Controller
@@ -13,7 +14,8 @@ class BannerController extends Controller
      public function index()
     {
         
-        $banner=Banner::where('isArchived',0)->orderBy('id','desc')->get();
+        // $banner=Banner::where('isArchived',0)->orderBy('id','desc')->get();
+         $banner =Banner::orderBy('id','desc')->with(['BannerImage','userName'])->get();
         return response()->json([
            'status' => 200,
             'banner' => $banner
@@ -26,17 +28,7 @@ class BannerController extends Controller
 
       public function store(Request $request){
             $banner = new Banner();
-             if ($request->file('image')) {
-            foreach ($request->file('image') as $image) {
-
-                $upload_image_name = time() . $image->getClientOriginalName();
-                $image->move('images/', $upload_image_name);
-                $name[] = $upload_image_name;
-
-                $banner->image =  implode(', ', $name);
-                // $event->save();   
-            }
-        }
+   
 
 
 
@@ -46,6 +38,22 @@ class BannerController extends Controller
            $banner->banner_description = $request->banner_description;
 
             $banner->save();
+
+               foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('images/', $upload_image_name);
+
+            $banner_multiple_image=new BannerMultipleImage();
+            $banner_multiple_image->banner_id=$banner->id;
+            $banner_multiple_image->image=$upload_image_name;
+            $banner_multiple_image->save();
+            // $name[] = $upload_image_name;
+
+            // $advertisement->image =  implode(', ', $name);
+        // $advertisement->save();
+        }
+           // $advertisement->save();
 
             $count = Banner::orderBy('id','desc')->get()->count();
 
@@ -60,11 +68,14 @@ class BannerController extends Controller
        public function edit($id)
     {
         $banner = Banner::find($id);
+        $banner_images=BannerMultipleImage::where('banner_id',$id)->get();
+
 
         if ($banner)
         {
             return response()->json([
                 'status' => 200,
+                'banner_images'=>$banner_images,
                 'banner' => $banner,
             ]);
 
@@ -80,17 +91,17 @@ class BannerController extends Controller
     public function update(Request $request,$id){
 
               $banner = Banner::find($id);
-             if ($request->file('image')) {
-            foreach ($request->file('image') as $image) {
+        //      if ($request->file('image')) {
+        //     foreach ($request->file('image') as $image) {
 
-                $upload_image_name = time() . $image->getClientOriginalName();
-                $image->move('images/', $upload_image_name);
-                $name[] = $upload_image_name;
+        //         $upload_image_name = time() . $image->getClientOriginalName();
+        //         $image->move('images/', $upload_image_name);
+        //         $name[] = $upload_image_name;
 
-                $banner->image =  implode(', ', $name);
-                // $event->save();   
-            }
-        }
+        //         $banner->image =  implode(', ', $name);
+        //         // $event->save();   
+        //     }
+        // }
 
 
 
@@ -101,6 +112,18 @@ class BannerController extends Controller
 
             $banner->update();
 
+
+               foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('images/', $upload_image_name);
+
+            $banner_multiple_image=new BannerMultipleImage();
+            $banner_multiple_image->banner_id=$banner->id;
+            $banner_multiple_image->image=$upload_image_name;
+            $banner_multiple_image->update();
+        }
+
             $count = Banner::orderBy('id','desc')->get()->count();
 
  return response()->json([
@@ -109,7 +132,8 @@ class BannerController extends Controller
                  'banner'=>$banner ,
                 'message' => 'Banner Updated Successfully',
             ]);   
-    }
+
+}
 
 
 
@@ -129,6 +153,22 @@ class BannerController extends Controller
 
     
     }
+
+    public function deleteBannerMultipleImage($id){
+    $banner = BannerMultipleImage::find($id);
+
+        $file=$banner->image;
+        $filename = public_path().'/images/'.$file;
+        File::delete($filename);
+        $banner->delete();
+
+              return response()->json([
+            'status' => 200,
+            'message' => 'Banner Image deleted successfully',
+        ]);
+}
+
+
        public function deleteMultipleBanner($ids)
     {
         $array = explode(",", $ids);
@@ -144,13 +184,15 @@ class BannerController extends Controller
     /////mobile banner event latest one/////////////
     public function latestEventMobileBanner(){
 
-                $first = DB::table('aussta_events')->where('isArchived',0)->where('showBanner',1)->latest()->get();
-                $second = DB::table('banners')->where('isArchived',0)->get();
-                $merged = $first->merge($second);
+         $banner =Banner::orderBy('id','desc')->where('isArchived',0)->with(['BannerImage'])->get();
+         $event =AusstaEvent::orderBy('id','desc')->where('isArchived',0)->with(['EventImage'])->get();
+                // $second = DB::table('banners')->where('isArchived',0)->get();
+                // $merged = $event->merge($banner);
 
                return response()->json([
                 'status' => 200,
-                'banner'=>$merged
+                'banner'=>$banner,
+                'event'=>$event,
             ]);
     }
 }

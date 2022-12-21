@@ -312,7 +312,7 @@ function ViewAllJob() {
         {
             title: "ALL", field: `image`, render: (row) =>
                 <div>
-                    <img className="" src={`${global.img_url}/images/${row.image}`} width="55px" height="35px" alt="No Image" />
+                    <img className="rounded" src={`${global.img_url}/images/${row.image}`} width="100px" height="65px" objectFit="cover" alt="No Image" />
 
 
                 </div>
@@ -322,7 +322,7 @@ function ViewAllJob() {
                 // marginLeft: 50,
                 // maxWidth: 0,
                 // textAlign: 'left',
-                width: 10,
+                padding: 0,
             },
         },
 
@@ -337,17 +337,17 @@ function ViewAllJob() {
                         <div className=''>
                             <div className='text-secondary'>
                                 <span>
-                                    <i className='fa fa-calendar'></i>
+                                    <i className="fa-solid fa-calendar-days"></i>
                                     {/* <span className='mx-2'>{moment(row.application_deadline).format("L")}</span> */}
-                                    <span className='mx-2'>{row.application_deadline}</span>
+                                    <span className='mx-2'>Deadline : {row.application_deadline}</span>
                                 </span>
                             </div>
 
                         </div>
-                        <div>
+                        <div className='pt-1'>
 
 
-                            <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.type_name}</span> </button>
+                            <button className='btn  btn-sm  px-3 my-0 outline-0 ' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{row.type_name}</span> </button>
                             {
                                 row.isPublished == 1 ?
                                     <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
@@ -361,7 +361,7 @@ function ViewAllJob() {
                     </div>
 
                     <div>
-                        <h5 className='my-1 '>
+                        <h5 className=''>
                             {row.job_title}
                         </h5>
 
@@ -371,7 +371,7 @@ function ViewAllJob() {
 
                         <div className=' bg-light d-inline-block rounded '>
 
-                            <span className='py-1 px-1 text-secondary'>{row.dept_name}</span>
+                            <span className=' px-1 text-secondary'>{row.dept_name}</span>
 
                         </div>
                     </div>
@@ -389,7 +389,8 @@ function ViewAllJob() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                // width: 600
+                // width: 600,
+                // padding:0
             },
         },
 
@@ -748,7 +749,7 @@ function ViewAllJob() {
                                 <div className='card-body '>
                                     <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
 
-                                    <h5 className=""> Full Job Post View</h5>
+                                    <h5 className=""> View Job</h5>
                                     <hr />
 
 
@@ -767,7 +768,7 @@ function ViewAllJob() {
                                                 <div className='mt-3'>
                                                     <h5>{viewJobPostDescription.job_title}</h5>
                                                     <div>
-                                                        <i class="fas fa-calendar"></i>
+                                                    <i className="fa-solid fa-calendar-days"></i>
                                                         <span className='mx-2'>Application Deadline: {viewJobPostDescription.application_deadline}</span>
                                                     </div>
 

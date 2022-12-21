@@ -39,7 +39,7 @@ function ViewAllBanner() {
 
 
 
-    console.log('all events', allBanners)
+    console.log('all banners', allBanners)
 
 
     const [renderAllBanners, setRenderAllBanners] = useState('');
@@ -168,7 +168,7 @@ function ViewAllBanner() {
         e.preventDefault();
         setViewBanner(viewEventPost)
         setviewJobPostModalIsOpen(true)
-        setAllImagesfromDatabase(viewEventPost.image.split(','))
+        // setAllImagesfromDatabase(viewEventPost.image.split(','))
 
     }
     function closeViewJobPostModal(e) {
@@ -244,9 +244,16 @@ function ViewAllBanner() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
+            
                 <div className=''>
 
-                    <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" />
+{
+                        row.banner_image !== undefined &&
+                        <img className="rounded" src={`${global.img_url}/images/${row.banner_image[0].image}`} width="100px" height="70px" alt="No Image" />
+
+                    }
+
+
 
 
                 </div>
@@ -498,8 +505,8 @@ function ViewAllBanner() {
         }]
     };
 
-    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
-    console.log('checking', allImagesFromDatabase)
+    // const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+    // console.log('checking', allImagesFromDatabase)
 
 
     const handleAllBannerstatus = (e) => {
@@ -699,7 +706,7 @@ function ViewAllBanner() {
                                 <div className='card-body '>
                                     <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
 
-                                    <h5 className=""> Full Event View</h5>
+                                    <h5 className="">View Banner</h5>
                                     <hr />
 
 
@@ -713,11 +720,11 @@ function ViewAllBanner() {
                                                 <Slider {...settings}>
 
                                                     {
-                                                        allImagesFromDatabase.map((item, i) => {
+                                                        viewBanner.banner_image !==undefined &&  viewBanner.banner_image.map((item, i) => {
                                                             return (
                                                                 <>
                                                                     <div class="rounded-3">
-                                                                        <img src={`${global.img_url}/images/${item.trim()}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                        <img src={`${global.img_url}/images/${item.image}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
                                                                     </div>
                                                                 </>
                                                             )

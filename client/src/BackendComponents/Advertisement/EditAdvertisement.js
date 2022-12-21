@@ -409,10 +409,6 @@ function EditAdvertisement() {
                                                             {
                                                                 render(multipleImages)
 
-
-
-
-
                                                             }
                                                             {
 

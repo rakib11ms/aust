@@ -237,16 +237,17 @@ function ViewAllEvent() {
     const [viewEventDescription, setViewEventDescription] = useState('');
 
 
-    const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
+    const [viewEventPostModalIsOpen, setviewEventPostModalIsOpen] = useState(false);
+    console.log('view event',viewEventDescription)
     function openViewEventPostModal(e, viewEventPost) {
         e.preventDefault();
         setViewEventDescription(viewEventPost)
-        setviewJobPostModalIsOpen(true)
-        setAllImagesfromDatabase(viewEventPost.image.split(','))
+        setviewEventPostModalIsOpen(true)
+        // setAllImagesfromDatabase(viewEventPost)
 
     }
     function closeViewJobPostModal(e) {
-        setviewJobPostModalIsOpen(false);
+        setviewEventPostModalIsOpen(false);
 
     }
 
@@ -320,9 +321,14 @@ function ViewAllEvent() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div className=''>
 
-                    <img className="rounded" src={`${global.img_url}/images/${row.image.split(',')[0]}`} width="100px" height="70px" alt="No Image" />
+                <div className=''>
+                    {
+                        row.event_image !== undefined &&
+                        <img className="rounded" src={`${global.img_url}/images/${row.event_image[0].image}`} width="100px" height="70px" alt="No Image" />
+
+                    }
+
 
 
                 </div>
@@ -447,7 +453,8 @@ function ViewAllEvent() {
                                     <i class="fas fa-money-bill"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>{row.event_fee}</span>
+                                    <span>{row.event_fee !== "null" && row.event_fee}</span>
+                                    <span>{row.event_fee == "null" && '0'}</span>
                                     <span class="mx-2">Event Fees</span>
                                 </div>
                             </div>
@@ -603,8 +610,7 @@ function ViewAllEvent() {
         }]
     };
 
-    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
-    console.log('checking', allImagesFromDatabase)
+
 
 
     const handleAllEventStatus = (e) => {
@@ -639,21 +645,25 @@ function ViewAllEvent() {
 
     const [value, setValue] = React.useState([null, null]);
 
-    const [liveSearchVal,setLiveSearchVal]=useState('')
+    const [liveSearchVal, setLiveSearchVal] = useState('')
 
-    useEffect(()=>{
-        axios.get(`/api/get-all-event-related-data/${liveSearchVal}`).then(res => {
-            if (res.data.status == 200) {
 
-                // Swal.fire(res.data.message, '', 'success')
-                // window.location.reload();
-                setallEvents(res.data.event_posts)
-                // setRenderAllEvents(res.data);
+    useEffect(() => {
+        if (liveSearchVal !== null) {
 
-            }
+            axios.get(`/api/get-all-event-related-data/${liveSearchVal}`).then(res => {
+                if (res.data.status == 200) {
 
-        })
-    },[liveSearchVal])
+                    // Swal.fire(res.data.message, '', 'success')
+                    // window.location.reload();
+                    setallEvents(res.data.event_posts)
+                    // setRenderAllEvents(res.data);
+
+                }
+
+            })
+        }
+    }, [liveSearchVal])
 
 
 
@@ -674,7 +684,7 @@ function ViewAllEvent() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group" data-aos="flip-up">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" onChange={(e)=>setLiveSearchVal(e.target.value)} />
+                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" onChange={(e) => setLiveSearchVal(e.target.value)} />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
@@ -815,7 +825,7 @@ function ViewAllEvent() {
 
                             {/* add post category modal */}
                             <Modal
-                                isOpen={viewJobPostModalIsOpen}
+                                isOpen={viewEventPostModalIsOpen}
                                 onRequestClose={closeViewJobPostModal}
                                 style={customStyles1}
                                 contentLabel="Example Modal"
@@ -824,7 +834,7 @@ function ViewAllEvent() {
                                 <div className='card-body '>
                                     <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
 
-                                    <h5 className=""> Full Event View</h5>
+                                    <h5 className="">View Event</h5>
                                     <hr />
 
 
@@ -838,11 +848,11 @@ function ViewAllEvent() {
                                                 <Slider {...settings}>
 
                                                     {
-                                                        allImagesFromDatabase.map((item, i) => {
+                                                        viewEventDescription.event_image !==undefined &&   viewEventDescription.event_image.map((item, i) => {
                                                             return (
                                                                 <>
                                                                     <div class="rounded-3">
-                                                                        <img src={`${global.img_url}/images/${item.trim()}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                        <img src={`${global.img_url}/images/${item.image}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
                                                                     </div>
                                                                 </>
                                                             )
