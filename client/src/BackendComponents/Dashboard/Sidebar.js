@@ -63,10 +63,13 @@ function Sidebar() {
             <div className="">
                 <div className="sidebar-top-content d-flex justify-content-between align-items-center mt-3">
                     <div class="">
-                        <img src={User} style={{ width: "45px" }} />
+                        <img src={`${global.img_url}/images/${localStorage.getItem('image')}`} className="rounded-pill" style={{ width: "45px", objectFit: "cover" }} />
                     </div>
                     <div class="p-0 m-0 text-white">
-                        <h6 className='m-1'>Anwarul Islam</h6>
+                        {/* <h6 className='m-1'>{localStorage.getItem('full_name').length>12?localStorage.getItem('full_name').substring(0, 12):'...'}
+                         </h6> */}
+                        <h6 className='m-1'>{localStorage.getItem('full_name')}
+                        </h6>
                         <span>Admin</span>
                     </div>
                     <div class=" text-white" onClick={handleLogOut}>

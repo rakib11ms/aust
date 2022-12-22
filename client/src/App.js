@@ -102,7 +102,8 @@ function App() {
   useEffect(() => {
     if (successStatus.status == 'yes') {
       localStorage.setItem('auth_token', successStatus.token);
-      localStorage.setItem('username', successStatus.username);
+      localStorage.setItem('full_name', successStatus.full_name);
+      localStorage.setItem('image', successStatus.image);
       localStorage.setItem('email', successStatus.email);
       localStorage.setItem('user_type', successStatus.user_type);
       if (successStatus.user_type === 'admin') {

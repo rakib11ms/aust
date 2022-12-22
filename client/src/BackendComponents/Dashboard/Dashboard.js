@@ -558,7 +558,7 @@ function Dashboard() {
                                                                     <div className="mt-3">
                                                                         <p className="m-0 p-0">{item.event_title}</p>
                                                                         <div className="my-2 p-0"
-                                                                            dangerouslySetInnerHTML={{ __html: item.event_description.length > 50 ? `${item.event_description.substring(0, 100)}...` : item.event_description }}
+                                                                            dangerouslySetInnerHTML={{ __html: item.event_description.length > 50 ? `${item.event_description.substring(0, 50)}...` : item.event_description }}
                                                                         />                                                                    </div>
                                                                 </Link>
 
@@ -744,7 +744,7 @@ function Dashboard() {
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
-                                                                        dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 100)}...` : item.notice_news_description }}
+                                                                        dangerouslySetInnerHTML={{ __html: item.notice_news_description.length > 50 ? `${item.notice_news_description.substring(0, 50)}...` : item.notice_news_description }}
                                                                     />
 
                                                                 </Link>
@@ -812,7 +812,7 @@ function Dashboard() {
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
-                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 50)}...` : item.article_blog_description }}
                                                                     />
 
                                                                 </Link>
@@ -881,7 +881,7 @@ function Dashboard() {
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
-                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 100)}...` : item.article_blog_description }}
+                                                                        dangerouslySetInnerHTML={{ __html: item.article_blog_description.length > 50 ? `${item.article_blog_description.substring(0, 50)}...` : item.article_blog_description }}
                                                                     />
                                                                 </Link>
 
@@ -1287,7 +1287,7 @@ function Dashboard() {
                                                         {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
 
                                                         <div className="p-0 mt-2"
-                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
                                                         />
                                                         <div class="footer-con ">
                                                             <div class="">
@@ -1355,7 +1355,7 @@ function Dashboard() {
                                                         {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
 
                                                         <div className="p-0 mt-2"
-                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
                                                         />
                                                         <div class="footer-con ">
                                                             <div class="">
@@ -1424,7 +1424,7 @@ function Dashboard() {
                                                         {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
 
                                                         <div className="p-0 mt-2"
-                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
                                                         />
                                                         <div class="footer-con ">
                                                             <div class="">

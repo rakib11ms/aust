@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
+// import ReactToPrint from 'react-to-print';
+import { useReactToPrint } from 'react-to-print';
 
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
@@ -25,7 +27,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
-
+import ReactDOM from "react-dom";
+import QRCode from "react-qr-code";
 
 
 function ViewAllEvent() {
@@ -238,7 +241,7 @@ function ViewAllEvent() {
 
 
     const [viewEventPostModalIsOpen, setviewEventPostModalIsOpen] = useState(false);
-    console.log('view event',viewEventDescription)
+    console.log('view event', viewEventDescription)
     function openViewEventPostModal(e, viewEventPost) {
         e.preventDefault();
         setViewEventDescription(viewEventPost)
@@ -250,6 +253,23 @@ function ViewAllEvent() {
         setviewEventPostModalIsOpen(false);
 
     }
+
+
+    const [viewQrCodeModalIsOpen, setviewQrCodeModalIsOpen] = useState(false);
+    function openViewQrCodeModal(e, viewEventPost) {
+        e.preventDefault();
+        setViewEventDescription(viewEventPost)
+        setviewQrCodeModalIsOpen(true)
+        // setAllImagesfromDatabase(viewEventPost)
+
+    }
+    function closeViewQrCodeModal(e) {
+        setviewQrCodeModalIsOpen(false);
+
+    }
+
+
+
 
 
 
@@ -410,6 +430,17 @@ function ViewAllEvent() {
                                 </div>
 
 
+                                <div className='text-secondary mx-1'>
+
+                                    <div onClick={(e) => {
+                                        openViewQrCodeModal(e, row)
+                                    }
+                                    }>
+                                        <i class="fa-sharp fa-solid fa-qrcode"></i>
+
+                                    </div>
+
+                                </div>
 
 
 
@@ -666,6 +697,11 @@ function ViewAllEvent() {
     }, [liveSearchVal])
 
 
+    //print code 
+    const componentRef2 = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef2.current,
+    });
 
     return (
         <>
@@ -823,7 +859,7 @@ function ViewAllEvent() {
 
 
 
-                            {/* add post category modal */}
+                            {/* view event post modal */}
                             <Modal
                                 isOpen={viewEventPostModalIsOpen}
                                 onRequestClose={closeViewJobPostModal}
@@ -848,7 +884,7 @@ function ViewAllEvent() {
                                                 <Slider {...settings}>
 
                                                     {
-                                                        viewEventDescription.event_image !==undefined &&   viewEventDescription.event_image.map((item, i) => {
+                                                        viewEventDescription.event_image !== undefined && viewEventDescription.event_image.map((item, i) => {
                                                             return (
                                                                 <>
                                                                     <div class="rounded-3">
@@ -935,7 +971,52 @@ function ViewAllEvent() {
 
 
 
+                            {/* view qr code modal */}
+                            <Modal
+                                isOpen={viewQrCodeModalIsOpen}
+                                onRequestClose={closeViewQrCodeModal}
+                                style={customStyles1}
+                                contentLabel="Example Modal"
+                            >
 
+                                <div className='card-body '>
+                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewQrCodeModal}><i class="fa fa-times"></i></span>
+
+                                    <h5 className="">View Qr Code</h5>
+                                    <hr />
+
+
+
+                                    <div className="row">
+
+                                        <div className="col-12 " >
+                                            <div className='float-end'>
+                                                <button type='button' class="btn btn-warning btn-sm px-4 rounded-pill ms-auto" onClick={handlePrint} >Print</button>
+
+                                            </div>
+
+                                            <div className='wrap-qr mt-5 d-flex '>
+                                                {/* <h4>{viewEventDescription.event_title}</h4>
+                                                </hr> */}
+
+                                            <div style={{ height: "auto", margin: "0 auto", maxWidth: 100, width: "100%" }} className="mt-5" ref={componentRef2}>
+                                                <QRCode
+                                                    size={256}
+                                                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                                    value={viewEventDescription.event_unique_id}
+                                                    viewBox={`0 0 256 256`}
+                                                />
+                                            </div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </Modal>
 
                         </div>
 

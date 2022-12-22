@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('aussta_events', function (Blueprint $table) {
             $table->id();
+               $table->string('event_unique_id')->nullable();
                $table->string('event_type_id')->nullable();
                  $table->string('event_title')->nullable();
                  $table->string('posted_by')->nullable();

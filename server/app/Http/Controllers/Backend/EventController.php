@@ -72,7 +72,9 @@ class EventController extends Controller
         }else{
 
         $event = new AusstaEvent();
+       $event_unique_id = (date('md') . rand(1, 99999));
 
+          $event->event_unique_id=$event_unique_id;
         $event->event_type_id = $request->event_type_id;
         $event->event_title = $request->event_title;
         $event->event_fee = $request->event_fee;
@@ -213,6 +215,7 @@ class EventController extends Controller
     {
 
         $event = AusstaEvent::find($id);
+        $event->event_unique_id=$request->event_unique_id;
 
         $event->event_type_id = $request->event_type_id;
         $event->event_title = $request->event_title;
@@ -465,5 +468,28 @@ public function deleteEventMultipleImage($id){
                 'status' => 200,
                 'event_posts' => $event_posts,
             ]);
+}
+
+
+public function eventQrCodePassOrFail($eventId){
+
+        $event=AusstaEvent::where('id',$eventId)->first();
+        $qr_code=$event->event_unique_id;
+        if($event->event_fee ==0){
+    return response()->json([
+                'status' => 200,
+                'qr_code'=>$qr_code,
+                'message' => 'success',
+            ]);
+        }
+        else if($event->event_fee!==0){
+    return response()->json([
+                'status' => 400,
+                // 'qr_code'=>$qr_code,
+
+                'message' => 'Failed',
+            ]);
+        }
+        
 }
 }

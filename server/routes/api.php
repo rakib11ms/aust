@@ -260,11 +260,6 @@ Route::delete('/delete-event-type/{id}', [EventTypeController::class, 'destroy']
 
 
 
-
-
-
-
-
 //events
 
 Route::get('/all-event-posts', [EventController::class, 'index']);
@@ -280,6 +275,9 @@ Route::put('/active-all-events-by-update/{id}', [EventController::class, 'active
 
 //event gloabl all search (web) searchbar field
 Route::get('/get-all-event-related-data/{name}', [EventController::class, 'getAllEventRelatedDataByName']);
+
+//event qr code scanner (pass or fail)
+Route::get('/event-qr-code-pass-or-fail/{eventId}', [EventController::class, 'eventQrCodePassOrFail']);
 
 
 /////banner mobile /////////////////

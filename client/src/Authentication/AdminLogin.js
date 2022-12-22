@@ -45,7 +45,8 @@ function AdminLogin({ handleSucessLogin }) {
           setClickedRender(false);
 
           let admin_auth = {
-            name: res.data.username,
+            full_name: res.data.full_name,
+            image: res.data.image,
             user_type: res.data.user_type,
             token: res.data.token,
             email: res.data.email,
