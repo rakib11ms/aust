@@ -7,17 +7,17 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function Sidebar() {
-    const [isActive, setIsActive] = useState(true);
-    const [isActive2, setIsActive2] = useState(true);
-    const [isActive3, setIsActive3] = useState(true);
-    const [isActive4, setIsActive4] = useState(true);
-    const [isActive5, setIsActive5] = useState(true);
-    const [isActive6, setIsActive6] = useState(true);
-    const [isActive7, setIsActive7] = useState(true);
-    const [isActive8, setIsActive8] = useState(true);
-    const [isActive9, setIsActive9] = useState(true);
-    const [isActive10, setIsActive10] = useState(true);
-    const [isActive11, setIsActive11] = useState(true);
+    const [isActive, setIsActive] = useState(false);
+    const [isActive2, setIsActive2] = useState(false);
+    const [isActive3, setIsActive3] = useState(false);
+    const [isActive4, setIsActive4] = useState(false);
+    const [isActive5, setIsActive5] = useState(false);
+    const [isActive6, setIsActive6] = useState(false);
+    const [isActive7, setIsActive7] = useState(false);
+    const [isActive8, setIsActive8] = useState(false);
+    const [isActive9, setIsActive9] = useState(false);
+    const [isActive10, setIsActive10] = useState(false);
+    const [isActive11, setIsActive11] = useState(false);
     console.log('is active cheking', isActive)
 
 
@@ -58,6 +58,21 @@ function Sidebar() {
     }
     var path = window.location.pathname;
     console.log('widnow', path)
+
+
+    useEffect(() => {
+
+        path == '/view-all-jobs' && setIsActive3(true) || path == '/job-configuration' && setIsActive3(true) || path == '/create-job-post' && setIsActive3(true)
+        path == '/view-all-users' && setIsActive(true) || path == '/role-management' && setIsActive(true) || path == '/user-configuration' && setIsActive(true)
+        path == 'view-blog-article' && setIsActive4(true) || path == '/create-blog-article' && setIsActive4(true) || path == '/blog-article-configuration' && setIsActive4(true)
+        path == '/create-event' && setIsActive6(true) || path == '/view-all-events' && setIsActive6(true) || path == '/event-configuration' && setIsActive6(true) || path == '/view-event-payment ' && setIsActive6(true)
+        path == '/create-advertisement' && setIsActive7(true) || path == '/view-all-advertisement' && setIsActive7(true)
+        path == '/view-all-banner' && setIsActive8(true) || path == '/create-banner' && setIsActive8(true)
+        path == '/view-notice-news' && setIsActive10(true) || path == '/create-notice-news' && setIsActive10(true) || path == '/notice-news-configuration' && setIsActive10(true)
+        path == '/post-type' && setIsActive5(true)
+
+    }, [path])
+
     return (
         <>
             <div className="">
@@ -206,12 +221,15 @@ function Sidebar() {
                             </div>
                         </div>
                         <div class="menu-content ">
+
+
+
                             {
                                 isActive3 && <>
                                     <ul className='text-light mx-4 '>
 
                                         <li className='mt-1'>
-                                            <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>View All Jobs</Link>
+                                            <Link to="/view-all-jobs" className={`text-form ${path == '/view-all-jobs' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >View All Jobs</Link>
                                         </li>
                                         <li className='mt-1'>
                                             <Link to="/job-configuration" className={`text-form ${path == '/job-configuration' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Job Configuration</Link>

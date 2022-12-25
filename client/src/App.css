@@ -12,6 +12,11 @@
   font-size: 15px;
 } */
 
+/* *::-webkit-scrollbar {
+  width: 5px;
+  background-color:#c4c4c4;
+  border-top-radius: 5%;
+} */
 
 .login-wrap {
   height: 100vh;

@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Notifications\Channels\DatabaseChannel as IlluminateDatabaseChannel;
+use Illuminate\Notifications\DatabaseNotification as EventNotification;
+use App\Channels\DatabaseChannel;
+// use App\Notifications\EventNotification;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+          $this->app->instance(IlluminateDatabaseChannel::class, new DatabaseChannel());
+        $this->app->instance(EventNotification::class, new EventNotification());
     }
 }

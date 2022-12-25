@@ -36,6 +36,8 @@ use App\Http\Controllers\Backend\DashboardHomeController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
+use App\Http\Controllers\Backend\RoleNameController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -427,6 +429,10 @@ Route::get('/job-filtering-admin-homepage/{name}', [DashboardHomeController::cla
 
 ///////admin home admin dashboard end////
 
+//notificaion icon topbar (web) //
+
+Route::get('/all-notification-through-posts', [DashboardHomeController::class, 'allNotificationThroughPosts']);
+Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
 
 
 
@@ -443,3 +449,19 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+
+//Role Permission start //
+//role
+Route::get('/role-name', [RoleNameController::class, 'index']);
+Route::post('/add-role-name', [RoleNameController::class, 'store']);
+Route::get('/edit-role-name/{id}', [RoleNameController::class, 'edit']);
+Route::post('/update-role-name/{id}', [RoleNameController::class, 'update']);
+Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
+
+
+
+
+//Role Permission end //
+

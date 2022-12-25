@@ -135,4 +135,47 @@ class DashboardHomeController extends Controller
     }   
 
    }
+
+//notificaion icon topbar (web) //
+  public function allNotificationThroughPosts(){
+    // dd(auth('sanctum')->user());
+
+
+    // $all_unread=  auth('sanctum')->user()->unreadNotifications->get();
+    $all_unread= 'App\Models\Notification'::with('users')->where('notifiable_id',auth('sanctum')->user()->id)->whereNull('read_at')->get();
+    // $a=[];
+    // foreach($all_unread as $key=>$check){
+    //     echo $check->data['posted_by'];
+    //     array_push($a,$check->data['posted_by']);
+
+
+    // }
+    //     dd($a);
+
+    $total_unread= count('App\Models\Notification'::with('users')->where('notifiable_id',auth('sanctum')->user()->id)->whereNull('read_at')->get());
+    // echo $all_unread;
+
+          return response()->json([
+           'status' => 200,
+      
+            'all_unread'=>$all_unread,
+            'total_unread'=>$total_unread
+         ]);
+
+   }
+
+     public function allReadNotificationThroughPosts(){
+   $notification = 'App\Models\Notification'::where('notifiable_id',auth('sanctum')->user->id)->get();
+
+        if ($notification) {
+            $notification->markAsRead();
+           
+   }
+   return response()->json(
+    [
+           'status' => 200,
+           'all_read'=>'all notification has been read'
+
+    ]);
+}
 }

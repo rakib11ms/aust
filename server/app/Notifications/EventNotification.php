@@ -22,6 +22,10 @@ class EventNotification extends Notification
                 $this->event = $event;
 
     }
+      public function getEvent()
+    {
+        return $this->event;
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -56,8 +60,12 @@ class EventNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'data'=>$this->event['event_title']
-        ];
+        return $this->event;
+
+        //     return [
+        //   'posted_by' => $notifiable->posted_by,
+        //   'data' => $this->event
+        // ];
+        
     }
 }

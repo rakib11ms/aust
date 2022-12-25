@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-// import './Post.css';
+import '../PostType/../PostType/Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";

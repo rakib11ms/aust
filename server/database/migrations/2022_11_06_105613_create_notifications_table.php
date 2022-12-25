@@ -20,12 +20,8 @@ return new class extends Migration
             $table->text('data')->nullable();
             $table->string('title')->nullable();
             $table->longText('body')->nullable();
-            $table->string('notify_user')->nullable();
-            $table->string('notify_type')->nullable();
-            $table->string('date')->nullable();
-            $table->string('time')->nullable();
-            $table->string('priority')->nullable();
-            $table->string('show_days')->nullable();
+            $table->string('notification_type')->nullable();
+            $table->string('posted_by')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });

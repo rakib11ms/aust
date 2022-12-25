@@ -768,7 +768,7 @@ function ViewAllJob() {
                                                 <div className='mt-3'>
                                                     <h5>{viewJobPostDescription.job_title}</h5>
                                                     <div>
-                                                    <i className="fa-solid fa-calendar-days"></i>
+                                                        <i className="fa-solid fa-calendar-days"></i>
                                                         <span className='mx-2'>Application Deadline: {viewJobPostDescription.application_deadline}</span>
                                                     </div>
 

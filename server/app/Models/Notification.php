@@ -11,7 +11,7 @@ class Notification extends DatabaseNotification
     use HasFactory;
             public function users(){
 
-return $this->belongsTo('App\Models\User', 'notifiable_id');
+return $this->belongsTo('App\Models\User', 'posted_by');
 
 }
 }

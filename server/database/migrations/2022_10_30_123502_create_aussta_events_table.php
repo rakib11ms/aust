@@ -26,6 +26,7 @@ return new class extends Migration
                  $table->string('event_date')->nullable();
                  $table->string('event_fee')->nullable();
                  $table->string('priority')->nullable();
+                 $table->string('notification_type')->nullable();
                  $table->boolean('payment_type')->default(0);
                  $table->boolean('showMobile')->default(1);
                  $table->boolean('showDesktop')->default(1);

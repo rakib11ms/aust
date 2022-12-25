@@ -92,6 +92,7 @@ class EventController extends Controller
         // $event->isPublished = $request->isPublished;
         // $event->isArchived = $request->isArchived;
         $event->priority = $request->priority;
+        $event->notification_type = 'event_type';
         $event->save();
 
 
@@ -127,9 +128,9 @@ class EventController extends Controller
             // echo ($user->email);
             Mail::to($user->email)->send(new EventMail($event));
         }
-
-        foreach($users as $key=>$user){
-        Notification::send($user, new EventNotification($event));
+         
+        foreach($users as $key=>$user1){
+        Notification::send($user1, new EventNotification($event));
 
         }
 
