@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
     }
      public function jobPost() {
-        return $this->hasMany('App\Models\jobPost','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
+        return $this->hasMany('App\Models\JobPost','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
     }
      public function professionalInfo() {
         return $this->hasMany('App\Models\UserProfessionalInfo','user_id');
@@ -72,5 +72,10 @@ class User extends Authenticatable
    //  {
    //      return $this->belongsTo('App\Models\AusttaaCompanyName','batch');
    //  }
+
+    public function role()
+{
+    return $this->belongsTo('App\Models\Role','user_role');
+}
 
 }

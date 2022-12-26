@@ -178,4 +178,30 @@ class DashboardHomeController extends Controller
 
     ]);
 }
+
+   public function check(){
+
+  // $check=User::where('id',1)->with('role')->first();
+    // $check = User::where('id',25)->with('role')->get();
+
+    $check =User::with('role')->get();
+
+    return response()->json([
+        'check'=>$check
+    ]);
+
+
+//   if(auth()->user()->role('Moderator')){
+// return response()->json([
+//          'paisi'=>"ache shane watson"
+
+//     ]);
+// } 
+// else{
+//   return response()->json([
+//          'check'=>'nai kew'
+
+//     ]);  
+// }
+}
 }

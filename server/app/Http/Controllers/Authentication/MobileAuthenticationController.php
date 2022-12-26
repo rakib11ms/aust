@@ -58,7 +58,7 @@ class MobileAuthenticationController extends Controller
                 $user->full_name = $request->full_name;
                 $user->nick_name = $request->nick_name;
                 $user->email = $request->email;
-                $user->user_role = 1;
+                // $user->user_role = $request->user_role;
                 $user->batch = $request->batch;
                 $user->phone_no = $request->phone_no;
                 $user->bio = $request->bio;
@@ -80,8 +80,10 @@ class MobileAuthenticationController extends Controller
                 // $user->otp_verify = 0;
                 $user->password = Hash::make($request->password);
                 $user->confirm_password = Hash::make($request->confirm_password);
+                $user->assignRole($request->user_role);
 
                 $user->save();
+
 
 
 

@@ -21,6 +21,7 @@ import axios from 'axios';
 
 import Modal from 'react-modal';
 import "./UserManagment.css";
+import '../PostType/../PostType/Post.css';
 
 import MaterialTable from "material-table";
 import moment from 'moment';

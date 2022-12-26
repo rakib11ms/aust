@@ -501,6 +501,22 @@ function Dashboard() {
                                     </>
                                 }
 
+{
+                                    postTabSection == 'announcements' && <>
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{0}</h4>
+                                            <p className="mx-4 mt-1">Announcements are posted</p>
+                                        </div>
+
+
+
+                                        <div className="d-flex">
+                                            <h4 className="publiction-num">{0}</h4>
+                                            <p className="mx-4 mt-1">Announcement Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                        </div>
+                                    </>
+                                }
+
                             </div>
 
 

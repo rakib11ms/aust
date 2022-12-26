@@ -69,7 +69,7 @@ function Sidebar() {
         path == '/create-advertisement' && setIsActive7(true) || path == '/view-all-advertisement' && setIsActive7(true)
         path == '/view-all-banner' && setIsActive8(true) || path == '/create-banner' && setIsActive8(true)
         path == '/view-notice-news' && setIsActive10(true) || path == '/create-notice-news' && setIsActive10(true) || path == '/notice-news-configuration' && setIsActive10(true)
-        path == '/post-type' && setIsActive5(true)
+        path == '/create-vlog' && setIsActive11(true) || path == '/view-vlog' && setIsActive11(true) || path == '/vlog-configuration' && setIsActive11(true)
 
     }, [path])
 

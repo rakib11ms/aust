@@ -572,9 +572,9 @@ function ViewVlog() {
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
                                         <div class="input-group" data-aos="flip-up">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+                                            <input type="text" class="form-control inp shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
 
-                                            <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
+                                            <span class="input-group-text bg-white inp py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
                                     </div>
 

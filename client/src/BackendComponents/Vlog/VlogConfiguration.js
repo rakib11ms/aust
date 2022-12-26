@@ -6,6 +6,10 @@ import axios from 'axios';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 // import '../JobManagement.css'
+// import './JobManagement/JobManagement.css';
+
+import '../Job Management/JobManagement.css';
+
 
 
 import Modal from 'react-modal';

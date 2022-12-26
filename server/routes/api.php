@@ -293,14 +293,11 @@ Route::delete('/delete-multiple-banner/{id}', [BannerController::class, 'deleteM
 
 
 
-Route::get('/noti-check',function(){
-    $check=AdminNoticeNotification::with('users')->get();
-    return response()->json([
-         'check'=>$check
 
-    ]);
 
-});
+Route::get('/noti-check', [DashboardHomeController::class, 'check']);
+
+
 
 Route::post('/delete-banner-multiple-image/{id}', [BannerController::class, 'deleteBannerMultipleImage']);
 

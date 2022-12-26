@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-// import './event.css'
+import '../PostType/../PostType/Post.css';
 
 import MaterialTable from "material-table";
 import moment from 'moment';
@@ -559,10 +559,10 @@ function ViewAllBanner() {
                             <section className='view-event-header d-flex justify-content-center rounded-3 py-3 mt-3'>
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
-                                        <div class="input-group" data-aos="flip-up">
-                                            <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
+                                        <div class="input-group rounded-3" data-aos="flip-up">
+                                            <input type="text" class="form-control  inp shadow-sm" placeholder="Search.." aria-label="Username" aria-describedby="basic-addon1" />
 
-                                            <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
+                                            <span class="input-group-text bg-white inp py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
                                     </div>
 
