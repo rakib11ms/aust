@@ -18,6 +18,7 @@ function Sidebar() {
     const [isActive9, setIsActive9] = useState(false);
     const [isActive10, setIsActive10] = useState(false);
     const [isActive11, setIsActive11] = useState(false);
+    const [isActive12, setIsActive12] = useState(false);
     console.log('is active cheking', isActive)
 
 
@@ -554,6 +555,44 @@ function Sidebar() {
                                         <li>
                                             <Link to='/vlog-configuration' className={`text-form ${path == '/vlog-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Configuration</Link>
                                         </li>
+
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+
+
+                    <div className=''>
+
+                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive12(!isActive12)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i class="fa-solid fa-bell mt-1"></i>
+
+                                <h6 className='mx-2 mt-3'>Notification</h6>
+
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive11 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
+
+                            {
+                                isActive12 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/create-global-notification' className={`text-form ${path == '/create-global-notification' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/view-global-notification' className={`text-form ${path == '/view-global-notification' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
+                                        </li>
+
+
 
                                     </ul>
                                 </>

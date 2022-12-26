@@ -86,6 +86,9 @@ const CreateVlog = lazy(() => import('./BackendComponents/Vlog/CreateVlog'));
 const ViewVlog = lazy(() => import('./BackendComponents/Vlog/ViewVlog'));
 const EditVlog = lazy(() => import('./BackendComponents/Vlog/EditVlog'));
 const EditNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/EditNoticeNews'));
+
+const ViewNotification=lazy(()=>import('./BackendComponents/Notification/ViewNotification'));
+
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -264,6 +267,9 @@ function App() {
             <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
 
             <Route path="settings" element={<Settings />}></Route>
+
+
+            <Route path="view-global-notification" element={< ViewNotification/>}></Route>
 
 
 
