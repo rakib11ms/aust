@@ -101,7 +101,7 @@ class MobileAuthenticationController extends Controller
 
                 $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
-                $otp = rand(0, 99999);
+            $otp = mt_rand(00000, 99999);
 
                 $emailOtp = new LoginEmailOtp();
                 $emailOtp->user_id = $user->id;

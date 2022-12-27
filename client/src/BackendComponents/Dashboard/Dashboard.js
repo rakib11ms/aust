@@ -438,8 +438,8 @@ function Dashboard() {
                     </nav>
 
                     <section className="publication-content  px-2 mt-4 ">
-                        <div className="total-publication-card  row  ">
-                            <div className="total-pu-card-left    col-3 rounded-3 bg-white border d-flex flex-column  justify-content-center shadow-sm">
+                        <div className="total-publication-card  row  " style={{ cursor: 'pointer' }}>
+                            <div className="total-pu-card-left  col-3 rounded-3 border d-flex flex-column  justify-content-center shadow-sm" style={{ height: '150px' }}>
                                 {
                                     postTabSection == 'news' && <>
                                         <div className="d-flex">
@@ -501,7 +501,7 @@ function Dashboard() {
                                     </>
                                 }
 
-{
+                                {
                                     postTabSection == 'announcements' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{0}</h4>
@@ -535,7 +535,7 @@ function Dashboard() {
                                                 allActiveEvents.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border  border-success rounded-side bb px-1 " >
+                                                            <div className="cards border  border-success rounded-side bb px-1" style={{ height: '150px' }}>
                                                                 <Link to={`/edit-events/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
 
@@ -585,126 +585,7 @@ function Dashboard() {
                                                 })
 
                                             }
-                                            {/* <div className="cards border p-2 border-success rounded-side bb " >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-
-                                        
-                                        </div>
-
-                                        <div className="cards border p-2 border-success rounded-side bb" >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div>
-                                        <div className="cards border p-2 border-success rounded-side bb" >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div> */}
                                         </Slider>
                                     }
                                     {
@@ -718,7 +599,7 @@ function Dashboard() {
                                                 allActiveNoticeNews.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                            <div className="cards border p-2  border-success rounded-side bb " style={{ height: '150px' }}>
                                                                 <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
@@ -787,7 +668,7 @@ function Dashboard() {
                                                 allActiveBlogs.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '150px' }}>
                                                                 <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
@@ -855,7 +736,7 @@ function Dashboard() {
                                                 allActiveArticles.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb  " >
+                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '150px' }}>
                                                                 <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
@@ -992,7 +873,7 @@ function Dashboard() {
 
                     <section className="publication-content mt-2 px-2 ">
                         <div className="total-publication-card  mt-4 row">
-                            <div className="total-pu-card-left   col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3">
+                            <div className="total-pu-card-left   col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3" style={{ height: '150px' }}>
                                 <div className="d-flex">
                                     <h4 className="publiction-num">{totalNewJobs}</h4>
                                     <p className="mx-4 mt-1">New Jobs Are posted</p>
@@ -1020,7 +901,7 @@ function Dashboard() {
                                             allActiveJobs.map((item, i) => {
                                                 return (
 
-                                                    <div className="cards border p-2 border-success rounded-side bb ">
+                                                    <div className="cards border p-2 border-success rounded-side bb  ">
                                                         <Link to={`/edit-jobs/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                             <nav className="card-tops-con d-flex align-items-center justify-content-between ">
@@ -1069,7 +950,7 @@ function Dashboard() {
                                                             <div className="mt-3">
                                                                 <span>{item.job_title}</span>
                                                                 <div className="m-0 p-0"
-                                                                    dangerouslySetInnerHTML={{ __html: item.job_description.length > 100 ? `${item.job_description.substring(0, 50)}...` : item.job_description }}
+                                                                    dangerouslySetInnerHTML={{ __html: item.job_description.length > 50 ? `${item.job_description.substring(0, 50)}...` : item.job_description }}
                                                                 />
                                                                 <div className="d-flex justify-content-between fs-7 mt-3">
                                                                     <p className="">Deadline: <b> {item.application_deadline} </b></p>
@@ -1083,124 +964,7 @@ function Dashboard() {
                                                 )
                                             })
                                         }
-                                        {/* <div className="cards border p-2 border-success rounded-side bb " >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div> */}
-
-                                        {/* <div className="cards border p-2 border-success rounded-side bb" >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div>
-                                        <div className="cards border p-2 border-success rounded-side bb" >
-                                            <nav className="card-tops-con d-flex align-items-center justify-content-between ">
-
-
-
-                                                <div className="calenda-icon d-flex align-items-center ">
-                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                    <span className="mx-2 d-block  publiction-num"> 12,september 2022</span>
-
-
-
-                                                </div>
-                                                <div className="d-flex align-items-center">
-                                                    <div>
-                                                        <button className="btn btn-sm btn-success text-light px-2 m-0 p-0 rounded-pill">Top News</button>
-
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-trash d-block mx-2" aria-hidden="true"></i>
-
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-check form-switch form-check-sm mx-2">
-                                                            <input class="form-check-input form-check-sm" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-
-                                            </nav>
-                                            <div className="mt-3">
-                                                <p className="m-0 p-0">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ips...</p>
-                                            </div>
-                                        </div> */}
                                     </Slider>
                                 </div>
 
@@ -1300,10 +1064,12 @@ function Dashboard() {
                                                     </div>
 
                                                     <div class="content py-3 px-2">
-                                                        {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
+                                                        <div className="p-0 mt-2">
+                                                            {item.advertisement_title}
+                                                        </div>
 
                                                         <div className="p-0 mt-2"
-                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
+                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 100 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
                                                         />
                                                         <div class="footer-con ">
                                                             <div class="">

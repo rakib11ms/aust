@@ -90,30 +90,19 @@ class BannerController extends Controller
 
     public function update(Request $request,$id){
 
+
               $banner = Banner::find($id);
-        //      if ($request->file('image')) {
-        //     foreach ($request->file('image') as $image) {
-
-        //         $upload_image_name = time() . $image->getClientOriginalName();
-        //         $image->move('images/', $upload_image_name);
-        //         $name[] = $upload_image_name;
-
-        //         $banner->image =  implode(', ', $name);
-        //         // $event->save();   
-        //     }
-        // }
-
-
 
            $banner->banner_title = $request->banner_title;
            $banner->posted_by = auth('sanctum')->user()->id;
            $banner->updated_by = auth('sanctum')->user()->id;
            $banner->banner_description = $request->banner_description;
+           // $banner->update();
 
-            $banner->update();
 
+           if($request->file('image')){
 
-               foreach ($request->file('image') as $image) {
+            foreach($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('images/', $upload_image_name);
@@ -121,8 +110,10 @@ class BannerController extends Controller
             $banner_multiple_image=new BannerMultipleImage();
             $banner_multiple_image->banner_id=$banner->id;
             $banner_multiple_image->image=$upload_image_name;
-            $banner_multiple_image->update();
+            $banner_multiple_image->save();
         }
+     }
+
 
             $count = Banner::orderBy('id','desc')->get()->count();
 

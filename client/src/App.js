@@ -153,6 +153,7 @@ function App() {
       localStorage.setItem('image', successStatus.image);
       localStorage.setItem('email', successStatus.email);
       localStorage.setItem('user_type', successStatus.user_type);
+      localStorage.setItem('user_id', successStatus.user_id);
       if (successStatus.user_type === 'admin') {
 
         navigate('/admin-dashboard')

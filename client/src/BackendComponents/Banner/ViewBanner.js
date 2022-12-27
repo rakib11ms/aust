@@ -57,87 +57,87 @@ function ViewAllBanner() {
 
 
 
-    const archiveBanner = (e, id) => {
+    // const archiveBanner = (e, id) => {
 
-        if (id.isArchived == 0) {
+    //     if (id.isArchived == 0) {
 
-            const formData = new FormData();
+    //         const formData = new FormData();
 
-            // formData.append('_method', 'PUT');
+    //         // formData.append('_method', 'PUT');
 
-            formData.append('posted_by', id.posted_by);
-            formData.append('update_by', id.update_by);
-            formData.append('banner_description', id.banner_description);
-            formData.append('image', id.image);
-            formData.append('isArchived', 1);
-            formData.append('banner_title', id.banner_title);
+    //         formData.append('posted_by', id.posted_by);
+    //         formData.append('update_by', id.update_by);
+    //         formData.append('banner_description', id.banner_description);
+    //         formData.append('image', id.image);
+    //         formData.append('isArchived', 1);
+    //         formData.append('banner_title', id.banner_title);
 
-            axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
+    //         axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
+    //             if (res.data.status == 200) {
 
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
+    //                 // Swal.fire(res.data.message, '', 'success')
+    //                 window.location.reload();
 
-                    setRenderAllBanners(res.data);
+    //                 setRenderAllBanners(res.data);
 
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
+    //                 // setIdChange('');
+    //                 // closeAddPostCategoryModal();
+    //                 // setAddPostType({
+    //                 //     type_name: "",
+    //                 //     created_by: '',
+    //                 //     error_list: []
 
-                    // });
+    //                 // });
 
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+    //             }
+    //             // else if (res.data.status == 400) {
+    //             //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+    //             //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
 
-                // }
-            })
+    //             // }
+    //         })
 
-        }
-        if (id.isArchived == 1) {
+    //     }
+    //     if (id.isArchived == 1) {
 
-            const formData = new FormData();
+    //         const formData = new FormData();
 
-            // formData.append('_method', 'PUT');
+    //         // formData.append('_method', 'PUT');
 
-            formData.append('posted_by', id.posted_by);
-            formData.append('update_by', id.update_by);
-            formData.append('banner_description', id.banner_description);
-            formData.append('image', id.image);
-            formData.append('isArchived', 0);
-            formData.append('banner_title', id.banner_title);
+    //         formData.append('posted_by', id.posted_by);
+    //         formData.append('update_by', id.update_by);
+    //         formData.append('banner_description', id.banner_description);
+    //         formData.append('image', id.image);
+    //         formData.append('isArchived', 0);
+    //         formData.append('banner_title', id.banner_title);
 
-            axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
+    //         axios.post(`/api/update-banner/${id.id}`, formData).then(res => {
+    //             if (res.data.status == 200) {
 
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
+    //                 // Swal.fire(res.data.message, '', 'success')
+    //                 window.location.reload();
 
-                    setRenderAllBanners(res.data);
+    //                 setRenderAllBanners(res.data);
 
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
+    //                 // setIdChange('');
+    //                 // closeAddPostCategoryModal();
+    //                 // setAddPostType({
+    //                 //     type_name: "",
+    //                 //     created_by: '',
+    //                 //     error_list: []
 
-                    // });
+    //                 // });
 
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+    //             }
+    //             // else if (res.data.status == 400) {
+    //             //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+    //             //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
 
-                // }
-            })
+    //             // }
+    //         })
 
-        }
-    }
+    //     }
+    // }
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
     // console.log('pip', storageData)
@@ -244,10 +244,10 @@ function ViewAllBanner() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-            
+
                 <div className=''>
 
-{
+                    {
                         row.banner_image !== undefined &&
                         <img className="rounded" src={`${global.img_url}/images/${row.banner_image[0].image}`} width="100px" height="70px" alt="No Image" />
 
@@ -295,9 +295,8 @@ function ViewAllBanner() {
                                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                                 </div>
 
-
+{/* 
                                 <div className='text-secondary mx-2' onClick={(e) => archiveBanner(e, row)}>
-                                    {/* <i className='fa fa-archive mx-2 icon-table-archive'></i>  */}
 
                                     {
                                         row.isArchived == 1 ? <i class="fa fa-archive mx-2 icon-table-archive text-danger"></i> :
@@ -306,9 +305,9 @@ function ViewAllBanner() {
 
                                     }
 
-                                </div>
+                                </div> */}
 
-                             
+
 
 
                                 <div className='text-secondary mx-2'>
@@ -344,18 +343,18 @@ function ViewAllBanner() {
                             }
                             {
                                 row.isArchived == 0 &&
-                                <span className=' bg-info d-inline p-2 px-3 rounded-1'>Published</span>
+                                <span className=' bg-info d-inline p-2 px-3 rounded-1 '>Published</span>
 
                             }
                             {/* <span className='mx-2'>{row.isArchived==1?"Archived":'Published'}</span> */}
                         </div>
-                        <div class="d-flex mt-4 text-secondary"  >
+                        <div class="d-flex mt-2 text-secondary"  >
                             <div className='d-flex d-inline-block py-1 '>
                                 <div>
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <div className='mx-2'>
-                                    <span>{moment(row.created_at).format('LL')}</span>
+                                    <span> Published Date: {moment(row.created_at).format('LL')}</span>
                                 </div>
                             </div>
 
@@ -720,7 +719,7 @@ function ViewAllBanner() {
                                                 <Slider {...settings}>
 
                                                     {
-                                                        viewBanner.banner_image !==undefined &&  viewBanner.banner_image.map((item, i) => {
+                                                        viewBanner.banner_image !== undefined && viewBanner.banner_image.map((item, i) => {
                                                             return (
                                                                 <>
                                                                     <div class="rounded-3">

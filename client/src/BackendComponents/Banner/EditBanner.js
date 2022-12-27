@@ -196,8 +196,24 @@ function EditBanner() {
             }
         })
 
-    }, [renderData])
+    }, [])
 
+
+    
+
+    useEffect(() => {
+        axios.get(`/api/edit-banner/${editId}`).then(res => {
+            if (res.data.status == 200) {
+             
+                setAllImagesfromDatabase(res.data.banner_images)
+
+
+                // setPicture(res.data.post.image)
+
+            }
+        })
+
+    }, [renderData])
 
 
 

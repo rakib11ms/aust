@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import './Post.css';
+// import '.ostType/Post.css';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
@@ -210,7 +210,7 @@ function CreateBanner() {
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="banner_title" value={bannerState.banner_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="banner_title" value={bannerState.banner_title}  required />
 
                                                 </div>
 
@@ -226,7 +226,7 @@ function CreateBanner() {
                                                     <div class="">
                                                         <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
+                                                        <input class="form-control"   required type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
                                                         />
 
                                                         <div className='d-flex mt-2 ' >

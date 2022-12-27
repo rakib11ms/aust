@@ -136,7 +136,7 @@ class EventController extends Controller
 
 
 
-        $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+    $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
 
@@ -164,6 +164,7 @@ class EventController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
         $response = curl_exec($ch);
+
 
 
 

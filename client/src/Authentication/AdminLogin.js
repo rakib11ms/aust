@@ -50,6 +50,7 @@ function AdminLogin({ handleSucessLogin }) {
             user_type: res.data.user_type,
             token: res.data.token,
             email: res.data.email,
+            user_id: res.data.user_id,
             status: 'yes'
           }
           // update(admin_auth)

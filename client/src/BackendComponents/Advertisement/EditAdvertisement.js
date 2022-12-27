@@ -321,7 +321,18 @@ function EditAdvertisement() {
 
     }
 
+    const[renderImageData,setRenderImageData]=useState('')
 
+
+    useEffect(()=>{
+        axios.get(`/api/edit-advertisement/${id}`).then(res => {
+            if (res.data.status == 200) {
+           
+                setAllImagesfromDatabase(res.data.advertisement_images)
+
+            }
+        })
+    },[renderImageData])
 
 
     return (
@@ -421,8 +432,7 @@ function EditAdvertisement() {
                                                                                     {
                                                                                         axios.post(`/api/delete-advertisement-multiple-image/${item.id}`).then(res => {
                                                                                             if (res.data.status == 200) {
-                                                                                                setRenderData(res.data)
-                                                                                            }
+                                                                                                setRenderImageData(res.data)                                                                                            }
                                                                                         })
                                                                                     }
 

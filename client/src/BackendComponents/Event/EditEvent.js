@@ -278,7 +278,18 @@ function EditEvent() {
 
 
 
+    const[renderImageData,setRenderImageData]=useState('')
 
+
+    useEffect(()=>{
+        axios.get(`/api/edit-event/${id}`).then(res => {
+            if (res.data.status == 200) {
+           
+                setAllImagesfromDatabase(res.data.event_images)
+
+            }
+        })
+    },[renderImageData])
 
     return (
         <div className="container-fluid">
@@ -656,7 +667,7 @@ function EditEvent() {
                                                                     {
                                                                         axios.post(`/api/delete-event-multiple-image/${item.id}`).then(res => {
                                                                             if (res.data.status == 200) {
-                                                                                setRenderData(res.data)
+                                                                                setRenderImageData(res.data)
                                                                             }
                                                                         })
                                                                     }
