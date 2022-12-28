@@ -73,9 +73,6 @@ class User extends Authenticatable
    //      return $this->belongsTo('App\Models\AusttaaCompanyName','batch');
    //  }
 
-    public function role()
-{
-    return $this->belongsTo('App\Models\Role','user_role');
-}
+
 
 }

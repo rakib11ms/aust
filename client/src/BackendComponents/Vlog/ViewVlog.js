@@ -366,7 +366,7 @@ function ViewVlog() {
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
                 </div>
 
-                <div className='mx-2' onClick={(e) => archiveVlog(e, row)}>
+                {/* <div className='mx-2' onClick={(e) => archiveVlog(e, row)}>
                     {
                         row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
                             <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
@@ -376,7 +376,7 @@ function ViewVlog() {
 
 
 
-                </div>
+                </div> */}
 
 
                 {/* <div className='text-secondary'>

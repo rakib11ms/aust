@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import './imageUrl';
+// import PostConfiguration from './BackendComponents/PostType/PostConfiguration';
 
 // import AdminLogin from './Authentication/AdminLogin';
 
@@ -88,6 +89,8 @@ const EditVlog = lazy(() => import('./BackendComponents/Vlog/EditVlog'));
 const EditNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/EditNoticeNews'));
 
 const ViewNotification=lazy(()=>import('./BackendComponents/Notification/ViewNotification'));
+const CreateNotification=lazy(()=>import('./BackendComponents/Notification/CreateNotification'));
+const PostConfiguration=lazy(()=>import('./BackendComponents/PostType/PostConfiguration'));
 
 function App() {
 
@@ -205,6 +208,7 @@ function App() {
 
             <Route path="admin-dashboard" element={<Dashboard />}></Route>
             <Route path="post-type" element={<PostType />}></Route>
+            <Route path="post-configuration" element={<PostConfiguration/>}></Route>
             <Route path="job-configuration" element={<JobConfiguration />}></Route>
             <Route path="create-job-post" element={<CreateJobPost />}></Route>
             <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
@@ -271,6 +275,8 @@ function App() {
 
 
             <Route path="view-global-notification" element={< ViewNotification/>}></Route>
+            <Route path="create-global-notification" element={< CreateNotification/>}></Route>
+            
 
 
 

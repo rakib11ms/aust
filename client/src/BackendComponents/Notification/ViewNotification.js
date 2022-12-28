@@ -322,15 +322,15 @@ function ViewNotification() {
                         </div>
                         <div className='mx-3 mb-3'>
 
-                        <i class="fa-solid fa-signs-post"></i>
+                            <i class="fa-solid fa-signs-post"></i>
                             <span className='mx-2'>EMERGENCY</span>
                         </div>
                         <div className='mx-3  d-flex justify-content-center text-center align-items-center' style={{ width: '200px', height: "30px" }}>
-                            <div className='px-2 bg-success p-2 text-white opacity-50 flex-grow-1 py-2' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px'}}>
+                            <div className='px-2 bg-success p-2 text-white opacity-50 flex-grow-1 py-2' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
 
                                 <span className=''> 200 Succecss</span>
                             </div>
-                            <div className='px-2 bg-warning flex-grow-1 py-2' style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px'}}>
+                            <div className='px-2 bg-warning flex-grow-1 py-2' style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
 
                                 <span className=''>300 UnSuccess</span>
                             </div>
@@ -647,12 +647,13 @@ function ViewNotification() {
                         <div className='container-fluid' style={{ color: '#777777' }}>
 
                             <div className='button-create my-3 float-end'>
-                                <button className='btn btn-success px-3'>+ Create</button>
+                                <Link to="/create-global-notification"> <button className='btn btn-success px-3'>+ Create</button> </Link>
 
                             </div>
 
 
                             <div className='d-flex  pt-5'>
+                                
                                 <div>
                                     <p className='fs-6'>For All</p>
                                 </div>

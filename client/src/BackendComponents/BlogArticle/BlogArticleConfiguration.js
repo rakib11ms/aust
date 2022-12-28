@@ -9,6 +9,8 @@ import Topbar from '../Dashboard/Topbar';
 import './blogarticle.css';
 import MaterialTable from "material-table";
 import moment from 'moment';
+// import '../JobManagement.css'
+import '../Job Management/JobManagement.css';
 
 import Modal from 'react-modal';
 function BlogArticleConfiguration() {

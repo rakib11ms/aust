@@ -497,8 +497,8 @@ function ViewAllUsers() {
                         </div>
                     </div>
 
-                    <div className='text-bottom p-0'>
-                        <h3 className="title-text-h">Contact Info</h3>
+                    <div className='text-bottom '>
+                        <h3 className="title-text-h px-3">Contact </h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
 

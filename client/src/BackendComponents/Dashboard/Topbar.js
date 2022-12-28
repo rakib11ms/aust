@@ -73,9 +73,18 @@ function Topbar() {
                                 clickedIcon && totalUnread > 0 &&
 
 
-                                <div className=' mt-3 fs-6' style={{ position: "fixed", marginLeft: "-25%", zIndex: '1200' }}>
+                                <div className=' mt-3 fs-6' style={{ position: "fixed", marginLeft: "-25%", zIndex: '1200',overflowY:'scroll'}}>
                                     <div class="alert alert-secondary bg-white shadow-sm " role="alert">
 
+                                    <button className='d-block btn btn-light d-block w-100 text-success  ms-auto fw-700' type='button' onClick={() => {
+                                            axios.get(`/api/all-read-notification-through-posts`).then(res => {
+                                                if (res.data.status == 200) {
+
+                                                    setRender(res.data)
+                                                }
+                                            });
+                                        }
+                                        }>Mark all read</button>
                                         {
                                             allUnreadNotification.map((item, i) => {
                                                 return (
@@ -94,7 +103,7 @@ function Topbar() {
                                         }
 
 
-
+{/* 
                                         <button className='d-block btn btn-light w-100 fw-700' type='button' onClick={() => {
                                             axios.get(`/api/all-read-notification-through-posts`).then(res => {
                                                 if (res.data.status == 200) {
@@ -103,7 +112,7 @@ function Topbar() {
                                                 }
                                             });
                                         }
-                                        }>Mark all read</button>
+                                        }>Mark all read</button> */}
 
                                     </div>
 

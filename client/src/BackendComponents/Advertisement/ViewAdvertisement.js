@@ -634,7 +634,7 @@ function ViewAllAdvertisement() {
                                                 <div className='mx-3'>
 
 
-                                                    <Link to="/create-advertisement"><button className='btn px-4 rounded-pill shadow-sm border' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
+                                                    <Link to="/create-advertisement"><button className='btn px-4 rounded-pill shadow-sm border ' style={{ color: "#4F4F4F", fontWeight: '450' }}> <span>+ </span>Create </button></Link>
 
                                                 </div>
 

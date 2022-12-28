@@ -25,6 +25,7 @@ use App\Http\Controllers\Backend\AusttaaBatchController;
 use App\Http\Controllers\Backend\AusttaaBloodGroupController;
 use App\Http\Controllers\Backend\AusttaaStreamController;
 use App\Http\Controllers\Backend\ViewAllUserController;
+use App\Http\Controllers\Backend\GlobalNotificationController;
 
 use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
@@ -414,7 +415,11 @@ Route::get('/edit-vlog/{id}', [VlogController::class, 'edit']);
 Route::post('/update-vlog/{id}', [VlogController::class, 'update']);
 Route::delete('/delete-vlog/{id}', [VlogController::class, 'destroy']);
 
+//web admin global notification create view start
 
+Route::post('/create-global-notification', [GlobalNotificationController::class, 'store']);
+
+//web admin global notification create view end
 
 
 

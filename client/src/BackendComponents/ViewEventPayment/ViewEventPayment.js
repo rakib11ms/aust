@@ -355,7 +355,7 @@ function ViewEventPayment() {
             },
         },
     ];
-   
+
 
 
 
@@ -434,12 +434,12 @@ function ViewEventPayment() {
         setSelectedRowsIds(result);
 
     }
-   
 
 
 
 
-   
+
+
 
 
     const handleAllBlogArticletatus = (e) => {
@@ -613,7 +613,7 @@ function ViewEventPayment() {
                                             }}
 
                                         />
-                                        
+
 
 
                                     </div>

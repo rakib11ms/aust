@@ -91,7 +91,7 @@ function CreateVlog() {
     axios.post(`/api/add-vlog`, formData).then(res => {
                 if (res.data.status == 200) {
                     Swal.fire(res.data.message, '', 'success')
-                    // navigate('/view-all-jobs')
+                    navigate('/view-vlog')
                     setaddVlog({
                         category_id:'',
                         streaming_link:'',
@@ -127,7 +127,7 @@ function CreateVlog() {
                             <div className='card mt-3'>
                                 <div className='card-header d-flex align-items-center justify-content-between'>
                                     <h5>Create a Vlog</h5>
-                                   <Link to="/view-all-jobs"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
+                                   <Link to="/view-vlog"> <button className='btn btn-sm btn-success float-end'>Back</button></Link>
 
                                 </div>
                                 <div className='card-body px-4'>

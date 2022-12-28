@@ -1,4 +1,4 @@
-    import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 
 import Swal from 'sweetalert2';
@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
-// import './blogarticle.css';
+import '../Job Management/JobManagement.css';
 import MaterialTable from "material-table";
 import moment from 'moment';
 

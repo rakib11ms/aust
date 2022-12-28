@@ -65,12 +65,14 @@ function Sidebar() {
 
         path == '/view-all-jobs' && setIsActive3(true) || path == '/job-configuration' && setIsActive3(true) || path == '/create-job-post' && setIsActive3(true)
         path == '/view-all-users' && setIsActive(true) || path == '/role-management' && setIsActive(true) || path == '/user-configuration' && setIsActive(true)
-        path == 'view-blog-article' && setIsActive4(true) || path == '/create-blog-article' && setIsActive4(true) || path == '/blog-article-configuration' && setIsActive4(true)
+        path == '/view-blog-article' && setIsActive4(true) || path == '/create-blog-article' && setIsActive4(true) || path == '/blog-article-configuration' && setIsActive4(true)
+        path == '/post-type' && setIsActive5(true) || path == '/post-configuration' && setIsActive5(true)
         path == '/create-event' && setIsActive6(true) || path == '/view-all-events' && setIsActive6(true) || path == '/event-configuration' && setIsActive6(true) || path == '/view-event-payment ' && setIsActive6(true)
         path == '/create-advertisement' && setIsActive7(true) || path == '/view-all-advertisement' && setIsActive7(true)
         path == '/view-all-banner' && setIsActive8(true) || path == '/create-banner' && setIsActive8(true)
         path == '/view-notice-news' && setIsActive10(true) || path == '/create-notice-news' && setIsActive10(true) || path == '/notice-news-configuration' && setIsActive10(true)
         path == '/create-vlog' && setIsActive11(true) || path == '/view-vlog' && setIsActive11(true) || path == '/vlog-configuration' && setIsActive11(true)
+        path == '/create-global-notification' && setIsActive12(true) || path == '/view-global-notification' && setIsActive12(true)
 
     }, [path])
 
@@ -321,15 +323,11 @@ function Sidebar() {
                                         <li>
                                             <Link to='/post-type' className={`text-form ${path == '/post-type' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >User Posts </Link>
                                         </li>
-                                        {/* <li>
-                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>About</a>
-                                        </li>
                                         <li>
-                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Contact</a>
+                                            <Link to='/post-configuration' className={`text-form ${path == '/post-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >Configuration </Link>
+
                                         </li>
-                                        <li>
-                                            <a href='' className={`text-form ${path == '/create-event' ? 'text-warning' : 'text-light '}`}>Home</a>
-                                        </li> */}
+                                        
                                     </ul>
                                 </>
 

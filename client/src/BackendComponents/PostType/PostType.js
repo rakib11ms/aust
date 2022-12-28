@@ -954,7 +954,7 @@ function PostType() {
                                             <h6 className='mt-1' > + Category</h6>
 
                                         </div>
-                                        <span className=''> View All Categories </span>
+                                        <Link to="/post-configuration" class="text-decoration-none"><span className=''> View All Categories </span> </Link>
                                     </div>
 
 

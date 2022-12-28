@@ -95,3 +95,37 @@
   font-family: Georgia, serif;
   width:240px;
 }
+
+.icon-table-trash{
+  color: #F24E1E;
+  font-size: 18px;
+}
+
+.icon-table-archive{
+  font-size: 18px;
+  color: #777777;
+
+}
+
+
+.table-filter-tab{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #f1f1f1; */
+  cursor: pointer;
+}
+
+.table-filter-menus>h6{
+  color: #777777;
+}
+
+.input-search {
+  width: 60%;
+}
+.inp{
+  /* background-color: red; */
+  padding:13px;
+  /* border:0; */
+  border-radius: 10px;
+}
