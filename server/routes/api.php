@@ -417,7 +417,9 @@ Route::delete('/delete-vlog/{id}', [VlogController::class, 'destroy']);
 
 //web admin global notification create view start
 
+Route::get('/all-global-notification', [GlobalNotificationController::class, 'index']);
 Route::post('/create-global-notification', [GlobalNotificationController::class, 'store']);
+Route::get('/filtering-global-notification/{name}', [GlobalNotificationController::class, 'filteringNotification']);
 
 //web admin global notification create view end
 

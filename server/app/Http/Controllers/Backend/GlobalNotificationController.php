@@ -12,6 +12,84 @@ use Illuminate\Support\Facades\Mail;
 
 class GlobalNotificationController extends Controller
 {
+
+      public function index(){
+
+            $all_global=GlobalNotification::all();
+
+
+
+    return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+
+
+   }
+
+
+
+
+   public function filteringNotification($name){
+
+    // dd(GlobalNotification::where('for_moderator',1)->get());
+        if($name=='all'){
+        $all_global=GlobalNotification::where('for_all_users',1)->get();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+    
+        }
+        else if($name=='alumni'){
+     $all_global=GlobalNotification::where('for_alumni',1)->get();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+        }
+           else if($name=='admin'){
+     $all_global=GlobalNotification::where('for_admin',1)->get();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+        }
+        else if($name=='moderator'){
+  $all_global=GlobalNotification::where('for_moderator',1)->get();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+        }
+    else if($name=='staff'){
+  $all_global=GlobalNotification::where('for_staff',1)->get();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global,
+    
+    ]);
+        }
+        else{
+  $all_global=GlobalNotification::all();
+           return response()->json([
+        'status'=>200,
+        'all_global'=>$all_global
+    ]);
+        }
+}
+
+
+
+
+
+
+
     public function store(Request $request){
 
 // $change_role= User::where('id',30)->first(); 
@@ -41,7 +119,7 @@ $alumni = User::role('alumni')->get();
         $global_notification->push_notification = $request->push_notification;
         $global_notification->posted_by = $request->posted_by;
         $global_notification->updated_by = $request->updated_by;
-        $global_notification->save();
+        // $global_notification->save();
 
         if($request->for_admin==1){
             if($request->notification_both==1){
@@ -120,7 +198,8 @@ $alumni = User::role('alumni')->get();
         }
         }
     
-    
+            $global_notification->save();
+
 
 
     return response()->json([

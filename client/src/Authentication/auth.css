@@ -27,3 +27,12 @@
 
 
 }
+
+.foter{
+    /* -webkit-transform: skewx(14deg); */
+    font-size: small;
+    margin-left: 120px;
+    position: fixed;
+    bottom: 0px;
+
+}

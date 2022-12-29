@@ -17,13 +17,15 @@ use DateTime;
 use App\Mail\EventMail;
 use App\Models\AusstaEvent;
 use App\Mail\ResetPassword;
+use Spatie\Permission\Models\Role;
+
 class ViewAllUserController extends Controller
 {
        public function allUsers()
     {
 
 
-         $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->get();
+         $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->get();
 
 
         return response()->json([

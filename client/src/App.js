@@ -2,6 +2,8 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import './imageUrl';
+// import TermCondition from './PrivacyPolicy/TermCondition';
+// import PrivacyPolicy from './PrivacyPolicy/PrivacyPolicy';
 // import PostConfiguration from './BackendComponents/PostType/PostConfiguration';
 
 // import AdminLogin from './Authentication/AdminLogin';
@@ -92,6 +94,9 @@ const ViewNotification=lazy(()=>import('./BackendComponents/Notification/ViewNot
 const CreateNotification=lazy(()=>import('./BackendComponents/Notification/CreateNotification'));
 const PostConfiguration=lazy(()=>import('./BackendComponents/PostType/PostConfiguration'));
 
+
+const TermCondition=lazy(()=>import('./PrivacyPolicy/TermCondition'));
+const PrivacyPolicy=lazy(()=>import('./PrivacyPolicy/PrivacyPolicy'));
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -189,6 +194,11 @@ function App() {
 
           <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
           <Route path="admin-password-reset/:id" element={<AdminPasswordReset />}></Route>
+
+
+
+          <Route path="term-conditions" element={<TermCondition />}></Route>
+          <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
 
 
 

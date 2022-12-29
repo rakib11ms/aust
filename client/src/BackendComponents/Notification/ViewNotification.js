@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-// import '../JobManagement.css'
+import './notification.css'
 
 import MaterialTable from "material-table";
 import moment from 'moment';
@@ -17,16 +17,18 @@ import { Paper } from '@mui/material';
 function ViewNotification() {
     const [loading, setLoading] = useState(true);
 
-    const [allJobPosts, setallJobPosts] = useState([]);
+    const [allGlobalNotification, setallGlobalNotification] = useState([]);
+
+    console.log('all global notification', allGlobalNotification)
     const [totalActiveJobs, settotalActiveJobs] = useState([]);
     const [totalPendingJobs, settotalPendingJobs] = useState([]);
 
     console.log('totalActiveJobs', totalActiveJobs)
 
 
-    const [renderAllJobPosts, setRenderAllJobPosts] = useState('');
+    const [renderAllGlobalNotification, setRenderAllGlobalNotification] = useState('');
 
-    // console.log('all posts check', allJobPosts)
+    // console.log('all posts check', allGlobalNotification)
 
     //add functionality for post category
 
@@ -34,271 +36,21 @@ function ViewNotification() {
 
 
 
-
-    const formData = new FormData();
-
-    const handlePostApproval = (e, id) => {
-
-        if (e.target.checked === true) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllJobPosts(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-        if (e.target.checked == false) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllJobPosts(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-    }
-
-    const archiveJobPost = (e, id) => {
-        if (id.isArchived == 0) {
-
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 1);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllJobPosts(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-        if (id.isArchived == 1) {
-
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 0);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    setRenderAllJobPosts(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-
-    }
     const navigate = useNavigate();
-    const [storageData, setstorageData] = useState()
-    // console.log('pip', storageData)
-
-    const customStyles1 = {
-        content: {
-            // marginTop: '70px',
-            top: '45vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "60vw",
-            height: "90vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
-
-    const [viewJobPostDescription, setViewJobPostDescription] = useState('');
-
-
-    const [viewJobPostModalIsOpen, setviewJobPostModalIsOpen] = useState(false);
-    function openViewJobPostModal(e, viewJobPost) {
-        e.preventDefault();
-        setViewJobPostDescription(viewJobPost)
-        setviewJobPostModalIsOpen(true)
-    }
-    function closeViewJobPostModal(e) {
-        setviewJobPostModalIsOpen(false);
-
-    }
-
-
-
 
 
 
     useEffect(() => {
-        axios.get(`/api/all-job-post`).then(res => {
+        axios.get(`/api/all-global-notification`).then(res => {
             if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
-                settotalActiveJobs(res.data.total_active_jobs)
-                settotalPendingJobs(res.data.pending_jobs)
+                setallGlobalNotification(res.data.all_global);
                 setLoading(false);
 
             }
         })
-        Modal.setAppElement('body');
+        // Modal.setAppElement('body');
 
-    }, [renderAllJobPosts])
-
-
-    const deleteJobPost = (e, id) => {
-
-        e.preventDefault();
-        const thisClicked = e.currentTarget;
-        //  thisClicked.innerText = "Deleting";
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-job-post/${id}`).then(res => {
-                    if (res.data.status === 200) {
-                        thisClicked.closest("tr").remove();
-                        //   swal("Success", res.data.message, "success");
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'Your data has been deleted.',
-                    'success'
-                )
-            }
-        })
-
-
-    }
-
+    }, [])
 
     const columns = [
         // {
@@ -317,33 +69,38 @@ function ViewNotification() {
 
                         <div className=''>
 
-                            <p> 21 Dec,2022 | <span> 8 Am</span></p>
+                            <p> {moment(row.created_at).format('LL')} | <span> {moment(row.created_at).format('LT')} </span></p>
 
                         </div>
                         <div className='mx-3 mb-3'>
 
                             <i class="fa-solid fa-signs-post"></i>
-                            <span className='mx-2'>EMERGENCY</span>
+                            <span className='mx-2'>{row.priority.toUpperCase()}</span>
                         </div>
                         <div className='mx-3  d-flex justify-content-center text-center align-items-center' style={{ width: '200px', height: "30px" }}>
                             <div className='px-2 bg-success p-2 text-white opacity-50 flex-grow-1 py-2' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
 
-                                <span className=''> 200 Succecss</span>
+                                <span className=''> 10 Succecss</span>
                             </div>
                             <div className='px-2 bg-warning flex-grow-1 py-2' style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
 
-                                <span className=''>300 UnSuccess</span>
+                                <span className=''>0 UnSuccess</span>
                             </div>
                         </div>
                     </div>
 
                     <div className=''>
-                        <h6>Notification  Title</h6>
+                        <h6>{row.notification_title}</h6>
                     </div>
 
                     <div className='' style={{ color: '#777777' }}>
 
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.  Lorem Ipsum hasLorem Ipsum ha  Lorem Ipsum hasLorem Ipsum ha Lorem Ipsum hasLorem Ipsum has Lorem Ipsum has been th</p>
+                        <p>
+
+                            {
+                                row.notification_body
+                            }
+                        </p>
 
                     </div>
                 </div>
@@ -511,125 +268,67 @@ function ViewNotification() {
 
 
 
-    const [jobPostFiltering, setjobPostFiltering] = useState('all');
+    // const [jobPostFiltering, setjobPostFiltering] = useState('all');
 
-    // console.log('filtered post val',allJobPosts)
-    console.log('filter click check', jobPostFiltering)
+    // // console.log('filtered post val',allGlobalNotification)
+    // console.log('filter click check', jobPostFiltering)
 
 
-    useEffect(() => {
-        axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
+    // useEffect(() => {
+    //     axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallGlobalNotification(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
+
+    // }, [jobPostFiltering])
+
+
+
+
+    // const deleteAllRecords = (e) => {
+
+    //     e.preventDefault();
+
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
+    //                 if (res.data.status === 200) {
+    //                     setRenderAllGlobalNotification(res.data)
+    //                     // window.location.reload();
+    //                 }
+    //             });
+    //             Swal.fire(
+    //                 'Deleted!',
+    //                 'All Posts deleted successfully',
+    //                 'success'
+    //             )
+    //         }
+    //     })
+
+
+    // }
+
+    const [activeNav,setactiveNav]=useState('moderator')
+
+    useEffect(()=>{
+        axios.get(`/api/filtering-global-notification/${activeNav}`).then(res => {
             if (res.data.status == 200) {
-                setallJobPosts(res.data.posts);
+                setallGlobalNotification(res.data.all_global);
                 setLoading(false);
+
             }
         })
-
-    }, [jobPostFiltering])
-
-    const [selectedRowsLength, setselectedRowsLength] = useState(0);
-    // console.log("selcted rows",selectedRowsLength)
-    const [selectedRowsIds, setSelectedRowsIds] = useState([]);
-    console.log("selcted rows ids", selectedRowsIds)
-
-
-
-    const selectionCheck = (selectedRows) => {
-
-        setselectedRowsLength(selectedRows.length)
-
-        // setSelectedRowsIds(selectedRows)
-        let result = selectedRows.map(a => a.id);
-        // console.log('result',result)
-
-        setSelectedRowsIds(result);
-
-
-    }
-
-
-
-
-    const deleteAllRecords = (e) => {
-
-        e.preventDefault();
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
-                    if (res.data.status === 200) {
-                        setRenderAllJobPosts(res.data)
-                        // window.location.reload();
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'All Posts deleted successfully',
-                    'success'
-                )
-            }
-        })
-
-
-    }
-
-
-    const handleAllJobStatus = (e) => {
-
-        if (e.target.value === 'archive') {
-            axios.put(`/api/archive-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    // window.location.reload();
-                    setallJobPosts(res.data.posts)
-                    setRenderAllJobPosts(res.data);
-
-                }
-
-            })
-        }
-        else if (e.target.value === 'active') {
-            axios.put(`/api/active-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    // window.location.reload();
-                    setallJobPosts(res.data.posts)
-
-                    setRenderAllJobPosts(res.data);
-
-                }
-
-            })
-        }
-        else if (e.target.value === 'pending') {
-            axios.put(`/api/pending-all-job-posts-by-update/${selectedRowsIds}`).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    // window.location.reload();
-                    setallJobPosts(res.data.posts)
-
-                    setRenderAllJobPosts(res.data);
-
-                }
-
-            })
-        }
-        else {
-
-        }
-    }
-
+    },[activeNav])
 
 
 
@@ -653,8 +352,8 @@ function ViewNotification() {
 
 
                             <div className='d-flex  pt-5'>
-                                
-                                <div>
+
+                                {/* <div>
                                     <p className='fs-6'>For All</p>
                                 </div>
                                 <div className='mx-4'>
@@ -668,6 +367,10 @@ function ViewNotification() {
                                 </div>
                                 <div className='mx-4'>
                                     <p className='fs-6'>For Staff</p>
+                                </div> */}
+
+                                <div className='text-success'>
+                                    <h5>All Global Notification </h5>
                                 </div>
                             </div>
 
@@ -680,18 +383,35 @@ function ViewNotification() {
 
                         <div className='nottification-table-body mt-1 mx-3 card'>
 
-                            <div className='card-header bg-white'>
-                                <h6 className='' style={{ color: "#777777" }}>View All Global notification</h6>
+                            <div className='card-header bg-white py-0'>
+                                {/* <h6 className='' style={{ color: "#777777" }}>View All Global notification</h6> */}
+                                <div className='d-flex mt-2  ' style={{color:"#777777",cursor:"pointer"}}>
+
+                                    <div onClick={()=>setactiveNav('all')}>
+                                        <p className={`fs-6 ${activeNav=='all'?'activeNavColor':""}`}>For All</p>
+                                    </div>
+                                    <div className='mx-4' onClick={()=>setactiveNav('alumni')}>
+                                        <p className={`fs-6 ${activeNav=='alumni'?'activeNavColor':""}`}>For Alumni</p>
+                                    </div>
+                                    <div className='mx-4' onClick={()=>setactiveNav('admin')}>
+                                        <p className= {`fs-6 ${activeNav=='admin'?'activeNavColor':""}`}>For Admin</p>
+                                    </div>
+                                    <div className='mx-4' onClick={()=>setactiveNav('moderator')}>
+                                        <p className= {`fs-6 ${activeNav=='moderator'?'activeNavColor':""}`}>For Moderators</p>
+                                    </div>
+                                    <div className='mx-4' onClick={()=>setactiveNav('staff')}>
+                                        <p className= {`fs-6 ${activeNav=='staff'?'activeNavColor':""}`}>For Staff</p>
+                                    </div>
+                                </div>
 
                             </div>
 
                             <MaterialTable
 
                                 columns={columns}
-                                data={allJobPosts}
+                                data={allGlobalNotification}
                                 isLoading={loading === true ? true : false}
                                 // onSelectionChange={(selectedRows)=>console.log('selected rows',selectedRows)}
-                                onSelectionChange={selectionCheck}
 
 
                                 options={{

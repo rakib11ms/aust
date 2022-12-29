@@ -124,8 +124,14 @@ function AdminLogin({ handleSucessLogin }) {
               </div>
 
 
+              <div className='text-center text-light foter'>
+              <p className='my-0'>Design & Develop by : <a href='https://pakizatvl.com/' className='text-light'>Pakiza technovation ltd </a>
+                &copy;All rights reserved to AUSTTAA</p>
+              <p> <Link to="/privacy-policy" className=' text-warning' > Privacy & Policy & Term Conditions</Link></p>
             </div>
 
+            </div>
+       
 
           </div>
           <div className='right-side-screen col-md-5 mx-5 px-3 '>
@@ -145,7 +151,7 @@ function AdminLogin({ handleSucessLogin }) {
 
                 </div>
 
-             {/* <div className='footer-area'>
+                {/* <div className='footer-area'>
                   <span className='text-white'> Design & Develop by : <a href="https://pakizatvl.com/" style={{ color: 'black', textDecoration: 'none' }} target="_blank">Pakiza Technovation Ltd.</a></span>
                   <span className='d-block text-center text-white'>© 2022 | All rights reserved to AUSTTAA</span>
                 </div> */}
@@ -175,14 +181,15 @@ function AdminLogin({ handleSucessLogin }) {
                 </form>
               </div>
 
-              
+
             </div>
 
           </div>
           {/* </div> */}
 
-       
+
         </div>
+
       </div>
 
     </>

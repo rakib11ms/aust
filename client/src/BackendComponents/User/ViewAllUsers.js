@@ -30,15 +30,28 @@ import Paper from '@mui/material/Paper';
 import { Container } from '@mui/system';
 
 
+
 function ViewAllUsers() {
     const [loading, setLoading] = useState(true);
 
-    const [allUserPosts, setallUserPosts] = useState([]);
+    // const [allUserPosts, setallUserPosts] = useState([]);
 
-    console.log('all job postssssssssss', allUserPosts)
+    // console.log('all users', allUserPosts)
+
+    const [allrole, setallrole] = useState([]);
+    // console.log('all roles', allrole)
 
 
-    const [renderAllUserPosts, setRenderAllUserPosts] = useState('');
+    useEffect(() => {
+        axios.get(`/api/role-name`).then(res => {
+            if (res.data.status == 200) {
+                setallrole(res.data.role);
+            }
+        })
+    }, [])
+
+
+    // const [renderAllUserPosts, setRenderAllUserPosts] = useState('');
 
     // console.log('all posts check', allJobPosts)
 
@@ -125,7 +138,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllUserPosts(res.data);
+                    // setRenderAllUserPosts(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -165,7 +178,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllUserPosts(res.data);
+                    // setRenderAllUserPosts(res.data);
                     // setIdChange('');
                     // closeAddPostCategoryModal();
                     // setAddPostType({
@@ -209,7 +222,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllUserPosts(res.data);
+                    // setRenderAllUserPosts(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -252,7 +265,7 @@ function ViewAllUsers() {
                     // Swal.fire(res.data.message, '', 'success')
                     window.location.reload();
 
-                    setRenderAllUserPosts(res.data);
+                    // setRenderAllUserPosts(res.data);
 
                     // setIdChange('');
                     // closeAddPostCategoryModal();
@@ -317,16 +330,16 @@ function ViewAllUsers() {
 
 
 
-    useEffect(() => {
-        axios.get(`/api/all-job-post`).then(res => {
-            if (res.data.status == 200) {
-                setallUserPosts(res.data.posts);
-                setLoading(false);
-            }
-        })
-        Modal.setAppElement('body');
+    // useEffect(() => {
+    //     axios.get(`/api/all-job-post`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallUserPosts(res.data.posts);
+    //             setLoading(false);
+    //         }
+    //     })
+    //     Modal.setAppElement('body');
 
-    }, [])
+    // }, [])
 
 
     const deleteJobPost = (e, id) => {
@@ -363,6 +376,11 @@ function ViewAllUsers() {
     }
 
 
+    // role change popover
+
+
+
+
     const columns = [
         // {
         //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
@@ -372,11 +390,38 @@ function ViewAllUsers() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div className=''>
-                    <img className="" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
+                <div className="dropdown dropend"
+                >
+                    <button class="btn btn-white " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img className="border border-secondary border-2" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
+
+                    </button>
+                    <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
+                        {
+                            row.roles.length > 0 &&
 
 
+
+                            allrole.map((item, i) => {
+                                return (
+                                    <>
+
+
+
+                                        <li className='mt-1' > <a class={`dropdown-item ${row.roles[0].name == item.name ? 'active rounded' : ""} px-2`} >{item.name}</a></li>
+
+
+
+                                    </>
+                                )
+                            })
+
+                        }
+
+                    </ul>
                 </div>
+
+
 
 
             , cellStyle: {
@@ -577,7 +622,7 @@ function ViewAllUsers() {
     useEffect(() => {
         axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
             if (res.data.status == 200) {
-                setallUserPosts(res.data.posts);
+                // setallUserPosts(res.data.posts);
                 setLoading(false);
             }
         })
@@ -623,7 +668,7 @@ function ViewAllUsers() {
             if (result.isConfirmed) {
                 axios.post(`/api/delete-multiple-job-posts/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllUserPosts(res.data)
+                        // setRenderAllUserPosts(res.data)
                         // window.location.reload();
                     }
                 });

@@ -60,6 +60,7 @@ function CreateNotification() {
 
     }
     const [notification_title, setNotification_title] = useState("");
+    const [priority, setpriority] = useState("");
     const [notification_body, setNotification_body] = useState("");
 
     const [clickedRender, setClickedRender] = useState(false)
@@ -70,6 +71,7 @@ function CreateNotification() {
         setClickedRender(true)
         const notification = {
             notification_title: notification_title,
+            priority: priority,
             notification_body: notification_body,
             for_all_users: allPersonCheckBox.for_all ? 1 : 0,
             for_admin: allPersonCheckBox.for_admin ? 1 : 0,
@@ -87,7 +89,7 @@ function CreateNotification() {
         axios.post(`/api/create-global-notification`, notification).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                // navigate('/view-all-jobs')
+                navigate('/view-global-notification')
 
                 setClickedRender(false)
             }
@@ -140,7 +142,7 @@ function CreateNotification() {
                                                 <div class="mt-2">
                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Priority</label>
 
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="Default select example" onChange={(e) => setpriority(e.target.value)}>
                                                         <option selected disabled>Choose</option>
                                                         <option value="Emergency">Emergency</option>
                                                         <option value="Normal">Normal</option>

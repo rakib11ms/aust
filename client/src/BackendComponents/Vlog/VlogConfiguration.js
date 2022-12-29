@@ -263,7 +263,7 @@ function VlogConfiguration() {
                                 </div>
                                 <div class=" " data-aos="flip-down">
 
-                                    <Link to="/create-job-post"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A job </span></button> </Link>
+                                    <Link to="/create-vlog"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create a vlog </span></button> </Link>
 
                                 </div>
 

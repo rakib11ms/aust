@@ -10,12 +10,12 @@ class RoleNameController extends Controller
 {
     public function index(){
 
-           $vlog=DB::table('vlogs')->leftJoin('vlog_categories','vlog_categories.id','=','vlogs.category_id',)->leftJoin('users','users.id','=','vlogs.created_by')->select('vlogs.*','vlog_categories.category_name','users.full_name')->orderBy('vlogs.id','desc')->get();
+           $role=Role::all();
 
               return response()->json([
            'status' => 200,
         
-            'vlog' => $vlog,
+            'role' => $role,
          ]);
     }
           public function store(Request $request){
