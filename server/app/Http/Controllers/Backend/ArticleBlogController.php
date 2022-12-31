@@ -30,7 +30,7 @@ class ArticleBlogController extends Controller
              'active_articles'=>$active_articles,
 'total_blogs'=>$total_blogs,
 'total_articles'=>$total_articles,
-            // 'article_blogs' => $article_blogs
+            'article_blogs' => $article_blogs
          ]);
     }
 

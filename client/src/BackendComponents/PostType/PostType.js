@@ -454,7 +454,7 @@ function PostType() {
             ,
             render: (row) =>
 
-                <div className=''>
+                <div className='py-1 px-0'>
                     <div class="tooops d-flex align-items-center justify-content-between">
                         <div className=''>
                             <div className='text-secondary'>
@@ -482,7 +482,10 @@ function PostType() {
                             {row.post_title}
                         </h5>
 
-                        <p className='text-secondary'>{row.post_description}</p>
+                        {/* <p className='text-secondary'>{row.post_description}</p> */}
+
+                        <div className='text-secondary' dangerouslySetInnerHTML=
+{{ __html: row.post_description.length > 50 ? `${row.post_description.substring(0, 50)}...` : row.post_description }} />
 
 
                     </div>
@@ -502,7 +505,7 @@ function PostType() {
                 maxWidth: 200,
                 // width: 400,
                 margin: 0,
-                padding: 0
+             
             },
         },
         {

@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-import './event.css'
 
 import MaterialTable from "material-table";
 import moment from 'moment';

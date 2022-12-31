@@ -102,6 +102,7 @@ $moderators = User::role('moderator')->get();
 $admins = User::role('admin')->get(); 
 $staffs = User::role('staff')->get(); 
 $alumni = User::role('alumni')->get(); 
+$all_users = User::all(); 
 
 
      $global_notification = new GlobalNotification();
@@ -121,6 +122,47 @@ $alumni = User::role('alumni')->get();
         $global_notification->updated_by = $request->updated_by;
         // $global_notification->save();
 
+
+
+        if($request->for_all_users==1){
+            if($request->notification_both==1){
+
+         foreach ($users as $key => $user) {
+            Mail::to($user->email)->send(new GlobalMail($global_notification));
+        }
+
+          $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+
+        $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
+
+        $data = [
+            "registration_ids" => $firebaseToken,
+            "notification" => [
+                "title" => $request->notification_title,
+                "body" => $request->notification_body,
+            ]
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization:key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+        }
+        }
+
+
         if($request->for_admin==1){
             if($request->notification_both==1){
 
@@ -128,7 +170,7 @@ $alumni = User::role('alumni')->get();
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
 
-          $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+          $firebaseToken =  User::role('admin')->whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
 
@@ -167,7 +209,45 @@ $alumni = User::role('alumni')->get();
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
 
-          $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+          $firebaseToken =  User::role('moderator')->whereNotNull('device_token')->pluck('device_token')->all();
+
+        $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
+
+        $data = [
+            "registration_ids" => $firebaseToken,
+            "notification" => [
+                "title" => $request->notification_title,
+                "body" => $request->notification_body,
+            ]
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization:key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+        }
+        }
+
+            if($request->for_alumni==1){
+            if($request->notification_both==1){
+
+         foreach ($moderators as $key => $user) {
+            Mail::to($user->email)->send(new GlobalMail($global_notification));
+        }
+
+          $firebaseToken =  User::role('alumni')->whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
 

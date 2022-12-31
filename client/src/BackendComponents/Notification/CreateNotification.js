@@ -127,14 +127,14 @@ function CreateNotification() {
                                             <div className='col-md-12'>
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setNotification_title(e.target.value)} name="notification_title" value={notification_title} />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1"  required onChange={(e) => setNotification_title(e.target.value)} name="notification_title" value={notification_title} />
                                                 </div>
                                             </div>
                                             <div className='col-md-12'>
                                                 <div class="mt-2">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Body</label>
 
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={(e) => setNotification_body(e.target.value)} name="notification_body" value={notification_body} ></textarea>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  required onChange={(e) => setNotification_body(e.target.value)} name="notification_body" value={notification_body} ></textarea>
                                                 </div>
                                             </div>
 
@@ -142,7 +142,7 @@ function CreateNotification() {
                                                 <div class="mt-2">
                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Priority</label>
 
-                                                    <select class="form-select" aria-label="Default select example" onChange={(e) => setpriority(e.target.value)}>
+                                                    <select class="form-select" aria-label="Default select example"  required onChange={(e) => setpriority(e.target.value)}>
                                                         <option selected disabled>Choose</option>
                                                         <option value="Emergency">Emergency</option>
                                                         <option value="Normal">Normal</option>

@@ -75,7 +75,7 @@ function ViewNotification() {
                         <div className='mx-3 mb-3'>
 
                             <i class="fa-solid fa-signs-post"></i>
-                            <span className='mx-2'>{row.priority.toUpperCase()}</span>
+                            <span className='mx-2'>{row.priority!==null && row.priority.toUpperCase()}</span>
                         </div>
                         <div className='mx-3  d-flex justify-content-center text-center align-items-center' style={{ width: '200px', height: "30px" }}>
                             <div className='px-2 bg-success p-2 text-white opacity-50 flex-grow-1 py-2' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>

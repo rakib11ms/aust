@@ -421,7 +421,7 @@ function CreateBlogArticle() {
 
                                                 <div class="row mt-2">
                                                     <div class="mb-3 col-md-6 ">
-                                                        <label for="formFile" class="form-label fs-6">Job Logo/Image</label>
+                                                        <label for="formFile" class="form-label fs-6">Logo/Image</label>
                                                         <input class="form-control" type="file" id="article_blog_image" name="article_blog_image" onChange={onChangePicture} />
                                                     </div>
 

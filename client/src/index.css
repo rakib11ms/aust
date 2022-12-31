@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.swal2-popup {
+  font-size:14px !important;
+  font-family: Georgia, serif;
+  width:30%!important;
+}
