@@ -574,6 +574,7 @@ function UserConfiguration() {
     function openViewComapnyNameModal(e) {
         e.preventDefault();
         setviewCompayNameModalIsOpen(true)
+        setRenderAllCompanyName(e)
     }
     function closeViewCompanyNameModal(e) {
         setviewCompayNameModalIsOpen(false);
@@ -797,6 +798,8 @@ function UserConfiguration() {
     function openViewBatchNameModal(e) {
         e.preventDefault();
         setviewBatchNameModalIsOpen(true)
+        setRenderAllBatchName(e)
+
     }
     function closeViewBatchNameModal(e) {
         setviewBatchNameModalIsOpen(false);
@@ -825,18 +828,23 @@ function UserConfiguration() {
         axios.get(`/api/batch-name`).then(res => {
             if (res.data.status == 200) {
                 setAllBatchName(res.data.batch_name);
+                // setRenderAllBatchName(res.data)
 
             }
         })
 
+
+
+    }, [renderAllBatchName])
+
+    useEffect(() => {
         axios.get(`/api/edit-batch-name/${editBatchNameId}`).then(res => {
             if (res.data.status == 200) {
                 setEditBatchName(res.data.batch_name.batch_name);
 
             }
         })
-
-    }, [renderAllBatchName, editBatchNameId])
+    }, [editBatchNameId])
 
     function updateBatchName() {
         const data = {

@@ -82,7 +82,7 @@ class AuthenticationController extends Controller
 
             // dd($phone_or_email_check->email);
           // $token = Str::random(64);
-            $token = rand(0, 9999999);
+            $token = mt_rand(00000, 99999);
 
       DB::table('password_resets')->insert([
               'email' => $phone_or_email_check->email, 

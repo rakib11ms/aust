@@ -379,6 +379,19 @@ function ViewAllUsers() {
     // role change popover
 
 
+    const [userRoleChangeInfo, setUserRoleChangeInfo] = useState({
+        role_name: "",
+        user_id: ""
+    });
+
+    const handleUserRoleChangeInfo = (e, row) => {
+        setUserRoleChangeInfo({
+            role_name: e.target.value,
+            user_id: row.id
+        })
+    }
+
+    console.log('changing check', userRoleChangeInfo)
 
 
     const columns = [
@@ -390,33 +403,63 @@ function ViewAllUsers() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div className="dropdown dropend"
-                >
+                <div className="dropdown dropend" >
                     <button class="btn btn-white " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img className="border border-secondary border-2" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
 
                     </button>
                     <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
                         {
-                            row.roles.length > 0 &&
+                            // row.roles.length > 0 &&
 
 
 
-                            allrole.map((item, i) => {
-                                return (
-                                    <>
+                            // allrole.map((item, i) => {
+                            //     return (
+                            //         <>
 
-
-
-                                        <li className='mt-1' > <a class={`dropdown-item ${row.roles[0].name == item.name ? 'active rounded' : ""} px-2`} >{item.name}</a></li>
-
-
-
-                                    </>
-                                )
-                            })
-
+                            //             <div class={`form-check mx-2 `}>
+                            //                 <input class="form-check-input" type="radio" name="bal[]" value={item.name} id="flexRadioDefault1" checked={row.roles && row.roles[0].name ==item.name } onChange={(e) => handleUserRoleChangeInfo(e, row)} />
+                            //                 <label class="form-check-label" for="flexRadioDefault1">
+                            //                     {item.name}
+                            //                 </label>
+                            //             </div>
+                            //             {/* <li className='mt-1' > <a class={`dropdown-item ${row.roles[0].name == item.name ? 'active rounded' : ""} px-2`} onClick={(e)=>handleUserRoleChangeInfo(e,row)}>{item.name}</a></li> */}
+                            //         </>
+                            //     )
+                            // })
                         }
+
+
+
+                        {/* //                         <>
+// <div class={`form-check mx-2 `}>
+//     <div className='d-block'>
+// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Admin'?true:false } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
+// <label class={`form-check-label`} for="flexRadioDefault1"> Admin
+// </label>
+// </div>
+// <div className='d-block'>
+// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Staff'?true:false  } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
+// <label class="form-check-label" for="flexRadioDefault1"> Staff
+// </label>
+// </div>
+// <div className='d-block'>
+// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Moderator' ?true:false  } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
+// <label class="form-check-label" for="flexRadioDefault1"> Moderator
+// </label>
+// </div>
+// <div className='d-block'>
+// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Admin' ?true:false } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
+// <label class="form-check-label" for="flexRadioDefault1"> Alumni
+// </label>
+// </div>
+// </div>
+
+// </> 
+//         } */}
+
+
 
                     </ul>
                 </div>
@@ -613,21 +656,21 @@ function ViewAllUsers() {
 
 
 
-    const [jobPostFiltering, setjobPostFiltering] = useState('all');
+    const [userRoleFiltering, setuserRoleFiltering] = useState('Alumni');
 
     // console.log('filtered post val',allJobPosts)
-    console.log('filter click check', jobPostFiltering)
+    console.log('filter click check', userRoleFiltering)
 
 
     useEffect(() => {
-        axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
+        axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
             if (res.data.status == 200) {
-                // setallUserPosts(res.data.posts);
+                setallUsers(res.data.all_users);
                 setLoading(false);
             }
         })
 
-    }, [jobPostFiltering])
+    }, [userRoleFiltering])
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -993,11 +1036,11 @@ function ViewAllUsers() {
 
                                             <div className="nav-users">
 
-                                                <div className='d-flex align-items-center'>
-                                                    <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>Alumni</h6>
-                                                    <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Stuff</h6>
-                                                    <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Admins</h6>
-                                                    <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Moderators</h6>
+                                                <div className='d-flex align-items-center text-secondary'>
+                                                    <h6 className={`${userRoleFiltering === 'Alumni' ? 'filterTrack' : ""} mx-2`} onClick={() => setuserRoleFiltering('Alumni')}>Alumni</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Staff')}>Staff</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Admin')}>Admins</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Moderator')}>Moderators</h6>
                                                 </div>
 
                                                 <div className='d-flex align-items-center d-a-button'>
@@ -1018,7 +1061,7 @@ function ViewAllUsers() {
                                                 </div>
 
                                             </div>
-
+{/* 
                                             <div className='d-flex align-items-center'>
                                                 {
                                                     selectedRowsLength > 1 &&
@@ -1048,7 +1091,7 @@ function ViewAllUsers() {
 
 
 
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                         <hr />

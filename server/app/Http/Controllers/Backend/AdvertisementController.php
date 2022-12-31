@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\AdvertisementMultipleImage;
 use File;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\Advertisementmail;
 
 class AdvertisementController extends Controller
 {
@@ -115,7 +116,8 @@ class AdvertisementController extends Controller
             $advertisement->reference_no = $request->reference_no;
             $advertisement->po_no = $request->advertiser_name;
 
-           $advertisement->save();
+
+
 
 
    foreach ($request->file('image') as $image) {
@@ -134,6 +136,11 @@ class AdvertisementController extends Controller
         }
            // $advertisement->save();
 
+
+            Mail::to($request->advertiser_email)->send(new Advertisementmail($advertisement));
+        
+
+           $advertisement->save();
 
         return response()->json([
             'status' => 200,

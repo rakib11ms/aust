@@ -11,6 +11,7 @@ use App\Models\NoticeNews;
 use App\Models\Advertisement;
 use App\Models\AusstaEvent;
 use DB;
+use Illuminate\Support\Facades\Auth;
 class DashboardHomeController extends Controller
 {
     public function totalStatus(){
@@ -165,7 +166,7 @@ class DashboardHomeController extends Controller
    }
 
      public function allReadNotificationThroughPosts(){
-   $notification = 'App\Models\Notification'::where('notifiable_id',auth('sanctum')->user->id)->get();
+   $notification = 'App\Models\Notification'::where('notifiable_id',auth('sanctum')->user()->id)->get();
 
         if ($notification) {
             $notification->markAsRead();

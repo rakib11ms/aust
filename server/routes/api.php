@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
     // Route::get('/post-type',[PostTypeController::class,'index']);
-
+Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
 
 });
 
@@ -105,6 +105,8 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 ///view all users (web) view section ///
 
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
+
+Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRoleFiltering']);
 
 Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
@@ -398,6 +400,9 @@ Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
 Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
 Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update']);
 
+Route::get('/filter-notice-news-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}', [NoticeNewsController::class, 'NoticeNewsfilterBySearchInputRadioButton']);
+//web notice new status (table) filtering
+Route::get('/filtering-notice-news-by-status/{name}', [NoticeNewsController::class, 'NoticeNewsfilterByStatus']);
 
 
 
@@ -436,7 +441,7 @@ Route::get('/job-filtering-admin-homepage/{name}', [DashboardHomeController::cla
 //notificaion icon topbar (web) //
 
 Route::get('/all-notification-through-posts', [DashboardHomeController::class, 'allNotificationThroughPosts']);
-Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
+// Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
 
 
 

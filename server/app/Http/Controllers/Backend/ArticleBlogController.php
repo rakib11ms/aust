@@ -11,7 +11,13 @@ class ArticleBlogController extends Controller
 {
     public function index()
     {
-        
+                $blog='blog';
+                $article='article';
+
+                $total_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->where('article_blog_categories.category_name','like','%' .$blog.'%')->count();
+
+     $total_articles=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->where('article_blog_categories.category_name','like','%' .$article.'%')->count();
+
 
              $active_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->where('article_blog_categories.category_name','Blog')->orderBy('article_blogs.id','desc')->get();
 
@@ -22,8 +28,9 @@ class ArticleBlogController extends Controller
            'status' => 200,
              'active_blogs'=>$active_blogs,
              'active_articles'=>$active_articles,
-// 'latest_jobs'=>$latest_jobs,
-            'article_blogs' => $article_blogs
+'total_blogs'=>$total_blogs,
+'total_articles'=>$total_articles,
+            // 'article_blogs' => $article_blogs
          ]);
     }
 
@@ -185,9 +192,9 @@ class ArticleBlogController extends Controller
 
   function articleBlogfilterBySearchInputRadioButton($searchInputValue,$searchRadioButtonValue){
 
-           if($searchRadioButtonValue=='postCategory'){
+           if($searchRadioButtonValue=='categoryType'){
     
-        $article_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blogs.category_name','like','%' .$searchInputValue . '%')->orderBy('article_blogs.id','desc')->get();
+        $article_blogs=DB::table('article_blogs')->leftJoin('article_blog_categories','article_blog_categories.id','=','article_blogs.category_id',)->leftJoin('article_blog_sub_categories','article_blog_sub_categories.id','=','article_blogs.subcategory_id')->leftJoin('users','users.id','=','article_blogs.posted_by')->select('article_blogs.*','article_blog_categories.category_name','article_blog_sub_categories.subcategory_name','users.full_name')->where('article_blog_categories.category_name','like','%' .$searchInputValue . '%')->orderBy('article_blogs.id','desc')->get();
 
         return response()->json([
                 'status' => 200,

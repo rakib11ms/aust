@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 // import './Post.css';
+import '../PostType/Post.css'
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
@@ -22,8 +23,8 @@ function ViewBlogArticle() {
     const [allBlogArticle, setallBlogArticle] = useState([]);
     console.log('allll postsss', allBlogArticle)
 
-    const [totalPosts, setTotalPosts] = useState('');
-    const [activePosts, setActivePosts] = useState('');
+    const [totalBlogs, setTotalBlogs] = useState('');
+    const [totalArticles, settotalArticles] = useState('');
     const [pendingPosts, setPendingPosts] = useState('');
     const [renderAllBlogArticle, setRenderAllBlogArticle] = useState('');
 
@@ -233,15 +234,15 @@ function ViewBlogArticle() {
     // console.log('pip', storageData)
 
 
-
+const [renderData,setRenderData]=useState('');
 
 
     useEffect(() => {
         axios.get(`/api/all-article-blogs`).then(res => {
             if (res.data.status == 200) {
                 setallBlogArticle(res.data.article_blogs);
-                setTotalPosts(res.data.total_posts)
-                setActivePosts(res.data.total_active_posts)
+                setTotalBlogs(res.data.total_blogs)
+                settotalArticles(res.data.total_articles)
                 setPendingPosts(res.data.total_pending_posts)
                 setLoading(false);
             }
@@ -249,7 +250,7 @@ function ViewBlogArticle() {
 
         Modal.setAppElement('body');
 
-    }, [])
+    }, [renderData])
 
 
 
@@ -406,6 +407,7 @@ function ViewBlogArticle() {
                 axios.post(`/api/delete-article-blogs/${id}`).then(res => {
                     if (res.data.status === 200) {
                         thisClicked.closest("tr").remove();
+                        setRenderData(res.data)
                         //   swal("Success", res.data.message, "success");
                     }
                 });
@@ -673,15 +675,15 @@ function ViewBlogArticle() {
 
                                     <div className=' mb-0'>
 
-                                        <h5 className=' m-0'>{totalPosts}</h5>
-                                        <p className='mb-2'>Total Posts</p>
+                                        <h5 className=' m-0'>{totalBlogs}</h5>
+                                        <p className='mb-2'>Total Blogs</p>
                                     </div>
 
 
                                     <div className='mb-0'>
 
-                                        <h5 className=' m-0'>{activePosts}</h5>
-                                        <p className='mb-2'>Active Posts</p>
+                                        <h5 className=' m-0'>{totalArticles}</h5>
+                                        <p className='mb-2'>Total Articles</p>
                                     </div>
 
 

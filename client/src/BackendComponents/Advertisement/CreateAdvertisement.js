@@ -175,7 +175,7 @@ function CreateAdvertisement() {
         formData.append("news_page", allCheckBox.news_page ? 1 : 0);
         formData.append("event_page", allCheckBox.event_page ? 1 : 0);
         formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
-  
+
         formData.append("showMobile", showMobile);
         formData.append("advertiser_name", advertiser_name);
         formData.append("advertiser_phone", advertiser_phone);
@@ -225,7 +225,7 @@ function CreateAdvertisement() {
         news_page: '',
         event_page: '',
         blog_page: '',
- 
+
     });
     function handleCheckbox(e) {
         setAllCheckBox({

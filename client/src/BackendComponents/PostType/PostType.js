@@ -498,9 +498,11 @@ function PostType() {
 
 
             cellStyle: {
-                marginLeft: 50,
-                maxWidth: 200
-                // width: 400
+                // marginLeft: 50,
+                maxWidth: 200,
+                // width: 400,
+                margin: 0,
+                padding: 0
             },
         },
         {
