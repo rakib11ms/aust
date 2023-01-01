@@ -106,6 +106,10 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 
+//role change with password revoke
+
+Route::post('/role-change-request', [ViewAllUserController::class, 'roleChangeUserRequest']);
+
 Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRoleFiltering']);
 
 Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);

@@ -139,4 +139,36 @@ class ViewAllUserController extends Controller
         }
     }
 
+
+    //role change with password revoke
+
+
+    public function roleChangeUserRequest(Request $request){
+            $admin_change=User::where('id',$request->user_id)->first();
+
+            if(Hash::check($request->password, $admin_change->password)){
+                $role_change=User::where('id',$request->change_user_id)->first();
+                $role_change->roles()->detach();
+
+
+                $role_change->assignRole($request->change_role_name);
+
+
+   return response()->json([
+                    'message' => "Role Changed Successfully",
+                    'status' => 200,
+                ]);
+            }
+
+
+        else if(!$admin_change || !Hash::check($request->password, $admin_change->password)){
+            return response()->json(
+                [
+                    'message' => "User Password doesn't match ! Denied",
+                    'status' => 401,
+                ]
+            );
+        }
+    }
+
 }

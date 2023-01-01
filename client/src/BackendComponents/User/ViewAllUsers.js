@@ -342,38 +342,6 @@ function ViewAllUsers() {
     // }, [])
 
 
-    const deleteJobPost = (e, id) => {
-
-        e.preventDefault();
-        const thisClicked = e.currentTarget;
-        //  thisClicked.innerText = "Deleting";
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.post(`/api/delete-job-post/${id}`).then(res => {
-                    if (res.data.status === 200) {
-                        thisClicked.closest("tr").remove();
-                        //   swal("Success", res.data.message, "success");
-                    }
-                });
-                Swal.fire(
-                    'Deleted!',
-                    'Your data has been deleted.',
-                    'success'
-                )
-            }
-        })
-
-
-    }
 
 
     // role change popover
@@ -386,14 +354,44 @@ function ViewAllUsers() {
 
     const handleUserRoleChangeInfo = (e, row) => {
         setUserRoleChangeInfo({
-            role_name: e.target.value,
+            role_name: e.target.name,
             user_id: row.id
         })
     }
 
-    console.log('changing check', userRoleChangeInfo)
 
+    const [passwordState, setPasswordState] = useState('');
+    const [re_typepasswordState, setRe_typepasswordState] = useState('');
+    console.log('changing check', userRoleChangeInfo);
+    console.log('password check', passwordState, re_typepasswordState);
 
+    // console.log('user_id_check',localStorage.getItem('user_id'));
+
+    const handleSubmitRoleChange = () => {
+        const roleChangeData = {
+            user_id: localStorage.getItem('user_id'),
+            password: passwordState,
+            confirm_password: re_typepasswordState,
+            change_user_id: userRoleChangeInfo.user_id,
+            change_role_name: userRoleChangeInfo.role_name
+        }
+
+        console.log('hola', roleChangeData)
+        axios.post(`/api/role-change-request`, roleChangeData).then(res => {
+            if (res.data.status === 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setrenderAllUsers(res.data)
+                // document.getElementById('modal').modal('close');
+
+                window.location.reload();
+
+            }
+            else if (res.data.status === 401) {
+                Swal.fire(res.data.message, '', 'error')
+
+            }
+        });
+    }
     const columns = [
         // {
         //     title: "SL", field: "", render: (row) => <div>{row.tableData.id + 1}</div>,
@@ -409,6 +407,13 @@ function ViewAllUsers() {
 
                     </button>
                     <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
+                        <a class={`dropdown-item ${row.roles[0].name == 'Admin' ? "active" : ""}`} href="#" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles[0].name}`} name="Admin" onClick={(e) => handleUserRoleChangeInfo(e, row)}>Admin</a>
+                        <a class={`dropdown-item ${row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
+                        <a class={`dropdown-item ${row.roles[0].name == 'Moderator' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Moderator" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Moderator</a>
+                        {/* <div class="dropdown-divider"></div> */}
+                        <a class={`dropdown-item ${row.roles[0].name == 'Staff' ? "active" : ""}`} href="#" name="Staff" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Staff</a>
+
+
                         {
                             // row.roles.length > 0 &&
 
@@ -432,36 +437,38 @@ function ViewAllUsers() {
 
 
 
-                        {/* //                         <>
-// <div class={`form-check mx-2 `}>
-//     <div className='d-block'>
-// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Admin'?true:false } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
-// <label class={`form-check-label`} for="flexRadioDefault1"> Admin
-// </label>
-// </div>
-// <div className='d-block'>
-// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Staff'?true:false  } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
-// <label class="form-check-label" for="flexRadioDefault1"> Staff
-// </label>
-// </div>
-// <div className='d-block'>
-// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Moderator' ?true:false  } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
-// <label class="form-check-label" for="flexRadioDefault1"> Moderator
-// </label>
-// </div>
-// <div className='d-block'>
-// <input class="form-check-input" type="radio" name="bal[]"  id="flexRadioDefault1" checked={targetUserClick.roles && targetUserClick.roles[0].name =='Admin' ?true:false } onChange={(e)=>handleUserRoleChangeInfo(e,row)}/>
-// <label class="form-check-label" for="flexRadioDefault1"> Alumni
-// </label>
-// </div>
-// </div>
 
-// </> 
-//         } */}
 
 
 
                     </ul>
+
+                    <div class="modal fade" id={`exampleModal${row.roles[0].name}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header py-2">
+                                    <h5 class="modal-title text-danger py-0" id="exampleModalLabel">Warning !</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-1">
+                                            <label for="" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="" value={passwordState} onChange={(e) => setPasswordState(e.target.value)} placeholder="" />
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="" class="form-label">Confirm Password</label>
+                                            <input type="password" class="form-control" id="" value={re_typepasswordState} onChange={(e) => setRe_typepasswordState(e.target.value)} placeholder="" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer py-0">
+                                    {/* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
+                                    <button type="button" class="btn btn-success btn-sm" onClick={handleSubmitRoleChange}>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -655,6 +662,9 @@ function ViewAllUsers() {
 
 
 
+    const [renderAllUsers, setrenderAllUsers] = useState('');
+
+
 
     const [userRoleFiltering, setuserRoleFiltering] = useState('Alumni');
 
@@ -670,7 +680,7 @@ function ViewAllUsers() {
             }
         })
 
-    }, [userRoleFiltering])
+    }, [userRoleFiltering, renderAllUsers])
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -1061,7 +1071,7 @@ function ViewAllUsers() {
                                                 </div>
 
                                             </div>
-{/* 
+                                            {/* 
                                             <div className='d-flex align-items-center'>
                                                 {
                                                     selectedRowsLength > 1 &&

@@ -68,6 +68,7 @@ class MobileAuthenticationController extends Controller
                 $user->job_sector = $request->job_sector;
                 $user->job_sub_sector = $request->job_sub_sector;
                 $user->office_email = $request->office_email;
+                $user->thana = $request->thana;
 
                 // if($request->office_email !==null && ){
 
@@ -412,7 +413,7 @@ class MobileAuthenticationController extends Controller
 
         // dd($formatChange);
 
-         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch')->with(['professionalInfo','educationalInfo'])->get();
+         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch')->with(['professionalInfo','educationalInfo','roles'])->get();
 
    // $user_info=User::where('id',$id)->select('users.full_name','users.bio','users.nick_name','users.email','users.phone_no','users.twitter_link','users.linkedin_link','users.facebook_link','users.image')
    //  ->with(['professionalInfo' => function ($query) {

@@ -1404,6 +1404,382 @@ function UserConfiguration() {
     //stream name functional end//
 
 
+    //job sector functionality start //
+
+
+    const [renderAllJobSectorData,setRenderAllJobSectorData]=useState();
+    const [viewJobSectorNameModalIsOpen, setviewJobSectorNameModalIsOpen] = useState(false);
+    function openViewJobSectorNameModal(e) {
+        e.preventDefault();
+        setRenderAllJobSectorData(true)
+        setviewJobSectorNameModalIsOpen(true)
+    }
+    function closeViewJobSectorNameModal(e) {
+        setviewJobSectorNameModalIsOpen(false);
+        setRenderAllJobSectorData(false)
+
+    }
+
+
+    const [editJobSectorName, setEditJobSectorName] = useState('');
+    const [editJobSectorNameId, setEditJobSectorNameId] = useState('');
+
+    const [editJobSectorNameModalIsOpen, setEditJobSectorNameModalIsOpen] = useState(false);
+    function openEditJobSectorNameModal(e, editId) {
+        e.preventDefault();
+        setEditJobSectorNameModalIsOpen(true)
+        setEditJobSectorNameId(editId)
+    }
+    function closeEditJobSectorNameModal(e) {
+        setEditJobSectorNameModalIsOpen(false);
+
+    }
+
+
+    useEffect(() => {
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSector(res.data.job_sector)
+
+            }
+        })
+
+        axios.get(`/api/edit-job-sector/${editJobSectorNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditJobSectorName(res.data.job_sector.job_sector_name);
+
+            }
+        })
+
+    }, [renderAllJobSectorData, editJobSectorNameId])
+
+    function updateJobSectorName() {
+        const data = {
+            job_sector_name: editJobSectorName,
+        }
+
+        axios.post(`/api/update-job-sector/${editJobSectorNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllJobSectorData(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                // closeEditStreamNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const JobSectorcolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: " Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.job_sector_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditJobSectorNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-job-sector/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllJobSectorData(res.data)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+    //job sector functionality end//
+
+
+
+    //job sub sector functionality start //
+
+
+    const [renderAllJobSubSectorData,setRenderAllJobSubSectorData]=useState();
+    const [viewJobSubSectorNameModalIsOpen, setviewJobSubSectorNameModalIsOpen] = useState(false);
+    function openViewJobSubSectorNameModal(e) {
+        e.preventDefault();
+        setRenderAllJobSubSectorData(true)
+        setviewJobSubSectorNameModalIsOpen(true)
+    }
+    function closeViewJobSubSectorNameModal(e) {
+        setviewJobSubSectorNameModalIsOpen(false);
+        setRenderAllJobSubSectorData(false)
+
+    }
+
+
+    const [editJobSubSectorName, setEditJobSubSectorName] = useState('');
+    const [editJobSubSectorNameId, setEditJobSubSectorNameId] = useState('');
+
+    const [editJobSubSectorNameModalIsOpen, setEditJobSubSectorNameModalIsOpen] = useState(false);
+    function openEditJobSubSectorNameModal(e, editId) {
+        e.preventDefault();
+        setEditJobSubSectorNameModalIsOpen(true)
+        setEditJobSubSectorNameId(editId)
+    }
+    function closeEditJobSubSectorNameModal(e) {
+        setEditJobSubSectorNameModalIsOpen(false);
+
+    }
+
+
+    useEffect(() => {
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSector(res.data.job_sub_sector)
+                
+
+            }
+        })
+
+        axios.get(`/api/edit-job-sub-sector/${editJobSubSectorNameId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditJobSubSectorName(res.data.job_sub_sector.job_sub_sector_name);
+
+            }
+        })
+
+    }, [renderAllJobSubSectorData, editJobSubSectorNameId])
+
+    function updateJobSubSectorName() {
+        const data = {
+            job_sub_sector_name: editJobSubSectorName,
+        }
+
+        axios.post(`/api/update-job-sub-sector/${editJobSubSectorNameId}`, data).then(res => {
+            if (res.data.status == 200) {
+                setRenderAllJobSubSectorData(res.data)
+
+                Swal.fire(res.data.message, '', 'success')
+                // closeEditStreamNameModal();
+
+            }
+            // else if (res.data.status == 400) {
+            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+            // }
+        })
+    }
+
+
+    const JobSubSectorcolumns = [
+        {
+            title: "SL", field: "", render: (row) => <div className=''>{row.tableData.id + 1}</div>,
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: 'left',
+                width: 100,
+            },
+        },
+
+        {
+            title: " Name", field: ``, render: (row) =>
+                <div className=''>
+
+                    {row.job_sub_sector_name}
+
+                </div>
+
+
+            , cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 0,
+                textAlign: '',
+                width: 200,
+            },
+        },
+
+        {
+            title: '', field: ``
+
+            ,
+            render: (row) =>
+                <div className=''>
+
+                    <div className='d-flex justify-content-between'>
+                        <div class="">
+
+                        </div>
+
+                        <div className='my-0 py-0 '>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
+
+
+                                <div className='text-secondary'
+                                    onClick={(e) => openEditJobSubSectorNameModal(e, row.id)}
+                                >
+                                    <i className='fa fa-edit mx-2 icon-table-archive'></i>
+
+                                </div>
+
+
+
+
+                                <div className='mx-2 '
+                                    onClick={(e) => {
+                                        const thisClicked = e.currentTarget;
+                                        //  thisClicked.innerText = "Deleting";
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "You won't be able to revert this!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, delete it!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios.delete(`/api/delete-job-sub-sector/${row.id}`).then(res => {
+                                                    if (res.data.status === 200) {
+                                                        // thisClicked.closest("tr").remove();
+                                                        setRenderAllJobSubSectorData(res.data)
+                                                        //   swal("Success", res.data.message, "success");
+                                                    }
+                                                });
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    'Your data has been deleted.',
+                                                    'success'
+                                                )
+                                            }
+                                        })
+                                    }}
+                                >
+                                    <i class="fa-solid fa-trash icon-table-trash" ></i>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            ,
+
+
+
+
+            cellStyle: {
+                // marginLeft: 50,
+                // maxWidth: 300,
+                // width: 600
+            },
+        },
+
+
+
+    ];
+    //job sub sector functionality end//
+
+
 
     return (
         <div className="container-fluid">
@@ -1883,14 +2259,253 @@ function UserConfiguration() {
 
 
 
-                                                    <div className=''>
+                                                    <div className='' onClick={openViewJobSectorNameModal}>
                                                         <p>View All</p>
 
                                                     </div>
+
+                                                        {/* view job sector name modal start */}
+                                                        <Modal
+                                                        isOpen={viewJobSectorNameModalIsOpen}
+                                                        onRequestClose={closeViewJobSectorNameModal}
+                                                        style={StreamNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobSectorNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Job Sector Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={JobSectorcolumns}
+                                                                            data={alljobSector}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit job sector name modal */}
+                                                    <Modal
+                                                        isOpen={editJobSectorNameModalIsOpen}
+                                                        onRequestClose={closeEditJobSectorNameModal}
+                                                        style={StreamNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSectorNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Job Sector Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Job Sector Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editJobSectorName} onChange={(e) => setEditJobSectorName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateJobSectorName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+
                                                     <div class="d-flex mt-4">
-                                                        <div className=''>
+                                                        <div className=''onClick={openViewJobSubSectorNameModal}>
                                                             <p>View All</p>
                                                         </div>
+      {/* view job sub sector name modal start */}
+      <Modal
+                                                        isOpen={viewJobSubSectorNameModalIsOpen}
+                                                        onRequestClose={closeViewJobSubSectorNameModal}
+                                                        style={StreamNameViewModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobSubSectorNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className="">ALL Job Sub Sector Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12 px-4">
+
+
+                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+
+                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                        <MaterialTable
+                                                                            components={{
+                                                                                Container: props => <Paper {...props} elevation={0} />
+                                                                            }}
+                                                                            columns={JobSubSectorcolumns}
+                                                                            data={alljobSubSector}
+                                                                            // isLoading={loading === true ? true : false}
+
+
+                                                                            options={{
+                                                                                search: true,
+                                                                                // filtering: true,
+                                                                                toolbar: false,
+                                                                                showTitle: false,
+                                                                                searchFieldAlignment: "left",
+                                                                                pageSize: 5,
+                                                                                emptyRowsWhenPaging: false,
+                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                selection: false,
+                                                                                sorting: false,
+                                                                                searchFieldAlignment: "left",
+
+                                                                                // paging:false
+
+
+                                                                            }}
+
+
+
+
+                                                                        />
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+                                                    {/* edit job sub sector name modal */}
+                                                    <Modal
+                                                        isOpen={editJobSubSectorNameModalIsOpen}
+                                                        onRequestClose={closeEditJobSubSectorNameModal}
+                                                        style={StreamNameEditModalStyle}
+                                                        contentLabel="Example Modal"
+                                                    >
+
+                                                        <div className='card-body '>
+                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSubSectorNameModal}><i class="fa fa-times"></i></span>
+
+                                                            <h6 className=""> Edit Job Sub Sector Name</h6>
+                                                            <hr />
+
+
+                                                            <div className="row">
+
+                                                                <div className="col-12">
+                                                                    <label className='mb-2 fs-6 text-secondary '>Job Sector Name</label>
+
+                                                                    <div className=''>
+                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editJobSubSectorName} onChange={(e) => setEditJobSubSectorName(e.target.value)} />
+                                                                    </div>
+
+
+
+                                                                    <div className='text-center mt-2'>
+                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateJobSubSectorName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                    </div>
+
+
+
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </Modal>
+
+
+
+
+
+
+
+
+
+
                                                         <div className='' onClick={openAddJobSectorJobSubSectorModal}>
                                                             <p className='border border-success rounded-3 px-2 mx-2 s '>Map</p>
                                                         </div>

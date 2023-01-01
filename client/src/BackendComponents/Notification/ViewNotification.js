@@ -77,12 +77,12 @@ function ViewNotification() {
                             <i class="fa-solid fa-signs-post"></i>
                             <span className='mx-2'>{row.priority!==null && row.priority.toUpperCase()}</span>
                         </div>
-                        <div className='mx-3  d-flex justify-content-center text-center align-items-center' style={{ width: '200px', height: "30px" }}>
-                            <div className='px-2 bg-success p-2 text-white opacity-50 flex-grow-1 py-2' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+                        <div className='mx-3  d-flex justify-content-center text-center align-items-center' style={{ width: '180px', height: "30px" }}>
+                            <div className='px-2 bg-success text-white opacity-50 flex-grow-1 py-1' style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
 
                                 <span className=''> 10 Succecss</span>
                             </div>
-                            <div className='px-2 bg-warning flex-grow-1 py-2' style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
+                            <div className='px-2 bg-warning flex-grow-1 py-1' style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
 
                                 <span className=''>0 UnSuccess</span>
                             </div>
