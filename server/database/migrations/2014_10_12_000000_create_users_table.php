@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('device_token')->nullable();
             $table->string('password')->nullable();
             $table->string('confirm_password')->nullable();
+            $table->string('cv_file')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('linkedin_link')->nullable();

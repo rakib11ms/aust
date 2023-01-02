@@ -150,6 +150,8 @@ class MobileAuthenticationController extends Controller
 
     }
 
+
+
         public function userProfessionalUpdate(Request $request,$id){
 
             $update_user_profession=UserProfessionalInfo::find($id);
@@ -192,6 +194,31 @@ class MobileAuthenticationController extends Controller
                     'update_educational_data' =>$update_educational
                 ]);
     }
+
+
+public function userCvUpload(Request $request,$id){
+            $user_cv_upload=User::find($id);
+               if($request->hasFile('cv_file')){
+            $file=$request->file('cv_file');
+            $extension=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extension;
+
+            $file->move('cv/',$filename);
+            $user_cv_upload->cv_file =$filename;
+         } 
+$user_cv_upload->update();
+       return response()->json([
+                  'status'=>200,
+                    'message' => 'Cv Upload Successfull'
+                ]);
+
+}
+
+
+
+
+
+
      public function updateUserBio(Request $request,$id){
  $update_bio=User::where('id',$id)->first();
             $update_bio->bio=$request->bio;
@@ -205,7 +232,7 @@ class MobileAuthenticationController extends Controller
                 ]);
     }
        public function updateUserContactSocialInformation(Request $request,$id){
- $update_contact_social=User::where('id',$id)->first();
+   $update_contact_social=User::where('id',$id)->first();
             $update_contact_social->office_email=$request->office_email;
             $update_contact_social->facebook_link=$request->facebook_link;
             $update_contact_social->linkedin_link=$request->linkedin_link;
@@ -413,7 +440,7 @@ class MobileAuthenticationController extends Controller
 
         // dd($formatChange);
 
-         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch')->with(['professionalInfo','educationalInfo','roles'])->get();
+         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch','cv_file')->with(['professionalInfo','educationalInfo','roles'])->get();
 
    // $user_info=User::where('id',$id)->select('users.full_name','users.bio','users.nick_name','users.email','users.phone_no','users.twitter_link','users.linkedin_link','users.facebook_link','users.image')
    //  ->with(['professionalInfo' => function ($query) {

@@ -90,13 +90,13 @@ const ViewVlog = lazy(() => import('./BackendComponents/Vlog/ViewVlog'));
 const EditVlog = lazy(() => import('./BackendComponents/Vlog/EditVlog'));
 const EditNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/EditNoticeNews'));
 
-const ViewNotification=lazy(()=>import('./BackendComponents/Notification/ViewNotification'));
-const CreateNotification=lazy(()=>import('./BackendComponents/Notification/CreateNotification'));
-const PostConfiguration=lazy(()=>import('./BackendComponents/PostType/PostConfiguration'));
+const ViewNotification = lazy(() => import('./BackendComponents/Notification/ViewNotification'));
+const CreateNotification = lazy(() => import('./BackendComponents/Notification/CreateNotification'));
+const PostConfiguration = lazy(() => import('./BackendComponents/PostType/PostConfiguration'));
 
 
-const TermCondition=lazy(()=>import('./PrivacyPolicy/TermCondition'));
-const PrivacyPolicy=lazy(()=>import('./PrivacyPolicy/PrivacyPolicy'));
+const TermCondition = lazy(() => import('./PrivacyPolicy/TermCondition'));
+const PrivacyPolicy = lazy(() => import('./PrivacyPolicy/PrivacyPolicy'));
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -178,11 +178,14 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div className='text-center my-5' style={{
-        position: 'fixed', top: '0px', left: '0px', width: '100vw', height: '100vh'
 
 
-      }}>Loading...</div>}>
+
+      <Suspense fallback={<div class="spin1">
+      <div class="spinner-border text-success" style={{width: '2rem',"height": "2rem", "role":"status"}}>
+      <span class="visually-hidden ">Loading...</span>
+      </div>
+    </div>}>
 
 
 
@@ -218,7 +221,7 @@ function App() {
 
             <Route path="admin-dashboard" element={<Dashboard />}></Route>
             <Route path="post-type" element={<PostType />}></Route>
-            <Route path="post-configuration" element={<PostConfiguration/>}></Route>
+            <Route path="post-configuration" element={<PostConfiguration />}></Route>
             <Route path="job-configuration" element={<JobConfiguration />}></Route>
             <Route path="create-job-post" element={<CreateJobPost />}></Route>
             <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
@@ -284,9 +287,9 @@ function App() {
             <Route path="settings" element={<Settings />}></Route>
 
 
-            <Route path="view-global-notification" element={< ViewNotification/>}></Route>
-            <Route path="create-global-notification" element={< CreateNotification/>}></Route>
-            
+            <Route path="view-global-notification" element={< ViewNotification />}></Route>
+            <Route path="create-global-notification" element={< CreateNotification />}></Route>
+
 
 
 

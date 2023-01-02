@@ -37,7 +37,7 @@ class ViewAllUserController extends Controller
     public function multipleFilterSearchAllUsers($company,$blood,$batch,$stream,$gender){
 
         // dd($gender);
-  $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->where('gender',$gender)->orWhereHas('bloodGroup',function($q) use($blood){
+  $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('gender',$gender)->orWhereHas('bloodGroup',function($q) use($blood){
         $q->where('blood_group_name','=',$blood);
   })->orWhereHas('streamName',function($q) use($stream){
         $q->where('stream_name','=',$stream);
@@ -80,7 +80,7 @@ class ViewAllUserController extends Controller
     }
 
     public function userGlobalSearch($name){
- $all_users=User::where('full_name','Like','%'.$name.'%')->orWhere('nick_name','Like','%'.$name.'%')->orWhere('phone_no','Like','%'.$name.'%')->orWhere('gender','Like','%'.$name.'%')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('bloodGroup',function($q) use($name){
+ $all_users=User::with('roles')->where('full_name','Like','%'.$name.'%')->orWhere('nick_name','Like','%'.$name.'%')->orWhere('phone_no','Like','%'.$name.'%')->orWhere('gender','Like','%'.$name.'%')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('bloodGroup',function($q) use($name){
         $q->where('blood_group_name','Like','%'.$name.'%');
   })->orWhereHas('streamName',function($q) use($name){
         $q->where('stream_name','Like','%'.$name.'%');

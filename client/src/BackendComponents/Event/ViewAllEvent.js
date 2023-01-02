@@ -28,6 +28,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
+import './event.css';
 
 
 function ViewAllEvent() {

@@ -376,7 +376,6 @@ function ViewAllUsers() {
             change_role_name: userRoleChangeInfo.role_name
         }
 
-        console.log('hola', roleChangeData)
         axios.post(`/api/role-change-request`, roleChangeData).then(res => {
             if (res.data.status === 200) {
                 Swal.fire(res.data.message, '', 'success')
@@ -406,42 +405,21 @@ function ViewAllUsers() {
                         <img className="border border-secondary border-2" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
 
                     </button>
+
+
+
                     <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
-                        <a class={`dropdown-item ${row.roles[0].name == 'Admin' ? "active" : ""}`} href="#" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles[0].name}`} name="Admin" onClick={(e) => handleUserRoleChangeInfo(e, row)}>Admin</a>
-                        <a class={`dropdown-item ${row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
-                        <a class={`dropdown-item ${row.roles[0].name == 'Moderator' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Moderator" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Moderator</a>
+                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Admin' ? "active" : ""}`} href="#" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} name="Admin" onClick={(e) => handleUserRoleChangeInfo(e, row)}>Admin</a>
+                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles == undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
+                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Moderator' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Moderator" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Moderator</a>
                         {/* <div class="dropdown-divider"></div> */}
-                        <a class={`dropdown-item ${row.roles[0].name == 'Staff' ? "active" : ""}`} href="#" name="Staff" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Staff</a>
-
-
-                        {
-                            // row.roles.length > 0 &&
-
-
-
-                            // allrole.map((item, i) => {
-                            //     return (
-                            //         <>
-
-                            //             <div class={`form-check mx-2 `}>
-                            //                 <input class="form-check-input" type="radio" name="bal[]" value={item.name} id="flexRadioDefault1" checked={row.roles && row.roles[0].name ==item.name } onChange={(e) => handleUserRoleChangeInfo(e, row)} />
-                            //                 <label class="form-check-label" for="flexRadioDefault1">
-                            //                     {item.name}
-                            //                 </label>
-                            //             </div>
-                            //             {/* <li className='mt-1' > <a class={`dropdown-item ${row.roles[0].name == item.name ? 'active rounded' : ""} px-2`} onClick={(e)=>handleUserRoleChangeInfo(e,row)}>{item.name}</a></li> */}
-                            //         </>
-                            //     )
-                            // })
-                        }
-
-
-
+                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Staff' ? "active" : ""}`} href="#" name="Staff" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Staff</a>
 
 
 
 
                     </ul>
+
 
                     <div class="modal fade" id={`exampleModal${row.roles[0].name}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -489,20 +467,20 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='title-field d-flex justify-content-between align-items-center' style={{ borderRight: "1px solid gray" }}>
+                <div className='title-field d-flex justify-content-between align-items-center p-1 my-1' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <h5 className='my-1 ' style={{ fontSize: 18 }}>
                             {row.full_name}
                         </h5>
 
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.phone_no}</span>
+                            <span className='text-secondary'>{row.phone_no}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.email}</span>
+                            <span className='text-secondary'>{row.email}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.blood_group == null ? '' : row.blood_group.blood_group_name}</span>
+                            <span className='text-secondary'>{row.blood_group == null ? '' : row.blood_group.blood_group_name}</span>
                         </div>
                     </div>
                     <div className='text-bottom  p-0'>
@@ -533,19 +511,19 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='educational-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
+                <div className='educational-field d-flex justify-content-between p-1 my-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].name_of_company}</span>
+                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].name_of_company}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
+                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
+                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>Other Information</span>
+                            <span className='text-secondary'>Other Information</span>
                         </div>
                     </div>
 
@@ -576,24 +554,24 @@ function ViewAllUsers() {
             ,
             render: (row) =>
 
-                <div className='contact-field d-flex justify-content-between py-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
+                <div className='contact-field d-flex justify-content-between p-1 my-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div style={{ textAlign: "justify" }}>
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>BSC </span>
+                            <span className=' text-secondary'>BSC </span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.educational_info.bsc_institution}</span>
+                            <span className=' text-secondary'>{row.educational_info.bsc_institution}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
+                            <span className=' text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].office_address}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='py-1 px-1 text-secondary'> {row.educational_info.bsc_passing_year}</span>
+                            <span className=' text-secondary'> {row.educational_info.bsc_passing_year}</span>
                         </div>
                     </div>
 
                     <div className='text-bottom '>
-                        <h3 className="title-text-h px-3">Contact </h3>
+                        <h3 className="title-text-h px-2">Contact </h3>
                         <WorkOutlineOutlinedIcon style={{ marginTop: 27, color: "#C0C0C0", cursor: "pointer" }} />
                     </div>
 
@@ -622,9 +600,9 @@ function ViewAllUsers() {
 
                 <div className='icon-view-field'>
                     <div className='sites-icon me-3'>
-                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div> </a>
-                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
-                        <a href="" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
+                        <a href={row.facebook_link} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div> </a>
+                        <a href={`/${row.linkedin_link}`} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
+                        <a href={`mailto:${row.facebook_link}`} class="fw-bold" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
                     </div>
                     <div className='text-secondary'>
                         <div style={{ marginLeft: 20 }} onClick={(e) => {
@@ -981,19 +959,19 @@ function ViewAllUsers() {
 
                                     <div className='d-flex ms-5'>
                                         <div className='pending mx-2' data-aos="zoom-out-left">
-                                            <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Pending</h6>
+                                            <h6 className='my-0 px-1'>Pending</h6>
                                             <span className='num1'><h4
                                                 className='num1-h4'
-                                                style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>20</h4></span>
+                                                style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>20</h4></span>
                                         </div>
                                         <div className='active' data-aos="zoom-out-left">
-                                            <h6 style={{ paddingRight: 10, paddingTop: 6 }}>Active</h6>
-                                            <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "8px 12px 5px 12px", marginTop: 3, fontSize: 14 }}>1k</h5></span>
+                                            <h6 className='my-0 px-1'>Active</h6>
+                                            <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>1k</h5></span>
                                         </div>
                                     </div>
                                 </div>
-                                <Container >
-                                    <div className='user-config2' data-aos="fade-up"
+                                <Container class="" >
+                                    <div className='mx-5 px-5 mt-1 mb-3' data-aos="fade-up"
                                         data-aos-anchor-placement="top-bottom">
                                         {
                                             gender_name !== null && <Button onClick={() => setgender_name(null)} style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
@@ -1191,8 +1169,8 @@ function ViewAllUsers() {
                                                 </div>
                                             </div>
                                             <div>
-                                                <div class="text-center mt-4 mb-4">
-                                                    <a class="btn line-btn-dark btn-icon btn-radius border" href="#" title=""><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
+                                                <div class="text-center mt-2 mb-3">
+                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/cv/${viewUserDescription.cv_file}`}  title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
                                                 </div>
 
                                                 <div className='select-down-div'>
@@ -1206,7 +1184,7 @@ function ViewAllUsers() {
 
                                             </div>
 
-                                            <div className='mt-4' >
+                                            <div className='mt-2' >
                                                 <div className='d-flex'>
                                                     <i class="fa fa-graduation-cap"></i>
                                                     <h6 className='modal-h6  ms-2'>Personal Information</h6>
@@ -1354,6 +1332,23 @@ function ViewAllUsers() {
 
                                                     </article></div>
                                             </div>
+
+
+                                            <div className='mt-4'>
+                                                <div className='d-flex align-items-center '>
+                                                    <i class="fa fa-users mt-1"></i>
+                                                    <h6 className='modal-h6  ms-2 mt-1 '>Social Information</h6>
+                                                </div>
+                                                <div>
+                                                    <article className='modal-article'>
+                                                        <span class="d-block my-2 fw-bold text-dark">Facebook: <a className='fw-normal mx-1' href={viewUserDescription.facebook_link} target="_blank">{viewUserDescription.facebook_link} </a></span>
+                                                        <span class="d-block my-2 fw-bold text-dark">linkedin:  <a className='fw-normal mx-1' href={viewUserDescription.linkedin_link} target="_blank">{viewUserDescription.linkedin_link} </a></span>
+                                                        <span class="d-block my-2 fw-bold text-dark">Twitter:  <a className='fw-normal mx-1' href={viewUserDescription.twitter_link} target="_blank">{viewUserDescription.twitter_link} </a></span>
+
+
+                                                    </article></div>
+                                            </div>
+
 
                                             <div>
                                                 {/*<button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewUserDescription.type_name}</span> </button>*/}
