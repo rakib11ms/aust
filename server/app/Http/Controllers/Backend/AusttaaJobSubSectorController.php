@@ -14,11 +14,14 @@ class AusttaaJobSubSectorController extends Controller
         $total_job_sub_sector = AusttaaJobSubSector::orderBy('id', 'desc')->get()->count();
 
         $job_sub_sector = AusttaaJobSubSector::orderBy('id', 'desc')->get();
+ $job_sub_sector_asc = AusttaaJobSubSector::orderBy('job_sub_sector_name', 'asc')->get();
         return response()->json([
             'status' => 200,
             'total_job_sub_sector' => $total_job_sub_sector,
 
-            'job_sub_sector' => $job_sub_sector
+            'job_sub_sector' => $job_sub_sector,
+            'job_sub_sector_asc' => $job_sub_sector_asc
+
         ]);
     }
 

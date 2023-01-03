@@ -113,11 +113,17 @@ Route::post('/role-change-request', [ViewAllUserController::class, 'roleChangeUs
 
 Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRoleFiltering']);
 
-Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
+// Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}/{job-sector}/{job-sub-sector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
+
+Route::get('/multiple-filter-search-all-users/{gender}/{stream}/{blood}/{company}/{batch}/{jobsector}/{subsector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
 //global user search web
 Route::get('/user-global-search/{name}', [ViewAllUserController::class, 'userGlobalSearch']);
 
+
+
+//all location (thana) from users table thana field dropdown
+Route::get('/all-thana', [ViewAllUserController::class, 'LocationThana']);
 
 //austtaa batch 
 

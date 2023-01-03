@@ -34,44 +34,26 @@ class ViewAllUserController extends Controller
         ]);
     }
 
-    public function multipleFilterSearchAllUsers($company,$blood,$batch,$stream,$gender){
+    public function multipleFilterSearchAllUsers($gender,$stream,$blood,$company,$batch,$jobsector,$subsector,$thana){
+
+        // dd(User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles','jobSectorName','jobSubSectorName'])->where('thana',$thana)->get());
 
         // dd($gender);
-  $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('gender',$gender)->orWhereHas('bloodGroup',function($q) use($blood){
+  $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles','jobSectorName','jobSubSectorName'])->orWhereHas('bloodGroup',function($q) use($blood){
         $q->where('blood_group_name','=',$blood);
   })->orWhereHas('streamName',function($q) use($stream){
         $q->where('stream_name','=',$stream);
     })->orWhereHas('professionalInfo',function($q) use($company){
         $q->where('name_of_company','=',$company);
-    })->get();
+    })->orWhereHas('jobSectorName',function($q) use($jobsector){
+        $q->where('job_sector_name','=',$jobsector);
+    })->orWhereHas('jobSubSectorName',function($q) use($subsector){
+        $q->where('job_sub_sector_name','=',$subsector);
+    })->orWhere('gender',$gender)->orWhere('thana',$thana)->get();
 
 
 
-  // $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->get();
 
-
-// $value = 'someName';
-// $all_users=User::where('gender','=',$gender)->with(['bloodGroup', 'streamName', 'batchName'])
-//        ->doesntHave('bloodGroup')->orWhereHas('bloodGroup', function($q) use($blood) {
-//        $q->where('blood_group_name', '=', $blood);
-// })->doesntHave('streamName')->orWhereHas('streamName', function($q) use($stream) {
-//        $q->where('stream_name', '=', $stream);
-// })->doesntHave('batchName')->orWhereHas('batchName', function($q) use($batch) {
-//        $q->where('batch_name', '=', $batch);
-// })
-// ->with(['professionalInfo','educationalInfo'])
-// ->get();
-
-// $all_users=User::where('gender','=',$gender)->with(['bloodGroup', 'streamName', 'batchName'])
-//        ->whereHas('bloodGroup', function($q) use($blood) {
-//        $q->where('blood_group_name', '=', $blood);
-// })->whereHas('streamName', function($q) use($stream) {
-//        $q->where('stream_name', '=', $stream);
-// })->whereHas('batchName', function($q) use($batch) {
-//        $q->where('batch_name', '=', $batch);
-// })
-// ->with(['professionalInfo','educationalInfo'])
-// ->get();
 
         return response()->json([
             'status' => 200,
@@ -169,6 +151,16 @@ class ViewAllUserController extends Controller
                 ]
             );
         }
+    }
+
+    public function LocationThana(){
+            $all_thana=User::orderBy('thana','asc')->whereNotNull('thana')->pluck('thana');
+             return response()->json(
+                [
+                    'status' => 200,
+                    'all_thana' =>$all_thana,
+                ]
+            );
     }
 
 }

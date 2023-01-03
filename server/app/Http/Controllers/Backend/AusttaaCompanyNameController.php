@@ -13,12 +13,15 @@ class AusttaaCompanyNameController extends Controller
         $total_company_name = AusttaaCompanyName::orderBy('id', 'desc')->get()->count();
 
         $company_name = AusttaaCompanyName::orderBy('id', 'desc')->get();
+        $company_name_asc = AusttaaCompanyName::orderBy('company_name', 'asc')->get();
+
 
         return response()->json([
             'status' => 200,
             'total_company_name' => $total_company_name,
 
             'company_name' => $company_name,
+            'company_name_asc'=>$company_name_asc
         
         ]);
     }

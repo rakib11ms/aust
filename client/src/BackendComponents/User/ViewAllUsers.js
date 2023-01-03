@@ -28,10 +28,15 @@ import moment from 'moment';
 // import { Paper } from '@material-ui/core';
 import Paper from '@mui/material/Paper';
 import { Container } from '@mui/system';
-
+import { CSVLink } from 'react-csv';
+import JSZip from "jszip";
+import { saveAs } from 'file-saver';
 
 
 function ViewAllUsers() {
+
+
+
     const [loading, setLoading] = useState(true);
 
     // const [allUserPosts, setallUserPosts] = useState([]);
@@ -717,13 +722,22 @@ function ViewAllUsers() {
     const [company_name, setcompany_name] = useState(null);
     const [batch_name, setbatch_name] = useState(null);
     const [gender_name, setgender_name] = useState(null);
+    console.log('gender name', gender_name)
     const [stream_name, setstream_name] = useState(null);
+    const [thana_name, setthana_name] = useState(null);
+    const [job_sector_name, setjob_sector_name] = useState(null);
+    const [job_sub_sector_name, setjob_sub_sector_name] = useState(null);
 
     const [allBloodGroupName, setAllBloodGroupName] = useState([]);
     const [allCompanyName, setAllCompanyName] = useState([]);
+    const [allCompanyNameSort, setAllCompanyNameSort] = useState([]);
     const [allBatchName, setAllBatchName] = useState([]);
     const [allGenderName, setAllGenderName] = useState([]);
     const [allStreamName, setAllStreamName] = useState([]);
+
+    const [allJobSectorAsc, setAllJobSectorAsc] = useState([]);
+    const [allJobSubSectorAsc, setAllJobSubSectorAsc] = useState([]);
+    const [allThana, setAllThana] = useState([]);
 
 
     useEffect(() => {
@@ -742,7 +756,7 @@ function ViewAllUsers() {
         axios.get(`/api/company-name`).then(res => {
             if (res.data.status == 200) {
                 setAllCompanyName(res.data.company_name);
-
+                setAllCompanyNameSort(res.data.company_name_asc);
             }
         })
         axios.get(`/api/stream-name`).then(res => {
@@ -751,21 +765,51 @@ function ViewAllUsers() {
 
             }
         })
+
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSectorAsc(res.data.job_sector_asc);
+
+            }
+        })
+
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSectorAsc(res.data.job_sub_sector_asc);
+
+            }
+        })
+        axios.get(`/api/all-thana`).then(res => {
+            if (res.data.status == 200) {
+                setAllThana(res.data.all_thana);
+
+            }
+        })
     }, [])
 
 
     useEffect(() => {
-        if (blood_group_name !== null || company_name !== null || blood_group_name !== null || stream_name !== null || gender_name !== null) {
-            axios.get(`/api/multiple-filter-search-all-users/${company_name}/${blood_group_name}/${batch_name}/${stream_name}/${gender_name}`).then(res => {
+        if (batch_name !== null || company_name !== null || blood_group_name !== null || stream_name !== null || gender_name !== null || job_sector_name !== null || job_sub_sector_name !== null || thana_name !== null) {
+            axios.get(`/api/multiple-filter-search-all-users/${gender_name}/${stream_name}/${blood_group_name}/${company_name}/${batch_name}/${job_sector_name}/${job_sub_sector_name}/${thana_name}}`).then(res => {
                 if (res.data.status == 200) {
+
+                    console.log('ccc', res.data)
                     setallUsers(res.data.all_users)
                     setLoading(false);
                 }
             })
         }
+        // else{
+        //     axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
+        //         if (res.data.status == 200) {
+        //             setallUsers(res.data.all_users);
+        //             setLoading(false);
+        //         }
+        //     })
+        // }
 
 
-    }, [blood_group_name, company_name, batch_name, gender_name, stream_name])
+    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, job_sub_sector_name, thana_name])
 
 
     const [globalSearch, setGlobalSearch] = useState('');
@@ -781,6 +825,44 @@ function ViewAllUsers() {
         }
 
     }, [globalSearch])
+
+
+
+
+    // const saveZip = (filename, urls) => {
+    //     if(!urls) return;
+
+    //     const zip = new JSZip();
+    //     const folder = zip.folder("files"); // folder name where all files will be placed in 
+
+    //     urls.forEach((url) => {
+    //         const blobPromise = fetch(url).then((r) => {
+    //             if (r.status === 200) return r.blob();
+    //             return Promise.reject(new Error(r.statusText));
+    //         });
+    //         const name = url.substring(url.lastIndexOf("/") + 1);
+    //         folder.file(name, blobPromise);
+    //     });
+
+    //     zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename));
+
+    // };
+
+    // const urls = [
+    //     "http://172.31.120.58/public/cv/1672636898.pdf", 
+    //     // "http://172.31.120.58/cv/1672636898.pdf", 
+    //     // "https://example.com/file2.txt", 
+    //     // "https://example.com/file3.txt"
+    // ];
+
+
+    // src={`${global.img_url}/cv/${viewUserDescription.image}`}
+
+    // function saveZip(){
+    //     saveZip("my_project_files_to_download.zip", urls);
+
+    // }
+
 
     return (
         <>
@@ -887,7 +969,7 @@ function ViewAllUsers() {
                                                                 <select class="form-select" aria-label="Default select example" onChange={(e) => setcompany_name(e.target.value)}>
                                                                     <option selected disabled>Open this select menu</option>
                                                                     {
-                                                                        allCompanyName.map((item, i) => {
+                                                                        allCompanyNameSort.map((item, i) => {
                                                                             return (
                                                                                 <>
                                                                                     <option value={item.company_name}>{item.company_name}</option>
@@ -920,28 +1002,63 @@ function ViewAllUsers() {
                                                         </div>
 
 
-                                                        {/* <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Office Location</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected disabled>Open this select menu</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>    </div>
-                                                        </div> */}
-                                                        {/* 
                                                         <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Permanent Location</label>
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sector</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
                                                                     <option selected disabled>Open this select menu</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>    </div>
-                                                        </div> */}
+                                                                    {
+                                                                        allJobSectorAsc.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.job_sector_name}>{item.job_sector_name}</option>
 
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sub Sector</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allJobSubSectorAsc.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.job_sub_sector_name}>{item.job_sub_sector_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Thana</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setthana_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allThana.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item}>{item}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -986,9 +1103,7 @@ function ViewAllUsers() {
                                         }
 
 
-                                        {/* <Button onClick={()=>setstream_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
-                                            Location
-                                        </Button> */}
+
                                         {
                                             batch_name !== null && <Button onClick={() => setbatch_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BatchPredictionIcon />} endIcon={<CloseIcon />}>
                                                 {batch_name}
@@ -1003,6 +1118,21 @@ function ViewAllUsers() {
                                         {
                                             stream_name !== null && <Button onClick={() => setstream_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<AccessTimeIcon />} endIcon={<CloseIcon />}>
                                                 {stream_name}
+                                            </Button>
+                                        }
+                                        {
+                                            job_sector_name !== null && <Button onClick={() => setjob_sector_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
+                                                {job_sector_name}
+                                            </Button>
+                                        }
+                                        {
+                                            job_sub_sector_name !== null && <Button onClick={() => setjob_sub_sector_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
+                                                {job_sub_sector_name}
+                                            </Button>
+                                        }
+                                        {
+                                            thana_name !== null && <Button onClick={() => setthana_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
+                                                {thana_name}
                                             </Button>
                                         }
 
@@ -1036,9 +1166,15 @@ function ViewAllUsers() {
                                                         Download
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
-                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
-                                                        <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li>
+                                                        <li><a class="dropdown-item" href="#" onClick={"saveZip"}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                        {allUsers &&
+                                                            <CSVLink data={allUsers} filename="RegisterUserData" className="">
+                                                                <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
+
+                                                            </CSVLink>
+                                                        }
+
+                                                        {/* <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li> */}
                                                     </ul>
                                                     <div className='select-div-active'>
                                                         <select className="form-select form-select-sm mb-3 select-active" aria-label=".form-select-sm example">
@@ -1170,17 +1306,17 @@ function ViewAllUsers() {
                                             </div>
                                             <div>
                                                 <div class="text-center mt-2 mb-3">
-                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/cv/${viewUserDescription.cv_file}`}  title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
+                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/cv/${viewUserDescription.cv_file}`} title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
                                                 </div>
 
-                                                <div className='select-down-div'>
+                                                {/* <div className='select-down-div'>
                                                     <select className="form-select form-select-sm mb-3 select-down" aria-label=".form-select-sm example">
                                                         <option selected>Moderator</option>
                                                         <option value="1">Admin</option>
                                                         <option value="2">Alumni</option>
                                                         <option value="3">Stuff</option>
                                                     </select>
-                                                </div>
+                                                </div> */}
 
                                             </div>
 

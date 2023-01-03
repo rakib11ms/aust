@@ -68,10 +68,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\AusttaaBatch','batch');
     }
-   // public function companyName()
-   //  {
-   //      return $this->belongsTo('App\Models\AusttaaCompanyName','batch');
-   //  }
+   public function jobSectorName()
+    {
+        return $this->belongsTo('App\Models\AusttaaJobSector','job_sector');
+    }
+      public function jobSubSectorName()
+    {
+        return $this->belongsTo('App\Models\AusttaaJobSubSector','job_sub_sector');
+    }
+
 
 
 

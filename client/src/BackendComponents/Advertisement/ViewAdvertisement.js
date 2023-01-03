@@ -228,10 +228,10 @@ function ViewAllAdvertisement() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div className=''>
+                <div className='mt-2'>
                     {row.advertisement_image !== undefined &&
 
-                        <img className="rounded" src={`${global.img_url}/images/${row.advertisement_image[0].image}`} width="130px" height="100px" alt="No Image" />
+                        <img className="rounded" src={`${global.img_url}/images/${row.advertisement_image[0].image}`} width="130px" height="90px" alt="No Image" />
 
                     }
                 </div>
@@ -253,14 +253,14 @@ function ViewAllAdvertisement() {
             render: (row) =>
 
                 <div className=''>
-                    <div className='d-flex justify-content-end'>
+                    <div className='d-flex justify-content-end  mx-5'>
 
 
                         <div className='my-0 px-1 py-0'>
-                            <div className='d-flex align-items-center py-2 ' style={{ cursor: 'pointer' }}>
+                            <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
 
 
-                                <div className='text-secondary'>
+                                <div className='text-secondary '>
                                     <Link to={`/edit-advertisement/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
                                 </div>
@@ -370,8 +370,8 @@ function ViewAllAdvertisement() {
             cellStyle: {
                 // marginLeft: 50,
                 // maxWidth: 300,
-                width: 800,
-                padding: 0
+                width: 900,
+                paddingLeft: 50
             },
         },
 
