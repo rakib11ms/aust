@@ -92,7 +92,7 @@ function EditJobPost() {
         formData.append('job_description', content1);
         formData.append('isPublished', editData.isPublished);
         formData.append('isArchived', editData.isArchived);
-        formData.append('posted_by', 1);
+        formData.append('posted_by', localStorage.getItem('user_id'));
         formData.append('isPublished', editData.isPublished);
         
         formData.append('image', image);

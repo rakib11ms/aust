@@ -235,7 +235,7 @@ class EventController extends Controller
         $event->priority = $request->priority;
         $event->update();
 
-
+            if($request->file('image')){
            foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
@@ -250,6 +250,7 @@ class EventController extends Controller
             // $advertisement->image =  implode(', ', $name);
         // $advertisement->save();
         }
+    }
            // $advertisement->save();
 
 
@@ -493,5 +494,21 @@ public function eventQrCodePassOrFail($eventId){
             ]);
         }
         
+}
+
+//web event persons name
+
+public function eventContactPersonName($eventId){
+    $event_id=AusstaEvent::where('id',$eventId)->pluck('contact_person')->implode(',');
+ $explode=explode(',', $event_id);
+    // dd($explode);
+
+
+
+    $contact_persons=User::whereIn('id',$explode)->get();
+   return response()->json([
+                'status' => 200,
+              'contact_persons' => $contact_persons,
+            ]);
 }
 }

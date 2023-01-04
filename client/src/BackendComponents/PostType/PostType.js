@@ -357,8 +357,8 @@ function PostType() {
             padding: '5px',
             // marginRight: '-50%',
             transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "50vh",
+            width: "40vw",
+            height: "40vh",
             // background: "#ffffff",
         },
         overlay: { zIndex: 1000 }
@@ -459,7 +459,7 @@ function PostType() {
                         <div className=''>
                             <div className='text-secondary'>
                                 <span>
-                                    <i className='fa fa-calendar'></i>
+                                    <i className='fa fa-calendar-days'></i>
                                     <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")}</span>
                                 </span>
                             </div>
@@ -485,7 +485,7 @@ function PostType() {
                         {/* <p className='text-secondary'>{row.post_description}</p> */}
 
                         <div className='text-secondary' dangerouslySetInnerHTML=
-{{ __html: row.post_description.length > 50 ? `${row.post_description.substring(0, 50)}...` : row.post_description }} />
+                            {{ __html: row.post_description.length > 50 ? `${row.post_description.substring(0, 50)}...` : row.post_description }} />
 
 
                     </div>
@@ -505,7 +505,7 @@ function PostType() {
                 maxWidth: 200,
                 // width: 400,
                 margin: 0,
-             
+
             },
         },
         {
@@ -538,25 +538,25 @@ function PostType() {
 
         {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
-                {
-                    row.isArchived !== 1 &&
-                    <div class="form-check form-switch mx-2  text-danger">
-                        <form encType="multipart/form-data" method='POST' >
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
-                                value={checkboxStatus}
+                {/* {
+                    row.isArchived !== 1 && */}
+                <div class="form-check form-switch mx-2  text-danger">
+                    <form encType="multipart/form-data" method='POST' >
+                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                            value={checkboxStatus}
 
-                                checked={row.isPublished == 1 && true}
+                            checked={row.isPublished == 1 && true}
 
-                                onChange={(e) => {
+                            onChange={(e) => {
 
-                                    handlePostApproval(e, row)
+                                handlePostApproval(e, row)
 
-                                }} />
-                        </form>
+                            }} />
+                    </form>
 
-                    </div>
+                </div>
 
-                }
+                {/* } */}
 
                 <div className='mx-2 mb-1' onClick={(e) => deletePost(e, row.id)}>
                     <i class="fa-solid fa-trash icon-table-trash" ></i>
@@ -608,7 +608,7 @@ function PostType() {
                                     <div className='mt-3'>
                                         <h5>{viewPostDescription.post_title}</h5>
                                         <div>
-                                            <i class="fas fa-calendar"></i>
+                                            <i class="fas fa-calendar-days"></i>
                                             <span className='mx-2'>Posted Date: {moment(viewPostDescription.created_at).format('YYYY-MM-DD')}</span>
                                         </div>
 
@@ -716,11 +716,16 @@ function PostType() {
     console.log('filter click check', postFiltering)
 
 
+
+
     useEffect(() => {
         axios.get(`/api/filter-post/${postFiltering}`).then(res => {
             if (res.data.status == 200) {
+                // window.location.reload();
+                console.log('use effect running')
+
                 setallPosts(res.data.posts);
-                setLoading(false);
+                // setLoading(false);
             }
         })
 
@@ -1010,10 +1015,10 @@ function PostType() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${postFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
-                                                <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${postFiltering == 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
+                                                <h6 className={`${postFiltering == 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${postFiltering == 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
+                                                <h6 className={`${postFiltering == 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 
@@ -1107,10 +1112,10 @@ function PostType() {
 
                             <div className="row">
 
-                                <div className="col-12">
+                                <div className="col-md-12">
 
-                                    <div className='d-flex align-items-center'>
-                                        <div class="mb-3" style={{ width: '60%' }}>
+                                    <div className='' >
+                                        <div class="mb-3" style={{ width: '100%' }}>
                                             <label for="exampleFormControlInput1" class="form-label fs-6">Category Name</label>
                                             <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addPostType.type_name} name="type_name" onChange={handleInput} />
                                         </div>
@@ -1119,7 +1124,7 @@ function PostType() {
                                         </div>
 
 
-                                        <div style={{ width: '40%' }} className="mx-2 mt-1">
+                                        <div style={{ width: '100%' }} className="mx-2 mt-1">
                                             <span className='text-danger'> {addPostType.error_list.type_name}</span>
                                         </div>
                                     </div>
@@ -1128,7 +1133,7 @@ function PostType() {
 
 
 
-                                    <div class="mb-3">
+                                    {/* <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label fs-6">Mapping</label>
                                         <div className='d-flex mt-2'>
                                             <div className=''>
@@ -1171,10 +1176,10 @@ function PostType() {
 
                                         </div>
 
-                                    </div>
+                                    </div> */}
 
 
-                                    <button className='btn btn-success btn-sm float-end me-5 rounded-3 px-5 py-2 mt-1' onClick={handleSave}>Save</button>
+                                    <button className='btn btn-success btn-sm float-start me-5 rounded-3 px-3 py-1 ' onClick={handleSave}>Save</button>
 
 
 

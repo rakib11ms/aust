@@ -93,7 +93,7 @@ function CreateJobPost() {
         formData.append('application_deadline', jobPost.application_deadline);
         formData.append('company_name', jobPost.company_name);
         formData.append('job_description', content1);
-        formData.append('posted_by', 1);
+        formData.append('posted_by', localStorage.getItem('user_id'));
         formData.append('isApproved', 1);
         formData.append('image', image);
 

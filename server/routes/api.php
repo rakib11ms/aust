@@ -223,6 +223,13 @@ Route::get('/filter-post-by-search-input-radio/{searchInputValue}/{searchRadioBu
 
 //mobile users all-posts filtering
 Route::get('/user-posts-filtering/{name}', [PostController::class, 'userPostsFiltering']);
+
+//my posts filtering global search
+
+Route::get('/user-my-posts-global-filtering/{name}', [PostController::class, 'userMyPostsFiltering']);
+
+
+Route::get('/user-posts-filtering/{name}', [PostController::class, 'userPostsFiltering']);
 //mobile date range job-post filtering 
 Route::post('/post-filtering-by-two-dates', [PostController::class, 'postFilteringByTwoDates']);
 
@@ -295,6 +302,10 @@ Route::get('/get-all-event-related-data/{name}', [EventController::class, 'getAl
 //event qr code scanner (pass or fail)
 Route::get('/event-qr-code-pass-or-fail/{eventId}', [EventController::class, 'eventQrCodePassOrFail']);
 
+
+//web event persons name
+
+Route::get('/event-contact-persons-name/{eventId}', [EventController::class, 'eventContactPersonName']);
 
 /////banner mobile /////////////////
 

@@ -178,7 +178,7 @@ function CreateEvent() {
         formData.append("event_time", event_time);
         formData.append("priority", priority);
         formData.append("contact_person", result);
-        formData.append("event_fee", event_fee==''?0:event_fee);
+        formData.append("event_fee", event_fee == '' ? 0 : event_fee);
         formData.append("showBanner", showBanner);
         formData.append("payment_type", payment_type);
         formData.append("event_description", content1);

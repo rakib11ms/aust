@@ -309,7 +309,7 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
                 'posts' => $posts,
             ]);
         }
-        else if($name==1){
+        if($name==1){
    
          $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->where('isArchived',0)->where('isPublished',1)->orderBy('posts.id','desc')->get();
 
@@ -318,7 +318,7 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
                 'posts' => $posts,
             ]);
         }
-        else if($name==0){
+        if($name==0){
              
          $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->where('isArchived',0)->where('isPublished',0)->orderBy('posts.id','desc')->get();
 
@@ -328,7 +328,8 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
                 'posts' => $posts,
             ]);
         }
-        else if($name=='archive'){
+        if($name=='archive'){
+
                   $posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name','users.full_name')->where('isArchived',1)->where('isPublished',0)->orderBy('posts.id','desc')->get(); 
 
    return response()->json([
@@ -338,7 +339,8 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
         }
         else{
 
-         $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
+             $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
+
 
 
         return response()->json([
@@ -401,7 +403,7 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
 
 
 
-
+//mobile side
 
 
 
@@ -451,6 +453,17 @@ $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all(
     }
 }
 
+
+public function userMyPostsFiltering($name){
+     
+      $filtered_posts=DB::table('posts')->leftJoin('post_types','post_types.id','=','posts.post_type')->select('posts.*','post_types.id as post_type_id','post_types.type_name as type_name')->where('post_types.type_name','like','%' .$name. '%')->orWhere('posts.post_title','like','%' .$name. '%')->orWhere('posts.post_description','like','%'.$name.'%')->where('posted_by',auth('sanctum')->user()->id)->orderBy('posts.id','desc')->get(); 
+        return response()->json([
+                'status' => 200,
+                'filtered_posts' => $filtered_posts,
+            ]);
+
+  
+}
 
 
 

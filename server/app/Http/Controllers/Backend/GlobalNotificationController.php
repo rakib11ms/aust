@@ -126,7 +126,7 @@ $all_users = User::all();
 
         if($request->for_all_users==1){
 
-            if($request->notification_both==1){
+            if($request->for_all_users==1 && $request->notification_both==1){
             // dd("yes notification both");
 
          foreach ($all_users as $key => $user) {
@@ -162,12 +162,12 @@ $all_users = User::all();
 
         $response = curl_exec($ch);
         }
-        else if($request->mail_notification==1){
+        if($request->for_all_users==1 && $request->mail_notification==1){
     foreach ($all_users as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
         }
-        else if($request->push_notification==1){
+        if($request->for_all_users==1 && $request->push_notification==1){
 
           $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
 
@@ -202,7 +202,7 @@ $all_users = User::all();
 
 
         if($request->for_admin==1){
-            if($request->notification_both==1){
+            if($request->for_admin==1 && $request->notification_both==1){
 
          foreach ($admins as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
@@ -237,12 +237,13 @@ $all_users = User::all();
 
         $response = curl_exec($ch);
         }
-        else if($request->mail_notification==1){
+         if($request->for_admin==1 && $request->mail_notification==1){
+            // dd("yes admin er mail a dukse");
    foreach ($admins as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
         }
-        else if($request->push_notification==1){
+         if($request->for_admin==1 && $request->push_notification==1){
           $firebaseToken =  User::role('admin')->whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
@@ -276,7 +277,10 @@ $all_users = User::all();
 
 
         if($request->for_moderator==1){
-            if($request->notification_both==1){
+
+            if($request->for_moderator==1 && $request->notification_both==1){
+                 // dd('yes moderator  both a dukse');
+
 
          foreach ($moderators as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
@@ -311,14 +315,17 @@ $all_users = User::all();
 
         $response = curl_exec($ch);
         }
-        else if($request->mail_notification==1){
+         if($request->for_moderator==1 && $request->mail_notification==1){
+                 // dd('yes moderator mail a dukse');
 
          foreach ($moderators as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
 
         }
-        else if($request->push_notification==1){
+         if($request->for_moderator==1 && $request->push_notification==1){
+                // dd('yes moderator push a dukse');
+
  $firebaseToken =  User::role('moderator')->whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
@@ -351,7 +358,7 @@ $all_users = User::all();
         }
 
             if($request->for_alumni==1){
-            if($request->notification_both==1){
+            if($request->for_alumni==1 && $request->notification_both==1){
 
          foreach ($alumni as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
@@ -386,12 +393,12 @@ $all_users = User::all();
 
         $response = curl_exec($ch);
         }
-        else if($request->mail_notification==1){
+         if($request->for_alumni==1 && $request->mail_notification==1){
               foreach ($alumni as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
         }
         }
-        else if($request->push_notification==1){
+        if($request->for_alumni==1 && $request->push_notification==1){
       $firebaseToken =  User::role('alumni')->whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";

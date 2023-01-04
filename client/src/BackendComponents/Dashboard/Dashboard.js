@@ -306,7 +306,7 @@ function Dashboard() {
 
                     <nav className="publication-nav text-normal fw-300 " style={{ cursor: 'pointer' }}>
                         <div className="row d-flex align-items-center">
-                            <div className="publication-left col-md-6">
+                            <div className="publication-left col-md-5">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">
                                     <li className={`${postTabSection == 'news' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('news')}>
                                         News
@@ -314,9 +314,9 @@ function Dashboard() {
                                     <li className={`${postTabSection == 'events' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('events')}>
                                         Events
                                     </li>
-                                    <li className={`${postTabSection == 'announcements' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('announcements')}>
+                                    {/* <li className={`${postTabSection == 'announcements' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('announcements')}>
                                         Announcements
-                                    </li>
+                                    </li> */}
                                     <li className={`${postTabSection == 'articles' ? 'fw-bold' : ""}`} onClick={() => setPostTabSection('articles')}>
                                         Articles
                                     </li>
@@ -366,7 +366,7 @@ function Dashboard() {
 
                             </div>
 
-                            <div className="publication-right col-md-6  d-flex justify-content-end align-items-center">
+                            <div className="publication-right col-md-7  d-flex justify-content-end align-items-center">
 
                                 <div className="right-fn-icon me-3 border px-1 text-success border-success rounded">
                                     {
@@ -439,19 +439,19 @@ function Dashboard() {
 
                     <section className="publication-content  px-2 mt-4 ">
                         <div className="total-publication-card  row  " style={{ cursor: 'pointer' }}>
-                            <div className="total-pu-card-left  col-3 rounded-3 border d-flex flex-column  justify-content-center shadow-sm" style={{ height: '150px' }}>
+                            <div className="total-pu-card-left  col-3 rounded-3 border d-flex flex-column  justify-content-center shadow-sm" style={{ height: '140px' }}>
                                 {
                                     postTabSection == 'news' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalNews}</h4>
-                                            <p className="mx-4 mt-1">News Are posted</p>
+                                            <p className="mx-4 ">News Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveNews}</h4>
-                                            <p className="mx-4 mt-1">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 ">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -459,14 +459,14 @@ function Dashboard() {
                                     postTabSection == 'events' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalEvents}</h4>
-                                            <p className="mx-4 mt-1">Events Are posted</p>
+                                            <p className="mx-4 ">Events Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveEvents}</h4>
-                                            <p className="mx-4 mt-1">Events Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 ">Events Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -474,14 +474,14 @@ function Dashboard() {
                                     postTabSection == 'articles' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArticles}</h4>
-                                            <p className="mx-4 mt-1">Articles Are posted</p>
+                                            <p className="mx-4 ">Articles Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveArticles}</h4>
-                                            <p className="mx-4 mt-1">Articles Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 ">Articles Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -489,14 +489,14 @@ function Dashboard() {
                                     postTabSection == 'blogs' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalBlogs}</h4>
-                                            <p className="mx-4 mt-1">Blogs Are posted</p>
+                                            <p className="mx-4 ">Blogs Are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveBlogs}</h4>
-                                            <p className="mx-4 mt-1">Blogs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 ">Blogs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -505,14 +505,14 @@ function Dashboard() {
                                     postTabSection == 'announcements' && <>
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{0}</h4>
-                                            <p className="mx-4 mt-1">Announcements are posted</p>
+                                            <p className="mx-4 ">Announcements are posted</p>
                                         </div>
 
 
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{0}</h4>
-                                            <p className="mx-4 mt-1">Announcement Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <p className="mx-4 ">Announcement Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
                                         </div>
                                     </>
                                 }
@@ -535,15 +535,15 @@ function Dashboard() {
                                                 allActiveEvents.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border  border-success rounded-side bb px-1" style={{ height: '150px' }}>
+                                                            <div className="cards border  border-success rounded-side bb px-1" style={{ height: '140px' }}>
                                                                 <Link to={`/edit-events/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
 
 
 
                                                                         <div className="calenda-icon d-flex align-items-center ">
-                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                            <span className="mx-2 d-block  publiction-num"> {item.created_at}</span>
+                                                                            <i class="fa fa-calendar-days  text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("YYYY-MM-DD")}</span>
 
 
 
@@ -572,10 +572,11 @@ function Dashboard() {
 
                                                                     </nav>
                                                                     <div className="mt-3">
-                                                                        <p className="m-0 p-0">{item.event_title}</p>
+                                                                        <p className="m-0 p-0"><span className="fw-bold"> Title : </span>{item.event_title}</p>
                                                                         <div className="my-2 p-0"
                                                                             dangerouslySetInnerHTML={{ __html: item.event_description.length > 50 ? `${item.event_description.substring(0, 50)}...` : item.event_description }}
-                                                                        />                                                                    </div>
+                                                                        />
+                                                                    </div>
                                                                 </Link>
 
                                                             </div>
@@ -599,7 +600,7 @@ function Dashboard() {
                                                 allActiveNoticeNews.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb " style={{ height: '150px' }}>
+                                                            <div className="cards border p-2  border-success rounded-side bb " style={{ height: '140px' }}>
                                                                 <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
@@ -607,8 +608,8 @@ function Dashboard() {
 
 
                                                                         <div className="calenda-icon d-flex align-items-center ">
-                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                            <i class="fa fa-calendar-days text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("YYYY-MM-DD")}</span>
 
 
 
@@ -668,15 +669,15 @@ function Dashboard() {
                                                 allActiveBlogs.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '150px' }}>
+                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '140px' }}>
                                                                 <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
 
                                                                         <div className="calenda-icon d-flex align-items-center ">
-                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                            <i class="fa fa-calendar-days text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("YYYY-MM-DD")}</span>
 
 
 
@@ -736,7 +737,7 @@ function Dashboard() {
                                                 allActiveArticles.map((item, i) => {
                                                     return (
                                                         <>
-                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '150px' }}>
+                                                            <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '140px' }}>
                                                                 <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
@@ -744,8 +745,8 @@ function Dashboard() {
 
 
                                                                         <div className="calenda-icon d-flex align-items-center ">
-                                                                            <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("LL")}</span>
+                                                                            <i class="fa fa-calendar-days text-secondary" aria-hidden="true"></i>
+                                                                            <span className="mx-2 d-block  publiction-num"> {moment(item.created_at).format("YYYY-MM-DD")}</span>
 
 
 
@@ -815,24 +816,24 @@ function Dashboard() {
 
                     <nav className="publication-nav text-normal fw-300" style={{ cursor: 'pointer' }}>
                         <div className="row d-flex align-items-center">
-                            <div className="publication-left col-md-6">
+                            <div className="publication-left col-md-5">
                                 <ul className="d-flex justify-content-between all-left-public-li m-0 p-0">
-                                    <li className={`${jobTabSection == 'All' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('All')}>
+                                    <li className={`${jobTabSection == 'All' ? 'fw-bold text-secondary' : ""}`} onClick={() => setJobTabSection('All')}>
                                         All
                                     </li>
                                     {/* <li>
                                         Pendings
                                     </li> */}
-                                    <li className={`${jobTabSection == 'Full Time' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Full Time')}>
+                                    <li className={`${jobTabSection == 'Full Time' ? 'fw-bold text-secondary' : ""}`} onClick={() => setJobTabSection('Full Time')}>
                                         Full Time
                                     </li>
-                                    <li className={`${jobTabSection == 'Part Time' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Part Time')}>
+                                    <li className={`${jobTabSection == 'Part Time' ? 'fw-bold text-secondary' : ""}`} onClick={() => setJobTabSection('Part Time')}>
                                         Part Time
                                     </li>
-                                    <li className={`${jobTabSection == 'Contractual' ? 'fw-bold' : ""}`} onClick={() => setJobTabSection('Contractual')}>
+                                    <li className={`${jobTabSection == 'Contractual' ? 'fw-bold text-secondary' : ""}`} onClick={() => setJobTabSection('Contractual')}>
                                         Contractual
                                     </li>
-                                    <li className={`${jobTabSection == 'Pending' ? 'fw-bold' : ""} pending-btn px-2`} onClick={() => setJobTabSection('Pending')}>
+                                    <li className={`${jobTabSection == 'Pending' ? 'fw-bold text-secondary' : ""} pending-btn px-2`} onClick={() => setJobTabSection('Pending')}>
                                         Pendings
                                         <span class="badge bg-danger badge-sm badge-noti">{totalPendingJobs}</span>
 
@@ -848,7 +849,7 @@ function Dashboard() {
 
                             </div>
 
-                            <div className="publication-right col-md-6  d-flex justify-content-end align-items-center">
+                            <div className="publication-right col-md-7  d-flex justify-content-end align-items-center">
 
                                 <div className="right-fn-icon me-3 border px-1 text-success border-success rounded">
                                     <Link to="/create-job-post" style={{ textDecoration: 'none', color: "black" }}>
@@ -873,7 +874,7 @@ function Dashboard() {
 
                     <section className="publication-content mt-2 px-2 ">
                         <div className="total-publication-card  mt-4 row">
-                            <div className="total-pu-card-left   col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3" style={{ height: '150px' }}>
+                            <div className="total-pu-card-left  col-3 rounded-3 bg-white border d-flex flex-column justify-content-center shadow py-2 px-3" style={{ height: '140px' }}>
                                 <div className="d-flex">
                                     <h4 className="publiction-num">{totalNewJobs}</h4>
                                     <p className="mx-4 mt-1">New Jobs Are posted</p>
@@ -909,8 +910,8 @@ function Dashboard() {
 
 
                                                                 <div className="calenda-icon d-flex align-items-center ">
-                                                                    <i class="fa fa-calendar  text-secondary" aria-hidden="true"></i>
-                                                                    <span className="mx-2 d-block  publiction-num">  {moment(item.created_at).format('LL')}</span>
+                                                                    <i class="fa fa-calendar-days text-secondary" aria-hidden="true"></i>
+                                                                    <span className="mx-2 d-block  publiction-num">  {moment(item.created_at).format('YYYY-MM-DD')}</span>
 
 
 
@@ -948,10 +949,10 @@ function Dashboard() {
 
                                                             </nav>
                                                             <div className="mt-3">
-                                                                <span>{item.job_title}</span>
-                                                                <div className="m-0 p-0"
+                                                                <span className=""> <span className="fw-bold"> Title :</span> {item.job_title}</span>
+                                                                {/* <div className="m-0 p-0"
                                                                     dangerouslySetInnerHTML={{ __html: item.job_description.length > 50 ? `${item.job_description.substring(0, 50)}...` : item.job_description }}
-                                                                />
+                                                                /> */}
                                                                 <div className="d-flex justify-content-between fs-7 mt-3">
                                                                     <p className="">Deadline: <b> {item.application_deadline} </b></p>
                                                                     <p className="">Posted: <b> {item.full_name} </b></p>
@@ -1065,15 +1066,15 @@ function Dashboard() {
 
                                                     <div class="content py-3 px-2">
                                                         <div className="p-0 mt-2">
-                                                            {item.advertisement_title}
+                                                            <span className="fw-bold"> Title : </span> {item.advertisement_title}
                                                         </div>
-
+                                                        {/* 
                                                         <div className="p-0 mt-2"
                                                             dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 100 ? `${item.advertisement_description.substring(0, 100)}...` : item.advertisement_description }}
-                                                        />
+                                                        /> */}
                                                         <div class="footer-con ">
                                                             <div class="">
-                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                                <i class="fa fa-calendar-days text-success" aria-hidden="true"></i>
                                                             </div>
                                                             <div class="me-2">
                                                                 {moment(item.created_at).format("YYYY-MM-DD")}
@@ -1135,13 +1136,15 @@ function Dashboard() {
 
                                                     <div class="content py-3 px-2">
                                                         {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
-
-                                                        <div className="p-0 mt-2"
+                                                        <div className="p-0 mt-2">
+                                                            <span className="fw-bold"> Title : </span> {item.advertisement_title}
+                                                        </div>
+                                                        {/* <div className="p-0 mt-2"
                                                             dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
-                                                        />
+                                                        /> */}
                                                         <div class="footer-con ">
                                                             <div class="">
-                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                                <i class="fa fa-calendar-days text-success" aria-hidden="true"></i>
                                                             </div>
                                                             <div class="me-2">
                                                                 {moment(item.created_at).format("YYYY-MM-DD")}
@@ -1204,13 +1207,12 @@ function Dashboard() {
 
                                                     <div class="content py-3 px-2">
                                                         {/* <p className="p-0 mt-2">The word 'lorem', for example, isn't a real Latin word, iaasdasd. for example, isn't a real Latin word,</p> */}
-
-                                                        <div className="p-0 mt-2"
-                                                            dangerouslySetInnerHTML={{ __html: item.advertisement_description.length > 50 ? `${item.advertisement_description.substring(0, 50)}...` : item.advertisement_description }}
-                                                        />
+                                                        <div className="p-0 mt-2">
+                                                            <span className="fw-bold"> Title : </span> {item.advertisement_title}
+                                                        </div>
                                                         <div class="footer-con ">
                                                             <div class="">
-                                                                <i class="fa fa-calendar  text-success" aria-hidden="true"></i>
+                                                                <i class="fa fa-calendar-days text-success" aria-hidden="true"></i>
                                                             </div>
                                                             <div class="me-2">
                                                                 {moment(item.created_at).format("YYYY-MM-DD")}

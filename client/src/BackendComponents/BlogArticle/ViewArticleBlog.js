@@ -687,11 +687,11 @@ const [renderData,setRenderData]=useState('');
                                     </div>
 
 
-                                    <div className='mb-0'>
+                                    {/* <div className='mb-0'>
 
                                         <h5 className=' m-0'>{pendingPosts}</h5>
                                         <p className='mb-1'>Pending Posts</p>
-                                    </div>
+                                    </div> */}
 
 
 

@@ -239,6 +239,19 @@ function ViewAllEvent() {
 
     const [viewEventDescription, setViewEventDescription] = useState('');
 
+    const [eventPersonName, setEventPersonName] = useState([]);
+    console.log('event persons', eventPersonName)
+
+    useEffect(() => {
+        axios.get(`/api/event-contact-persons-name/${viewEventDescription.id}`).then(res => {
+            if (res.data.status == 200) {
+                setEventPersonName(res.data.contact_persons);
+
+
+            }
+        })
+    }, [viewEventDescription])
+
 
     const [viewEventPostModalIsOpen, setviewEventPostModalIsOpen] = useState(false);
     console.log('view event', viewEventDescription)
@@ -452,13 +465,13 @@ function ViewAllEvent() {
 
                     <div class="tooops   " >
                         <div style={{ color: '#777777' }}>
-                            <i className='fa fa-calendar'></i>
-                            <span className='mx-2'>{row.event_date}</span>
+                            <i className='fa fa-calendar-days'></i>
+                            <span className='mx-2'>Posted Date: {moment(row.created_at).format("YYYY-MM-DD")}</span>
                         </div>
                         <div class="d-flex mt-1" >
                             <div className='d-flex  px-2 d-inline-block py-1 event-btn1'>
                                 <div>
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-calendar-days"></i>
                                 </div>
                                 <div className='mx-2'>
                                     <span>{moment(row.event_time).format('LT')}</span> |<span className='mx-1'>{row.event_date}</span>
@@ -470,7 +483,7 @@ function ViewAllEvent() {
                                 </div>
                                 <div className='mx-2'>
                                     <span>
-                                        {row.contact_person.split(',').length}
+                                        {row.contact_person !== null && row.contact_person.split(',').length}
 
                                     </span>
                                     <span className='mx-2'>
@@ -491,11 +504,11 @@ function ViewAllEvent() {
                             </div>
                             <div className='d-flex mx-2   px-2 d-inline-block py-1 event-btn4 text-light'>
                                 <div>
-                                    {/* <i class="fa fa-calendar"></i> */}
+                                    {/* <i class="fa fa-calendar-days"></i> */}
                                     <i class="fa-solid fa-school"></i>
                                 </div>
                                 <div className='mx-2 '>
-                                    <span>{row.event_type_name}</span>
+                                    <span>{row.event_type !== undefined && row.event_type.event_type_name}</span>
                                 </div>
                             </div>
                         </div>
@@ -909,7 +922,7 @@ function ViewAllEvent() {
                                                     <h5>{viewEventDescription.event_title}</h5>
                                                     <div className='d-flex'>
                                                         <div>
-                                                            <i class="fas fa-calendar"></i>
+                                                            <i class="fas fa-calendar-days"></i>
                                                             <span className='mx-2'>Event Date: {viewEventDescription.event_date}</span>
                                                         </div>
                                                         <div className='mx-3'>
@@ -927,7 +940,7 @@ function ViewAllEvent() {
                                                 </div>
 
                                                 <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type_name}</span> </button>
+                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewEventDescription.event_type !== undefined && viewEventDescription.event_type.event_type_name}</span> </button>
 
 
                                                 </div>
@@ -942,10 +955,22 @@ function ViewAllEvent() {
 
                                                 <div className=''>
                                                     Contact Persons:
+                                                    <div className='d-flex'>
 
-                                                    <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
 
-                                                        {viewEventDescription.dept_name}
+                                                        {
+                                                            eventPersonName.map((item, i) => {
+                                                                return (
+                                                                    <>
+                                                                        <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
+
+                                                                            {item.full_name}
+                                                                        </div>
+                                                                    </>
+                                                                )
+                                                            })
+                                                        }
+
                                                     </div>
                                                 </div>
 
@@ -999,14 +1024,14 @@ function ViewAllEvent() {
                                                 {/* <h4>{viewEventDescription.event_title}</h4>
                                                 </hr> */}
 
-                                            <div style={{ height: "auto", margin: "0 auto", maxWidth: 100, width: "100%" }} className="mt-5" ref={componentRef2}>
-                                                <QRCode
-                                                    size={256}
-                                                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                                                    value={viewEventDescription.event_unique_id}
-                                                    viewBox={`0 0 256 256`}
-                                                />
-                                            </div>
+                                                <div style={{ height: "auto", margin: "0 auto", maxWidth: 100, width: "100%" }} className="mt-5" ref={componentRef2}>
+                                                    <QRCode
+                                                        size={256}
+                                                        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                                        value={viewEventDescription.event_unique_id}
+                                                        viewBox={`0 0 256 256`}
+                                                    />
+                                                </div>
 
                                             </div>
                                         </div>

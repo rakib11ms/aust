@@ -228,7 +228,7 @@ function ViewAllAdvertisement() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
-                <div className='mt-2'>
+                <div className='mx-2 rounded '>
                     {row.advertisement_image !== undefined &&
 
                         <img className="rounded" src={`${global.img_url}/images/${row.advertisement_image[0].image}`} width="130px" height="90px" alt="No Image" />
@@ -242,7 +242,8 @@ function ViewAllAdvertisement() {
                 // maxWidth: 0,
                 // textAlign: 'left',
                 padding: 0,
-                // width:100,
+
+                width: 100,
             },
         },
 
@@ -252,8 +253,8 @@ function ViewAllAdvertisement() {
             ,
             render: (row) =>
 
-                <div className=''>
-                    <div className='d-flex justify-content-end  mx-5'>
+                <div className=' rounded'>
+                    <div className='d-flex justify-content-end   px-5 mx-5'>
 
 
                         <div className='my-0 px-1 py-0'>
