@@ -34,3 +34,8 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+Route::get('/check-mail-design',function(){
+    return view('emails.eventmail');
+});

@@ -76,7 +76,16 @@ class ViewAllUserController extends Controller
     }
 
     public function userRoleFiltering($name){
-     if($name=='Admin'){
+
+        if($name=="All"){
+        $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->get();
+   return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+     else if($name=='Admin'){
         $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
         $q->where('name','Like','%'.$name.'%');
     })->get();
@@ -159,6 +168,19 @@ class ViewAllUserController extends Controller
                 [
                     'status' => 200,
                     'all_thana' =>$all_thana,
+                ]
+            );
+    }
+
+    public function totalPendingActiveUsers(){
+        $active_users=User::where('status','active')->get()->count();
+        $pending_users=User::where('status','pending')->get()->count();
+
+         return response()->json(
+                [
+                    'status' => 200,
+                    'active_users' =>$active_users,
+                    'pending_users' =>$pending_users,
                 ]
             );
     }

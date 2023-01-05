@@ -318,7 +318,7 @@ function ViewNotification() {
 
     // }
 
-    const [activeNav,setactiveNav]=useState('moderator')
+    const [activeNav,setactiveNav]=useState('all')
 
     useEffect(()=>{
         axios.get(`/api/filtering-global-notification/${activeNav}`).then(res => {

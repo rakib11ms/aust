@@ -171,7 +171,7 @@ function CreateEvent() {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("posted_by", 1);
+        formData.append("posted_by", localStorage.getItem('user_id'));
         formData.append("event_title", eventState.event_title);
         formData.append("event_type_id", eventState.event_type_id);
         formData.append("event_date", event_date);

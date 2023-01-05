@@ -107,6 +107,9 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 
+//total pending or active users count (web)
+Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);
+
 //role change with password revoke
 
 Route::post('/role-change-request', [ViewAllUserController::class, 'roleChangeUserRequest']);
@@ -495,4 +498,10 @@ Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
 
 
 //Role Permission end //
+
+
+
+// Route::get('/check-mai-design',function(){
+//     return view('emails.eventmail');
+// });
 

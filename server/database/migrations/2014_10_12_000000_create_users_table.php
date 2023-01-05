@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('present_address')->nullable();
             $table->string('permanent_address')->nullable();
             $table->string('thana')->nullable();
+            $table->string('status')->nullable();
             $table->string('image')->nullable();
             $table->timestamp('email_verified_at')->nullable();       
             $table->string('otp_verify')->nullable();

@@ -649,7 +649,7 @@ function ViewAllUsers() {
 
 
 
-    const [userRoleFiltering, setuserRoleFiltering] = useState('Alumni');
+    const [userRoleFiltering, setuserRoleFiltering] = useState('All');
 
     // console.log('filtered post val',allJobPosts)
     console.log('filter click check', userRoleFiltering)
@@ -862,6 +862,23 @@ function ViewAllUsers() {
     //     saveZip("my_project_files_to_download.zip", urls);
 
     // }
+
+    const [totalActivePending, setTotalActivePending] = useState({
+        total_active: "",
+        total_pending: ''
+    });
+    console.log('bal', totalActivePending)
+    useEffect(() => {
+        axios.get(`/api/total-pending-or-active-users`).then(res => {
+            if (res.data.status == 200) {
+                setTotalActivePending({
+                    total_active: res.data.active_users,
+                    total_pending: res.data.pending_users
+                })
+
+            }
+        })
+    }, [])
 
 
     return (
@@ -1079,11 +1096,11 @@ function ViewAllUsers() {
                                             <h6 className='my-0 px-1'>Pending</h6>
                                             <span className='num1'><h4
                                                 className='num1-h4'
-                                                style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>20</h4></span>
+                                                style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>{totalActivePending.total_pending}</h4></span>
                                         </div>
                                         <div className='active' data-aos="zoom-out-left">
                                             <h6 className='my-0 px-1'>Active</h6>
-                                            <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>1k</h5></span>
+                                            <span className='num2'><h5 style={{ color: "white", textAlign: "center", padding: "7px 12px 5px 12px", marginTop: 3, fontSize: 13 }}>{totalActivePending.total_active}</h5></span>
                                         </div>
                                     </div>
                                 </div>
@@ -1150,18 +1167,45 @@ function ViewAllUsers() {
 
                                     <div className="card-body ">
 
-                                        <div className='table-filter-tab bg-white'>
+                                        <div className=' bg-white py-0 my-0'>
 
-                                            <div className="nav-users">
+                                            <div className="d-flex justify-content-between py-0 my-0">
 
-                                                <div className='d-flex align-items-center text-secondary'>
+                                                <div className='d-flex align-items-center text-secondary '>
+                                                    <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => setuserRoleFiltering('All')}>All</h6>
                                                     <h6 className={`${userRoleFiltering === 'Alumni' ? 'filterTrack' : ""} mx-2`} onClick={() => setuserRoleFiltering('Alumni')}>Alumni</h6>
                                                     <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Staff')}>Staff</h6>
                                                     <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Admin')}>Admins</h6>
                                                     <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Moderator')}>Moderators</h6>
                                                 </div>
 
-                                                <div className='d-flex align-items-center d-a-button'>
+                                                                            
+                                            <div className='d-flex align-items-center'>
+                                                {
+                                                    selectedRowsLength > 1 &&
+                                                    <>
+                                                        <div class="form-check form-switch mx-2">
+                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                                        </div>
+
+                                                        <div className='mx-2 '
+                                                            onClick={
+                                                                deleteAllRecords
+                                                            }
+                                                        >
+                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
+                                                        </div>
+
+
+
+                                                    </>
+                                                }
+
+
+
+                                            </div>
+
+                                                <div className='d-flex align-items-center  '>
                                                     <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
                                                         Download
                                                     </button>
@@ -1183,39 +1227,10 @@ function ViewAllUsers() {
                                                         </select>
                                                     </div>
                                                 </div>
+                                                
 
                                             </div>
-                                            {/* 
-                                            <div className='d-flex align-items-center'>
-                                                {
-                                                    selectedRowsLength > 1 &&
-                                                    <>
-                                                        <div class="form-check form-switch mx-2">
-                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
-
-                                                        <div className='mx-2 '
-                                                            onClick={
-                                                                deleteAllRecords
-                                                            }
-                                                        >
-                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                        </div>
-
-                                                        <div className='mx-2'>
-
-
-                                                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary text-secondary"></i>
-
-                                                        </div>
-
-
-                                                    </>
-                                                }
-
-
-
-                                            </div> */}
+                
 
                                         </div>
                                         <hr />

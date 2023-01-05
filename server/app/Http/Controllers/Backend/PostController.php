@@ -20,6 +20,8 @@ class PostController extends Controller
 
          $posts=DB::table('posts')->leftJoin('post_types','posts.post_type','=','post_types.id')->leftJoin('users', 'users.id', '=', 'posts.posted_by')->select('posts.*','post_types.type_name','users.full_name')->orderBy('posts.id','desc')->get();
 
+ 
+
 
          // $posts=DB::table('posts')->orderBy('posts.id','desc')->get();
 
@@ -37,7 +39,8 @@ class PostController extends Controller
              // 'pending_posts'=>$pending_posts,
              // 'active_posts'=>$active_posts,
 
-            'posts' => $posts
+            'posts' => $posts,
+
          ]);
     }
 

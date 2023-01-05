@@ -638,7 +638,8 @@ function Dashboard() {
 
                                                                     </nav>
                                                                     <div className="mt-3">
-                                                                        <p className="m-0 p-0">{item.notice_news_title}</p>
+                                                                        <p className="m-0 p-0"><span className="fw-bold"> Title : </span>{item.notice_news_title}</p>
+
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
@@ -706,7 +707,8 @@ function Dashboard() {
 
                                                                     </nav>
                                                                     <div className="mt-3">
-                                                                        <p className="m-0 p-0">{item.article_blog_title}</p>
+                                                                        <p className="m-0 p-0"><span className="fw-bold"> Title : </span>{item.article_blog_title}</p>
+
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
@@ -775,7 +777,8 @@ function Dashboard() {
 
                                                                     </nav>
                                                                     <div className="mt-3">
-                                                                        <p className="m-0 p-0">{item.article_blog_title}</p>
+                                                                        <p className="m-0 p-0"><span className="fw-bold"> Title : </span>{item.article_blog_title}</p>
+
 
                                                                     </div>
                                                                     <div className="my-2 p-0"
@@ -884,7 +887,7 @@ function Dashboard() {
 
                                 <div className="d-flex">
                                     <h4 className="publiction-num">{totalArchiveJobs}</h4>
-                                    <p className="mx-4 mt-1">Jobs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                    <p className="mx-4 mt-1">Jobs Are <span className="border-bottom border-2 border-success"> <Link to="/view-all-jobs" className="text-decoration-none text-secondary">Archieved</Link></span></p>
                                 </div>
                             </div>
 

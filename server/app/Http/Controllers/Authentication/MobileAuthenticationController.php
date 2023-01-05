@@ -69,6 +69,7 @@ class MobileAuthenticationController extends Controller
                 $user->job_sub_sector = $request->job_sub_sector;
                 $user->office_email = $request->office_email;
                 $user->thana = $request->thana;
+                $user->status = "pending";
 
                 // if($request->office_email !==null && ){
 

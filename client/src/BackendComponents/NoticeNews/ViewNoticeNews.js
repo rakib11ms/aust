@@ -247,10 +247,34 @@ function ViewNoticeNews() {
             }
         })
 
+
+    }, [])
+
+    useEffect(() => {
         Modal.setAppElement('body');
 
     }, [])
 
+
+    //notice news view modal
+
+    const viewPostStyles = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "60vw",
+            height: "70vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
 
 
 
@@ -271,13 +295,13 @@ function ViewNoticeNews() {
                         <div className=''>
                             <div className='text-secondary'>
                                 <span>
-                                    <i className='fa fa-calendar'></i>
+                                    <i className='fa fa-calendar-days'></i>
 
                                     <span className='mx-2'>{moment(row.created_at).format("YYYY-MM-DD")} | <span class="mx-1"> {moment(row.created_at).format("LT")}</span> </span>
                                 </span>
                             </div>
-                            <div className='d-flex align-items-center text-secondary'>
-                                <h6 className='my-1'>Posted By:<span>{row.full_name}</span></h6>
+                            <div className='d-flex align-items-center text-secondary '>
+                                <h6 className='my-1 fs-6' >Posted By:<span>{row.full_name}</span></h6>
                                 {/* <i className='fa fa-eye mx-2'></i> */}
                             </div>
                         </div>
@@ -291,7 +315,7 @@ function ViewNoticeNews() {
                     </div>
 
                     <div>
-                        <h5 className='my-1 '>
+                        <h5 className='my-1 fs-5'>
                             {row.notice_news_title}
                         </h5>
 
@@ -376,6 +400,99 @@ function ViewNoticeNews() {
                 </div>
 
 
+                <div className='mx-2 mb-1 text-secondary' onClick={(e) => openViewPostModal(e, row)}>
+
+                    <i className='fa fa-eye'></i>
+
+
+                </div>
+
+
+                {/* view  post modal */}
+                <Modal
+                    isOpen={viewPostModalIsOpen}
+                    onRequestClose={closeViewPostModal}
+                    style={viewPostStyles}
+                    contentLabel="Example Modal"
+                >
+
+                    <div className='card-body '>
+                        <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewPostModal}><i class="fa fa-times"></i></span>
+
+                        <h5 className=""> Full Post View</h5>
+                        <hr />
+
+
+
+                        <div className="row">
+
+                            <div className="col-12 ">
+
+                                <div className=''>
+                                    <div className='mx-auto' style={{ width: '50%', height: '150px' }}>
+                                        <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewPostDescription.image}`} />
+                                    </div>
+                                </div>
+
+                                <div className='d-flex justify-content-between mt-2'>
+                                    <div className='mt-3'>
+                                        <h5>{viewPostDescription.post_title}</h5>
+                                        <div>
+                                            <i class="fas fa-calendar-days"></i>
+                                            <span className='mx-2'>Posted Date: {moment(viewPostDescription.created_at).format('YYYY-MM-DD')}</span>
+                                        </div>
+
+                                        <div className='mt-2'>
+
+                                            <div className=' d-inline py-1 rounded-pill me-4' >
+
+                                                <span class="bg-white">Posted By : </span> <span className='bg-light'> {viewPostDescription.full_name}</span>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                    <div className='mt-3'>
+                                        <button className='btn  bg-warning text-dark btn-sm py-1   px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewPostDescription.type_name}</span> </button>
+
+                                        {
+                                            viewPostDescription.isPublished == 1 ?
+                                                <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
+                                                :
+                                                <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
+
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewPostDescription.post_description }}
+                                />
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </Modal>
+
+
+
             </div>,
             cellStyle: {
                 marginLeft: 50,
@@ -383,6 +500,9 @@ function ViewNoticeNews() {
             },
         },
     ];
+
+
+
 
 
 
@@ -578,6 +698,22 @@ function ViewNoticeNews() {
         else {
 
         }
+    }
+
+
+    const [viewPostDescription, setViewPostDescription] = useState('');
+
+    console.log('view post', viewPostDescription)
+
+    const [viewPostModalIsOpen, setviewPostModalIsOpen] = useState(false);
+    function openViewPostModal(e, viewPost) {
+        e.preventDefault();
+        setViewPostDescription(viewPost)
+        setviewPostModalIsOpen(true)
+    }
+    function closeViewPostModal(e) {
+        setviewPostModalIsOpen(false);
+
     }
 
 
