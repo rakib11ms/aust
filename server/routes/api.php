@@ -110,6 +110,8 @@ Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 //total pending or active users count (web)
 Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);
 
+//delete multiple users
+Route::post('/delete-multiple-users/{id}', [ViewAllUserController::class, 'deleteMultileUsers']);
 //role change with password revoke
 
 Route::post('/role-change-request', [ViewAllUserController::class, 'roleChangeUserRequest']);

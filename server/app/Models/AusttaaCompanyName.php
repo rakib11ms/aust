@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AusttaaCompanyName extends Model
 {
     use HasFactory;
+    
 }

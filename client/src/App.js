@@ -176,24 +176,35 @@ function App() {
 
   }, [successStatus])
 
+  // useEffect(() => {
+  //   {
+  //     localStorage.getItem("auth_token") && navigate('/admin-dashboard') 
+
+  //   }
+
+  // }, [])
+
   return (
     <>
 
 
 
       <Suspense fallback={<div class="spin1">
-      <div class="spinner-border text-success" style={{width: '2rem',"height": "2rem", "role":"status"}}>
-      <span class="visually-hidden ">Loading...</span>
-      </div>
-    </div>}>
+        <div class="spinner-border text-success" style={{ width: '2rem', "height": "2rem", "role": "status" }}>
+          <span class="visually-hidden ">Loading...</span>
+        </div>
+      </div>}>
 
 
 
         <Routes>
 
+
           <Route path="/" element={<Navigate to='/admin-login' />} />
 
-          <Route path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}></Route>
+          <Route exact path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}>
+
+          </Route>
 
           <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
           <Route path="admin-password-reset/:id" element={<AdminPasswordReset />}></Route>

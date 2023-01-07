@@ -12,9 +12,8 @@ function ProtectedRoutes() {
 
     return (
         <>
-            {/* {localStorage.getItem('user_info')? <Outlet/> :<Navigate to="admin-login"/>
-        } */}
-            {localStorage.getItem('user_type') !==null? <Outlet /> : <Navigate to="admin-login" />
+          
+            {localStorage.getItem('user_type')? <Outlet /> : <Navigate to="/admin-login" />
             }
         </>
     )

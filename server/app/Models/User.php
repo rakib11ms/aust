@@ -50,7 +50,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\JobPost','posted_by')->where('isPublished','=', 1)->where('isArchived','=',0)->orderBy('id','DESC');
     }
      public function professionalInfo() {
-        return $this->hasMany('App\Models\UserProfessionalInfo','user_id');
+        return $this->hasMany('App\Models\UserProfessionalInfo','user_id')->with('companyName');
     }
      public function educationalInfo()
     {

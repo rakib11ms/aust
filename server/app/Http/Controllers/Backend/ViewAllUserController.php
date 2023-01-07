@@ -62,7 +62,7 @@ class ViewAllUserController extends Controller
     }
 
     public function userGlobalSearch($name){
- $all_users=User::with('roles')->where('full_name','Like','%'.$name.'%')->orWhere('nick_name','Like','%'.$name.'%')->orWhere('phone_no','Like','%'.$name.'%')->orWhere('gender','Like','%'.$name.'%')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('bloodGroup',function($q) use($name){
+ $all_users=User::with('roles')->where('full_name','Like','%'.$name.'%')->orWhere('email','Like','%'.$name.'%')->orWhere('nick_name','Like','%'.$name.'%')->orWhere('phone_no','Like','%'.$name.'%')->orWhere('gender','Like','%'.$name.'%')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('bloodGroup',function($q) use($name){
         $q->where('blood_group_name','Like','%'.$name.'%');
   })->orWhereHas('streamName',function($q) use($name){
         $q->where('stream_name','Like','%'.$name.'%');
@@ -183,6 +183,27 @@ class ViewAllUserController extends Controller
                     'pending_users' =>$pending_users,
                 ]
             );
+    }
+
+
+
+    public function deleteMultileUsers(Request $request,$ids){
+  $array=explode (",", $ids); 
+
+  $users = User::whereIn('id',$array)->get();
+
+  foreach($users as $key => $user){
+        $filename = public_path().'/images/'.$user->image;
+     File::delete($filename);
+        $user->delete();
+  }
+
+
+      return response()->json([
+                'status' => 200,
+                // 'deletes'=>  $deletes,
+                'message' => 'Users deleted successfully',
+            ]);
     }
 
 }

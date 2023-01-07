@@ -519,7 +519,7 @@ function ViewAllUsers() {
                 <div className='educational-field d-flex justify-content-between p-1 my-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].name_of_company}</span>
+                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].company_name.company_name}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
                             <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
@@ -1419,7 +1419,7 @@ function ViewAllUsers() {
                                                                         return (
                                                                             <>
                                                                                 <tr>
-                                                                                    <th scope="row">{item.name_of_company}</th>
+                                                                                    <th scope="row">{item.company_name.company_name}</th>
                                                                                     <td>{item.designation}</td>
                                                                                     <td>{item.year}</td>
                                                                                     <td>{item.office_address}</td>
