@@ -84,6 +84,11 @@ Route::post('/update-contact-social-information/{id}', [MobileAuthenticationCont
 
 Route::post('/update-user-educational-info/{userId}', [MobileAuthenticationController::class, 'editUserEducationalInfo']);
 
+Route::post('/update-user-name/{userId}', [MobileAuthenticationController::class, 'updateUserName']);
+Route::post('/update-user-image/{userId}', [MobileAuthenticationController::class, 'updateUserImage']);
+
+
+
 Route::post('/user-cv-upload/{userId}', [MobileAuthenticationController::class, 'userCvUpload']);
 
 Route::get('/specific-user/{id}', [MobileAuthenticationController::class, 'specificUser']);

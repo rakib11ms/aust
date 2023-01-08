@@ -490,6 +490,36 @@ $user_cv_upload->update();
         ]);
     }
 
+    public function updateUserName(Request $request,$id){
+        $user=User::find($id);
+
+        $user->full_name=$request->full_name;
+        $user->update();
+        return response()->json([
+            'status' => 200,
+            'message'=>'User Name Update successful'
+          
+        ]);
+
+    }
+
+  public function updateUserImage(Request $request,$id){
+   $user=User::find($id);
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $extension=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extension;
+            $file->move('images/',$filename);
+            $user->image =$filename ;
+         } 
+
+        $user->update();
+        return response()->json([
+            'status' => 200,
+            'message'=>'User Image Update successful'
+          
+        ]);
+}
    
 
 }
