@@ -123,6 +123,11 @@ Route::post('/role-change-request', [ViewAllUserController::class, 'roleChangeUs
 
 Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRoleFiltering']);
 
+
+//export users as a excel data (web)
+
+Route::get('/export-users-as-excel/{name}', [ViewAllUserController::class, 'exportUserExcel']);
+
 // Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}/{job-sector}/{job-sub-sector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
 Route::get('/multiple-filter-search-all-users/{gender}/{stream}/{blood}/{company}/{batch}/{jobsector}/{subsector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);

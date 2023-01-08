@@ -407,7 +407,7 @@ function ViewAllUsers() {
             title: "ALL", field: `image`, render: (row) =>
                 <div className="dropdown dropend" >
                     <button class="btn btn-white " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className="border border-secondary border-2" style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
+                        <img className={`border border-2 ${row.roles[0].name == 'Admin' ? 'border-success' : row.roles[0].name == 'Moderator' ? 'border-info' : row.roles[0].name == 'Alumni' ? 'border-primary' : row.roles[0].name == 'Staff' ? 'border-warning' : ''}`} style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
 
                     </button>
 
@@ -415,7 +415,7 @@ function ViewAllUsers() {
 
                     <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
                         <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Admin' ? "active" : ""}`} href="#" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} name="Admin" onClick={(e) => handleUserRoleChangeInfo(e, row)}>Admin</a>
-                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles == undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
+                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
                         <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Moderator' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Moderator" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Moderator</a>
                         {/* <div class="dropdown-divider"></div> */}
                         <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Staff' ? "active" : ""}`} href="#" name="Staff" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Staff</a>
@@ -651,6 +651,9 @@ function ViewAllUsers() {
 
     const [userRoleFiltering, setuserRoleFiltering] = useState('All');
 
+    const [userRoleFilter, setUserRoleFilter] = useState('All');
+    console.log('user rolee', userRoleFilter)
+
     // console.log('filtered post val',allJobPosts)
     console.log('filter click check', userRoleFiltering)
 
@@ -664,6 +667,25 @@ function ViewAllUsers() {
         })
 
     }, [userRoleFiltering, renderAllUsers])
+
+    //excel export users
+    const [allExcelUsers, setAllExcelUsers] = useState([]);
+
+    console.log('du', allExcelUsers)
+
+    useEffect(() => {
+        axios.get(`/api/export-users-as-excel/${userRoleFiltering}`).then(res => {
+            if (res.data.status == 200) {
+                setAllExcelUsers(res.data.all_users);
+            }
+        })
+
+    }, [userRoleFiltering])
+
+
+
+
+
 
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
@@ -1172,38 +1194,38 @@ function ViewAllUsers() {
                                             <div className="d-flex justify-content-between py-0 my-0">
 
                                                 <div className='d-flex align-items-center text-secondary '>
-                                                    <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => setuserRoleFiltering('All')}>All</h6>
-                                                    <h6 className={`${userRoleFiltering === 'Alumni' ? 'filterTrack' : ""} mx-2`} onClick={() => setuserRoleFiltering('Alumni')}>Alumni</h6>
-                                                    <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Staff')}>Staff</h6>
-                                                    <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Admin')}>Admins</h6>
-                                                    <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => setuserRoleFiltering('Moderator')}>Moderators</h6>
+                                                    <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('All') }}>All</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Alumni' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('Alumni') }}>Alumni</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Staff') }}>Staff</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Admin') }}>Admins</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Moderator') }}>Moderators</h6>
                                                 </div>
 
-                                                                            
-                                            <div className='d-flex align-items-center'>
-                                                {
-                                                    selectedRowsLength > 1 &&
-                                                    <>
-                                                        <div class="form-check form-switch mx-2">
-                                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                        </div>
 
-                                                        <div className='mx-2 '
-                                                            onClick={
-                                                                deleteAllRecords
-                                                            }
-                                                        >
-                                                            <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                        </div>
+                                                <div className='d-flex align-items-center'>
+                                                    {
+                                                        selectedRowsLength > 1 &&
+                                                        <>
+                                                            <div class="form-check form-switch mx-2">
+                                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                                            </div>
 
-
-
-                                                    </>
-                                                }
+                                                            <div className='mx-2 '
+                                                                onClick={
+                                                                    deleteAllRecords
+                                                                }
+                                                            >
+                                                                <i class="fa-solid fa-trash icon-table-trash"></i>
+                                                            </div>
 
 
 
-                                            </div>
+                                                        </>
+                                                    }
+
+
+
+                                                </div>
 
                                                 <div className='d-flex align-items-center  '>
                                                     <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
@@ -1211,8 +1233,8 @@ function ViewAllUsers() {
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="#" onClick={"saveZip"}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
-                                                        {allUsers &&
-                                                            <CSVLink data={allUsers} filename="RegisterUserData" className="">
+                                                        {
+                                                            <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
                                                                 <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
 
                                                             </CSVLink>
@@ -1227,10 +1249,10 @@ function ViewAllUsers() {
                                                         </select>
                                                     </div>
                                                 </div>
-                                                
+
 
                                             </div>
-                
+
 
                                         </div>
                                         <hr />

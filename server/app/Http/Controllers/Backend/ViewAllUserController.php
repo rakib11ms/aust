@@ -131,6 +131,56 @@ class ViewAllUserController extends Controller
     }
 
 
+    public function exportUserExcel($name){
+        if($name=="All"){
+        $all_users=DB::table('users')->leftJoin('austtaa_batches','users.batch','=','austtaa_batches.id')->leftJoin('austtaa_blood_groups','users.blood_group','=','austtaa_blood_groups.id')->leftJoin('austtaa_streams','users.stream','=','austtaa_streams.id')->leftJoin('austtaa_job_sectors','users.job_sector','=','austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors','users.job_sub_sector','=','austtaa_job_sub_sectors.id')->select('users.id','users.full_name','users.bio','users.nick_name','users.email','users.office_email','users.phone_no','users.user_role','users.gender','austtaa_blood_groups.blood_group_name','austtaa_batches.batch_name','austtaa_streams.stream_name','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','users.thana','users.present_address','users.permanent_address','users.user_role','users.thana')->get();
+   return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+   
+        else if($name=='Alumni'){
+           $all_users=DB::table('users')->leftJoin('austtaa_batches','users.batch','=','austtaa_batches.id')->leftJoin('austtaa_blood_groups','users.blood_group','=','austtaa_blood_groups.id')->leftJoin('austtaa_streams','users.stream','=','austtaa_streams.id')->leftJoin('austtaa_job_sectors','users.job_sector','=','austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors','users.job_sub_sector','=','austtaa_job_sub_sectors.id')->where('users.user_role','Alumni')->select('users.id','users.full_name','users.bio','users.nick_name','users.email','users.office_email','users.phone_no','users.user_role','users.gender','austtaa_blood_groups.blood_group_name','austtaa_batches.batch_name','austtaa_streams.stream_name','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','users.thana','users.present_address','users.permanent_address','users.user_role','users.thana')->get();
+           return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+
+                else if($name=='Admin'){
+           $all_users=DB::table('users')->leftJoin('austtaa_batches','users.batch','=','austtaa_batches.id')->leftJoin('austtaa_blood_groups','users.blood_group','=','austtaa_blood_groups.id')->leftJoin('austtaa_streams','users.stream','=','austtaa_streams.id')->leftJoin('austtaa_job_sectors','users.job_sector','=','austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors','users.job_sub_sector','=','austtaa_job_sub_sectors.id')->where('users.user_role','Admin')->select('users.id','users.full_name','users.bio','users.nick_name','users.email','users.office_email','users.phone_no','users.user_role','users.gender','austtaa_blood_groups.blood_group_name','austtaa_batches.batch_name','austtaa_streams.stream_name','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','users.thana','users.present_address','users.permanent_address','users.user_role','users.thana')->get();
+           return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+
+                else if($name=='Staff'){
+           $all_users=DB::table('users')->leftJoin('austtaa_batches','users.batch','=','austtaa_batches.id')->leftJoin('austtaa_blood_groups','users.blood_group','=','austtaa_blood_groups.id')->leftJoin('austtaa_streams','users.stream','=','austtaa_streams.id')->leftJoin('austtaa_job_sectors','users.job_sector','=','austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors','users.job_sub_sector','=','austtaa_job_sub_sectors.id')->where('users.user_role','Staff')->select('users.id','users.full_name','users.bio','users.nick_name','users.email','users.office_email','users.phone_no','users.user_role','users.gender','austtaa_blood_groups.blood_group_name','austtaa_batches.batch_name','austtaa_streams.stream_name','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','users.thana','users.present_address','users.permanent_address','users.user_role','users.thana')->get();
+           return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+
+                else if($name=='Moderator'){
+           $all_users=DB::table('users')->leftJoin('austtaa_batches','users.batch','=','austtaa_batches.id')->leftJoin('austtaa_blood_groups','users.blood_group','=','austtaa_blood_groups.id')->leftJoin('austtaa_streams','users.stream','=','austtaa_streams.id')->leftJoin('austtaa_job_sectors','users.job_sector','=','austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors','users.job_sub_sector','=','austtaa_job_sub_sectors.id')->where('users.user_role','Moderator')->select('users.id','users.full_name','users.bio','users.nick_name','users.email','users.office_email','users.phone_no','users.user_role','users.gender','austtaa_blood_groups.blood_group_name','austtaa_batches.batch_name','austtaa_streams.stream_name','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','users.thana','users.present_address','users.permanent_address','users.user_role','users.thana')->get();
+           return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+    
+
+    }
+
+
     //role change with password revoke
 
 
