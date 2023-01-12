@@ -135,6 +135,9 @@ Route::get('/multiple-filter-search-all-users/{gender}/{stream}/{blood}/{company
 //global user search web
 Route::get('/user-global-search/{name}', [ViewAllUserController::class, 'userGlobalSearch']);
 
+//current location based search (mobile)
+Route::get('/user-location-based-search-mobile/{name}', [ViewAllUserController::class, 'userLocationSearch']);
+
 
 
 //all location (thana) from users table thana field dropdown

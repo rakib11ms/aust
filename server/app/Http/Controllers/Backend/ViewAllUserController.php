@@ -75,10 +75,23 @@ class ViewAllUserController extends Controller
         ]); 
     }
 
+
+
+//current location based search (mobile)
+
+public function userLocationSearch($name){
+ $all_users=User::where('present_address','Like','%'.$name.'%')->orWhere('permanent_address','Like','%'.$name.'%')->orWhere('thana','Like','%'.$name.'%')->with(['roles','professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('professionalInfo',function($q) use($name){
+        $q->where('office_address','Like','%'.$name.'%');
+    })->get();
+    return response()->json([
+            'status' => 200,
+            'all_users' => $all_users
+        ]); 
+}
     public function userRoleFiltering($name){
 
         if($name=="All"){
-        $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->get();
+        $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('status','active')->get();
    return response()->json([
         'status'=>200,
         'all_users'=>$all_users,
@@ -86,7 +99,7 @@ class ViewAllUserController extends Controller
     ]);
         }
      else if($name=='Admin'){
-        $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
+        $all_users=User::where('status','active')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
         $q->where('name','Like','%'.$name.'%');
     })->get();
            return response()->json([
@@ -97,7 +110,7 @@ class ViewAllUserController extends Controller
     
         }
         else if($name=='Alumni'){
-      $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
+      $all_users=User::where('status','active')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
         $q->where('name','Like','%'.$name.'%');
     })->get();
            return response()->json([
@@ -108,7 +121,7 @@ class ViewAllUserController extends Controller
         }
 
            else if($name=='Moderator'){
-      $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
+      $all_users=User::where('status','active')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
         $q->where('name','Like','%'.$name.'%');
     })->get();
            return response()->json([
@@ -119,10 +132,18 @@ class ViewAllUserController extends Controller
         }
 
            else if($name=='Staff'){
-     $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
+     $all_users=User::where('status','active')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
         $q->where('name','Like','%'.$name.'%');
     })->get();
            return response()->json([
+        'status'=>200,
+        'all_users'=>$all_users,
+    
+    ]);
+        }
+        else if($name=='Pending'){
+     $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('status','pending')->get();
+   return response()->json([
         'status'=>200,
         'all_users'=>$all_users,
     

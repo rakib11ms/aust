@@ -1199,11 +1199,12 @@ function ViewAllUsers() {
                                                     <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Staff') }}>Staff</h6>
                                                     <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Admin') }}>Admins</h6>
                                                     <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Moderator') }}>Moderators</h6>
+                                                    <h6 className={`${userRoleFiltering === 'Pending' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Pending') }}>Pendings</h6>
                                                 </div>
 
 
                                                 <div className='d-flex align-items-center'>
-                                                    {
+                                                    {/* {
                                                         selectedRowsLength > 1 &&
                                                         <>
                                                             <div class="form-check form-switch mx-2">
@@ -1221,13 +1222,32 @@ function ViewAllUsers() {
 
 
                                                         </>
-                                                    }
+                                                    } */}
 
 
 
                                                 </div>
 
                                                 <div className='d-flex align-items-center  '>
+
+                                                    {
+                                                        selectedRowsLength > 1 &&
+                                                        <>
+
+
+                                                            <div className='mx-2 '
+                                                                onClick={
+                                                                    deleteAllRecords
+                                                                }
+                                                            >
+                                                                <i class="fa-solid mb-1 fa-trash icon-table-trash"></i>
+                                                            </div>
+
+
+
+                                                        </>
+                                                    }
+
                                                     <button type="button" style={{ color: "#646464", fontWeight: 400 }} class="btn btn-light dropdown-toggle mb-2" data-bs-toggle="dropdown">
                                                         Download
                                                     </button>
@@ -1242,12 +1262,7 @@ function ViewAllUsers() {
 
                                                         {/* <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li> */}
                                                     </ul>
-                                                    <div className='select-div-active'>
-                                                        <select className="form-select form-select-sm mb-3 select-active" aria-label=".form-select-sm example">
-                                                            <option selected disabled>Active</option>
-                                                            <option value="1">Inactive</option>
-                                                        </select>
-                                                    </div>
+
                                                 </div>
 
 

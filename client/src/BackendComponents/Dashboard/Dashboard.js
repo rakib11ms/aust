@@ -451,7 +451,10 @@ function Dashboard() {
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveNews}</h4>
-                                            <p className="mx-4 ">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <Link to={`/view-notice-news`} style={{ textDecoration: 'none' }}>
+
+                                                <p className="mx-4 text-secondary">News Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            </Link>
                                         </div>
                                     </>
                                 }
@@ -466,7 +469,11 @@ function Dashboard() {
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveEvents}</h4>
-                                            <p className="mx-4 ">Events Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <Link to={`/view-all-events`} style={{ textDecoration: 'none' }}>
+
+                                                <p className="mx-4 text-secondary ">Events Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            </Link>
+
                                         </div>
                                     </>
                                 }
@@ -481,7 +488,10 @@ function Dashboard() {
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveArticles}</h4>
-                                            <p className="mx-4 ">Articles Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <Link to={`/view-blog-article`} style={{ textDecoration: 'none' }} className="text-secondary">
+
+                                                <p className="mx-4 ">Articles Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            </Link>
                                         </div>
                                     </>
                                 }
@@ -496,7 +506,10 @@ function Dashboard() {
 
                                         <div className="d-flex">
                                             <h4 className="publiction-num">{totalArchiveBlogs}</h4>
-                                            <p className="mx-4 ">Blogs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            <Link to={`/view-blog-article`} style={{ textDecoration: 'none' }} className="text-secondary">
+
+                                                <p className="mx-4 ">Blogs Are <span className="border-bottom border-2 border-success "> Archieved</span></p>
+                                            </Link>
                                         </div>
                                     </>
                                 }
