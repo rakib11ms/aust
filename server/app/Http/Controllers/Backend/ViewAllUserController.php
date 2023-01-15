@@ -277,4 +277,12 @@ public function userLocationSearch($name){
             ]);
     }
 
+      public function getAllUsersPdf(){
+ $pdfs = User::all();
+ return response()->json([
+                'status' => 200,
+                'pdfs'=>  $pdfs,
+            ]);  
+              }
+
 }

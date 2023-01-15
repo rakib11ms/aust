@@ -511,6 +511,13 @@ Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
 
 
 
+//get all users pdf
+
+
+Route::get('/get-all-users-pdf', [ViewAllUserController::class, 'getAllUsersPdf']);
+
+
+
 
 //Role Permission end //
 

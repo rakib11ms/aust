@@ -851,39 +851,6 @@ function ViewAllUsers() {
 
 
 
-    // const saveZip = (filename, urls) => {
-    //     if(!urls) return;
-
-    //     const zip = new JSZip();
-    //     const folder = zip.folder("files"); // folder name where all files will be placed in 
-
-    //     urls.forEach((url) => {
-    //         const blobPromise = fetch(url).then((r) => {
-    //             if (r.status === 200) return r.blob();
-    //             return Promise.reject(new Error(r.statusText));
-    //         });
-    //         const name = url.substring(url.lastIndexOf("/") + 1);
-    //         folder.file(name, blobPromise);
-    //     });
-
-    //     zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename));
-
-    // };
-
-    // const urls = [
-    //     "http://172.31.120.58/public/cv/1672636898.pdf", 
-    //     // "http://172.31.120.58/cv/1672636898.pdf", 
-    //     // "https://example.com/file2.txt", 
-    //     // "https://example.com/file3.txt"
-    // ];
-
-
-    // src={`${global.img_url}/cv/${viewUserDescription.image}`}
-
-    // function saveZip(){
-    //     saveZip("my_project_files_to_download.zip", urls);
-
-    // }
 
     const [totalActivePending, setTotalActivePending] = useState({
         total_active: "",
@@ -902,6 +869,29 @@ function ViewAllUsers() {
         })
     }, [])
 
+const [allUsersPdf,setAllUsersPdf]=useState([])
+
+console.log('pdfs',allUsersPdf)
+  useEffect(()=>{
+    axios.get(`/api/get-all-users-pdf`).then(res => {
+        if (res.data.status == 200) {
+            setAllUsersPdf(res.data.pdfs)
+
+        }
+    })
+  },[])
+
+
+  function saveZip(){
+    const zip = new JSZip();
+    allUsersPdf.forEach(pdf => {
+        zip.file(pdf.cv_file, pdf.cv_file);
+    });
+    
+    zip.generateAsync({ type: "blob" }).then(content => {
+        saveAs(content, "pdfs.zip");
+    })
+}
 
     return (
         <>
@@ -1252,7 +1242,7 @@ function ViewAllUsers() {
                                                         Download
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#" onClick={"saveZip"}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                        <li><a class="dropdown-item" href="#" onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
                                                         {
                                                             <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
                                                                 <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
