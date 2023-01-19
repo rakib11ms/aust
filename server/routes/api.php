@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\EventTypeController;
 use App\Http\Controllers\Backend\ArticleBlogCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
+use App\Http\Controllers\Backend\MessageController;
 
 use App\Http\Controllers\Backend\ArticleBlogController;
 use App\Http\Controllers\Backend\AusttaaJobSectorController;
@@ -515,6 +516,17 @@ Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
 
 
 Route::get('/get-all-users-pdf', [ViewAllUserController::class, 'getAllUsersPdf']);
+
+Route::get('/download-zip', [ViewAllUserController::class, 'downloadZip']);
+
+
+//messaging
+
+Route::post('/send-message', [MessageController::class, 'sendMessage']);
+Route::get('/user-individual-send-messages/{id}', [MessageController::class, 'sendIndividualMessage']);
+Route::get('/user-receive-messages/{id}', [MessageController::class, 'receiveMessage']);
+
+
 
 
 

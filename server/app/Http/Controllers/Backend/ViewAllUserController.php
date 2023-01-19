@@ -18,7 +18,9 @@ use App\Mail\EventMail;
 use App\Models\AusstaEvent;
 use App\Mail\ResetPassword;
 use Spatie\Permission\Models\Role;
-
+use File;
+use ZipArchive;
+  
 class ViewAllUserController extends Controller
 {
        public function allUsers()
@@ -284,5 +286,25 @@ public function userLocationSearch($name){
                 'pdfs'=>  $pdfs,
             ]);  
               }
+    public function downloadZip()
+    {
+     $zip = new ZipArchive;
+   
+        $fileName = 'myNewFile.zip';
+   
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path('cv'));
+   
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+             
+            $zip->close();
+        }
+    
+        return response()->download(public_path($fileName));
+    }
 
 }

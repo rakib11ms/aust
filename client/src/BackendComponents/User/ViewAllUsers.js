@@ -883,14 +883,32 @@ console.log('pdfs',allUsersPdf)
 
 
   function saveZip(){
-    const zip = new JSZip();
-    allUsersPdf.forEach(pdf => {
-        zip.file(pdf.cv_file, pdf.cv_file);
-    });
-    
-    zip.generateAsync({ type: "blob" }).then(content => {
-        saveAs(content, "pdfs.zip");
-    })
+
+//     axios.get(`/api/download-zip`).then(res => {
+//         const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+// // const link = document.createElement("a");
+// // link.href = url;
+// // link.setAttribute("download", "fileName.zip");
+// // document.body.appendChild(link);
+// // link.click();
+//         // if (res.data.status == 200) {
+//         //     alert("downled zip");
+
+//         // }
+//     })
+
+    axios({
+        url: 'http://172.31.120.58/api/download-zip',
+        method: 'GET',
+        responseType: 'blob', // important
+      }).then((response) => {
+         const url = window.URL.createObjectURL(new Blob([response.data]));
+         const link = document.createElement('a');
+         link.href = url;
+         link.setAttribute('download', 'file.pdf'); //or any other extension
+         document.body.appendChild(link);
+         link.click();
+      });
 }
 
     return (
