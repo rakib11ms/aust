@@ -116,6 +116,10 @@ Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 //total pending or active users count (web)
 Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);
 
+
+Route::post('/active-user-by-pending/{id}', [ViewAllUserController::class, 'activeUserByPending']);
+
+
 //delete multiple users
 Route::post('/delete-multiple-users/{id}', [ViewAllUserController::class, 'deleteMultileUsers']);
 //role change with password revoke
@@ -525,6 +529,7 @@ Route::get('/download-zip', [ViewAllUserController::class, 'downloadZip']);
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/user-individual-send-messages/{id}', [MessageController::class, 'sendIndividualMessage']);
 Route::get('/user-receive-messages/{id}', [MessageController::class, 'receiveMessage']);
+Route::post('/user-all-messages-between-two', [MessageController::class, 'allMessagesBetweenTwo']);
 
 
 

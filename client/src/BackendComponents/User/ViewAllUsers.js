@@ -609,12 +609,15 @@ function ViewAllUsers() {
                         <a href={`/${row.linkedin_link}`} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
                         <a href={`mailto:${row.facebook_link}`} class="fw-bold" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
                     </div>
-                    <div className='text-secondary'>
+                    <div className='text-secondary d-flex'>
+
+                
+
                         <div style={{ marginLeft: 20 }} onClick={(e) => {
                             openViewUserProfileModal(e, row)
                         }
                         }>
-                            <i className='fa fa-eye mx-2 '  >
+                            <i className='fa fa-eye mx-1 '  >
                             </i>
 
                         </div>
@@ -869,47 +872,47 @@ function ViewAllUsers() {
         })
     }, [])
 
-const [allUsersPdf,setAllUsersPdf]=useState([])
+    const [allUsersPdf, setAllUsersPdf] = useState([])
 
-console.log('pdfs',allUsersPdf)
-  useEffect(()=>{
-    axios.get(`/api/get-all-users-pdf`).then(res => {
-        if (res.data.status == 200) {
-            setAllUsersPdf(res.data.pdfs)
+    console.log('pdfs', allUsersPdf)
+    useEffect(() => {
+        axios.get(`/api/get-all-users-pdf`).then(res => {
+            if (res.data.status == 200) {
+                setAllUsersPdf(res.data.pdfs)
 
-        }
-    })
-  },[])
+            }
+        })
+    }, [])
 
 
-  function saveZip(){
+    function saveZip() {
 
-//     axios.get(`/api/download-zip`).then(res => {
-//         const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
-// // const link = document.createElement("a");
-// // link.href = url;
-// // link.setAttribute("download", "fileName.zip");
-// // document.body.appendChild(link);
-// // link.click();
-//         // if (res.data.status == 200) {
-//         //     alert("downled zip");
+        //     axios.get(`/api/download-zip`).then(res => {
+        //         const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+        // // const link = document.createElement("a");
+        // // link.href = url;
+        // // link.setAttribute("download", "fileName.zip");
+        // // document.body.appendChild(link);
+        // // link.click();
+        //         // if (res.data.status == 200) {
+        //         //     alert("downled zip");
 
-//         // }
-//     })
+        //         // }
+        //     })
 
-    axios({
-        url: 'http://172.31.120.58/api/download-zip',
-        method: 'GET',
-        responseType: 'blob', // important
-      }).then((response) => {
-         const url = window.URL.createObjectURL(new Blob([response.data]));
-         const link = document.createElement('a');
-         link.href = url;
-         link.setAttribute('download', 'file.pdf'); //or any other extension
-         document.body.appendChild(link);
-         link.click();
-      });
-}
+        axios({
+            url: 'http://172.31.120.58/api/download-zip',
+            method: 'GET',
+            responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.pdf'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
 
     return (
         <>
@@ -1238,18 +1241,36 @@ console.log('pdfs',allUsersPdf)
 
                                                 <div className='d-flex align-items-center  '>
 
+                                                              <div class="mx-2">
+                                                                <select className="form-select form-select-sm mb-3 rounded-pill " aria-label=".form-select-sm example" onChange={
+     axios.post(`/api/active-user-by-pending/`).then(res => {
+        if (res.data.status == 200) {
+            // setallUsers(res.data.all_users);
+            // setLoading(false);
+            window.location.reload();
+        }
+    }) 
+                                                                    
+                                                                }>
+                                                                    <option selected disabled>Change status</option>
+                                                                    <option value="active">Active</option>
+                                                                    <option value="pending">Pending</option>
+                                                                </select>
+                                                            </div>
+
                                                     {
                                                         selectedRowsLength > 1 &&
                                                         <>
 
 
-                                                            <div className='mx-2 '
+                                                            <div className='mx-2'
                                                                 onClick={
                                                                     deleteAllRecords
                                                                 }
                                                             >
                                                                 <i class="fa-solid mb-1 fa-trash icon-table-trash"></i>
                                                             </div>
+                                                  
 
 
 
