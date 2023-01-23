@@ -307,9 +307,18 @@ public function userLocationSearch($name){
         return response()->download(public_path($fileName));
     }
 
-    public function activeUserByPending(Request $request,$id){
-        $change_status=User::find($id);
-        $change_status->status=$request->status;
+    public function activeUserByPending(Request $request,$ids){
+
+
+            $array = explode(",", $ids);
+
+
+        User::whereIn('id', $array)
+            ->update([
+                'status' => $request->status,
+               
+            ]);
+
            return response()->json([
                 'status' => 200,
                 // 'deletes'=>  $deletes,

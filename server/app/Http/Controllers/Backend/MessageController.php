@@ -112,13 +112,19 @@ return response()->json([
         $result = array_merge($all_message_between_twos1, $all_message_between_twos2);
 
 
-// $final_result=collect($result)->sortBy('created_at');
+        // dd($result->created_at);
 
+        
+
+
+$final_result=collect($result)->sortBy('created_at')->values();
+
+        // dd($final_result);
 
     return response()->json([
                 'status' => 200,
          
-                'all_message_between_twos' => $result,
+                'all_message_between_twos' => $final_result,
             ]); 
 
               }

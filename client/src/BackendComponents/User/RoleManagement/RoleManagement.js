@@ -623,33 +623,33 @@ function RoleManagement() {
 
                     <div className="col-md-10 ">
                         <Topbar />
-                        <h4 className='ms-4 pt-3'>Role Management</h4>
+                        <h5 className='ms-4 pt-3'>Role Management</h5>
 
                         <div className='container-fluid'>
 
 
-                            <div className='mt-3 border  rounded-3 '>
-                                <h5 style={{ color: "#00602B" }} className='ms-4 pt-3'>Availabe User</h5>
+                            <div className='mt-3 border  rounded-3  '>
+                                <h6 style={{ color: "#00602B" }} className='ms-4 pt-3'>Availabe User</h6>
                                 <div className='role-config'>
 
                                     <div className=''>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD", borderRadius: 7, fontSize: 12, margin: "0px 5px 0px 25px", padding: "13px 35px" }} variant="outlined" startIcon={<AdminPanelSettingsSharpIcon />}>
+                                        <Button   style={{ color: "white", border: "1px solid #BDBDBD", background:"#236123 ", borderRadius: 7, fontSize: 12, margin: "0px 5px 0px 25px", }} variant="outlined" startIcon={<AdminPanelSettingsSharpIcon />}>
                                             Admin
                                         </Button>
-                                        <Button className='female' style={{ color: "#828282", border: "1px solid #BDBDBD", borderRadius: 7, fontSize: 12, marginRight: 5, padding: "13px 15px" }} variant="outlined" startIcon={<AddModeratorSharpIcon />}>
+                                        <Button className='female' style={{ color: "#828282", border: "1px solid #BDBDBD", borderRadius: 7, fontSize: 12, marginRight: 5, }} variant="outlined" startIcon={<AddModeratorSharpIcon />}>
                                             Moderator
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 5, padding: "13px 35px" }} variant="outlined" startIcon={<PeopleAltSharpIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 5, }} variant="outlined" startIcon={<PeopleAltSharpIcon />}>
                                             Alumni
                                         </Button>
-                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, padding: "13px 35px" }} variant="outlined" startIcon={<SupervisedUserCircleIcon />}>
+                                        <Button style={{ color: "#828282", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, }} variant="outlined" startIcon={<SupervisedUserCircleIcon />}>
                                             Stuff
                                         </Button>
                                     </div>
 
 
                                     <div data-aos="fade-left">
-                                        <Button style={{ backgroundColor: "#00602B", color: "white", border: "1px solid #BDBDBD ", borderRadius: 7, fontSize: 12, marginRight: 10, padding: "13px 15px" }} variant="contained" startIcon={<AddIcon />}>
+                                        <Button style={{ backgroundColor: "#00602B", color: "white", borderRadius: 7, fontSize: 12, marginRight: 10, padding: "8px" }} variant="contained" startIcon={<AddIcon />}>
                                             Create Role
                                         </Button>
                                     </div>
@@ -658,8 +658,430 @@ function RoleManagement() {
                                 </div>
                             </div>
 
-                            <div className="col-md-12 mt-3">
-                                <h5 style={{ border: "1px solid #9D9D9D", borderRadius: 7, padding: "20px 0px", color: "#00602B", paddingLeft: 10 }}>Permission Sets</h5>
+                            <div className='col-md-12 mt-3 bg-light'>
+                                <div className='row'>
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title ">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='col-md-3 mt-2'>
+                                        <div class="card">
+                                            <div className='card-header bg-white py-1'>
+                                            <h6 class="card-title">Users</h6>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        View All Users
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Create Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Update Users
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Delete Users
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <div className="col-md-12 mt-3">
+                                <h5 style={{ border: "1px solid #9D9D9D", borderRadius: 7, padding: "10px 10px", color: "#00602B"}}>Permission Sets</h5>
                             </div>
                             <div className='tab-sec-full'>
                                 <div className='tab-nav1'>
@@ -1333,94 +1755,10 @@ function RoleManagement() {
                                     </Button>
                                 </div>
                             </div>
+ */}
 
 
 
-
-                            {/* add post category modal */}
-                            <Modal
-                                isOpen={viewJobPostModalIsOpen}
-                                onRequestClose={closeViewJobPostModal}
-                                style={customStyles1}
-                                contentLabel="Example Modal"
-                            >
-
-                                <div className='card-body '>
-                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobPostModal}><i class="fa fa-times"></i></span>
-
-                                    <h5 className=""> Full Job Post View</h5>
-                                    <hr />
-
-
-
-                                    <div className="row">
-
-                                        <div className="col-12 ">
-
-                                            <div className=''>
-                                                <div className='' style={{ width: '120px', height: '80px' }}>
-                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewJobPostDescription.image}`} />
-                                                </div>
-                                            </div>
-
-                                            <div className='d-flex justify-content-between'>
-                                                <div className='mt-3'>
-                                                    <h5>{viewJobPostDescription.job_title}</h5>
-                                                    <div>
-                                                        <i class="fas fa-calendar"></i>
-                                                        <span className='mx-2'>Application Deadline: {moment(viewJobPostDescription.application_deadline).format("L")}</span>
-                                                    </div>
-
-                                                    <div className='mt-2'>
-
-                                                        <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
-
-                                                            {viewJobPostDescription.dept_name}
-                                                        </div>
-                                                    </div>
-
-
-
-
-
-                                                </div>
-                                                <div>
-                                                    <button className='btn  btn-sm py-1  px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewJobPostDescription.type_name}</span> </button>
-
-                                                    {
-                                                        viewJobPostDescription.isPublished == 1 ?
-                                                            <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
-                                                            :
-                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
-
-                                                    }
-
-                                                    {/* <button className='btn btn-success btn-sm py-1 px-3 ' style={{ borderRadius: "8px" }}>asdasdas</button>
-                                                    <button className='btn btn-danger btn-sm py-1 px-3  mx-2' style={{ borderRadius: "8px" }}>asdasdas</button> */}
-                                                </div>
-                                            </div>
-
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewJobPostDescription.job_description }}
-                                            />
-
-
-
-
-
-
-
-
-
-
-
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
-                            </Modal>
 
 
 

@@ -914,6 +914,28 @@ function ViewAllUsers() {
         });
     }
 
+    const[changeStatus,setChangeStatus]=useState();
+
+    useEffect(()=>{
+       const data={
+        status:changeStatus
+       }
+
+        axios.post(`/api/change-user-status-active-or-pending/${selectedRowsIds}`, data).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                window.location.reload();
+        
+             }
+            // else if (res.data.status == 400) {
+            //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
+            //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+
+            // }
+        })
+       
+    },[changeStatus])
+
     return (
         <>
             <div className="container-fluid">
@@ -1242,16 +1264,7 @@ function ViewAllUsers() {
                                                 <div className='d-flex align-items-center  '>
 
                                                               <div class="mx-2">
-                                                                <select className="form-select form-select-sm mb-3 rounded-pill " aria-label=".form-select-sm example" onChange={
-     axios.post(`/api/active-user-by-pending/`).then(res => {
-        if (res.data.status == 200) {
-            // setallUsers(res.data.all_users);
-            // setLoading(false);
-            window.location.reload();
-        }
-    }) 
-                                                                    
-                                                                }>
+                                                                <select className="form-select form-select-sm mb-3 rounded-pill " aria-label=".form-select-sm example" onChange={(e)=>setChangeStatus(e.target.value)}>
                                                                     <option selected disabled>Change status</option>
                                                                     <option value="active">Active</option>
                                                                     <option value="pending">Pending</option>
