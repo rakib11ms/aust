@@ -943,7 +943,7 @@ function ViewNoticeNews() {
                                                 </div>
                                                 <div className='mt-3'>
                                                     <button className='btn  bg-warning text-dark btn-sm py-1   px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewPostDescription.category_name
-}</span> </button>
+                                                    }</span> </button>
 
                                                     {
                                                         viewPostDescription.isPublished == 1 ?
@@ -956,8 +956,9 @@ function ViewNoticeNews() {
                                                 </div>
                                             </div>
 
-                                            <div className='mt-3' dangerouslySetInnerHTML={{ __html: viewPostDescription.notice_news_description
- }}
+                                            <div className='mt-3' dangerouslySetInnerHTML={{
+                                                __html: viewPostDescription.notice_news_description
+                                            }}
                                             />
 
 

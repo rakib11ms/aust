@@ -233,7 +233,7 @@ function PostType() {
                     window.location.reload();
 
                     // Swal.fire(res.data.message, '', 'success')
-                    setRenderAllPosts(res.data);
+                    // setRenderAllPosts(res.data);
 
                     // setIdChange('');
 
@@ -275,7 +275,7 @@ function PostType() {
                     window.location.reload();
 
                     // Swal.fire(res.data.message, '', 'success')
-                    setRenderAllPosts(res.data);
+                    // setRenderAllPosts(res.data);
 
                     // setIdChange('');
 
@@ -565,12 +565,9 @@ function PostType() {
                 <div className='mx-2 mb-1' onClick={(e) => archivePost(e, row)}>
 
 
-
                     {
-                        row.isArchived == 1 && <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i>
-                    }
-                    {
-                        row.isArchived == 0 && <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
+                        row.isArchived == 1 ? <i class="fa-solid fa-box-archive icon-table-archive text-danger"></i> :
+                            <i class="fa-solid fa-box-archive icon-table-archive text-secondary"></i>
                     }
                 </div>
 
@@ -718,11 +715,14 @@ function PostType() {
 
 
 
+
     useEffect(() => {
         axios.get(`/api/filter-post/${postFiltering}`).then(res => {
+
             if (res.data.status == 200) {
                 // window.location.reload();
                 console.log('use effect running')
+                // window.location.reload();
 
                 setallPosts(res.data.posts);
                 // setLoading(false);
@@ -873,7 +873,7 @@ function PostType() {
     }
     const [viewPostDescription, setViewPostDescription] = useState('');
 
-    console.log('view post', viewPostDescription)
+    // console.log('view post', viewPostDescription)
 
     const [viewPostModalIsOpen, setviewPostModalIsOpen] = useState(false);
     function openViewPostModal(e, viewPost) {
@@ -1015,10 +1015,10 @@ function PostType() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${postFiltering == 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering('all')}>All</h6>
+                                                <h6 className={`${postFiltering == "all" ? 'filterTrack' : ""} mx-2`} onClick={() => setPostFiltering("all")}>All</h6>
                                                 <h6 className={`${postFiltering == 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering == 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${postFiltering == 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${postFiltering == "archive" ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering("archive")}>Archived</h6>
 
                                             </div>
 

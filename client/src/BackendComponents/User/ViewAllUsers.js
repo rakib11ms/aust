@@ -36,7 +36,17 @@ import { saveAs } from 'file-saver';
 function ViewAllUsers() {
 
 
+    const [allUsers, setallUsers] = useState([]);
+    console.log('users', allUsers)
 
+    useEffect(() => {
+        axios.get(`/api/all-users`).then(res => {
+            if (res.data.status == 200) {
+                setallUsers(res.data.all_users);
+                setLoading(false);
+            }
+        })
+    }, []);
     const [loading, setLoading] = useState(true);
 
     // const [allUserPosts, setallUserPosts] = useState([]);
@@ -56,45 +66,13 @@ function ViewAllUsers() {
     }, [])
 
 
-    // const [renderAllUserPosts, setRenderAllUserPosts] = useState('');
 
-    // console.log('all posts check', allJobPosts)
-
-    //add functionality for post category
-    const [allUsers, setallUsers] = useState([]);
-    console.log('users', allUsers)
-
-    useEffect(() => {
-        axios.get(`/api/all-users`).then(res => {
-            if (res.data.status == 200) {
-                setallUsers(res.data.all_users);
-                setLoading(false);
-            }
-        })
-    }, []);
 
 
 
     ////multiple filter search functionality start 
 
 
-    const multipleFilterStyles = {
-        content: {
-            // marginTop: '70px',
-            top: '40vh',
-            left: '30%',
-            right: 'auto',
-            bottom: 'auto',
-            padding: '5px',
-            // marginRight: '-50%',
-            transform: 'translate(-7%, -45%)',
-            width: "50vw",
-            height: "50vh",
-            // background: "#ffffff",
-        },
-        overlay: { zIndex: 1000 }
-
-    };
 
 
     const [addMultipleFilterModalIsOpen, setaddMultipleFilterModalIsOpen] = useState(false);
@@ -111,187 +89,6 @@ function ViewAllUsers() {
 
     //// multiple filter search modal functionality end
 
-
-
-
-
-
-
-    const formData = new FormData();
-
-    const handlePostApproval = (e, id) => {
-
-        if (e.target.checked === true) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    // setRenderAllUserPosts(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-        if (e.target.checked == false) {
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', id.isArchived);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    // setRenderAllUserPosts(res.data);
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-        }
-    }
-
-    const archiveJobPost = (e, id) => {
-        if (id.isArchived == 0) {
-
-            const formData = new FormData();
-
-            formData.append('isPublished', 0);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 1);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    // setRenderAllUserPosts(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-        if (id.isArchived == 1) {
-
-            const formData = new FormData();
-
-            formData.append('isPublished', 1);
-            // formData.append('_method', 'PUT');
-
-            formData.append('company_name', id.company_name);
-            formData.append('job_type', id.job_type);
-            formData.append('job_description', id.job_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('application_deadline', id.application_deadline);
-            formData.append('image', id.image);
-            formData.append('isArchived', 0);
-            formData.append('job_title', id.job_title);
-            formData.append('job_location', id.job_location);
-
-            axios.post(`/api/update-job-post/${id.id}`, formData).then(res => {
-                if (res.data.status == 200) {
-
-                    // Swal.fire(res.data.message, '', 'success')
-                    window.location.reload();
-
-                    // setRenderAllUserPosts(res.data);
-
-                    // setIdChange('');
-                    // closeAddPostCategoryModal();
-                    // setAddPostType({
-                    //     type_name: "",
-                    //     created_by: '',
-                    //     error_list: []
-
-                    // });
-
-                }
-                // else if (res.data.status == 400) {
-                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
-
-                // }
-            })
-
-        }
-
-    }
     const navigate = useNavigate();
     const [storageData, setstorageData] = useState()
     // console.log('pip', storageData)
@@ -330,21 +127,6 @@ function ViewAllUsers() {
 
     }
 
-
-
-
-
-
-    // useEffect(() => {
-    //     axios.get(`/api/all-job-post`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setallUserPosts(res.data.posts);
-    //             setLoading(false);
-    //         }
-    //     })
-    //     Modal.setAppElement('body');
-
-    // }, [])
 
 
 
@@ -611,7 +393,7 @@ function ViewAllUsers() {
                     </div>
                     <div className='text-secondary d-flex'>
 
-                
+
 
                         <div style={{ marginLeft: 20 }} onClick={(e) => {
                             openViewUserProfileModal(e, row)
@@ -914,27 +696,27 @@ function ViewAllUsers() {
         });
     }
 
-    const[changeStatus,setChangeStatus]=useState();
+    const [changeStatus, setChangeStatus] = useState();
 
-    useEffect(()=>{
-       const data={
-        status:changeStatus
-       }
+    useEffect(() => {
+        const data = {
+            status: changeStatus
+        }
 
         axios.post(`/api/change-user-status-active-or-pending/${selectedRowsIds}`, data).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 window.location.reload();
-        
-             }
+
+            }
             // else if (res.data.status == 400) {
             //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
             //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
 
             // }
         })
-       
-    },[changeStatus])
+
+    }, [changeStatus])
 
     return (
         <>
@@ -1224,7 +1006,7 @@ function ViewAllUsers() {
 
                                         <div className=' bg-white py-0 my-0'>
 
-                                            <div className="d-flex justify-content-between py-0 my-0">
+                                            <div className="d-flex justify-content-between py-0 my-0" style={{cursor:'pointer'}}>
 
                                                 <div className='d-flex align-items-center text-secondary '>
                                                     <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('All') }}>All</h6>
@@ -1263,13 +1045,13 @@ function ViewAllUsers() {
 
                                                 <div className='d-flex align-items-center  '>
 
-                                                              <div class="mx-2">
-                                                                <select className="form-select form-select-sm mb-3 rounded-pill " aria-label=".form-select-sm example" onChange={(e)=>setChangeStatus(e.target.value)}>
-                                                                    <option selected disabled>Change status</option>
-                                                                    <option value="active">Active</option>
-                                                                    <option value="pending">Pending</option>
-                                                                </select>
-                                                            </div>
+                                                    <div class="mx-2">
+                                                        <select className="form-select form-select-sm mb-3 rounded-pill " aria-label=".form-select-sm example" onChange={(e) => setChangeStatus(e.target.value)}>
+                                                            <option selected disabled>Change status</option>
+                                                            <option value="active">Active</option>
+                                                            <option value="pending">Pending</option>
+                                                        </select>
+                                                    </div>
 
                                                     {
                                                         selectedRowsLength > 1 &&
@@ -1283,7 +1065,7 @@ function ViewAllUsers() {
                                                             >
                                                                 <i class="fa-solid mb-1 fa-trash icon-table-trash"></i>
                                                             </div>
-                                                  
+
 
 
 

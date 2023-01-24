@@ -219,6 +219,39 @@ function ViewBlogArticle() {
 
 
 
+    const viewNoticeNewsStyles = {
+        content: {
+            // marginTop: '70px',
+            top: '40vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "60vw",
+            height: "70vh",
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+    const [viewPostDescription, setViewPostDescription] = useState('');
+
+    console.log('view post', viewPostDescription)
+
+    const [viewNoticeNewsModalIsOpen, setviewNoticeNewsModalIsOpen] = useState(false);
+    function openViewNoticeNewsModal(e, viewPost) {
+        e.preventDefault();
+        setViewPostDescription(viewPost)
+        setviewNoticeNewsModalIsOpen(true)
+    }
+    function closeViewNoticeNewsModal(e) {
+        setviewNoticeNewsModalIsOpen(false);
+
+    }
+
+
 
 
 
@@ -234,7 +267,7 @@ function ViewBlogArticle() {
     // console.log('pip', storageData)
 
 
-const [renderData,setRenderData]=useState('');
+    const [renderData, setRenderData] = useState('');
 
 
     useEffect(() => {
@@ -375,7 +408,12 @@ const [renderData,setRenderData]=useState('');
 
                     }
                 </div>
+                <div className='mx-2 mb-1 text-secondary' onClick={(e) => openViewNoticeNewsModal(e, row)}>
 
+                    <i className='fa fa-eye'></i>
+
+
+                </div>
 
             </div>,
             cellStyle: {
@@ -798,6 +836,92 @@ const [renderData,setRenderData]=useState('');
                                     </div>
                                 </div>
                             </div>
+
+                            {/* view  post modal */}
+                            <Modal
+                                isOpen={viewNoticeNewsModalIsOpen}
+                                onRequestClose={closeViewNoticeNewsModal}
+                                style={viewNoticeNewsStyles}
+                                contentLabel="Example Modal"
+                            >
+
+                                <div className='card-body '>
+                                    <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewNoticeNewsModal}><i class="fa fa-times"></i></span>
+
+                                    <h5 className=""> Full Post View</h5>
+                                    <hr />
+
+
+
+                                    <div className="row">
+
+                                        <div className="col-12 ">
+
+                                            <div className=''>
+                                                <div className='mx-auto' style={{ width: '50%', height: '150px' }}>
+                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewPostDescription.article_blog_image}`} />
+                                                </div>
+                                            </div>
+
+                                            <div className='d-flex justify-content-between mt-2'>
+                                                <div className='mt-3'>
+                                                    <h5>{viewPostDescription.article_blog_title}</h5>
+                                                    <div>
+                                                        <i class="fas fa-calendar-days"></i>
+                                                        <span className='mx-2'>Posted Date: {moment(viewPostDescription.created_at).format('YYYY-MM-DD')}</span>
+                                                    </div>
+
+                                                    <div className='mt-2'>
+
+                                                        <div className=' d-inline py-1 rounded-pill me-4' >
+
+                                                            <span class="bg-white">Posted By : </span> <span className='bg-light'> {viewPostDescription.full_name}</span>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                                <div className='mt-3'>
+                                                    <button className='btn  bg-warning text-dark btn-sm py-1   px-3 my-0 outline-0' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>{viewPostDescription.category_name
+                                                    }</span> </button>
+
+                                                    {
+                                                        viewPostDescription.isPublished == 1 ?
+                                                            <button className='btn  btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", backgroundColor: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>Active</span> </button>
+                                                            :
+                                                            <button className='btn btn-danger btn-sm py-1  px-3 my-0 mx-3' style={{ borderRadius: "7px", color: "#0FA958", color: "#f1f1f1" }}> <span className='text-center'>In active</span> </button>
+
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                            <div className='mt-3' dangerouslySetInnerHTML={{
+                                                __html: viewPostDescription.article_blog_description
+                                            }}
+                                            />
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </Modal>
                         </div>
 
                     </div>
