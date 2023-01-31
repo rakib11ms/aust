@@ -131,6 +131,7 @@ $all_users = User::all();
 
          foreach ($all_users as $key => $user) {
             Mail::to($user->email)->send(new GlobalMail($global_notification));
+
         }
 
           $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();

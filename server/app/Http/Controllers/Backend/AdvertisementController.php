@@ -106,7 +106,7 @@ class AdvertisementController extends Controller
             $file=$request->file('advertisement_file');
             $extension=$file->getClientOriginalExtension();
             $filename=time().'.'.$extension;
-            $file->move('check/',$filename);
+            $file->move('images/',$filename);
             $advertisement->advertisement_file =$filename ;
          } 
 
@@ -115,6 +115,7 @@ class AdvertisementController extends Controller
             $advertisement->advertiser_email = $request->advertiser_email;
             $advertisement->reference_no = $request->reference_no;
             $advertisement->po_no = $request->advertiser_name;
+           $advertisement->save();
 
 
 
@@ -140,7 +141,6 @@ class AdvertisementController extends Controller
             Mail::to($request->advertiser_email)->send(new Advertisementmail($advertisement));
         
 
-           $advertisement->save();
 
         return response()->json([
             'status' => 200,
@@ -196,20 +196,7 @@ class AdvertisementController extends Controller
         ]);
         }
         else{
-        //     if ($request->file('image')) {
-        //     foreach ($request->file('image') as $image) {
-
-        //         $upload_image_name = time() . $image->getClientOriginalName();
-        //         $image->move('images/', $upload_image_name);
-        //         $name[] = $upload_image_name;
-
-        //         $advertisement->image =  implode(', ', $name);
-        //         // $event->save();   
-        //     }
-        // }
-
-
-
+      
         $advertisement->advertisement_title = $request->advertisement_title;
         $advertisement->advertisement_description = $request->advertisement_description;
         $advertisement->posted_by = auth('sanctum')->user()->id;
@@ -236,7 +223,7 @@ class AdvertisementController extends Controller
             $file=$request->file('advertisement_file');
             $extension=$file->getClientOriginalExtension();
             $filename=time().'.'.$extension;
-            $file->move('check/',$filename);
+            $file->move('images/',$filename);
             $advertisement->advertisement_file =$filename ;
          } 
 
@@ -265,6 +252,9 @@ class AdvertisementController extends Controller
 
          
         $advertisement->update();
+
+         Mail::to($request->advertiser_email)->send(new Advertisementmail($advertisement));
+
 
         return response()->json([
             'status' => 200,
@@ -303,8 +293,8 @@ class AdvertisementController extends Controller
 
 
         foreach($advertisement_images as $image){
-            if(File::exists('check/'.$image->image)){
-                File::delete('check/'.$image->image);
+            if(File::exists('images/'.$image->image)){
+                File::delete('images/'.$image->image);
             }
 
         }
@@ -324,7 +314,7 @@ class AdvertisementController extends Controller
         $advertisement = AdvertisementMultipleImage::find($id);
 
         $file=$advertisement->image;
-        $filename = public_path().'/check/'.$file;
+        $filename = public_path().'/images/'.$file;
         File::delete($filename);
         $advertisement->delete();
 

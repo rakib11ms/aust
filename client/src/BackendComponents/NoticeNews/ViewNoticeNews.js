@@ -392,7 +392,7 @@ function ViewNoticeNews() {
 
             cellStyle: {
                 marginLeft: 50,
-                maxWidth: 200
+                maxWidth: 250
                 // width: 400
             },
         },

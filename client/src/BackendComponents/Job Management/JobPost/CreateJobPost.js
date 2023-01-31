@@ -26,6 +26,7 @@ function CreateJobPost() {
     const config = {
         readonly: false, // all options from https://xdsoft.net/jodit/doc/,
         removeButtons: ["source", "show_all"],
+        height:300
     };
 
 

@@ -653,10 +653,10 @@ function ViewAllJob() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${jobPostFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
-                                                <h6 className={`${jobPostFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
-                                                <h6 className={`${jobPostFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
-                                                <h6 className={`${jobPostFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${jobPostFiltering === 'all' ? 'text-dark' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
+                                                <h6 className={`${jobPostFiltering === 1 ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
+                                                <h6 className={`${jobPostFiltering === 0 ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
+                                                <h6 className={`${jobPostFiltering === 'archive' ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
 
                                             </div>
 

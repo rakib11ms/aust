@@ -301,7 +301,7 @@ function ViewBlogArticle() {
             render: (row) =>
 
                 <div className=''>
-                    <div class="tooops d-flex align-items-center justify-content-between">
+                    <div class="tooops d-flex align-items-center justify-content-between ">
                         <div className=''>
                             <div className='text-secondary'>
                                 <span>
@@ -348,7 +348,7 @@ function ViewBlogArticle() {
 
             cellStyle: {
                 marginLeft: 50,
-                maxWidth: 200
+                maxWidth: 300
                 // width: 400
             },
         },
@@ -556,15 +556,11 @@ function ViewBlogArticle() {
             if (result.isConfirmed) {
                 axios.post(`/api/delete-multiple-article-blogs/${selectedRowsIds}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllBlogArticle(res.data)
-                        // window.location.reload();
+                        // setRenderAllBlogArticle(res.data)
+                        window.location.reload();
                     }
                 });
-                Swal.fire(
-                    'Deleted!',
-                    'All Posts deleted successfully',
-                    'success'
-                )
+              
             }
         })
 

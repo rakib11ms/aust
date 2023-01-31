@@ -27,6 +27,7 @@ import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 function CreateAdvertisement() {
+    const [clickedRender, setClickedRender] = useState(false)
 
 
     const navigate = useNavigate();
@@ -163,6 +164,8 @@ function CreateAdvertisement() {
     const [advertisementError, setadvertisementError] = useState('')
     function handleSubmit(e) {
         e.preventDefault();
+        setClickedRender(true)
+
         const formData = new FormData();
         // formData.append("posted_by", 1);
         formData.append("advertisement_title", advertisement_title);
@@ -198,6 +201,7 @@ function CreateAdvertisement() {
         axios.post(`/api/add-advertisement`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
+                setClickedRender(false)
 
                 setContent1('');
                 setposition('');
@@ -314,7 +318,15 @@ function CreateAdvertisement() {
 
                                                 </div>
                                                 <div class="mt-1">
-                                                    <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE</button>
+                                                    <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE
+                                                    {
+                                                    clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
+
+
+
+
+                                                }
+                                                    </button>
                                                 </div>
 
 

@@ -17,7 +17,6 @@ import { Paper } from '@material-ui/core';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -343,7 +342,7 @@ function ViewAllAdvertisement() {
 
                         <div className=''>
                             <i class="fas fa-link"></i>
-                            <span className='mx-1'><a href={row.redirect_link} target="_blank">{row.redirect_link}</a></span>
+                            <span className='mx-1'><a href={row.redirect_link} target="_blank">{row.redirect_link.length > 50 ? `${row.redirect_link.substring(0, 50)}...` : row.redirect_link}</a></span>
                         </div>
 
 
@@ -765,18 +764,11 @@ function ViewAllAdvertisement() {
                                             <div className='d-flex justify-content-between mt-2'>
                                                 <div className=''>
 
-                                                    Advertisement Fee: <span>{viewAdvertisementDescription.advertisement_fee} Taka</span>
+                                                    Advertisement Fee: <span>{viewAdvertisementDescription.advertisement_fee == null ? "Free" : viewAdvertisementDescription.advertisement_fee} </span>
 
                                                 </div>
 
-                                                <div className=''>
-                                                    Contact Persons:
 
-                                                    <div className='bg-light d-inline px-2 py-1 rounded-pill me-4' >
-
-                                                        {viewAdvertisementDescription.dept_name}
-                                                    </div>
-                                                </div>
 
                                             </div>
 
@@ -789,11 +781,64 @@ function ViewAllAdvertisement() {
 
 
 
+
+
                                         </div>
 
 
 
                                     </div>
+
+                                    <div className='row  d-block '>
+                                        <div className='col-12'>
+                                            <h6>Advertiser Information</h6>
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Field</th>
+                                                        <th scope="col">Data</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+
+                                                        <td>Advertiser Name:</td>
+                                                        <td>{viewAdvertisementDescription.advertiser_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Advertiser Email:</td>
+                                                        <td>{viewAdvertisementDescription.advertiser_email}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >Advertiser Phone:</td>
+                                                        <td>{viewAdvertisementDescription.advertiser_phone}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td >Reference no:</td>
+                                                        <td>{viewAdvertisementDescription.reference_no}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td >PO no:</td>
+                                                        <td>{viewAdvertisementDescription.po_no}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >File:</td>
+                                                        <td>
+                                                            <i className='fa fa-download'></i>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
 
                             </Modal>

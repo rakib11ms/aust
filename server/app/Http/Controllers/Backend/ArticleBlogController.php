@@ -247,11 +247,21 @@ class ArticleBlogController extends Controller
  
     $array=explode (",", $ids); 
 
+
+    $article_blogs=ArticleBlog::whereIn('id',$array)->get();
+
+
+        foreach($article_blogs as $image){
+            if(File::exists('images/'.$image->article_blog_image)){
+                File::delete('images/'.$image->article_blog_image);
+            }
+        }
   $deletes=ArticleBlog::whereIn('id',$array)->delete();
+
       return response()->json([
                 'status' => 200,
                 // 'deletes'=>  $deletes,
-                'message' => ' Posts deleted successfully',
+                'message' => ' Article Blogs deleted successfully',
             ]);
 }
 

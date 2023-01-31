@@ -244,7 +244,21 @@ class NoticeNewsController extends Controller
  
     $array=explode (",", $ids); 
 
+
+
+    $notice_news=NoticeNews::whereIn('id',$array)->get();
+
+
+        foreach($notice_news as $image){
+            if(File::exists('images/'.$image->notice_news_image)){
+                File::delete('images/'.$image->notice_news_image);
+            }
+        }
   $deletes=NoticeNews::whereIn('id',$array)->delete();
+
+
+
+
       return response()->json([
                 'status' => 200,
                 // 'deletes'=>  $deletes,
