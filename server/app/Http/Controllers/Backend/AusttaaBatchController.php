@@ -12,7 +12,7 @@ class AusttaaBatchController extends Controller
     {
         $total_batch = AusttaaBatch::orderBy('id', 'desc')->get()->count();
 
-        $batch_name = AusttaaBatch::orderBy('id', 'desc')->get();
+        $batch_name = AusttaaBatch::orderBy('batch_name', 'asc')->get();
 
         return response()->json([
             'status' => 200,

@@ -146,9 +146,9 @@ function Sidebar() {
                                         <li>
                                             <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</Link>
                                         </li>
-                                        <li className='mt-1'>
+                                        {/* <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create User</a>
-                                        </li>
+                                        </li> */}
                                         {/* <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-warning' : 'text-light '}`}>Aproval List</a>
                                         </li> */}

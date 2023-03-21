@@ -10,9 +10,9 @@ class AusttaaBloodGroupController extends Controller
 {
     public function index()
     {
-        $total_blood_group = AusttaaBloodGroup::orderBy('id', 'desc')->get()->count();
+        $total_blood_group = AusttaaBloodGroup::orderBy('id', 'asc')->get()->count();
 
-        $blood_group_name = AusttaaBloodGroup::orderBy('id', 'desc')->get();
+        $blood_group_name = AusttaaBloodGroup::orderBy('blood_group_name', 'asc')->get();
 
         return response()->json([
             'status' => 200,

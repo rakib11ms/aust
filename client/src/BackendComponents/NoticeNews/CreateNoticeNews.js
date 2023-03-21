@@ -275,6 +275,13 @@ function CreateNoticeNews() {
         formData.append('notice_news_image', image);
         formData.append('posted_by', 1);
 
+        multipleImageFiles.files.forEach(file => {
+            console.log('files check', file)
+
+            formData.append("image[]", file);
+
+        });
+
 
         console.log('check all data', formData);
 
@@ -303,6 +310,78 @@ function CreateNoticeNews() {
 
     }
 
+
+
+      //////////images code ///////////
+
+      const [multipleImages, setMultipleImages] = useState([]);
+      const [multipleImageFiles, setMultipleImageFiles] = useState({
+          files: []
+      });
+  
+  
+  
+      useEffect(() => {
+          if (multipleImages.length == 0) {
+              document.getElementById('formFileImage').value = "";
+          }
+      }, [multipleImages])
+  
+  
+  
+      console.log('image files', multipleImageFiles.files)
+      console.log('image url', multipleImages)
+
+
+
+      function removeArray(i) {
+        console.log('index clicked', i)
+        // setMultipleImageFiles({
+        //     files:
+        // });
+
+        const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+
+        const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+        // console.log('checking333333',filterRemoveImgs)
+
+        setMultipleImageFiles({
+            files: filterRemoveFileImgs
+        })
+        setMultipleImages(filterRemovePreviewImgs)
+
+
+
+    }
+   // Functions to preview multiple images
+   const changeMultipleFiles = (e) => {
+    setMultipleImageFiles({
+        files: [...multipleImageFiles.files, ...e.target.files]
+    })
+    if (e.target.files) {
+        const imageArray = Array.from(e.target.files).map((file) =>
+            URL.createObjectURL(file)
+        );
+        setMultipleImages((prevImages) => prevImages.concat(imageArray));
+    }
+};
+
+const render = (data) => {
+    return data.map((image, i) => {
+        return <div className='image-main mt-2' onClick={() => {
+            removeArray(i);
+        }}>
+            <i class="fa fa-close image-close text-danger" ></i>
+            <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+        </div>
+    });
+};
 
 
     return (
@@ -420,17 +499,34 @@ function CreateNoticeNews() {
                                                 </div> */}
 
                                                 <div class="row mt-2">
-                                                    <div class="mb-3 col-md-6 ">
-                                                        <label for="formFile" class="form-label fs-6">Job Logo/Image</label>
-                                                        <input class="form-control" type="file" id="notice_news_image" name="notice_news_image" onChange={onChangePicture} />
+                                                  
+
+                                                    <div class="mt-4">
+                                                    <div class="">
+                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
+
+                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles} required
+                                                        />
+
+                                                        <div className='d-flex mt-2 ' >
+                                                            {render(multipleImages)}
+
+                                                        </div>
+
+
+
+
                                                     </div>
+
+
+                                                </div>
 
                                                     {/* <div class="mb-3 col-md-6">
                                             <label for="formFile" class="form-label fs-6">Default file input example</label>
                                             <input class="form-control" type="file" id="formFile" />
                                         </div> */}
                                                 </div>
-                                                {
+                                                {/* {
                                                     picture !== '' && <div className="form-group" style={{ width: '100px', height: '90px' }}>
                                                         <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
@@ -438,9 +534,9 @@ function CreateNoticeNews() {
                                                 }
                                                 {
                                                     image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
-                                                }
+                                                } */}
 
-                                                <div class="text-center mt-1" data-aos="flip-up">
+                                                <div class="text-center mt-1" >
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={submitNoticeNews}> PUBLISH NOW</button>
                                                 </div>
 

@@ -12,7 +12,7 @@ class AusttaaCompanyNameController extends Controller
     {
         $total_company_name = AusttaaCompanyName::orderBy('id', 'desc')->get()->count();
 
-        $company_name = AusttaaCompanyName::orderBy('id', 'desc')->get();
+        $company_name = AusttaaCompanyName::orderBy('company_name', 'asc')->get();
         $company_name_asc = AusttaaCompanyName::orderBy('company_name', 'asc')->get();
 
 

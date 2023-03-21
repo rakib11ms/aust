@@ -449,6 +449,9 @@ Route::get('/filter-notice-news-by-search-input-radio/{searchInputValue}/{search
 //web notice new status (table) filtering
 Route::get('/filtering-notice-news-by-status/{name}', [NoticeNewsController::class, 'NoticeNewsfilterByStatus']);
 
+Route::get('/notice-news-multiple-images-by-id/{id}', [NoticeNewsController::class, 'NoticeNewsMultipleImageById']);
+
+
 
 
 //vlog category

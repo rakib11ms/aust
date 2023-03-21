@@ -12,7 +12,7 @@ class AusttaaJobSectorController extends Controller
     {
         $total_job_sector = AusttaaJobSector::orderBy('id', 'desc')->get()->count();
 
-        $job_sector = AusttaaJobSector::orderBy('id', 'desc')->get();
+        $job_sector = AusttaaJobSector::orderBy('job_sector_name', 'asc')->get();
         $job_sector_asc = AusttaaJobSector::orderBy('job_sector_name', 'asc')->get();
 
         return response()->json([

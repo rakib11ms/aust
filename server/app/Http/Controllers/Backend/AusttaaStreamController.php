@@ -10,9 +10,9 @@ class AusttaaStreamController extends Controller
 {
     public function index()
     {
-        $total_stream_name = AusttaaStream::orderBy('id', 'desc')->get()->count();
+        $total_stream_name = AusttaaStream::orderBy('id', 'asc')->get()->count();
 
-        $stream_name = AusttaaStream::orderBy('id', 'desc')->get();
+        $stream_name = AusttaaStream::orderBy('stream_name', 'asc')->get();
 
         return response()->json([
             'status' => 200,

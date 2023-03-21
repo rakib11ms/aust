@@ -14,10 +14,36 @@ import Modal from 'react-modal';
 
 import MaterialTable from "material-table";
 import moment from 'moment';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function ViewNoticeNews() {
 
 
+
+    /////slider code ////////////
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        // cssEase: "linear",
+        // variableWidth: 90,
+
+
+        responsive: [{
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                initialSlide: 1
+            }
+        }]
+    };
 
     const [loading, setLoading] = useState(true);
 
@@ -291,6 +317,21 @@ function ViewNoticeNews() {
         setviewNoticeNewsModalIsOpen(false);
 
     }
+
+    const [noticeNewsImages, setNoticeNewsImages] = useState([]);
+
+    console.log('heda', noticeNewsImages)
+
+
+    useEffect(() => {
+        axios.get(`/api/notice-news-multiple-images-by-id/${viewPostDescription.id}`).then(res => {
+            if (res.data.status == 200) {
+                setNoticeNewsImages(res.data.notice_news_images);
+            }
+        })
+
+    }, [viewPostDescription])
+
 
 
     // const customStyles1 = {
@@ -914,10 +955,34 @@ function ViewNoticeNews() {
 
                                         <div className="col-12 ">
 
-                                            <div className=''>
+                                            {/* <div className=''>
                                                 <div className='mx-auto' style={{ width: '50%', height: '150px' }}>
                                                     <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewPostDescription.notice_news_image}`} />
                                                 </div>
+                                            </div> */}
+                                            <div className='col-6 mx-auto '>
+
+
+                                                <Slider {...settings}>
+
+                                                    {
+                                                        noticeNewsImages !== undefined && noticeNewsImages.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    <div class="rounded-3">
+                                                                        <img src={`${global.img_url}/images/${item.image}`} className="rounded-3" style={{ height: '200px', width: '100%', objectFit: 'cover' }} />
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                        })
+                                                    }
+
+
+
+
+
+                                                </Slider>
+
                                             </div>
 
                                             <div className='d-flex justify-content-between mt-2'>

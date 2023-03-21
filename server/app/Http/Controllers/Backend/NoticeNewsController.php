@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\NoticeNews;
 use Illuminate\Support\Facades\File;   
 use Illuminate\Support\Facades\DB;
+use App\Models\NoticeNewsMultipleImage;
 class NoticeNewsController extends Controller
 {
     public function index()
@@ -36,18 +37,8 @@ class NoticeNewsController extends Controller
 
 
       public function store(Request $request){
-        // dd ($request->all());
-
-            $notice_news = new NoticeNews();
-               if($request->hasFile('notice_news_image')){
-            $file=$request->file('notice_news_image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
-            $notice_news->notice_news_image =$filename ;
-         } 
-
-
+  
+          $notice_news = new NoticeNews();
 
            $notice_news->category_id = $request->category_id;
            $notice_news->subcategory_id = $request->subcategory_id;
@@ -57,6 +48,19 @@ class NoticeNewsController extends Controller
            $notice_news->notice_news_description = $request->notice_news_description;
 
             $notice_news->save();
+
+
+   foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('images/', $upload_image_name);
+
+            $notice_news_multiple_image=new NoticeNewsMultipleImage();
+            $notice_news_multiple_image->notice_news_id=$notice_news->id;
+            $notice_news_multiple_image->image=$upload_image_name;
+            $notice_news_multiple_image->save();
+       
+        }
 
                 $count = NoticeNews::orderBy('id','desc')->get()->count();
 
@@ -231,10 +235,14 @@ class NoticeNewsController extends Controller
      }
 
 
+ public function NoticeNewsMultipleImageById($id){
+        $notice_news_images=NoticeNewsMultipleImage::where('notice_news_id',$id)->get();
 
-
-
-
+           return response()->json([
+                'status' => 200,
+                'notice_news_images'=>  $notice_news_images,
+            ]);
+ }
 
 
 
