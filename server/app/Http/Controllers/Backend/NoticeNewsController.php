@@ -76,11 +76,17 @@ class NoticeNewsController extends Controller
     {
         $notice_news = NoticeNews::find($id);
 
+
+        $notice_news_images=NoticeNewsMultipleImage::where('notice_news_id',$id)->get();
+
+
         if ($notice_news)
         {
             return response()->json([
                 'status' => 200,
                 'notice_news' => $notice_news,
+                'notice_news_images'=>$notice_news_images
+
             ]);
 
         }else{
@@ -96,14 +102,6 @@ class NoticeNewsController extends Controller
 
              $notice_news=NoticeNews::find($id);
 
-               if($request->hasFile('notice_news_image')){
-            $file=$request->file('notice_news_image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
-            $notice_news->notice_news_image =$filename ;
-         } 
-
 
 
            $notice_news->category_id = $request->category_id;
@@ -116,6 +114,22 @@ class NoticeNewsController extends Controller
            $notice_news->isPublished = $request->isPublished;
 
             $notice_news->update();
+
+
+
+
+
+   foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('images/', $upload_image_name);
+
+            $notice_news_multiple_image=new NoticeNewsMultipleImage();
+            $notice_news_multiple_image->notice_news_id=$notice_news->id;
+            $notice_news_multiple_image->image=$upload_image_name;
+            $notice_news_multiple_image->save();
+       
+        }
 
                 $count = NoticeNews::orderBy('id','desc')->get()->count();
 
@@ -273,4 +287,21 @@ class NoticeNewsController extends Controller
                 'message' => ' Posts deleted successfully',
             ]);
 }
+
+
+
+public function deleteNoticeNewsMultipleImage($id){
+    $notice_news = NoticeNewsMultipleImage::find($id);
+
+        $file=$notice_news->image;
+        $filename = public_path().'/images/'.$file;
+        File::delete($filename);
+        $notice_news->delete();
+
+              return response()->json([
+            'status' => 200,
+            'message' => 'notice_news Image deleted successfully',
+        ]);
+}
+
 }

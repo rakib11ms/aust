@@ -445,6 +445,8 @@ Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
 Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
 Route::post('/update-notice-news/{id}', [NoticeNewsController::class, 'update']);
 
+Route::post('/delete-notice-news-multiple-image/{id}', [NoticeNewsController::class, 'deleteNoticeNewsMultipleImage']);
+
 Route::get('/filter-notice-news-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}', [NoticeNewsController::class, 'NoticeNewsfilterBySearchInputRadioButton']);
 //web notice new status (table) filtering
 Route::get('/filtering-notice-news-by-status/{name}', [NoticeNewsController::class, 'NoticeNewsfilterByStatus']);

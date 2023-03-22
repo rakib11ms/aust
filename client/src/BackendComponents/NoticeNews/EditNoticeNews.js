@@ -71,20 +71,20 @@ function EditNoticeNews() {
             }
         })
 
-  
+
 
 
 
     }, [])
 
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`/api/get-notice-news-subcategories-by-category-id/${category_id}`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.sub_categories);
             }
         })
-    },[category_id])
+    }, [category_id])
 
 
 
@@ -126,157 +126,6 @@ function EditNoticeNews() {
 
     const [notice_news_title, setnotice_news_title] = useState("");
 
-
-    //////////images code ///////////
-
-    // const [multipleImages, setMultipleImages] = useState([]);
-    // const [multipleImageFiles, setMultipleImageFiles] = useState({
-    //     files: []
-    // });
-
-
-
-    // useEffect(() => {
-    //     if (multipleImages.length == 0) {
-    //         document.getElementById('formFileImage').value = "";
-    //     }
-    // }, [multipleImages])
-
-
-
-    // console.log('image files', multipleImageFiles.files)
-    // console.log('image url', multipleImages)
-
-    // // multipleImages.map((item,i)=>{
-    // //     console.log('hello abba',i)
-    // // })
-
-    // function removeArray(i) {
-    //     console.log('index clicked', i)
-    //     // setMultipleImageFiles({
-    //     //     files:
-    //     // });
-
-    //     const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
-    //         console.log('kosuy', item)
-    //         return index !== i
-    //     })
-
-    //     const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
-    //         console.log('kosuy', item)
-    //         return index !== i
-    //     })
-    //     // console.log('checking333333',filterRemoveImgs)
-
-    //     setMultipleImageFiles({
-    //         files: filterRemoveFileImgs
-    //     })
-    //     setMultipleImages(filterRemovePreviewImgs)
-
-
-
-    // }
-
-
-    // Functions to preview multiple images
-    // const changeMultipleFiles = (e) => {
-    //     setMultipleImageFiles({
-    //         files: [...multipleImageFiles.files, ...e.target.files]
-    //     })
-    //     if (e.target.files) {
-    //         const imageArray = Array.from(e.target.files).map((file) =>
-    //             URL.createObjectURL(file)
-    //         );
-    //         setMultipleImages((prevImages) => prevImages.concat(imageArray));
-    //     }
-    // };
-
-    // const render = (data) => {
-    //     return data.map((image, i) => {
-    //         return <div className='image-main mt-2' onClick={() => {
-    //             removeArray(i);
-    //         }}>
-    //             <i class="fa fa-close image-close text-danger" ></i>
-    //             <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
-    //         </div>
-    //     });
-    // };
-
-
-
-
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     // formData.append("posted_by", 1);
-    //     formData.append("notice_news_title", notice_news_title);
-    //     formData.append("advertisement_description", content1);
-    //     formData.append("redirect_link", redirect_link);
-    //     formData.append("show_time", show_time);
-    //     formData.append("show_days", show_days);
-    //     formData.append("advertisement_fee", advertisement_fee);
-    //     formData.append("home_page", allCheckBox.home_page ? 1 : 0);
-    //     formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
-    //     formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
-    //     formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
-    //     formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
-    //     formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
-
-    //     formData.append("showMobile", showMobile);
-    //     formData.append("showDesktop", showDesktop);
-
-    //     formData.append("position", position);
-    //     multipleImageFiles.files.forEach(file => {
-    //         console.log('files check', file)
-
-    //         formData.append("image[]", file);
-
-    //     });
-
-
-
-    //     axios.post(`/api/add-advertisement`, formData).then(res => {
-    //         if (res.data.status == 200) {
-    //             Swal.fire(res.data.message, '', 'success')
-
-    //             setContent1('');
-    //             setposition('');
-    //             setMultipleImageFiles([]);
-    //             setMultipleImages([]);
-    //             setshow_days('');
-    //             setshow_time('');
-    //             setshowDesktop(1);
-    //             setshowMobile(1);
-    //             navigate('/view-all-advertisement')
-
-    //             // setImage('');
-    //             // setPicture('');
-    //             // document.getElementById('notice_news_image').value = "";
-    //         }
-    //         // else if (res.data.status == 400) {
-    //         //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
-    //         //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
-
-    //         // }
-    //     })
-
-    // }
-    // const [allCheckBox, setAllCheckBox] = useState({
-    //     home_page: '',
-    //     view_job_page: '',
-    //     view_advment_page: '',
-    //     create_advment_page: '',
-    //     add_general_post_page: '',
-    //     add_event_page: ''
-    // });
-    // function handleCheckbox(e) {
-    //     setAllCheckBox({
-    //         ...allCheckBox, [e.target.name]: e.target.checked
-    //     })
-
-    // }
-
     // console.log('heelloo yeeeeees', allCheckBox)
     const [image, setImage] = useState('');
     console.log('image info', image.size)
@@ -299,6 +148,13 @@ function EditNoticeNews() {
         formData.append('notice_news_image', image);
         formData.append('isArchived', isArchived);
         formData.append('isPublished', isPublished);
+
+        multipleImageFiles.files.forEach(file => {
+            console.log('files check', file)
+
+            formData.append("image[]", file);
+
+        });
 
 
         console.log('check all data', formData);
@@ -328,6 +184,78 @@ function EditNoticeNews() {
 
     }
 
+
+    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+    console.log('checking', allImagesFromDatabase)
+
+    const [multipleImages, setMultipleImages] = useState([]);
+    console.log('images check', multipleImages)
+    const [multipleImageFiles, setMultipleImageFiles] = useState({
+        files: []
+    });
+
+
+    const changeMultipleFiles = (e) => {
+        setMultipleImageFiles({
+            files: [...multipleImageFiles.files, ...e.target.files]
+        })
+        if (e.target.files) {
+            const imageArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            setMultipleImages((prevImages) => prevImages.concat(imageArray));
+        }
+    };
+
+    const render = (data) => {
+        return data.map((image, i) => {
+            return <div className='image-main mt-1' onClick={() => {
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger " ></i>
+                <img className="image mx-2 mt-3 rounded-3 " src={image} alt="" key={i} style={{ width: '105px', height: '90px', objectFit: 'cover' }} />
+            </div>
+        });
+    };
+
+    function removeArray(i) {
+        console.log('index clicked', i)
+        // setMultipleImageFiles({
+        //     files:
+        // });
+
+        const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+
+        const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+        // console.log('checking333333',filterRemoveImgs)
+
+        setMultipleImageFiles({
+            files: filterRemoveFileImgs
+        })
+        setMultipleImages(filterRemovePreviewImgs)
+
+
+
+    }
+
+    const[renderImageData,setRenderImageData]=useState('')
+
+
+    useEffect(()=>{
+        axios.get(`/api/edit-notice-news/${editId}`).then(res => {
+            if (res.data.status == 200) {
+           
+                setAllImagesfromDatabase(res.data.notice_news_images)
+
+            }
+        })
+    },[renderImageData])
 
 
     return (
@@ -447,25 +375,58 @@ function EditNoticeNews() {
                                                 <div class="row mt-2">
                                                     <div class="mb-3 col-md-6 ">
                                                         <label for="formFile" class="form-label fs-6">Image</label>
-                                                        <input class="form-control" type="file" id="notice_news_image" name="notice_news_image" onChange={onChangePicture} />
+                                                        {/* <input class="form-control" type="file" id="notice_news_image" name="notice_news_image" onChange={onChangePicture} /> */}
+                                                        <input class="form-control" type="file" id="formFile" multiple onChange={changeMultipleFiles}
+                                                        />
                                                     </div>
 
 
                                                 </div>
-                                                {
-                                                    picture == '' ? <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
-                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${EditNoticeNewsData.notice_news_image}`} style={{ width: '100px', height: '90px' }}></img>
-                                                    </div>
-                                                        :
-                                                        <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
-                                                            <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
-                                                        </div>
 
-                                                }
-                                                {
-                                                    image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
-                                                }
+                                                <div className='mb-2 mt-1 d-flex'>
 
+
+
+                                                    {
+                                                        render(multipleImages)
+
+                                                    }
+                                                    {
+
+                                                        allImagesFromDatabase.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
+                                                                    <div class="" style={{ position: 'relative' }} >
+                                                                        <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
+                                                                            {
+                                                                                axios.post(`/api/delete-notice-news-multiple-image/${item.id}`).then(res => {
+                                                                                    if (res.data.status == 200) {
+                                                                                        setRenderImageData(res.data)
+                                                                                    }
+                                                                                })
+                                                                            }
+
+                                                                        }}>
+                                                                            <i class="fa fa-close text-danger"></i>
+
+                                                                        </div>
+
+                                                                        <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                                    </div>
+
+
+
+                                                                </>
+                                                            )
+                                                        })
+
+                                                    }
+
+
+
+                                                </div>
                                                 <div class="text mt-2">
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={updateBlogArticle}> Update</button>
                                                 </div>
