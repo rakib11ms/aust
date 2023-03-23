@@ -510,12 +510,12 @@ function Sidebar() {
 
                             {
                                 isActive9 && <>
-                                    <ul className='text-light mx-4 '>
+                                    {/* <ul className='text-light mx-4 '>
                                         <li>
                                             <Link to='/settings' className={`text-form ${path == '/settings' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Get In <EastIcon className='ms-3' /></Link>
                                         </li>
 
-                                    </ul>
+                                    </ul> */}
                                 </>
 
                             }

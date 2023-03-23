@@ -13,9 +13,10 @@ class NoticeNewsController extends Controller
     public function index()
     {
 
-           $active_notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->where('isPublished',1)->where('isArchived',0)->where('notice_news_categories.category_name','News')->orderBy('notice_news.id','desc')->get();
+           $notice_news=NoticeNews::orderBy('id','desc')->with(['NoticeNewsImage','userName','NoticeNewsCategory','NoticeNewsSubCategory'])->get();
 
-           $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get();
+           // $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get();
+            $active_notice_news=NoticeNews::orderBy('id','desc')->with(['NoticeNewsImage','userName','NoticeNewsCategory','NoticeNewsSubCategory'])->where('isPublished',1)->where('isArchived',0)->get();
 
 
            $total_news=NoticeNews::get()->count();
