@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\UserProfessionalInfo;
 use App\Models\UserEducationalInfo;
 use App\Models\LoginEmailOtp;
+use App\Models\AusttaaJobSector;
+use App\Models\AusttaaJobSubSector;
+use App\Models\AusttaaCompanyName;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Carbon\Carbon;
@@ -65,11 +68,44 @@ class MobileAuthenticationController extends Controller
                 $user->blood_group = $request->blood_group;
                 $user->gender = $request->gender;
                 $user->stream = $request->stream;
-                $user->job_sector = $request->job_sector;
-                $user->job_sub_sector = $request->job_sub_sector;
+                // $user->job_sector = $request->job_sector;
+                // $user->job_sub_sector = $request->job_sub_sector;
                 $user->office_email = $request->office_email;
                 $user->thana = $request->thana;
+                $user->district = $request->district;
+                $user->postal_code = $request->postal_code;
                 $user->status = "pending";
+                $user->university_id = $request->university_id;
+
+
+                if (is_numeric($request->job_sector)) {
+
+                    // dd("job sector numeric");
+                 $user->job_sector = $request->job_sector;
+
+                } else if(!is_numeric($request->job_sector)){
+                    // dd("job sector numeric na aita text",$request->job_sector);
+
+                    $save_new_job_sector=new AusttaaJobSector();
+
+                    $save_new_job_sector->job_sector_name=$request->job_sector;
+                     $save_new_job_sector->save();
+                }
+
+                if(is_numeric($request->job_sub_sector)){
+                $user->job_sub_sector = $request->job_sub_sector;
+
+                }
+                else if(!is_numeric($request->job_sub_sector)){
+      $save_new_job_sub_sector=new AusttaaJobSubSector();
+            $save_new_job_sub_sector->job_sub_sector_name=$request->job_sub_sector;
+                $save_new_job_sub_sector->save();
+
+                }
+
+         
+
+
 
                 // if($request->office_email !==null && ){
 
@@ -91,7 +127,18 @@ class MobileAuthenticationController extends Controller
 
                 $user_professional=new UserProfessionalInfo();
                 $user_professional->office_address = $request->office_address;
+
+                // $user_professional->name_of_company = $request->name_of_company;
+                      if(is_numeric($request->name_of_company)){
                 $user_professional->name_of_company = $request->name_of_company;
+
+                }
+                else if(!is_numeric($request->name_of_company)){
+      $save_new_company=new AusttaaCompanyName();
+            $save_new_company->company_name=$request->name_of_company;
+            $save_new_company->save();
+                }
+
                 $user_professional->year = $request->year;
                 $user_professional->designation= $request->designation;
                 $user_professional->user_id= $user->id;
