@@ -90,6 +90,8 @@ class MobileAuthenticationController extends Controller
 
                     $save_new_job_sector->job_sector_name=$request->job_sector;
                      $save_new_job_sector->save();
+                    $user->job_sector = $save_new_job_sector->id;
+
                 }
 
                 if(is_numeric($request->job_sub_sector)){
@@ -100,6 +102,8 @@ class MobileAuthenticationController extends Controller
       $save_new_job_sub_sector=new AusttaaJobSubSector();
             $save_new_job_sub_sector->job_sub_sector_name=$request->job_sub_sector;
                 $save_new_job_sub_sector->save();
+                $user->job_sub_sector = $save_new_job_sub_sector->id;
+
 
                 }
 
@@ -137,6 +141,8 @@ class MobileAuthenticationController extends Controller
       $save_new_company=new AusttaaCompanyName();
             $save_new_company->company_name=$request->name_of_company;
             $save_new_company->save();
+                    $user_professional->name_of_company = $save_new_company->id;
+
                 }
 
                 $user_professional->year = $request->year;

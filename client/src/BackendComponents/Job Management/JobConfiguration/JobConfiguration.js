@@ -467,10 +467,10 @@ function JobConfiguration() {
                                         <h2 className=' mb-0'>{totalJobType}</h2>
                                         <p className=''>Job Types</p>
                                     </div>
-                                    <div class="item2">
+                                    {/* <div class="item2">
                                         <h2 className=' mb-0'>{totalDepartment}</h2>
                                         <p className=''>Departments</p>
-                                    </div>
+                                    </div> */}
                                     {/* <div class="item2">
                                         <h2 className=' mb-0'>03</h2>
                                         <p className=''>Job Types</p>
