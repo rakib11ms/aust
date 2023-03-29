@@ -36,6 +36,16 @@ class ViewAllUserController extends Controller
         ]);
     }
 
+    public function editUser($id){
+   $edit_user=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('id',$id)->first();
+
+
+        return response()->json([
+            'status' => 200,
+            'edit_user' => $edit_user
+        ]);
+    }
+
     public function multipleFilterSearchAllUsers($gender,$stream,$blood,$company,$batch,$jobsector,$subsector,$thana){
 
         // dd(User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles','jobSectorName','jobSubSectorName'])->where('thana',$thana)->get());

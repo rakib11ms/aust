@@ -112,6 +112,7 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 ///view all users (web) view section ///
 
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
+Route::get('/edit-user/{id}', [ViewAllUserController::class, 'editUser']);
 
 //total pending or active users count (web)
 Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);

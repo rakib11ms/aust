@@ -401,6 +401,11 @@ function ViewAllUsers() {
                         }>
                             <i className='fa fa-eye mx-1 '  >
                             </i>
+                            <Link to={`/edit-user/${row.id}`} className="text-dark">
+                            <i className='fa fa-edit mx-2 '  >
+                            </i>
+                            </Link>
+                          
 
                         </div>
 

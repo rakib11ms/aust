@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import './imageUrl';
+import EditUser from './BackendComponents/User/EditUser';
 // import TermCondition from './PrivacyPolicy/TermCondition';
 // import PrivacyPolicy from './PrivacyPolicy/PrivacyPolicy';
 // import PostConfiguration from './BackendComponents/PostType/PostConfiguration';
@@ -238,6 +239,7 @@ function App() {
             <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
 
             <Route path="view-all-users" element={<ViewAllUsers />}></Route>
+            <Route path="edit-user/:id" element={<EditUser />}></Route>
             <Route path="role-management" element={<RoleManagement />}></Route>
 
             <Route path="user-configuration" element={<UserConfiguration />}></Route>
