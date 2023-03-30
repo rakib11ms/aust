@@ -22,13 +22,13 @@ function EditUser() {
     }, [editId])
     const [allBloodGroupName, setAllBloodGroupName] = useState([]);
     const [allCompanyName, setAllCompanyName] = useState([]);
+    
     const [allBatchName, setAllBatchName] = useState([]);
     const [allGenderName, setAllGenderName] = useState([]);
     const [allStreamName, setAllStreamName] = useState([]);
     const [allJobSectorAsc, setAllJobSectorAsc] = useState([]);
     const [allJobSubSectorAsc, setAllJobSubSectorAsc] = useState([]);
     const [allThana, setAllThana] = useState([]);
-    const [gender_name, setgender_name] = useState(null);
 
 
     useEffect(() => {
@@ -76,6 +76,56 @@ function EditUser() {
             }
         })
     }, [])
+
+
+    const [officeAddress, setOfficeAddress] = useState(null);
+    const [year, setYear] = useState(null);
+
+    console.log('office address', officeAddress)
+    console.log('year', year)
+
+    const [full_name,setFull_name]=useState('')
+    const [nick_name,setNick_name]=useState('')
+    const [phone,setphone]=useState('')
+    const [job_sector,setjob_sector]=useState('')
+    const [job_sub_sector,setjob_sub_sector]=useState('')
+    const [facebook_link,setfacebook_link]=useState('')
+    const [twitter_link,settwitter_link]=useState('')
+    const [linkedin_link,setlinkedin_link]=useState('')
+    const [present_address,setpresent_address]=useState('')
+    const [permanent_address,setpermanent_address]=useState('')
+    const [gender_name, setgender_name] = useState(null);
+    const [batch, setbatch] = useState(null);
+    const [stream, setstream] = useState(null);
+    const [ssc_grade, setssc_grade] = useState(null);
+    const [hsc_grade, sethsc_grade] = useState(null);
+    const [bsc_grade, setbsc_grade] = useState(null);
+    const [msc_grade, setmsc_grade] = useState(null);
+    const [ssc_passing_year, setssc_passing_year] = useState(null);
+    const [hsc_passing_year, sethsc_passing_year] = useState(null);
+    const [bsc_passing_year,setbsc_passing_year] = useState(null);
+    const [msc_passing_year, setmsc_passing_year] = useState(null);
+    const [ssc_institution, setssc_institution] = useState(null);
+    const [hsc_institution, sethsc_institution] = useState(null);
+    const [bsc_institution, setbsc_institution] = useState(null);
+    const [msc_institution, setmsc_institution] = useState(null);
+
+    
+    const handleUpdate=(e)=>{
+        e.preventDefault();
+        alert('submited')
+        const saveData={
+            full_name:full_name,
+            nick_name:nick_name,
+            phone:phone,
+            job_sector:job_sector,
+            job_sub_sector:job_sub_sector,
+            facebook_link:facebook_link,
+            twitter_link:twitter_link,
+            linkedin_link:linkedin_link
+        }
+
+    }
 
     return (
         <>
@@ -230,13 +280,13 @@ function EditUser() {
                                     <div class="mb-3 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Job Sector</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)}>
+                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="job_sector" value={editUserData.job_sector}>
                                                 <option selected disabled>Open this select menu</option>
                                                 {
                                                     allJobSectorAsc.map((item, i) => {
                                                         return (
                                                             <>
-                                                                <option value={item.job_sector_name}>{item.job_sector_name}</option>
+                                                                <option value={item.id}>{item.job_sector_name}</option>
 
                                                             </>
                                                         )
@@ -252,13 +302,13 @@ function EditUser() {
                                     <div class="mb-3 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Job Sub Sector</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)}>
+                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="job_sub_sector" value={editUserData.job_sub_sector}>
                                                 <option selected disabled>Open this select menu</option>
                                                 {
                                                     allJobSubSectorAsc.map((item, i) => {
                                                         return (
                                                             <>
-                                                                <option value={item.job_sub_sector_name}>{item.job_sub_sector_name}</option>
+                                                                <option value={item.id}>{item.job_sub_sector_name}</option>
 
                                                             </>
                                                         )
@@ -316,7 +366,7 @@ function EditUser() {
                                     <div class="mb-3 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Profile Pic</label>
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" id="inputText" name="twitter_link" value={editUserData.twitter_link} />
+                                            <input type="file" class="form-control" id="inputText" name="twitter_link" />
                                         </div>
 
                                     </div>
@@ -336,21 +386,21 @@ function EditUser() {
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">SSC Grade</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_grade} />
+                                                    <input type="text" class="form-control" id="inputText" name="ssc_grade" value={editUserData.educational_info.ssc_grade} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">SSC Year</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_passing_year} />
+                                                    <input type="text" class="form-control" id="inputText" name="ssc_year" value={editUserData.educational_info.ssc_passing_year} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">SSC Institution</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
+                                                    <input type="text" class="form-control" id="inputText" name="ssc_institution" value={editUserData.educational_info.ssc_institution} />
                                                 </div>
 
                                             </div>
@@ -365,21 +415,21 @@ function EditUser() {
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">HSC Grade</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_grade} />
+                                                    <input type="text" class="form-control" id="inputText" name="hsc_grade" value={editUserData.educational_info.hsc_grade} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">HSC Year</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_passing_year} />
+                                                    <input type="text" class="form-control" id="inputText" name="hsc_passing_year" value={editUserData.educational_info.hsc_passing_year} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">HSC Institution</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
+                                                    <input type="text" class="form-control" id="inputText" name="hsc_institution" value={editUserData.educational_info.hsc_institution} />
                                                 </div>
 
                                             </div>
@@ -395,21 +445,21 @@ function EditUser() {
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">BSC Grade</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_grade} />
+                                                    <input type="text" class="form-control" id="inputText" name="bsc_grade" value={editUserData.educational_info.bsc_grade} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">BSC Year</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_passing_year} />
+                                                    <input type="text" class="form-control" id="inputText" name="bsc_passing_year" value={editUserData.educational_info.bsc_passing_year} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">BSC Institution</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
+                                                    <input type="text" class="form-control" id="inputText" name="bsc_institution" value={editUserData.educational_info.bsc_institution} />
                                                 </div>
 
                                             </div>
@@ -425,26 +475,30 @@ function EditUser() {
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">MSC Grade</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_grade} />
+                                                    <input type="text" class="form-control" id="inputText" name="msc_grade" value={editUserData.educational_info.msc_grade} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">MSC Year</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_passing_year} />
+                                                    <input type="text" class="form-control" id="inputText" name="msc_passing_year" value={editUserData.educational_info.msc_passing_year} />
                                                 </div>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">MSC Institution</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
+                                                    <input type="text" class="form-control" id="inputText" name="msc_institution" value={editUserData.educational_info.msc_institution} />
                                                 </div>
 
                                             </div>
                                         </div>
                                     }
+
+                                    <button type='submit' className='btn btn-success mt-1 mb-3' onClick={handleUpdate}>
+                                        Update
+                                    </button>
                                 </div>
                             </div>
 
@@ -452,47 +506,61 @@ function EditUser() {
                                 <div className='col-md-12'>
                                     <h6 className=''>Professional Information</h6>
                                     {
-                                        editUserData.professional_info !== undefined && editUserData.professional_info.map(()=>{
-                                         return(
-                                            <>
-                                                 <div className='mb-3 row'>
+                                        editUserData.professional_info !== undefined && editUserData.professional_info.map((item) => {
+                                            return (
+                                                <>
+                                                    <div className='mb-3 row'>
 
 
-<div class="col-md-3">
-    <label for="inputPassword" class="col-sm-4 col-form-label">Company</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_grade} />
-    </div>
+                                                        <div class="col-md-3">
+                                                            <label for="inputPassword" class="col-sm-4 col-form-label">Company</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="name_of_company" value={item.name_of_company}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allCompanyName.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.id}>{item.company_name}</option>
 
-</div>
-<div class="col-md-3">
-    <label for="inputPassword" class="col-sm-4 col-form-label">Designation</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_passing_year} />
-    </div>
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
 
-</div>
-<div class="col-md-3">
-    <label for="inputPassword" class="col-sm-4 col-form-label">Year active</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
-    </div>
 
-</div>
-<div class="col-md-3">
-    <label for="inputPassword" class="col-sm-8 col-form-label">Office address</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputText" name="facebook_link" value={editUserData.educational_info.ssc_institution} />
-    </div>
+                                                                </select>
+                                                            </div>
 
-</div>
-</div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="inputPassword" class="col-sm-4 col-form-label">Designation</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="inputText" name="designation" value={item.designation} />
+                                                            </div>
 
-                                            </>
-                                         )   
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="inputPassword" class="col-sm-4 col-form-label">Year active</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="inputText" name="year" value={item.year} onChange={(e) => setYear(e.target.value)} />
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="inputPassword" class="col-sm-8 col-form-label">Office address</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="inputText" name="office_address" value={item.office_address} onChange={(e) => { setOfficeAddress(e.target.value); console.log('event', e) }} />
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </>
+                                            )
                                         })
 
-                                   
+
                                     }
                                 </div>
                             </div>

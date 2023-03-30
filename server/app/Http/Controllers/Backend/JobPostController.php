@@ -13,15 +13,17 @@ class JobPostController extends Controller
     {
                 $total_active_jobs = JobPost::where('isPublished',1)->where('isArchived',0)->get()->count();
                   $pending_jobs = JobPost::where('isPublished',0)->get()->count();
-                $latest_jobs = DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('id','desc')->get();
+                $latest_jobs = DB::table('job_posts')->leftJoin('austtaa_job_sectors','austtaa_job_sectors.id','=','job_posts.job_sector',)->leftJoin('austtaa_job_sub_sectors','austtaa_job_sub_sectors.id','=','job_posts.job_sub_sector',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','job_types.id as job_type_id','job_types.type_name')->orderBy('id','desc')->get();
 
-           $posts=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
+           $posts=DB::table('job_posts')->leftJoin('austtaa_job_sectors','austtaa_job_sectors.id','=','job_posts.job_sector',)->leftJoin('austtaa_job_sub_sectors','austtaa_job_sub_sectors.id','=','job_posts.job_sub_sector',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','job_types.id as job_type_id','job_types.type_name')->orderBy('job_posts.id','desc')->get();
 
-                $active_jobs=DB::table('job_posts')->leftJoin('departments','departments.id','=','job_posts.department_id',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','departments.id as department_id','departments.department_name as dept_name','job_types.id as job_type_id','job_types.type_name')->where('isPublished',1)->where('isArchived',0)->orderBy('job_posts.id','desc')->limit(5)->get();
+
+
+                $active_jobs=DB::table('job_posts')->leftJoin('austtaa_job_sectors','austtaa_job_sectors.id','=','job_posts.job_sector',)->leftJoin('austtaa_job_sub_sectors','austtaa_job_sub_sectors.id','=','job_posts.job_sub_sector',)->leftJoin('job_types','job_types.id','=','job_posts.job_type')->select('job_posts.*','austtaa_job_sectors.job_sector_name','austtaa_job_sub_sectors.job_sub_sector_name','job_types.id as job_type_id','job_types.type_name')->where('isPublished',1)->where('isArchived',0)->orderBy('job_posts.id','desc')->limit(5)->get();
 
         return response()->json([
            'status' => 200,
-             'active_jobs'=>$active_jobs,
+             // 'active_jobs'=>$active_jobs,
              'total_active_jobs'=>$total_active_jobs,
              'pending_jobs'=>$pending_jobs,
 'latest_jobs'=>$latest_jobs,
@@ -55,7 +57,8 @@ class JobPostController extends Controller
            $post->job_type = $request->job_type;
            $post->job_description = $request->job_description;
            $post->job_link = $request->job_link;
-           $post->department_id = $request->department_id;
+           $post->job_sector = $request->job_sector;
+           $post->job_sub_sector = $request->job_sub_sector;
 
            $post->posted_by = $request->posted_by;
            $post->job_location = $request->job_location;
@@ -123,6 +126,8 @@ class JobPostController extends Controller
            $post->isPublished = $request->isPublished;
            $post->isArchived = $request->isArchived;
            $post->application_deadline = $request->application_deadline;
+             $post->job_sector = $request->job_sector;
+           $post->job_sub_sector = $request->job_sub_sector;
             $post->update();
 
  return response()->json([

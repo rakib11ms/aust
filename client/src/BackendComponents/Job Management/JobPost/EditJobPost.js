@@ -39,6 +39,9 @@ function EditJobPost() {
     console.log('all job typesssssssssssssss', allJobTypes)
     const [allDepartments, setAllDepartments] = useState([]);
 
+    const [allJobSectors, setAllJobSectors] = useState([]);
+    const [allJobSubSectors, setAllJobSubSectors] = useState([]);
+    console.log('sub sector',allJobSubSectors)
 
     const [editData,setEditData]=useState({
 
@@ -84,8 +87,9 @@ function EditJobPost() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('job_type', editData.job_type);
-        formData.append('department_id', editData.department_id);
-        formData.append('job_location', editData.job_location);
+        formData.append('job_sector', editData.job_sector);
+        formData.append('job_sub_sector', editData.job_sub_sector);    
+            formData.append('job_location', editData.job_location);
         formData.append('job_title', editData.job_title);
         formData.append('application_deadline', editData.application_deadline);
         formData.append('company_name', editData.company_name);
@@ -155,6 +159,22 @@ function EditJobPost() {
             }
         })
 
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSectors(res.data.job_sector);
+                // setTotalDepartment(res.data.total_departments)
+                // setLoading(false);
+            }
+        })
+
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSectors(res.data.job_sub_sector);
+                // setTotalDepartment(res.data.total_departments)
+                // setLoading(false);
+            }
+        })
+
 
     }, [])
 
@@ -202,20 +222,20 @@ function EditJobPost() {
                                         </div>
                                         <div className='col-md-6'>
                                             <div class="">
-                                                <label for="exampleFormControlInput1 " class="form-label fs-6">Department</label>
-                                                <select class="form-select" aria-label="Default select example"  onChange={handleInputChange} name="department_id" value={editData.department_id}>
+                                                <label for="exampleFormControlInput1 " class="form-label fs-6">Job Sector</label>
+                                                <select class="form-select" aria-label="Default select example"  onChange={handleInputChange} name="job_sector" value={editData.job_sector}>
                                                     <option selected>Select</option>
                                                     {
-                                                        allDepartments.map((item, i) => {
-                                                            return (
-                                                                <>
-                                                                    <option value={item.id} key={i}>{item.department_name}</option>
+                                                            allJobSectors.map((item, i) => {
+                                                                return (
+                                                                    <>
+                                                                        <option value={item.id} key={i}>{item.job_sector_name}</option>
 
-                                                                </>
+                                                                    </>
 
-                                                            )
-                                                        })
-                                                    }
+                                                                )
+                                                            })
+                                                        }
                                                 </select>
 
                                             </div>
@@ -223,6 +243,27 @@ function EditJobPost() {
                                     </div>
 
                                     <div className='row mt-2'>
+
+                                    <div className='col-md-6'>
+                                            <div class="">
+                                                <label for="exampleFormControlInput1 " class="form-label fs-6">Job Sub Sector</label>
+                                                <select class="form-select" aria-label="Default select example"  onChange={handleInputChange} name="job_sub_sector" value={editData.job_sub_sector}>
+                                                    <option selected>Select</option>
+                                                    {
+                                                            allJobSubSectors.map((item, i) => {
+                                                                return (
+                                                                    <>
+                                                                        <option value={item.id} key={i}>{item.job_sub_sector_name}</option>
+
+                                                                    </>
+
+                                                                )
+                                                            })
+                                                        }
+                                                </select>
+
+                                            </div>
+                                        </div>
                                         <div className='col-md-6'>
                                             <div class="">
                                                 <label for="exampleFormControlInput1 " class="form-label fs-6">Job Location</label>
@@ -239,7 +280,7 @@ function EditJobPost() {
 
                                             </div>
                                         </div>
-                                        <div className='col-md-6'>
+                                        <div className='col-md-12'>
                                             <div class="mt-1">
                                                 <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="job_title" value={editData.job_title}/>

@@ -26,7 +26,7 @@ function CreateJobPost() {
     const config = {
         readonly: false, // all options from https://xdsoft.net/jodit/doc/,
         removeButtons: ["source", "show_all"],
-        height:300
+        height: 300
     };
 
 
@@ -34,6 +34,9 @@ function CreateJobPost() {
 
     console.log('all job typesssssssssssssss', allJobTypes)
     const [allDepartments, setAllDepartments] = useState([]);
+    const [allJobSectors, setAllJobSectors] = useState([]);
+    const [allJobSubSectors, setAllJobSubSectors] = useState([]);
+
 
 
     useEffect(() => {
@@ -52,7 +55,21 @@ function CreateJobPost() {
                 // setLoading(false);
             }
         })
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSectors(res.data.job_sector);
+                // setTotalDepartment(res.data.total_departments)
+                // setLoading(false);
+            }
+        })
 
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSectors(res.data.job_sub_sector);
+                // setTotalDepartment(res.data.total_departments)
+                // setLoading(false);
+            }
+        })
 
     }, [])
 
@@ -64,6 +81,8 @@ function CreateJobPost() {
         job_title: '',
         application_deadline: "",
         company_name: '',
+        job_sector:"",
+        job_sub_sector:""
 
     })
 
@@ -88,7 +107,8 @@ function CreateJobPost() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('job_type', jobPost.job_type);
-        formData.append('department_id', jobPost.department_id);
+        formData.append('job_sector', jobPost.job_sector);
+        formData.append('job_sub_sector', jobPost.job_sub_sector);
         formData.append('job_location', jobPost.job_location);
         formData.append('job_title', jobPost.job_title);
         formData.append('application_deadline', jobPost.application_deadline);
@@ -173,14 +193,14 @@ function CreateJobPost() {
                                             </div>
                                             <div className='col-md-6'>
                                                 <div class="">
-                                                    <label for="exampleFormControlInput1 " class="form-label fs-6">Department</label>
-                                                    <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="department_id" value={jobPost.department_id}>
+                                                    <label for="exampleFormControlInput1 " class="form-label fs-6">Job Sector</label>
+                                                    <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="job_sector" value={jobPost.job_sector}>
                                                         <option selected value="" disabled>Select</option>
                                                         {
-                                                            allDepartments.map((item, i) => {
+                                                            allJobSectors.map((item, i) => {
                                                                 return (
                                                                     <>
-                                                                        <option value={item.id} key={i}>{item.department_name}</option>
+                                                                        <option value={item.id} key={i}>{item.job_sector_name}</option>
 
                                                                     </>
 
@@ -194,6 +214,28 @@ function CreateJobPost() {
                                         </div>
 
                                         <div className='row mt-2'>
+
+                                            <div className='col-md-6'>
+                                                <div class="">
+                                                    <label for="exampleFormControlInput1 " class="form-label fs-6">Job Sub Sector</label>
+                                                    <select required class="form-select" aria-label="Default select example" onChange={handleInputChange} name="job_sub_sector" value={jobPost.job_sub_sector}>
+                                                        <option selected value="" disabled>Select</option>
+                                                        {
+                                                            allJobSubSectors.map((item, i) => {
+                                                                return (
+                                                                    <>
+                                                                        <option value={item.id} key={i}>{item.job_sub_sector_name}</option>
+
+                                                                    </>
+
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
                                             <div className='col-md-6'>
                                                 <div class="">
                                                     <label for="exampleFormControlInput1 " class="form-label fs-6">Job Location</label>
@@ -210,7 +252,7 @@ function CreateJobPost() {
 
                                                 </div>
                                             </div>
-                                            <div className='col-md-6'>
+                                            <div className='col-md-12'>
                                                 <div class="mt-1">
                                                     <label for="exampleFormControlInput1" class="form-label fs-6">Title</label>
                                                     <input type="text" required class="form-control" id="exampleFormControlInput1" onChange={handleInputChange} name="job_title" value={jobPost.job_title} />
@@ -243,7 +285,7 @@ function CreateJobPost() {
                                                         config={config}
                                                         tabIndex={1} // tabIndex of textarea
                                                         onBlur={newContent => setContent1(newContent)} // preferred to use only this option to update the content for performance reasons
-                                                        // onChange={newContent => { setContent1(newContent)}}
+                                                    // onChange={newContent => { setContent1(newContent)}}
                                                     />
 
                                                 </div>

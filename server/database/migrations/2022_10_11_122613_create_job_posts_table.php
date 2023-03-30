@@ -18,7 +18,8 @@ return new class extends Migration
                 $table->string('job_unique_id')->nullable();
                  $table->string('company_name')->nullable();
                  $table->string('job_type')->nullable();
-                 $table->string('department_id')->nullable();
+                 $table->string('job_sector')->nullable();
+                 $table->string('job_sub_sector')->nullable();
                  $table->string('job_title')->nullable();
                  // $table->string('job_sub_title')->nullable();
                  $table->longText('job_description')->nullable();

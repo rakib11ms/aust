@@ -15,10 +15,11 @@ function JobConfiguration() {
 
     console.log('all job types', allJobTypes)
 
-    const [totalDepartment, setTotalDepartment] = useState([])
+    const [totalJobSector, setTotalJobSector] = useState([])
+    const [totalJobSubSector, setTotalJobSubSector] = useState([])
     const [totalJobType, setTotalJobType] = useState([])
 
-    console.log('ass', totalDepartment)
+    console.log('ass', totalJobSector)
 
 
     const [editJobTypeId, setEditJobTypeId] = useState('');
@@ -26,7 +27,7 @@ function JobConfiguration() {
     const [editJobTypeData, setEditJobTypeData] = useState([]);
     console.log('editjobtype  ', editJobTypeData)
 
-    const [editDepartmentData, setEditDepartmentData] = useState([]);
+    const [editJobSectorData, setEditJobSectorData] = useState([]);
 
 
     useEffect(() => {
@@ -235,7 +236,7 @@ function JobConfiguration() {
         overlay: { zIndex: 1000 }
 
     };
-    const addDepartmentModalStyle = {
+    const addJobSectorModalStyle = {
         content: {
             // marginTop: '70px',
             top: '35vh',
@@ -258,37 +259,38 @@ function JobConfiguration() {
     //department functionality
 
 
-    const [allDepartments, setAllDepartments] = useState([]);
+    const [allJobSectors, setAllJobSectors] = useState([]);
 
-    console.log('all job types', allDepartments)
-
-
+    console.log('all job types', allJobSectors)
 
 
-    const [addDepartmentModalIsOpen, setaddDepartmentModalIsOpen] = useState(false);
 
-    function closeAddDepartmentModal(e) {
-        setaddDepartmentModalIsOpen(false);
+
+    const [addJobSectorModalIsOpen, setaddJobSectorModalIsOpen] = useState(false);
+
+    function closeAddJobSectorModal(e) {
+        setaddJobSectorModalIsOpen(false);
 
     }
-    const openAddDepartmentModal = (e) => {
+    const openAddJobSectorModal = (e) => {
         e.preventDefault();
-        setaddDepartmentModalIsOpen(true)
+        setaddJobSectorModalIsOpen(true)
 
     }
 
-    const [renderAllDepartment, setRenderAllDepartment] = useState('');
-    const [addDepartment, setAddDepartment] = useState({
-        department_name: "",
+    const [renderAllJobSector, setRenderAllJobSector] = useState('');
+    const [renderAllJobSubSector, setRenderAllJobSubSector] = useState('');
+    const [addJobSector, setAddJobSector] = useState({
+        job_sector_name: "",
         created_by: '',
         error_list: []
 
     })
-    console.log('eror dekh', addDepartment)
+    console.log('eror dekh', addJobSector)
 
-    const handleAddDepartment = (e) => {
-        setAddDepartment({
-            ...addDepartment, [e.target.name]: e.target.value
+    const handleAddJobSector = (e) => {
+        setAddJobSector({
+            ...addJobSector, [e.target.name]: e.target.value
         })
 
 
@@ -297,19 +299,19 @@ function JobConfiguration() {
 
 
 
-    const handleDepartmentSave = (e) => {
+    const handleJobSectorSave = (e) => {
         e.preventDefault();
         const addDept = {
-            department_name: addDepartment.department_name,
+            job_sector_name: addJobSector.job_sector_name,
             created_by: '',
         }
-        axios.post(`/api/add-department`, addDept).then(res => {
+        axios.post(`/api/add-job-sector`, addDept).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                setRenderAllDepartment(res.data);
-                closeAddDepartmentModal();
-                setAddDepartment({
-                    department_name: "",
+                setRenderAllJobSector(res.data);
+                closeAddJobSectorModal();
+                setAddJobSector({
+                    job_sector_name: "",
                     created_by: '',
                     error_list: []
 
@@ -317,40 +319,40 @@ function JobConfiguration() {
 
             }
             else if (res.data.status == 400) {
-                setAddDepartment({ ...addDepartment, error_list: res.data.errors });
-                // Swal.fire(addDepartment.error_list.department_name[0], '', 'error')
+                setAddJobSector({ ...addJobSector, error_list: res.data.errors });
+                // Swal.fire(addJobSector.error_list.job_sector_name[0], '', 'error')
 
             }
         })
 
 
     }
-    const [editDepartmentId, setEditDepartmentId] = useState('');
+    const [editJobSectorId, setEditJobSectorId] = useState('');
 
-    const [editDepartmentModalIsOpen, seteditDepartmentModalIsOpen] = useState(false);
+    const [editJobSectorModalIsOpen, seteditJobSectorModalIsOpen] = useState(false);
     function openEditDepartmentModal(e, editId) {
         e.preventDefault();
-        seteditDepartmentModalIsOpen(true)
-        setEditDepartmentId(editId);
+        seteditJobSectorModalIsOpen(true)
+        setEditJobSectorId(editId);
     }
-    function closeEditDepartmentModal(e) {
-        seteditDepartmentModalIsOpen(false);
+    function closeEditJobSectorModal(e) {
+        seteditJobSectorModalIsOpen(false);
 
     }
 
 
 
     // const [editDepartment, seteditDepartment] = useState({
-    //     department_name: "",
+    //     job_sector_name: "",
     //     created_by: '',
     //     error_list: []
 
     // })
     // console.log('eror dekh',editDepartment)
 
-    const handleEditDepartment = (e) => {
-        setEditDepartmentData({
-            ...editDepartmentData, [e.target.name]: e.target.value
+    const handleEditJobSector = (e) => {
+        setEditJobSectorData({
+            ...editJobSectorData, [e.target.name]: e.target.value
         })
 
 
@@ -359,19 +361,19 @@ function JobConfiguration() {
 
 
 
-    const handleDepartmentUpdate = (e) => {
+    const handleJobSectorUpdate = (e) => {
         e.preventDefault();
-        const updateDept = {
-            department_name: editDepartmentData.department_name,
+        const updateJobSec = {
+            job_sector_name: editJobSectorData.job_sector_name,
             created_by: '',
         }
-        axios.post(`/api/update-department/${editDepartmentId}`, updateDept).then(res => {
+        axios.post(`/api/update-job-sector/${editJobSectorId}`, updateJobSec).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                setRenderAllDepartment(res.data);
-                closeEditDepartmentModal();
-                setEditDepartmentData({
-                    department_name: "",
+                setRenderAllJobSector(res.data);
+                closeEditJobSectorModal();
+                setEditJobSectorData({
+                    job_sector_name: "",
                     created_by: '',
                     error_list: []
 
@@ -379,8 +381,8 @@ function JobConfiguration() {
 
             }
             else if (res.data.status == 400) {
-                setAddDepartment({ ...addDepartment, error_list: res.data.errors });
-                // Swal.fire(addDepartment.error_list.department_name[0], '', 'error')
+                setAddJobSector({ ...addJobSector, error_list: res.data.errors });
+                // Swal.fire(addJobSector.error_list.job_sector_name[0], '', 'error')
 
             }
         })
@@ -389,7 +391,7 @@ function JobConfiguration() {
     }
 
 
-    console.log('edit dep data ', editDepartmentId)
+    console.log('edit dep data ', editJobSectorId)
 
 
 
@@ -397,28 +399,28 @@ function JobConfiguration() {
 
 
     useEffect(() => {
-        axios.get(`/api/department`).then(res => {
+        axios.get(`/api/job-sector`).then(res => {
             if (res.data.status == 200) {
-                setAllDepartments(res.data.department);
-                setTotalDepartment(res.data.total_departments)
+                setAllJobSectors(res.data.job_sector);
+                setTotalJobSector(res.data.total_job_sector)
                 // setLoading(false);
             }
         })
 
-        axios.get(`/api/edit-department/${editDepartmentId}`).then(res => {
+        axios.get(`/api/edit-job-sector/${editJobSectorId}`).then(res => {
             if (res.data.status == 200) {
-                setEditDepartmentData(res.data.department);
+                setEditJobSectorData(res.data.job_sector);
                 // setLoading(false);
             }
         })
 
 
-    }, [renderAllDepartment, editDepartmentId])
+    }, [renderAllJobSector, editJobSectorId])
 
 
 
 
-    const deleteDepartment = (e, id) => {
+    const deleteJobSector = (e, id) => {
         e.preventDefault();
 
 
@@ -432,9 +434,9 @@ function JobConfiguration() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`/api/delete-department/${id}`).then(res => {
+                axios.delete(`/api/delete-job-sector/${id}`).then(res => {
                     if (res.data.status === 200) {
-                        setRenderAllDepartment(res.data);
+                        setRenderAllJobSector(res.data);
                     }
                 });
                 Swal.fire(
@@ -446,6 +448,245 @@ function JobConfiguration() {
         })
 
     }
+
+
+
+
+
+
+
+
+    const [alljobSector, setAllJobSector] = useState([]);
+    const [alljobSubSector, setAllJobSubSector] = useState([]);
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///job sub sector functionality starts
+
+
+
+
+    const [addJobSubSector, setAddJobSubSector] = useState({
+        job_sub_sector_name: "",
+        created_by: '',
+        error_list: []
+
+    })
+    console.log('eror dekh', addJobSector)
+
+    const handleAddJobSubSector = (e) => {
+        setAddJobSubSector({
+            ...addJobSubSector, [e.target.name]: e.target.value
+        })
+
+
+    }
+
+
+
+
+    const handleJobSubSectorSave = (e) => {
+        e.preventDefault();
+        const addSubSector = {
+            job_sub_sector_name: addJobSubSector.job_sub_sector_name,
+            created_by: '',
+        }
+        axios.post(`/api/add-job-sub-sector`, addSubSector).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setRenderAllJobSubSector(res.data);
+                closeAddJobSubSectorModal();
+                setAddJobSubSector({
+                    job_sub_sector_name: "",
+                    created_by: '',
+                    error_list: []
+
+                });
+
+            }
+            else if (res.data.status == 400) {
+                setAddJobSector({ ...addJobSubSector, error_list: res.data.errors });
+                // Swal.fire(addJobSector.error_list.job_sector_name[0], '', 'error')
+
+            }
+        })
+
+
+    }
+
+    const [addJobSubSectorModalIsOpen, setaddJobSubSectorModalIsOpen] = useState(false);
+
+    function closeAddJobSubSectorModal(e) {
+        setaddJobSubSectorModalIsOpen(false);
+
+    }
+    const openAddJobSubSectorModal = (e) => {
+        e.preventDefault();
+        setaddJobSubSectorModalIsOpen(true)
+
+    }
+
+
+
+
+    const [editJobSubSectorData, setEditJobSubSectorData] = useState([]);
+
+    const [editJobSubSectorId, setEditJobSubSectorId] = useState('');
+
+    const [editJobSubSectorModalIsOpen, seteditJobSubSectorModalIsOpen] = useState(false);
+    function openEditJobSubSectorModal(e, editId) {
+        console.log('bal',editId)
+        e.preventDefault();
+        seteditJobSubSectorModalIsOpen(true)
+        setEditJobSubSectorId(editId);
+    }
+    function closeEditJobSubSectorModal(e) {
+        seteditJobSubSectorModalIsOpen(false);
+
+    }
+
+
+
+
+
+    const handleEditJobSubSector = (e) => {
+        setEditJobSubSectorData({
+            ...editJobSubSectorData, [e.target.name]: e.target.value
+        })
+
+
+    }
+
+
+
+
+    const handleJobSubSectorUpdate = (e) => {
+        e.preventDefault();
+        const updateJobSubSec = {
+            job_sub_sector_name: editJobSubSectorData.job_sub_sector_name,
+            created_by: '',
+        }
+        axios.post(`/api/update-job-sub-sector/${editJobSubSectorId}`, updateJobSubSec).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setRenderAllJobSubSector(res.data);
+                closeEditJobSubSectorModal();
+                setEditJobSubSectorData({
+                    job_sub_sector_name: "",
+                    created_by: '',
+                    error_list: []
+
+                });
+
+            }
+            else if (res.data.status == 400) {
+                setAddJobSubSector({ ...addJobSubSector, error_list: res.data.errors });
+                // Swal.fire(addJobSector.error_list.job_sector_name[0], '', 'error')
+
+            }
+        })
+
+
+    }
+
+
+    console.log('edit dep data ', editJobSectorId)
+
+
+
+
+
+
+    useEffect(() => {
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSectors(res.data.job_sector);
+                setTotalJobSector(res.data.total_job_sector)
+                // setLoading(false);
+            }
+        })
+
+        axios.get(`/api/edit-job-sector/${editJobSectorId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditJobSectorData(res.data.job_sector);
+                // setLoading(false);
+            }
+        })
+
+
+    }, [renderAllJobSector, editJobSectorId])
+
+
+    useEffect(() => {
+        axios.get(`/api/job-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSector(res.data.job_sector);
+
+            }
+        })
+
+        axios.get(`/api/job-sub-sector`).then(res => {
+            if (res.data.status == 200) {
+                setAllJobSubSector(res.data.job_sub_sector);
+                setTotalJobSubSector(res.data.total_job_sub_sector)
+
+
+            }
+        })
+        axios.get(`/api/edit-job-sub-sector/${editJobSubSectorId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditJobSubSectorData(res.data.job_sub_sector);
+                // setLoading(false);
+            }
+        })
+    }, [renderAllJobSector, renderAllJobSubSector,editJobSubSectorId])
+
+    const deleteJobSubSector = (e, id) => {
+        e.preventDefault();
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`/api/delete-job-sub-sector/${id}`).then(res => {
+                    if (res.data.status === 200) {
+                        setRenderAllJobSubSector(res.data);
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your data has been deleted.',
+                    'success'
+                )
+            }
+        })
+
+    }
+
+
+
+
+
 
 
     return (
@@ -467,14 +708,14 @@ function JobConfiguration() {
                                         <h2 className=' mb-0'>{totalJobType}</h2>
                                         <p className=''>Job Types</p>
                                     </div>
-                                    {/* <div class="item2">
-                                        <h2 className=' mb-0'>{totalDepartment}</h2>
-                                        <p className=''>Departments</p>
-                                    </div> */}
-                                    {/* <div class="item2">
+                                    <div class="item2">
+                                        <h2 className=' mb-0'>{totalJobSector}</h2>
+                                        <p className=''>Job Sectors</p>
+                                    </div>
+                                    <div class="item2">
                                         <h2 className=' mb-0'>03</h2>
-                                        <p className=''>Job Types</p>
-                                    </div> */}
+                                        <p className=''>Sub Sectors</p>
+                                    </div>
 
 
                                 </div>
@@ -662,26 +903,26 @@ function JobConfiguration() {
                                     <div className='job-type-nav  '>
                                         <div className=''>
 
-                                            <h5 className='job-type-text '>Departments</h5>
+                                            <h5 className='job-type-text '>Job Sector</h5>
                                         </div>
 
                                         <div>
-                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddDepartmentModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
+                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddJobSectorModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
 
                                         </div>
 
 
                                         <Modal
-                                            isOpen={addDepartmentModalIsOpen}
-                                            onRequestClose={closeAddDepartmentModal}
-                                            style={addDepartmentModalStyle}
+                                            isOpen={addJobSectorModalIsOpen}
+                                            onRequestClose={closeAddJobSectorModal}
+                                            style={addJobSectorModalStyle}
                                             contentLabel="Example Modal"
                                         >
 
                                             <div className='card-body '>
-                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddDepartmentModal}><i class="fa fa-times"></i></span>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddJobSectorModal}><i class="fa fa-times"></i></span>
 
-                                                <h5 className=""> Create Department</h5>
+                                                <h5 className=""> Create Job Sector</h5>
                                                 <hr />
 
 
@@ -691,8 +932,8 @@ function JobConfiguration() {
 
                                                         <div className=''>
                                                             <div class="mb-1" style={{ width: '100%' }}>
-                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
-                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addDepartment.type_name} name="department_name" onChange={handleAddDepartment} />
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Sector Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addJobSector.type_name} name="job_sector_name" onChange={handleAddJobSector} />
                                                             </div>
 
                                                             <div>
@@ -700,7 +941,7 @@ function JobConfiguration() {
 
 
                                                             <div style={{ width: '100%' }} className=" ">
-                                                                <span className='text-danger'> {addDepartment.error_list.department_name}</span>
+                                                                <span className='text-danger'> {addJobSector.error_list.job_sector_name}</span>
                                                             </div>
                                                         </div>
 
@@ -710,7 +951,7 @@ function JobConfiguration() {
 
 
 
-                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentSave}>Save</button>
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobSectorSave}>Save</button>
 
 
 
@@ -727,16 +968,16 @@ function JobConfiguration() {
 
 
                                         <Modal
-                                            isOpen={editDepartmentModalIsOpen}
-                                            onRequestClose={closeEditDepartmentModal}
-                                            style={addDepartmentModalStyle}
+                                            isOpen={editJobSectorModalIsOpen}
+                                            onRequestClose={closeEditJobSectorModal}
+                                            style={addJobSectorModalStyle}
                                             contentLabel="Example Modal"
                                         >
 
                                             <div className='card-body '>
-                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditDepartmentModal}><i class="fa fa-times"></i></span>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSectorModal}><i class="fa fa-times"></i></span>
 
-                                                <h5 className=""> Edit Department</h5>
+                                                <h5 className=""> Edit Job Sector</h5>
                                                 <hr />
 
 
@@ -746,8 +987,8 @@ function JobConfiguration() {
 
                                                         <div className=''>
                                                             <div class="mb-1" style={{ width: '100%' }}>
-                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Department Name</label>
-                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editDepartmentData.department_name} name="department_name" onChange={handleEditDepartment} />
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Sector Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editJobSectorData.job_sector_name} name="job_sector_name" onChange={handleEditJobSector} />
                                                             </div>
 
                                                             <div>
@@ -755,7 +996,7 @@ function JobConfiguration() {
 
 
                                                             <div style={{ width: '100%' }} className="mx-2 mt-1">
-                                                                {/* <span className='text-danger'> {editDepartmentData.error_list.department_name}</span> */}
+                                                                {/* <span className='text-danger'> {editJobSectorData.error_list.job_sector_name}</span> */}
                                                             </div>
                                                         </div>
 
@@ -765,7 +1006,7 @@ function JobConfiguration() {
 
 
 
-                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleDepartmentUpdate}>Update</button>
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobSectorUpdate}>Update</button>
 
 
 
@@ -787,15 +1028,15 @@ function JobConfiguration() {
 
 
                                         {
-                                            allDepartments.map((item, i) => {
+                                            alljobSector.map((item, i) => {
                                                 return (
                                                     <>
                                                         <div>
                                                             <button type='button' className='btn border  mb-4'
-                                                                value={item.id}> <span> {item.department_name}</span>
+                                                                value={item.id}> <span> {item.job_sector_name}</span>
 
                                                                 <span onClick={(e) => {
-                                                                    deleteDepartment(e, item.id)
+                                                                    deleteJobSector(e, item.id)
 
                                                                 }}>
                                                                     <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
@@ -831,63 +1072,240 @@ function JobConfiguration() {
                                 </div>
 
 
-                                {/* <div class="job-type-sec">
-                                    <div className='job-type-nav'>
-                                        <div>
 
-                                            <h5 className='job-type-text'>Tags</h5>
+
+
+
+
+                                {/* job sub sector */}
+                                <div class="job-type-sec">
+                                    <div className='job-type-nav  '>
+                                        <div className=''>
+
+                                            <h5 className='job-type-text '>Job Sub Sector</h5>
                                         </div>
 
                                         <div>
-                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2'> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
+                                            <button type='button' className='btn border btn-success btn-sm p-1 rounded-3 text-light mb-2' onClick={openAddJobSubSectorModal}> <span className='mx-1 '> Add New</span> <i class="fa-solid fa-plus "></i></button>
 
                                         </div>
+
+
+                                        <Modal
+                                            isOpen={addJobSubSectorModalIsOpen}
+                                            onRequestClose={closeAddJobSubSectorModal}
+                                            style={addJobSectorModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
+
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeAddJobSubSectorModal}><i class="fa fa-times"></i></span>
+
+                                                <h5 className=""> Create Job Sub Sector</h5>
+                                                <hr />
+
+
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className=''>
+                                                            <div class="mb-1" style={{ width: '100%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Sub Sector Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={addJobSubSector.job_sub_sector_name} name="job_sub_sector_name" onChange={handleAddJobSubSector} />
+                                                            </div>
+
+                                                            <div>
+                                                            </div>
+
+
+                                                            <div style={{ width: '100%' }} className=" ">
+                                                                <span className='text-danger'> {addJobSubSector.error_list.job_sub_sector_name}</span>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobSubSectorSave}>Save</button>
+
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </Modal>
+
+
+                                        <Modal
+                                            isOpen={editJobSectorModalIsOpen}
+                                            onRequestClose={closeEditJobSectorModal}
+                                            style={addJobSectorModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
+
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSectorModal}><i class="fa fa-times"></i></span>
+
+                                                <h5 className=""> Edit Job Sector</h5>
+                                                <hr />
+
+
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className=''>
+                                                            <div class="mb-1" style={{ width: '100%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Sector Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editJobSectorData.job_sector_name} name="job_sector_name" onChange={handleEditJobSector} />
+                                                            </div>
+
+                                                            <div>
+                                                            </div>
+
+
+                                                            <div style={{ width: '100%' }} className="mx-2 mt-1">
+                                                                {/* <span className='text-danger'> {editJobSectorData.error_list.job_sector_name}</span> */}
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobSectorUpdate}>Update</button>
+
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </Modal>
+
+
+                                        <Modal
+                                            isOpen={editJobSubSectorModalIsOpen}
+                                            onRequestClose={closeEditJobSubSectorModal}
+                                            style={addJobSectorModalStyle}
+                                            contentLabel="Example Modal"
+                                        >
+
+                                            <div className='card-body '>
+                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSubSectorModal}><i class="fa fa-times"></i></span>
+
+                                                <h5 className=""> Edit Job Sub Sector</h5>
+                                                <hr />
+
+
+                                                <div className="row">
+
+                                                    <div className="col-12">
+
+                                                        <div className=''>
+                                                            <div class="mb-1" style={{ width: '100%' }}>
+                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job Sub Sector Name</label>
+                                                                <input type="text" class="form-control " id="exampleFormControlInput1" placeholder="" value={editJobSubSectorData.job_sub_sector_name} name="job_sub_sector_name" onChange={handleEditJobSubSector} />
+                                                            </div>
+
+                                                            <div>
+                                                            </div>
+
+
+                                                            <div style={{ width: '100%' }} className="mx-2 mt-1">
+                                                                {/* <span className='text-danger'> {editJobSectorData.error_list.job_sector_name}</span> */}
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+
+                                                        <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={handleJobSubSectorUpdate}>Update</button>
+
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </Modal>
 
                                     </div>
 
-                                    <div className='job-type-secs'>
-
-                                        <div>
-                                            <button type='button' className='btn border  mb-4'> Permanent
-                                                <i class="fa fa-times mx-3" aria-hidden="true"></i>
-                                                <i class="fa fa-edit " aria-hidden="true"></i>
-
-                                            </button>
-                                        </div>
-
-                                        <div>
-                                            <button type='button' className='btn border  mb-4'> Part time
-                                                <i class="fa fa-times mx-3" aria-hidden="true"></i>
-                                                <i class="fa fa-edit " aria-hidden="true"></i>
-
-                                            </button>
-                                        </div>
-
-
-                                        <div>
-                                            <button type='button' className='btn border  mb-4'> Contactual
-                                                <i class="fa fa-times mx-3" aria-hidden="true"></i>
-                                                <i class="fa fa-edit " aria-hidden="true"></i>
-
-                                            </button>
-                                        </div>
+                                    <div className='job-type-secs '>
 
 
 
-                                        <div>
-                                            <button type='button' className='btn border  mb-4'> Permanent
-                                                <i class="fa fa-times mx-3" aria-hidden="true"></i>
-                                                <i class="fa fa-edit " aria-hidden="true"></i>
+                                        {
+                                            alljobSubSector.map((item, i) => {
+                                                return (
+                                                    <>
+                                                        <div>
+                                                            <button type='button' className='btn border  mb-4'
+                                                                value={item.id}> <span> {item.job_sub_sector_name}</span>
 
-                                            </button>
-                                        </div>
+                                                                <span onClick={(e) => {
+                                                                    deleteJobSubSector(e, item.id)
+
+                                                                }}>
+                                                                    <i class="fa fa-times mx-3 " aria-hidden="true" ></i>
+                                                                </span>
+
+                                                                <span onClick={(e) => {
+                                                                    openEditJobSubSectorModal(e, item.id)
+
+                                                                }
+                                                                }>
+                                                                    <i class="fa fa-edit  " aria-hidden="true" ></i>
+                                                                </span>
+
+
+                                                            </button>
+
+                                                            {/* edit job type modal */}
+
+                                                        </div>
+                                                    </>
+                                                )
+                                            })
+                                        }
+
+
+
 
 
                                     </div>
 
 
 
-                                </div> */}
+                                </div>
+
+
 
                             </div>
 
