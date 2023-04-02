@@ -72,7 +72,7 @@ function EditBlogArticle() {
             }
         })
 
- 
+
 
 
 
@@ -81,13 +81,13 @@ function EditBlogArticle() {
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`/api/get-article-blogs-subcategories-by-category-id/${category_id}`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.sub_categories);
             }
         })
-    },[category_id])
+    }, [category_id])
 
 
 
@@ -302,6 +302,12 @@ function EditBlogArticle() {
         formData.append('article_blog_image', image);
         formData.append('isArchived', isArchived);
         formData.append('isPublished', isPublished);
+        multipleImageFiles.files.forEach(file => {
+            console.log('files check', file)
+
+            formData.append("image[]", file);
+
+        });
 
 
         console.log('check all data', formData);
@@ -331,7 +337,77 @@ function EditBlogArticle() {
 
     }
 
+    const [allImagesFromDatabase, setAllImagesfromDatabase] = useState([]);
+    console.log('checking', allImagesFromDatabase)
 
+    const [multipleImages, setMultipleImages] = useState([]);
+    console.log('images check', multipleImages)
+    const [multipleImageFiles, setMultipleImageFiles] = useState({
+        files: []
+    });
+
+
+    const changeMultipleFiles = (e) => {
+        setMultipleImageFiles({
+            files: [...multipleImageFiles.files, ...e.target.files]
+        })
+        if (e.target.files) {
+            const imageArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            setMultipleImages((prevImages) => prevImages.concat(imageArray));
+        }
+    };
+
+    const render = (data) => {
+        return data.map((image, i) => {
+            return <div className='image-main mt-1' onClick={() => {
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger " ></i>
+                <img className="image mx-2 mt-3 rounded-3 " src={image} alt="" key={i} style={{ width: '105px', height: '90px', objectFit: 'cover' }} />
+            </div>
+        });
+    };
+
+    function removeArray(i) {
+        console.log('index clicked', i)
+        // setMultipleImageFiles({
+        //     files:
+        // });
+
+        const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+
+        const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
+            console.log('kosuy', item)
+            return index !== i
+        })
+        // console.log('checking333333',filterRemoveImgs)
+
+        setMultipleImageFiles({
+            files: filterRemoveFileImgs
+        })
+        setMultipleImages(filterRemovePreviewImgs)
+
+
+
+    }
+
+    const [renderImageData, setRenderImageData] = useState('')
+
+
+    useEffect(() => {
+        axios.get(`/api/edit-article-blogs/${editId}`).then(res => {
+            if (res.data.status == 200) {
+
+                setAllImagesfromDatabase(res.data.article_blog_images)
+
+            }
+        })
+    }, [renderImageData])
 
     return (
         <div className="container-fluid">
@@ -455,7 +531,7 @@ function EditBlogArticle() {
 
 
                                                 </div>
-                                                {
+                                                {/* {
                                                     picture == '' ? <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
                                                         <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${EditBlogArticleData.article_blog_image}`} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
@@ -467,7 +543,53 @@ function EditBlogArticle() {
                                                 }
                                                 {
                                                     image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
-                                                }
+                                                } */}
+
+
+                                                <div className='mb-2 mt-1 d-flex'>
+
+
+
+                                                    {
+                                                        render(multipleImages)
+
+                                                    }
+                                                    {
+
+                                                        allImagesFromDatabase.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
+                                                                    <div class="" style={{ position: 'relative' }} >
+                                                                        <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
+                                                                            {
+                                                                                axios.post(`/api/delete-article-blogs-multiple-image/${item.id}`).then(res => {
+                                                                                    if (res.data.status == 200) {
+                                                                                        setRenderImageData(res.data)
+                                                                                    }
+                                                                                })
+                                                                            }
+
+                                                                        }}>
+                                                                            <i class="fa fa-close text-danger"></i>
+
+                                                                        </div>
+
+                                                                        <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
+
+                                                                    </div>
+
+
+
+                                                                </>
+                                                            )
+                                                        })
+
+                                                    }
+
+
+
+                                                </div>
 
                                                 <div class="text mt-2">
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={updateBlogArticle}> Update</button>

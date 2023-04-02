@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ArticleBlog;
+use App\Models\BlogArticleMultipleImage;
 use Illuminate\Support\Facades\File;   
 use Illuminate\Support\Facades\DB;
 class ArticleBlogController extends Controller
@@ -42,13 +43,13 @@ class ArticleBlogController extends Controller
         // dd ($request->all());
 
             $article_blog = new ArticleBlog();
-               if($request->hasFile('article_blog_image')){
-            $file=$request->file('article_blog_image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
-            $article_blog->article_blog_image =$filename ;
-         } 
+         //       if($request->hasFile('article_blog_image')){
+         //    $file=$request->file('article_blog_image');
+         //    $extension=$file->getClientOriginalExtension();
+         //    $filename=time().'.'.$extension;
+         //    $file->move('images/',$filename);
+         //    $article_blog->article_blog_image =$filename ;
+         // } 
 
 
 
@@ -60,6 +61,18 @@ class ArticleBlogController extends Controller
            $article_blog->article_blog_description = $request->article_blog_description;
 
             $article_blog->save();
+
+               foreach ($request->file('image') as $image) {
+
+            $upload_image_name = time() . $image->getClientOriginalName();
+            $image->move('images/', $upload_image_name);
+
+            $article_blog_multiple_image=new BlogArticleMultipleImage();
+            $article_blog_multiple_image->blog_article_id=$article_blog->id;
+            $article_blog_multiple_image->image=$upload_image_name;
+            $article_blog_multiple_image->save();
+       
+        }
 
                 $count = ArticleBlog::orderBy('id','desc')->get()->count();
 
@@ -74,12 +87,15 @@ class ArticleBlogController extends Controller
        public function edit($id)
     {
         $article_blog = ArticleBlog::find($id);
+        $article_blog_images=BlogArticleMultipleImage::where('blog_article_id',$id)->get();
+
 
         if ($article_blog)
         {
             return response()->json([
                 'status' => 200,
                 'article_blog' => $article_blog,
+                'article_blog_images'=>$article_blog_images
             ]);
 
         }else{
@@ -263,6 +279,20 @@ class ArticleBlogController extends Controller
                 // 'deletes'=>  $deletes,
                 'message' => ' Article Blogs deleted successfully',
             ]);
+}
+
+public function deleteArticleBlogsMultipleImage($id){
+ $article_blogs = BlogArticleMultipleImage::find($id);
+
+        $file=$article_blogs->image;
+        $filename = public_path().'/images/'.$file;
+        File::delete($filename);
+        $article_blogs->delete();
+
+              return response()->json([
+            'status' => 200,
+            'message' => 'article_blogs Image deleted successfully',
+        ]);
 }
 
           

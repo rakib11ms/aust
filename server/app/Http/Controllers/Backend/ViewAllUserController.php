@@ -17,6 +17,7 @@ use DateTime;
 use App\Mail\EventMail;
 use App\Models\AusstaEvent;
 use App\Mail\ResetPassword;
+use App\Models\UserEducationalInfo;
 use Spatie\Permission\Models\Role;
 use File;
 use ZipArchive;
@@ -333,6 +334,77 @@ public function userLocationSearch($name){
                 'status' => 200,
                 // 'deletes'=>  $deletes,
                 'message' => 'Users status changed successfully',
+            ]);
+
+         }
+
+         public function updateUserPersonalInfo(Request $request,$id){
+
+            $user=User::find($id);
+
+         //     if($request->hasFile('image')){
+         //    $file=$request->file('image');
+         //    $extension=$file->getClientOriginalExtension();
+         //    $filename=time().'.'.$extension;
+         //    $file->move('images/',$filename);
+         //    $user->image =$filename ;
+         // } 
+                $user->full_name = $request->full_name;
+                $user->nick_name = $request->nick_name;
+                // $user->email = $request->email;
+                // $user->user_role = $request->user_role;
+                $user->batch = $request->batch;
+                $user->phone_no = $request->phone_no;
+                // $user->bio = $request->bio;
+                // $user->blood_group = $request->blood_group;
+                $user->gender = $request->gender;
+                $user->stream = $request->stream;
+                $user->job_sector = $request->job_sector;
+                $user->job_sub_sector = $request->job_sub_sector;
+                $user->office_email = $request->office_email;
+                $user->thana = $request->thana;
+                $user->district = $request->district;
+                $user->postal_code = $request->postal_code;
+                // $user->status = "pending";
+                $user->university_id = $request->university_id;
+
+                      $user->present_address = $request->present_address;
+                $user->permanent_address = $request->permanent_address;
+                // $user->otp_verify = 0;
+                // $user->password = Hash::make($request->password);
+                // $user->confirm_password = Hash::make($request->confirm_password);
+                // $user->assignRole($request->user_role);
+
+
+                $user->facebook_link = $request->facebook_link;
+                $user->twitter_link = $request->twitter_link;
+                $user->linkedin_link = $request->linkedin_link;
+
+
+                $user->update();
+
+
+            $update_educational=UserEducationalInfo::where('user_id',$id)->first();
+             $update_educational->user_id=$update_educational->user_id;
+            $update_educational->ssc_passing_year=$request->ssc_passing_year;
+            $update_educational->hsc_passing_year=$request->hsc_passing_year;
+            $update_educational->bsc_passing_year=$request->bsc_passing_year;
+            $update_educational->msc_passing_year=$request->msc_passing_year;
+            $update_educational->ssc_grade=$request->ssc_grade;
+            $update_educational->hsc_grade=$request->hsc_grade;
+            $update_educational->bsc_grade=$request->bsc_grade;
+            $update_educational->msc_grade=$request->msc_grade;
+            $update_educational->ssc_institution=$request->ssc_institution;
+            $update_educational->bsc_institution=$request->bsc_institution;
+            $update_educational->hsc_institution=$request->hsc_institution;
+            $update_educational->msc_institution=$request->msc_institution;
+                $update_educational->update();
+
+
+           return response()->json([
+                'status' => 200,
+                // 'deletes'=>  $deletes,
+                'message' => 'User Info updated successfully',
             ]);
 
          }

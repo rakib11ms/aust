@@ -114,6 +114,9 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
 Route::get('/edit-user/{id}', [ViewAllUserController::class, 'editUser']);
 
+// update users personal info (column based web)
+Route::post('/update-user-personal-info-web/{id}', [ViewAllUserController::class, 'updateUserPersonalInfo']);
+
 //total pending or active users count (web)
 Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);
 
@@ -413,6 +416,9 @@ Route::post('/update-article-blogs/{id}', [ArticleBlogController::class, 'update
 
 //web article blogs(table) filtering
 Route::get('/filtering-article-blogs-by-status/{name}', [ArticleBlogController::class, 'articleBlogfilterByStatus']);
+
+
+Route::post('/delete-article-blogs-multiple-image/{id}', [ArticleBlogController::class, 'deleteArticleBlogsMultipleImage']);
 
 Route::get('/filter-article-blogs-by-search-input-radio/{searchInputValue}/{searchRadioButtonValue}', [ArticleBlogController::class, 'articleBlogfilterBySearchInputRadioButton']);
 
