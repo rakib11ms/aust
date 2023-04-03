@@ -117,6 +117,10 @@ Route::get('/edit-user/{id}', [ViewAllUserController::class, 'editUser']);
 // update users personal info (column based web)
 Route::post('/update-user-personal-info-web/{id}', [ViewAllUserController::class, 'updateUserPersonalInfo']);
 
+// edit users professional infos by professional id (web)
+Route::get('/edit-user-professional-web/{id}', [ViewAllUserController::class, 'editUserProfessionalData']);
+
+
 //total pending or active users count (web)
 Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'totalPendingActiveUsers']);
 

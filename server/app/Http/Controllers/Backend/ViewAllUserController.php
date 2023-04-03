@@ -18,6 +18,7 @@ use App\Mail\EventMail;
 use App\Models\AusstaEvent;
 use App\Mail\ResetPassword;
 use App\Models\UserEducationalInfo;
+use App\Models\UserProfessionalInfo;
 use Spatie\Permission\Models\Role;
 use File;
 use ZipArchive;
@@ -407,6 +408,14 @@ public function userLocationSearch($name){
                 'message' => 'User Info updated successfully',
             ]);
 
+         }
+
+         public function editUserProfessionalData($id){
+            $edit_user_professional=UserProfessionalInfo::with('companyName')->where('id',$id)->first();
+              return response()->json([
+                'status' => 200,
+                'edit_user_professional' => $edit_user_professional,
+            ]);
          }
 
 }

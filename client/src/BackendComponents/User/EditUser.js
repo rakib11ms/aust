@@ -5,6 +5,8 @@ import moment from 'moment';
 import Sidebar from '../Dashboard/Sidebar';
 import Topbar from '../Dashboard/Topbar';
 import { Link, Navigate, useNavigate, Routes, Route, useParams } from "react-router-dom";
+import Modal from 'react-modal';
+
 function EditUser() {
 
     const params = useParams();
@@ -201,23 +203,115 @@ function EditUser() {
             }
         })
     }, [editId])
-    
 
-    const[editProfessionalDatas,setEditProfessionalDatas]=useState([])
 
-    console.log('z1',editProfessionalDatas)
+    const [editProfessionalDatas, setEditProfessionalDatas] = useState([])
 
-    const updatedObject={
-        id: 4, company_name: 'Bal Group', created_by: '1'    
+    console.log('z1', editProfessionalDatas)
+    const [desgination, setdesignation] = useState('')
+
+    const handleUpdateProfessional = (id, newValue) => {
+
+        // console.log('v1',newValue.target.name);
+
+        // //     console.log('y1',index)
+        // const newArray = [...editProfessionalDatas];
+        // const index = newArray.findIndex(obj => obj.id === id); // find the index of the object to update
+        // const updatedObj = { ...newArray[index] }; // create a copy of the object to be updated
+
+        // updatedObj.name_of_company = companyname; // update the property that needs to be changed
+        // updatedObj.designation = desgination; // update the property that needs to be changed
+        // updatedObj.year = Years; // update the property that needs to be changed
+        // updatedObj.office_address = office; // update the property that needs to be changed
+
+        // // const value = newValue.target.value;
+        // // setEditProfessionalDatas({
+        // //  ...updatedObj,
+        // //  [newValue.target.name]: value
+        // // });
+
+
+        // newArray[index] = updatedObj; // replace the old object with the updated object in the new array
+        // setEditProfessionalDatas(newArray); // update the state with the new array
     }
-    const updateProfessional=(index,e)=>{
 
-        console.log('v1',e.target.value);
-            console.log('y1',index)
-            const newArray = [...editProfessionalDatas];
-            newArray[index] = updatedObject;
-            setEditProfessionalDatas(newArray);
+    useEffect(() => {
+
+        Modal.setAppElement('body');
+
+    }, [])
+
+
+    const [editJobTypeModalIsOpen, seteditJobTypeModalIsOpen] = useState(false);
+    function openEditJobTypeModal(e, editId) {
+        e.preventDefault();
+        // seteditJobTypeModalIsOpen(true)
+        // setEditJobTypeId(editId);
     }
+    function closeEditJobTypeModal(e) {
+        seteditJobTypeModalIsOpen(false);
+
+    }
+
+    const customStyles2 = {
+        content: {
+            // marginTop: '70px',
+            top: '35vh',
+            left: '30%',
+            right: 'auto',
+            bottom: 'auto',
+            padding: '5px',
+            // marginRight: '-50%',
+            transform: 'translate(-7%, -45%)',
+            width: "40vw",
+            height: 400,
+            // background: "#ffffff",
+        },
+        overlay: { zIndex: 1000 }
+
+    };
+
+    const [editProfessionalId, setEditProfessionalId] = useState('')
+    const handleProfessionalEdit = (editedId) => {
+        seteditJobTypeModalIsOpen(true)
+        setEditProfessionalId(editedId)
+    }
+
+    const [editProfessionalDatasFromDatabase, setEditProfessionalDatasFromDatabase] = useState('');
+    console.log('o1', editProfessionalDatasFromDatabase)
+    const handleEditChange = (e) => {
+        setEditProfessionalDatasFromDatabase({
+            ...editProfessionalDatasFromDatabase, [e.target.name]: e.target.value
+        })
+    }
+
+    useEffect(() => {
+
+        axios.get(`/api/edit-user-professional-web/${editProfessionalId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditProfessionalDatasFromDatabase(res.data.edit_user_professional);
+
+            }
+        })
+
+    }, [editProfessionalId])
+
+    const handleProfessionalUpdate = () => {
+
+        axios.post(`/api/update-user-professional/${editProfessionalId}`, editProfessionalDatasFromDatabase).then(res => {
+            if (res.data.status === 200) {
+                Swal.fire(res.data.message, '', 'success')
+                closeEditJobTypeModal()
+                // setrenderAllUsers(res.data)
+                // // document.getElementById('modal').modal('close');
+
+                window.location.reload();
+
+            }
+        })
+    };
+
+
     return (
         <>
 
@@ -239,180 +333,193 @@ function EditUser() {
 
                             <div className='row'>
                                 <div className='col-md-6 border-right'>
+
+                                    {full_name == "" || nick_name == "" ? "Loading...." : <>
                                     <h6 className=''>Personal Information</h6>
 
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Full Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="full_name" value={full_name} onChange={(e) => setFull_name(e.target.value)} />
+
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Full Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="full_name" value={full_name} onChange={(e) => setFull_name(e.target.value)} />
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Nick Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="nick_name" value={nick_name} onChange={(e) => setNick_name(e.target.value)} />
+                                            </div>
+
                                         </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Nick Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="nick_name" value={nick_name} onChange={(e) => setNick_name(e.target.value)} />
+
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Phone No</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="phone_no" value={phone} onChange={(e) => setphone(e.target.value)} />
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">District</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="district" value={editUserData.district} />
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Thana</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="thana" value={editUserData.thana} />
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Postal Code</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="postal_code" value={editUserData.postal_code} />
+                                            </div>
 
-
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Phone No</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="phone_no" value={phone} onChange={(e) => setphone(e.target.value)} />
                                         </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">District</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="district" value={editUserData.district} />
+
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Present Address</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="present_address" value={present_address} onChange={(e) => setpresent_address(e.target.value)} />
+                                            </div>
+
                                         </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Thana</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="thana" value={editUserData.thana} />
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Permanent Address</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputText" name="permanent_address" value={permanent_address} onChange={(e) => setpermanent_address(e.target.value)} />
+                                            </div>
+
                                         </div>
 
-                                    </div>
 
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Postal Code</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="postal_code" value={editUserData.postal_code} />
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Gender</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="gender" value={gender_name}>
+                                                    <option selected disabled>Open this select menu</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+
+
+                                                </select>
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Batch</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch(e.target.value)} name="batch" value={batch}>
+                                                    <option selected disabled>Open this select menu</option>
+
+                                                    {
+                                                        allBatchName.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    <option value={item.batch_name}>{item.batch_name}</option>
+
+                                                                </>
+                                                            )
+                                                        })
+                                                    }
 
 
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Present Address</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="present_address" value={present_address} onChange={(e) => setpresent_address(e.target.value)} />
+                                                </select>
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Stream</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setstream(e.target.value)} name="stream" value={stream}>
+                                                    <option selected disabled>Open this select menu</option>
+                                                    {
+                                                        allStreamName.map((item, i) => {
+                                                            return (
+                                                                <>
+                                                                    <option value={item.stream_name}>{item.stream_name}</option>
 
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Permanent Address</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="permanent_address" value={permanent_address} onChange={(e) => setpermanent_address(e.target.value)} />
+                                                                </>
+                                                            )
+                                                        })
+                                                    }
+
+
+                                                </select>
+                                            </div>
+
                                         </div>
-
-                                    </div>
-
-
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Gender</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="gender" value={gender_name}>
-                                                <option selected disabled>Open this select menu</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Batch</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch(e.target.value)} name="batch" value={batch}>
-                                                <option selected disabled>Open this select menu</option>
-
-                                                {
-                                                    allBatchName.map((item, i) => {
-                                                        return (
-                                                            <>
-                                                                <option value={item.batch_name}>{item.batch_name}</option>
-
-                                                            </>
-                                                        )
-                                                    })
-                                                }
-
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Stream</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setstream(e.target.value)} name="stream" value={stream}>
-                                                <option selected disabled>Open this select menu</option>
-                                                {
-                                                    allStreamName.map((item, i) => {
-                                                        return (
-                                                            <>
-                                                                <option value={item.stream_name}>{item.stream_name}</option>
-
-                                                            </>
-                                                        )
-                                                    })
-                                                }
-
-
-                                            </select>
-                                        </div>
-
-                                    </div>
+                                    </>
+                                    }
                                 </div>
+
+
                                 <div className='col-md-6'>
-                                    <h6 className=''>Social Information</h6>
+
+                                    {
+                                        job_sector == '' || job_sub_sector == "" ? "Loading...." :
+                                        
+
+                                            <>
+                                                   <h6 className=''>Social Information</h6>
 
 
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Job Sector</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector(e.target.value)} name="job_sector" value={job_sector}>
-                                                <option selected disabled>Open this select menu</option>
-                                                {
-                                                    allJobSectorAsc.map((item, i) => {
-                                                        return (
-                                                            <>
-                                                                <option value={item.id}>{item.job_sector_name}</option>
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Job Sector</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector(e.target.value)} name="job_sector" value={job_sector}>
+                                                            <option selected disabled>Open this select menu</option>
+                                                            {
+                                                                allJobSectorAsc.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={item.id}>{item.job_sector_name}</option>
 
-                                                            </>
-                                                        )
-                                                    })
-                                                }
-
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Job Sub Sector</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sub_sector(e.target.value)} name="job_sub_sector" value={job_sub_sector}>
-                                                <option selected disabled>Open this select menu</option>
-                                                {
-                                                    allJobSubSectorAsc.map((item, i) => {
-                                                        return (
-                                                            <>
-                                                                <option value={item.id}>{item.job_sub_sector_name}</option>
-
-                                                            </>
-                                                        )
-                                                    })
-                                                }
+                                                                        </>
+                                                                    )
+                                                                })
+                                                            }
 
 
-                                            </select>
-                                        </div>
+                                                        </select>
+                                                    </div>
 
-                                    </div>
+                                                </div>
 
-                                    {/* <div class="mb-3 row">
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Job Sub Sector</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sub_sector(e.target.value)} name="job_sub_sector" value={job_sub_sector}>
+                                                            <option selected disabled>Open this select menu</option>
+                                                            {
+                                                                allJobSubSectorAsc.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={item.id}>{item.job_sub_sector_name}</option>
+
+                                                                        </>
+                                                                    )
+                                                                })
+                                                            }
+
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                {/* <div class="mb-3 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Company (Current)</label>
                                         <div class="col-sm-10">
                                             <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)}>
@@ -433,34 +540,37 @@ function EditUser() {
                                         </div>
 
                                     </div> */}
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Office Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="office_email" value={office_email} onChange={(e) => setoffice_email(e.target.value)} />
-                                        </div>
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Office Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputText" name="office_email" value={office_email} onChange={(e) => setoffice_email(e.target.value)} />
+                                                    </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Facebook Link</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="facebook_link" value={facebook_link} onChange={(e) => setfacebook_link(e.target.value)} />
-                                        </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Facebook Link</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputText" name="facebook_link" value={facebook_link} onChange={(e) => setfacebook_link(e.target.value)} />
+                                                    </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Linkedin Link</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="linkedin_link" value={linkedin_link} onChange={(e) => setlinkedin_link(e.target.value)} />
-                                        </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Linkedin Link</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputText" name="linkedin_link" value={linkedin_link} onChange={(e) => setlinkedin_link(e.target.value)} />
+                                                    </div>
 
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Twitter Link</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputText" name="twitter_link" value={twitter_link} onChange={(e) => settwitter_link(e.target.value)} />
-                                        </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label for="inputPassword" class="col-sm-2 col-form-label">Twitter Link</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputText" name="twitter_link" value={twitter_link} onChange={(e) => settwitter_link(e.target.value)} />
+                                                    </div>
 
-                                    </div>
+                                                </div>
+
+                                            </>
+                                    }
                                     {/* <div class="mb-3 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Profile Pic</label>
                                         <div class="col-sm-10">
@@ -470,7 +580,12 @@ function EditUser() {
                                     </div> */}
                                 </div>
 
+
+
                             </div>
+
+
+
 
                             <div className='row'>
                                 <div className='col-md-12'>
@@ -604,7 +719,7 @@ function EditUser() {
                                 <div className='col-md-12'>
                                     <h6 className=''>Professional Information</h6>
                                     {
-                                        editUserData.professional_info !== undefined && editProfessionalDatas.map((item,index) => {
+                                        editUserData.professional_info !== undefined && editProfessionalDatas.map((item) => {
                                             return (
                                                 <>
                                                     <div className='mb-3 row '>
@@ -613,7 +728,7 @@ function EditUser() {
                                                         <div class="col-md-2">
                                                             <label for="inputPassword" class="col-sm-4 col-form-label">Company</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example" onChange={(e)=>updateProfessional(index,e)} name="name_of_company" value={item.name_of_company}>
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => handleUpdateProfessional(item.id, e)} name="name_of_company" value={item.name_of_company}>
                                                                     <option selected disabled>Open this select menu</option>
                                                                     {
                                                                         allCompanyName.map((item, i) => {
@@ -634,21 +749,21 @@ function EditUser() {
                                                         <div class="col-md-2">
                                                             <label for="inputPassword" class="col-sm-4 col-form-label">Designation</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputText" name="designation" value={item.designation}  onChange={(e)=>updateProfessional(index,e)}/>
+                                                                <input type="text" class="form-control" id="inputText" name="designation" value={item.designation} onChange={(e) => handleUpdateProfessional(item.id, e)} />
                                                             </div>
 
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label for="inputPassword" class="col-sm-4 col-form-label">Year active</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputText" name="year" value={item.year} onChange={(e) => setYear(e.target.value)} />
+                                                                <input type="text" class="form-control" id="inputText" name="year" value={item.year} onChange={(e) => handleUpdateProfessional(item.id, e)} />
                                                             </div>
 
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label for="inputPassword" class="col-sm-8 col-form-label">Office address</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputText" name="office_address" value={item.office_address} onChange={(e) => { setOfficeAddress(e.target.value); console.log('event', e) }} />
+                                                                <input type="text" class="form-control" id="inputText" name="office_address" value={item.office_address} onChange={(e) => { handleUpdateProfessional(item.id, e); console.log('event', e) }} />
 
                                                             </div>
 
@@ -657,10 +772,15 @@ function EditUser() {
                                                         <div className='col-1 '>
                                                             <label for="inputPassword" class="col-sm-8 col-form-label d-block " style={{ opacity: '0' }}>Of</label>
 
-                                                            {/* <button type='btn' className='btn btn-secondary btn-sm' onClick={()=>{updateProfessional(item.id)}}>Update</button> */}
-                                                            <button type='btn' className='btn btn-secondary btn-sm' >Update</button>
+                                                            {/* <button type='btn' className='btn btn-secondary btn-sm' onClick={()=>{handleUpdateProfessional(item.id)}}>Update</button> */}
+                                                            <button type='btn' className='btn btn-secondary btn-sm' onClick={() => handleProfessionalEdit(item.id)}>Edit</button>
                                                         </div>
+
+
+
                                                     </div>
+
+
 
                                                 </>
                                             )
@@ -669,6 +789,97 @@ function EditUser() {
 
                                     }
                                 </div>
+
+                                <Modal
+                                    isOpen={editJobTypeModalIsOpen}
+                                    onRequestClose={closeEditJobTypeModal}
+                                    style={customStyles2}
+                                    contentLabel="Example Modal"
+                                >
+
+                                    <div className='card-body '>
+                                        <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobTypeModal}><i class="fa fa-times"></i></span>
+
+                                        <h5 className=""> Edit Professional Information</h5>
+                                        <hr />
+
+
+                                        <div className="row">
+
+                                            <div className="col-12">
+
+                                                <div className=''>
+                                                    <div class="mb-1" style={{ width: '100%' }}>
+                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Company</label>
+                                                        <select class="form-select " aria-label="Default select example" name="name_of_company" value={editProfessionalDatasFromDatabase.name_of_company} onChange={handleEditChange}>
+                                                            <option selected disabled>Open this select menu</option>
+                                                            {
+                                                                allCompanyName.map((item, i) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={item.id}>{item.company_name}</option>
+
+                                                                        </>
+                                                                    )
+                                                                })
+                                                            }
+
+
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <label for="inputPassword" class="col-sm-4 col-form-label">Designation</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="inputText" name="designation" value={editProfessionalDatasFromDatabase.designation} onChange={handleEditChange} />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputPassword" class="col-sm-4 col-form-label">Year active</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="inputText" name="year" value={editProfessionalDatasFromDatabase.year} onChange={handleEditChange} />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputPassword" class="col-sm-8 col-form-label">Office address</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="inputText" name="office_address" value={editProfessionalDatasFromDatabase.office_address} onChange={handleEditChange} />
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div>
+                                                    </div>
+
+
+                                                    <div style={{ width: '50%' }} className="mx-2 mt-1">
+                                                        {/* <span className='text-danger'> {editJobTypeData.error_list.type_name !=undefined && editJobTypeData.error_list.type_name  }</span> */}
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
+                                                <button className='btn btn-success btn-sm rounded-3 px-3 py-1 mt-1' onClick={() => handleProfessionalUpdate()}>Update</button>
+
+
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+                                </Modal>
                             </div>
 
                         </div>

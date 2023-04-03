@@ -915,7 +915,7 @@ function Dashboard() {
                                     <Slider {...settings}>
 
                                         {
-                                            allActiveJobs.map((item, i) => {
+                                            allActiveJobs !==undefined && allActiveJobs.map((item, i) => {
                                                 return (
 
                                                     <div className="cards border p-2 border-success rounded-side bb  ">

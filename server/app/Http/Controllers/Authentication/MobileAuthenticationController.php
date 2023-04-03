@@ -245,7 +245,8 @@ class MobileAuthenticationController extends Controller
 
             return response()->json([
                     'status' => 200,
-                    'update_educational_data' =>$update_educational
+                    'update_educational_data' =>$update_educational,
+                    'message'=>'Professional Information Updated Successfully'
                 ]);
     }
 
