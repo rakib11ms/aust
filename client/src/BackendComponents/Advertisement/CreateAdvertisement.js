@@ -178,6 +178,8 @@ function CreateAdvertisement() {
         formData.append("news_page", allCheckBox.news_page ? 1 : 0);
         formData.append("event_page", allCheckBox.event_page ? 1 : 0);
         formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
+        formData.append("post_page", allCheckBox.post_page ? 1 : 0);
+        formData.append("job_page", allCheckBox.job_page ? 1 : 0);
 
         formData.append("showMobile", showMobile);
         formData.append("advertiser_name", advertiser_name);
@@ -202,6 +204,8 @@ function CreateAdvertisement() {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
                 setClickedRender(false)
+                localStorage.removeItem("draftAdvertisementData");
+
 
                 setContent1('');
                 setposition('');
@@ -224,11 +228,74 @@ function CreateAdvertisement() {
         })
 
     }
+
+
+    const draftAdvertisement = () => {
+
+        const draftData = {
+            advertisement_title: advertisement_title,
+            advertisement_description: content1,
+            redirect_link: redirect_link,
+            show_time: show_time,
+            show_days: show_days,
+            advertisement_fee: advertisement_fee,
+            advertiser_name: advertiser_name,
+            advertiser_phone: advertiser_phone,
+            advertiser_email: advertiser_email,
+            reference_no: reference_no,
+            po_no: po_no,
+            position: position,
+            home_page: allCheckBox.home_page ? 1 : 0,
+            news_page: allCheckBox.news_page ? 1 : 0,
+            event_page: allCheckBox.event_page ? 1 : 0,
+            blog_page: allCheckBox.blog_page ? 1 : 0,
+            job_page: allCheckBox.job_page ? 1 : 0,
+            post_page: allCheckBox.post_page ? 1 : 0
+
+
+        }
+
+        window.localStorage.setItem("draftAdvertisementData", JSON.stringify(draftData));
+        Swal.fire('Draft Saved Successfully', '', 'success')
+
+
+
+    }
+
+    useEffect(() => {
+
+        let savedDraftData = window.localStorage.getItem("draftAdvertisementData");
+        if (savedDraftData) {
+
+
+            const final = JSON.parse(savedDraftData);
+            console.log('x1',final)
+            setContent1(final.article_blog_description)
+            setposition(final.position);
+            setshow_days(final.show_days);
+            setshow_time(final.show_time);
+            setadvertisement_fee(final.advertisement_fee);
+            setadvertisement_title(final.advertisement_title)
+            setadvertiser_email(final.advertiser_email)
+            setContent1(final.advertisement_description)
+            setredirect_link(final.redirect_link)
+            setadvertiser_name(final.advertiser_name)
+            setadvertiser_phone(final.advertiser_phone)
+            setpo_no(final.po_no);
+            setreference_no(final.reference_no)
+
+        }
+    }, [])
+
+
+
     const [allCheckBox, setAllCheckBox] = useState({
         home_page: '',
         news_page: '',
         event_page: '',
         blog_page: '',
+        post_page: '',
+        job_page: '',
 
     });
     function handleCheckbox(e) {
@@ -317,15 +384,17 @@ function CreateAdvertisement() {
 
 
                                                 </div>
-                                                <div class="mt-1">
-                                                    <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleSubmit}>SAVE
-                                                    {
-                                                    clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
+                                                <div class="mt-3 mx-auto">
+                                                    <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftAdvertisement}> DRAFT</button>
+
+                                                    <button type="submit" className='btn btn-success rounded-3 px-4 ' onSubmit={handleSubmit}>SAVE
+                                                        {
+                                                            clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
 
 
 
 
-                                                }
+                                                        }
                                                     </button>
                                                 </div>
 
@@ -497,7 +566,7 @@ function CreateAdvertisement() {
                                                                     <select class="form-select form-select-sm" required aria-label=".form-select-sm example"
                                                                         onChange={(e) => {
                                                                             setposition(e.target.value)
-                                                                        }}>
+                                                                        }} value={position}>
                                                                         <option selected disabled>Choose</option>
                                                                         <option value="top" >Top</option>
                                                                         <option value="middle">Middle</option>
@@ -537,6 +606,19 @@ function CreateAdvertisement() {
                                                                     <input class="form-check-input" type="checkbox" name="blog_page" id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Blog
+
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="post_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Post
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="job_page" id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Job
                                                                     </label>
                                                                 </div>
 

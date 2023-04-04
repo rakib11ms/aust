@@ -103,157 +103,7 @@ function CreateBlogArticle() {
     const [article_blog_title, setarticle_blog_title] = useState("");
 
 
-    //////////images code ///////////
 
-    // const [multipleImages, setMultipleImages] = useState([]);
-    // const [multipleImageFiles, setMultipleImageFiles] = useState({
-    //     files: []
-    // });
-
-
-
-    // useEffect(() => {
-    //     if (multipleImages.length == 0) {
-    //         document.getElementById('formFileImage').value = "";
-    //     }
-    // }, [multipleImages])
-
-
-
-    // console.log('image files', multipleImageFiles.files)
-    // console.log('image url', multipleImages)
-
-    // // multipleImages.map((item,i)=>{
-    // //     console.log('hello abba',i)
-    // // })
-
-    // function removeArray(i) {
-    //     console.log('index clicked', i)
-    //     // setMultipleImageFiles({
-    //     //     files:
-    //     // });
-
-    //     const filterRemoveFileImgs = multipleImageFiles.files.filter((item, index) => {
-    //         console.log('kosuy', item)
-    //         return index !== i
-    //     })
-
-    //     const filterRemovePreviewImgs = multipleImages.filter((item, index) => {
-    //         console.log('kosuy', item)
-    //         return index !== i
-    //     })
-    //     // console.log('checking333333',filterRemoveImgs)
-
-    //     setMultipleImageFiles({
-    //         files: filterRemoveFileImgs
-    //     })
-    //     setMultipleImages(filterRemovePreviewImgs)
-
-
-
-    // }
-
-
-    // Functions to preview multiple images
-    // const changeMultipleFiles = (e) => {
-    //     setMultipleImageFiles({
-    //         files: [...multipleImageFiles.files, ...e.target.files]
-    //     })
-    //     if (e.target.files) {
-    //         const imageArray = Array.from(e.target.files).map((file) =>
-    //             URL.createObjectURL(file)
-    //         );
-    //         setMultipleImages((prevImages) => prevImages.concat(imageArray));
-    //     }
-    // };
-
-    // const render = (data) => {
-    //     return data.map((image, i) => {
-    //         return <div className='image-main mt-2' onClick={() => {
-    //             removeArray(i);
-    //         }}>
-    //             <i class="fa fa-close image-close text-danger" ></i>
-    //             <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
-    //         </div>
-    //     });
-    // };
-
-
-
-
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     // formData.append("posted_by", 1);
-    //     formData.append("article_blog_title", article_blog_title);
-    //     formData.append("advertisement_description", content1);
-    //     formData.append("redirect_link", redirect_link);
-    //     formData.append("show_time", show_time);
-    //     formData.append("show_days", show_days);
-    //     formData.append("advertisement_fee", advertisement_fee);
-    //     formData.append("home_page", allCheckBox.home_page ? 1 : 0);
-    //     formData.append("view_job_page", allCheckBox.view_job_page ? 1 : 0);
-    //     formData.append("view_advment_page", allCheckBox.view_advment_page ? 1 : 0);
-    //     formData.append("create_advment_page", allCheckBox.create_advment_page ? 1 : 0);
-    //     formData.append("add_general_post_page", allCheckBox.add_general_post_page ? 1 : 0);
-    //     formData.append("add_event_page", allCheckBox.add_event_page ? 1 : 0);
-
-    //     formData.append("showMobile", showMobile);
-    //     formData.append("showDesktop", showDesktop);
-
-    //     formData.append("position", position);
-    //     multipleImageFiles.files.forEach(file => {
-    //         console.log('files check', file)
-
-    //         formData.append("image[]", file);
-
-    //     });
-
-
-
-    //     axios.post(`/api/add-advertisement`, formData).then(res => {
-    //         if (res.data.status == 200) {
-    //             Swal.fire(res.data.message, '', 'success')
-
-    //             setContent1('');
-    //             setposition('');
-    //             setMultipleImageFiles([]);
-    //             setMultipleImages([]);
-    //             setshow_days('');
-    //             setshow_time('');
-    //             setshowDesktop(1);
-    //             setshowMobile(1);
-    //             navigate('/view-all-advertisement')
-
-    //             // setImage('');
-    //             // setPicture('');
-    //             // document.getElementById('article_blog_image').value = "";
-    //         }
-    //         // else if (res.data.status == 400) {
-    //         //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
-    //         //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
-
-    //         // }
-    //     })
-
-    // }
-    // const [allCheckBox, setAllCheckBox] = useState({
-    //     home_page: '',
-    //     view_job_page: '',
-    //     view_advment_page: '',
-    //     create_advment_page: '',
-    //     add_general_post_page: '',
-    //     add_event_page: ''
-    // });
-    // function handleCheckbox(e) {
-    //     setAllCheckBox({
-    //         ...allCheckBox, [e.target.name]: e.target.checked
-    //     })
-
-    // }
-
-    // console.log('heelloo yeeeeees', allCheckBox)
     const [image, setImage] = useState('');
     console.log('image info', image.size)
     const [picture, setPicture] = useState('');
@@ -290,6 +140,8 @@ function CreateBlogArticle() {
         axios.post(`/api/add-article-blogs`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
+                localStorage.removeItem("draftData");
+
                 navigate('/view-blog-article')
                 setcategory_id('');
                 setsubcategory_id('');
@@ -381,6 +233,35 @@ const render = (data) => {
     });
 };
 
+
+const draftArticleBlog=()=>{
+    const draftData={
+        category_id:category_id,
+        subcategory_id:subcategory_id,
+        article_blog_title:article_blog_title,
+        article_blog_description:content1
+    }
+
+    window.localStorage.setItem("draftData", JSON.stringify(draftData));
+    Swal.fire('Draft Saved Successfully', '', 'success')
+
+    
+
+}
+
+useEffect(()=>{
+
+    let savedDraftData = window.localStorage.getItem("draftData");
+    if(savedDraftData ){
+
+    
+    const final=JSON.parse(savedDraftData);
+    setContent1(final.article_blog_description)
+    setcategory_id(final.category_id)
+    setsubcategory_id(final.subcategory_id)
+    setarticle_blog_title(final.article_blog_title)
+    }
+},[])
 
 
 
@@ -529,7 +410,9 @@ const render = (data) => {
                                                 </div>
 
                                                 <div class="text-center mt-1" >
-                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
+                                                <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftArticleBlog}> DRAFT</button>
+                                                <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
+
                                                 </div>
 
                                             </div>

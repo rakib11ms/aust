@@ -209,6 +209,8 @@ function EditAdvertisement() {
         formData.append("news_page", allCheckBox.news_page ? 1 : 0);
         formData.append("event_page", allCheckBox.event_page ? 1 : 0);
         formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
+        formData.append("post_page", allCheckBox.post_page ? 1 : 0);
+        formData.append("job_page", allCheckBox.job_page ? 1 : 0);
         formData.append("advertiser_name", advertiser_name);
         formData.append("advertiser_phone", advertiser_phone);
         formData.append("advertiser_email", advertiser_email);
@@ -270,6 +272,8 @@ function EditAdvertisement() {
         news_page: '',
         event_page: '',
         blog_page: '',
+        post_page: '',
+        job_page: '',
     
     });
 
@@ -308,6 +312,8 @@ function EditAdvertisement() {
                     news_page: res.data.advertisement.news_page,
                     event_page: res.data.advertisement.event_page,
                     blog_page: res.data.advertisement.blog_page,
+                    post_page: res.data.advertisement.post_page,
+                    job_page: res.data.advertisement.job_page,
          
                 })
 
@@ -686,6 +692,20 @@ function EditAdvertisement() {
                                                                         Blog
                                                                     </label>
                                                                 </div>
+
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="post_page" checked={allCheckBox.post_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Post
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-2 mt-2">
+                                                                    <input class="form-check-input" type="checkbox" name="job_page" checked={allCheckBox.job_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        Job
+                                                                    </label>
+                                                                </div>
+
 
                                                             </div>
 

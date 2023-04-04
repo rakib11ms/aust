@@ -23,6 +23,8 @@ return new class extends Migration
                  $table->string('news_page')->nullable()->comment('1=true,0=false');
                  $table->string('event_page')->nullable()->comment('1=true,0=false');
                  $table->string('blog_page')->nullable()->comment('1=true,0=false');
+                 $table->string('post_page')->nullable()->comment('1=true,0=false');
+                 $table->string('job_page')->nullable()->comment('1=true,0=false');
    
                  $table->string('show_time')->nullable();
                  $table->string('show_days')->nullable();

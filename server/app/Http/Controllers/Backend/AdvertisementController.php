@@ -99,6 +99,8 @@ class AdvertisementController extends Controller
         $advertisement->home_page = $request->home_page;
         $advertisement->event_page = $request->event_page;
         $advertisement->blog_page = $request->blog_page;
+        $advertisement->job_page = $request->job_page;
+        $advertisement->post_page = $request->post_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
 
@@ -216,6 +218,8 @@ class AdvertisementController extends Controller
         $advertisement->home_page = $request->home_page;
         $advertisement->event_page = $request->event_page;
         $advertisement->blog_page = $request->blog_page;
+           $advertisement->job_page = $request->job_page;
+        $advertisement->post_page = $request->post_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
 

@@ -12,6 +12,40 @@ function EditUser() {
     const params = useParams();
 
     const editId = params.id;
+    useEffect(() => {
+        axios.get(`/api/edit-user/${editId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditProfessionalDatas(res.data.edit_user.professional_info);
+                setEditUserData(res.data.edit_user);
+                setFull_name(res.data.edit_user.full_name)
+                setNick_name(res.data.edit_user.nick_name)
+                setphone(res.data.edit_user.phone_no)
+                setpresent_address(res.data.edit_user.present_address)
+                setpermanent_address(res.data.edit_user.permanent_address)
+                setgender_name(res.data.edit_user.gender)
+                setbatch(res.data.edit_user.batch)
+                setoffice_email(res.data.edit_user.office_email)
+                setstream(res.data.edit_user.stream)
+                setjob_sector(res.data.edit_user.job_sector)
+                setjob_sub_sector(res.data.edit_user.job_sub_sector)
+                setfacebook_link(res.data.edit_user.facebook_link)
+                settwitter_link(res.data.edit_user.twitter_link)
+                setlinkedin_link(res.data.edit_user.linkedin_link)
+                setssc_grade(res.data.edit_user.educational_info.ssc_grade)
+                sethsc_grade(res.data.edit_user.educational_info.hsc_grade)
+                setbsc_grade(res.data.edit_user.educational_info.bsc_grade)
+                setmsc_grade(res.data.edit_user.educational_info.msc_grade)
+                setssc_passing_year(res.data.edit_user.educational_info.ssc_passing_year)
+                sethsc_passing_year(res.data.edit_user.educational_info.hsc_passing_year)
+                setbsc_passing_year(res.data.edit_user.educational_info.bsc_passing_year)
+                setmsc_passing_year(res.data.edit_user.educational_info.msc_passing_year)
+                setssc_institution(res.data.edit_user.educational_info.ssc_institution)
+                sethsc_institution(res.data.edit_user.educational_info.hsc_institution)
+                setbsc_institution(res.data.edit_user.educational_info.bsc_institution)
+                setmsc_institution(res.data.edit_user.educational_info.msc_institution)
+            }
+        })
+    }, [editId])
 
     const [editUserData, setEditUserData] = useState('');
     console.log('edit user', editUserData)
@@ -169,40 +203,7 @@ function EditUser() {
 
 
 
-    useEffect(() => {
-        axios.get(`/api/edit-user/${editId}`).then(res => {
-            if (res.data.status == 200) {
-                setEditProfessionalDatas(res.data.edit_user.professional_info);
-                setEditUserData(res.data.edit_user);
-                setFull_name(res.data.edit_user.full_name)
-                setNick_name(res.data.edit_user.nick_name)
-                setphone(res.data.edit_user.phone_no)
-                setpresent_address(res.data.edit_user.present_address)
-                setpermanent_address(res.data.edit_user.permanent_address)
-                setgender_name(res.data.edit_user.gender)
-                setbatch(res.data.edit_user.batch)
-                setoffice_email(res.data.edit_user.office_email)
-                setstream(res.data.edit_user.stream)
-                setjob_sector(res.data.edit_user.job_sector)
-                setjob_sub_sector(res.data.edit_user.job_sub_sector)
-                setfacebook_link(res.data.edit_user.facebook_link)
-                settwitter_link(res.data.edit_user.twitter_link)
-                setlinkedin_link(res.data.edit_user.linkedin_link)
-                setssc_grade(res.data.edit_user.educational_info.ssc_grade)
-                sethsc_grade(res.data.edit_user.educational_info.hsc_grade)
-                setbsc_grade(res.data.edit_user.educational_info.bsc_grade)
-                setmsc_grade(res.data.edit_user.educational_info.msc_grade)
-                setssc_passing_year(res.data.edit_user.educational_info.ssc_passing_year)
-                sethsc_passing_year(res.data.edit_user.educational_info.hsc_passing_year)
-                setbsc_passing_year(res.data.edit_user.educational_info.bsc_passing_year)
-                setmsc_passing_year(res.data.edit_user.educational_info.msc_passing_year)
-                setssc_institution(res.data.edit_user.educational_info.ssc_institution)
-                sethsc_institution(res.data.edit_user.educational_info.hsc_institution)
-                setbsc_institution(res.data.edit_user.educational_info.bsc_institution)
-                setmsc_institution(res.data.edit_user.educational_info.msc_institution)
-            }
-        })
-    }, [editId])
+
 
 
     const [editProfessionalDatas, setEditProfessionalDatas] = useState([])
@@ -335,7 +336,7 @@ function EditUser() {
                                 <div className='col-md-6 border-right'>
 
                                     {full_name == "" || nick_name == "" ? "Loading...." : <>
-                                    <h6 className=''>Personal Information</h6>
+                                        <h6 className=''>Personal Information</h6>
 
 
                                         <div class="mb-3 row">
@@ -364,14 +365,14 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">District</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="district" value={editUserData.district} />
+                                                <input type="text" class="form-control" id="inputText" name="district" value={editUserData.district} readOnly />
                                             </div>
 
                                         </div>
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Thana</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="thana" value={editUserData.thana} />
+                                                <input type="text" class="form-control" id="inputText" name="thana" value={editUserData.thana} readOnly />
                                             </div>
 
                                         </div>
@@ -379,7 +380,7 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Postal Code</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="postal_code" value={editUserData.postal_code} />
+                                                <input type="text" class="form-control" id="inputText" name="postal_code" value={editUserData.postal_code} readOnly />
                                             </div>
 
                                         </div>
@@ -469,10 +470,10 @@ function EditUser() {
 
                                     {
                                         job_sector == '' || job_sub_sector == "" ? "Loading...." :
-                                        
+
 
                                             <>
-                                                   <h6 className=''>Social Information</h6>
+                                                <h6 className=''>Social Information</h6>
 
 
                                                 <div class="mb-3 row">
