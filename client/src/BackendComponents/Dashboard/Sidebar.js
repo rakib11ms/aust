@@ -19,6 +19,7 @@ function Sidebar() {
     const [isActive10, setIsActive10] = useState(false);
     const [isActive11, setIsActive11] = useState(false);
     const [isActive12, setIsActive12] = useState(false);
+    const [isActive13, setIsActive13] = useState(false);
     console.log('is active cheking', isActive)
 
 
@@ -73,6 +74,7 @@ function Sidebar() {
         path == '/view-notice-news' && setIsActive10(true) || path == '/create-notice-news' && setIsActive10(true) || path == '/notice-news-configuration' && setIsActive10(true)
         path == '/create-vlog' && setIsActive11(true) || path == '/view-vlog' && setIsActive11(true) || path == '/vlog-configuration' && setIsActive11(true)
         path == '/create-global-notification' && setIsActive12(true) || path == '/view-global-notification' && setIsActive12(true)
+        path == '/create-organization' && setIsActive13(true) || path == '/view-organization' && setIsActive13(true)
 
     }, [path])
 
@@ -598,6 +600,44 @@ function Sidebar() {
                             }
                         </div>
                     </div>
+
+                    <div className=''>
+
+<div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive13(!isActive13)}>
+    <div class="menu-name-logo d-flex align-items-center text-white">
+    <i class="fa fa-building-o" aria-hidden="true"></i>
+
+        <h6 className='mx-2 mt-3'>Organization Setup</h6>
+
+    </div>
+    <div className='menu-content text-white mx-2 '>
+        {isActive13 ?
+            <b className=''>-</b>
+            :
+            <b className=''>+</b>
+        }                            </div>
+</div>
+<div class="menu-content ">
+
+    {
+        isActive13 && <>
+            <ul className='text-light mx-4 '>
+                <li>
+                    <Link to='/create-organization' className={`text-form ${path == '/create-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
+                </li>
+                <li>
+                    <Link to='/view-organization' className={`text-form ${path == '/view-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
+                </li>
+          
+
+
+
+            </ul>
+        </>
+
+    }
+</div>
+</div>
 
                 </div>
 

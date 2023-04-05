@@ -27,6 +27,7 @@ use App\Http\Controllers\Backend\AusttaaBloodGroupController;
 use App\Http\Controllers\Backend\AusttaaStreamController;
 use App\Http\Controllers\Backend\ViewAllUserController;
 use App\Http\Controllers\Backend\GlobalNotificationController;
+use App\Http\Controllers\Backend\OrganizationController;
 
 use App\Http\Controllers\Backend\AusttaaJobSectorJobSubSectorMapController;
 use App\Http\Controllers\Backend\NoticeNewsCategoryController;
@@ -180,6 +181,14 @@ Route::post('/add-stream-name', [AusttaaStreamController::class, 'store']);
 Route::get('/edit-stream-name/{id}', [AusttaaStreamController::class, 'edit']);
 Route::post('/update-stream-name/{id}', [AusttaaStreamController::class, 'update']);
 Route::delete('/delete-stream-name/{id}', [AusttaaStreamController::class, 'destroy']);
+
+//organization setup
+
+Route::get('/organization-setup', [OrganizationController::class, 'index']);
+Route::post('/add-organization-setup', [OrganizationController::class, 'store']);
+Route::get('/edit-organization-setup/{id}', [OrganizationController::class, 'edit']);
+Route::post('/update-organization-setup/{id}', [OrganizationController::class, 'update']);
+Route::post('/delete-organization-setup/{id}', [OrganizationController::class, 'destroy']);
 
 
 //ausstta company name (user configuration) Master Setup

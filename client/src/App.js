@@ -3,6 +3,9 @@ import { Link, Navigate, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import './imageUrl';
 import EditUser from './BackendComponents/User/EditUser';
+import CreateOrganization from './BackendComponents/Organization/CreateOrganization';
+import ViewOrganization from './BackendComponents/Organization/ViewOrganization';
+import EditOrganization from './BackendComponents/Organization/EditOrgnization';
 // import TermCondition from './PrivacyPolicy/TermCondition';
 // import PrivacyPolicy from './PrivacyPolicy/PrivacyPolicy';
 // import PostConfiguration from './BackendComponents/PostType/PostConfiguration';
@@ -298,6 +301,12 @@ function App() {
             <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
 
             <Route path="settings" element={<Settings />}></Route>
+
+
+            <Route path="create-organization" element={<CreateOrganization/>}></Route>
+            <Route path="view-organization" element={<ViewOrganization />}></Route>
+            <Route path="edit-organization/:id" element={<EditOrganization />}></Route>
+
 
 
             <Route path="view-global-notification" element={< ViewNotification />}></Route>
