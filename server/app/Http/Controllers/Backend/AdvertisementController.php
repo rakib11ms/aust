@@ -94,6 +94,8 @@ class AdvertisementController extends Controller
         $advertisement->showMobile = $request->showMobile;
         $advertisement->showDesktop = $request->showDesktop;
         $advertisement->advertisement_fee = $request->advertisement_fee;
+           $advertisement->isPublished = $request->isPublished;
+           $advertisement->isDraft = $request->isDraft;
 
         $advertisement->news_page = $request->news_page;
         $advertisement->home_page = $request->home_page;
@@ -139,8 +141,10 @@ class AdvertisementController extends Controller
         }
            // $advertisement->save();
 
-
+            if($request->isDraft==0){
             Mail::to($request->advertiser_email)->send(new Advertisementmail($advertisement));
+
+            }
         
 
 
@@ -222,6 +226,10 @@ class AdvertisementController extends Controller
         $advertisement->post_page = $request->post_page;
         $advertisement->position = $request->position;
         $advertisement->redirect_link = $request->redirect_link;
+        $advertisement->isPublished = $request->isPublished;
+        // $advertisement->isArchived = $request->isArchived;
+
+            $advertisement->isDraft = $request->isDraft;
 
                    if($request->hasFile('advertisement_file')){
             $file=$request->file('advertisement_file');

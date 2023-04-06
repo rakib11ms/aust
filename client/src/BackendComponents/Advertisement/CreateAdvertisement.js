@@ -180,6 +180,7 @@ function CreateAdvertisement() {
         formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
         formData.append("post_page", allCheckBox.post_page ? 1 : 0);
         formData.append("job_page", allCheckBox.job_page ? 1 : 0);
+        formData.append('isDraft', 0);
 
         formData.append("showMobile", showMobile);
         formData.append("advertiser_name", advertiser_name);
@@ -230,62 +231,98 @@ function CreateAdvertisement() {
     }
 
 
-    const draftAdvertisement = () => {
+    const draftAdvertisement = (e) => {
 
-        const draftData = {
-            advertisement_title: advertisement_title,
-            advertisement_description: content1,
-            redirect_link: redirect_link,
-            show_time: show_time,
-            show_days: show_days,
-            advertisement_fee: advertisement_fee,
-            advertiser_name: advertiser_name,
-            advertiser_phone: advertiser_phone,
-            advertiser_email: advertiser_email,
-            reference_no: reference_no,
-            po_no: po_no,
-            position: position,
-            home_page: allCheckBox.home_page ? 1 : 0,
-            news_page: allCheckBox.news_page ? 1 : 0,
-            event_page: allCheckBox.event_page ? 1 : 0,
-            blog_page: allCheckBox.blog_page ? 1 : 0,
-            job_page: allCheckBox.job_page ? 1 : 0,
-            post_page: allCheckBox.post_page ? 1 : 0
+        e.preventDefault();
+        setClickedRender(true)
+
+        const formData = new FormData();
+        // formData.append("posted_by", 1);
+        formData.append("advertisement_title", advertisement_title);
+        formData.append("advertisement_description", content1);
+        formData.append("redirect_link", redirect_link);
+        formData.append("show_time", show_time);
+        formData.append("show_days", show_days);
+        formData.append("advertisement_fee", advertisement_fee);
+        formData.append("home_page", allCheckBox.home_page ? 1 : 0);
+        formData.append("news_page", allCheckBox.news_page ? 1 : 0);
+        formData.append("event_page", allCheckBox.event_page ? 1 : 0);
+        formData.append("blog_page", allCheckBox.blog_page ? 1 : 0);
+        formData.append("post_page", allCheckBox.post_page ? 1 : 0);
+        formData.append("job_page", allCheckBox.job_page ? 1 : 0);
+
+        formData.append("showMobile", showMobile);
+        formData.append('isDraft', 1);
+        formData.append('isPublished', 0);
+        formData.append("advertiser_name", advertiser_name);
+        formData.append("advertiser_phone", advertiser_phone);
+        formData.append("advertiser_email", advertiser_email);
+        formData.append("reference_no", reference_no);
+        formData.append("po_no", po_no);
+        formData.append("advertisement_file", advertisement_file);
+        formData.append("showDesktop", showDesktop);
+
+        formData.append("position", position);
+        multipleImageFiles.files.forEach(file => {
+            console.log('files check', file)
+
+            formData.append("image[]", file);
+
+        });
 
 
-        }
 
-        window.localStorage.setItem("draftAdvertisementData", JSON.stringify(draftData));
+        axios.post(`/api/add-advertisement`, formData).then(res => {
+            if (res.data.status == 200) {
+                Swal.fire(res.data.message, '', 'success')
+                setClickedRender(false)
+                localStorage.removeItem("draftAdvertisementData");
+
+
+                setContent1('');
+                setposition('');
+                setMultipleImageFiles([]);
+                setMultipleImages([]);
+                setshow_days('');
+                setshow_time('');
+                setshowDesktop(1);
+                setshowMobile(1);
+                navigate('/view-all-advertisement')
+
+                // setImage('');
+                // setPicture('');
+                // document.getElementById('job_post_logo').value = "";
+            }
+            else if (res.data.status == 400) {
+                setadvertisementError(res.data.errors);
+
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Swal.fire('Draft Saved Successfully', '', 'success')
 
 
 
+
+
     }
-
-    useEffect(() => {
-
-        let savedDraftData = window.localStorage.getItem("draftAdvertisementData");
-        if (savedDraftData) {
-
-
-            const final = JSON.parse(savedDraftData);
-            console.log('x1',final)
-            setContent1(final.article_blog_description)
-            setposition(final.position);
-            setshow_days(final.show_days);
-            setshow_time(final.show_time);
-            setadvertisement_fee(final.advertisement_fee);
-            setadvertisement_title(final.advertisement_title)
-            setadvertiser_email(final.advertiser_email)
-            setContent1(final.advertisement_description)
-            setredirect_link(final.redirect_link)
-            setadvertiser_name(final.advertiser_name)
-            setadvertiser_phone(final.advertiser_phone)
-            setpo_no(final.po_no);
-            setreference_no(final.reference_no)
-
-        }
-    }, [])
 
 
 

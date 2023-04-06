@@ -50,6 +50,7 @@ function ViewBlogArticle() {
 
             formData.append('isPublished', 1);
             formData.append('isArchived', id.isArchived);
+            formData.append('isDraft', 0);
             formData.append('category_id', id.category_id);
             formData.append('subcategory_id', id.subcategory_id);
             formData.append('article_blog_title', id.article_blog_title);
@@ -356,7 +357,10 @@ function ViewBlogArticle() {
             title: "", field: `isPublished`, render: (row) =>
                 <div>
                     {
-                        row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> : <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                        row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> :
+                        row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
+
+                        <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>
@@ -611,6 +615,8 @@ function ViewBlogArticle() {
 
             })
         }
+
+        
         else {
 
         }
@@ -751,6 +757,7 @@ function ViewBlogArticle() {
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
+                                                <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>Draft</h6>
 
                                             </div>
 

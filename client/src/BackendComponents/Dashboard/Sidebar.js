@@ -329,7 +329,7 @@ function Sidebar() {
                                             <Link to='/post-configuration' className={`text-form ${path == '/post-configuration' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`} >Configuration </Link>
 
                                         </li>
-                                        
+
                                     </ul>
                                 </>
 
@@ -603,41 +603,46 @@ function Sidebar() {
 
                     <div className=''>
 
-<div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive13(!isActive13)}>
-    <div class="menu-name-logo d-flex align-items-center text-white">
-    <i class="fa fa-building-o" aria-hidden="true"></i>
+                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive13(!isActive13)}>
+                            <div class="menu-name-logo d-flex align-items-center text-white">
+                                <i class="fa fa-building-o" aria-hidden="true"></i>
 
-        <h6 className='mx-2 mt-3'>Organization Setup</h6>
+                                <h6 className='mx-2 mt-3'>Organization Setup</h6>
 
-    </div>
-    <div className='menu-content text-white mx-2 '>
-        {isActive13 ?
-            <b className=''>-</b>
-            :
-            <b className=''>+</b>
-        }                            </div>
-</div>
-<div class="menu-content ">
+                            </div>
+                            <div className='menu-content text-white mx-2 '>
+                                {isActive13 ?
+                                    <b className=''>-</b>
+                                    :
+                                    <b className=''>+</b>
+                                }                            </div>
+                        </div>
+                        <div class="menu-content ">
 
-    {
-        isActive13 && <>
-            <ul className='text-light mx-4 '>
-                <li>
-                    <Link to='/create-organization' className={`text-form ${path == '/create-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
-                </li>
-                <li>
-                    <Link to='/view-organization' className={`text-form ${path == '/view-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
-                </li>
-          
+                            {
+                                isActive13 && <>
+                                    <ul className='text-light mx-4 '>
+                                        <li>
+                                            <Link to='/create-organization' className={`text-form ${path == '/create-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create</Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/view-organization' className={`text-form ${path == '/view-organization' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View</Link>
+                                        </li>
+
+                                        <li>
+                                            <Link to='/create-district' className={`text-form ${path == '/create-district' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create District</Link>
+                                        </li>
 
 
 
-            </ul>
-        </>
 
-    }
-</div>
-</div>
+
+                                    </ul>
+                                </>
+
+                            }
+                        </div>
+                    </div>
 
                 </div>
 

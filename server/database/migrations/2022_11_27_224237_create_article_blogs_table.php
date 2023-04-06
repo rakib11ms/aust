@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('updated_by')->nullable();
             $table->longText('article_blog_description')->nullable();
             $table->string('article_blog_image')->nullable();
+            $table->boolean('isDraft')->default(0);
             $table->boolean('isArchived')->default(0);
             $table->boolean('isPublished')->default(1);
             $table->timestamps();

@@ -15,6 +15,9 @@ function EditOrganization() {
 
     const editId=params.id;
 
+
+    const[editData,setEditData]=useState('');
+
     const [organization_name, setorganization_name] = useState('')
     const [organization_address, setorganization_address] = useState('')
     const [district, setdistrict] = useState('')
@@ -43,6 +46,7 @@ function EditOrganization() {
     useEffect(()=>{
         axios.get(`/api/edit-organization-setup/${editId}`).then(res => {
             if (res.data.status == 200) {
+                setEditData(res.data.post)
                 setorganization_name(res.data.post.organization_name);
                 setorganization_address(res.data.post.organization_address);
                 setdistrict(res.data.post.district);
@@ -197,8 +201,13 @@ function EditOrganization() {
                                                     <input type="file" required class="form-control" id="exampleFormControlInput1" onChange={onChangePicture} name="image" />
 
                                                 </div>
+                             
                                                 {
-                                                    picture !== '' && <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
+                                                    picture == ''? <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
+                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${editData.image}`} style={{ width: '100px', height: '90px' }}></img>
+                                                    </div>
+                                                    :
+                                                    <div className="form-group mt-3" style={{ width: '100px', height: '90px' }}>
                                                         <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
                                                     </div>
 

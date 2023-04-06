@@ -44,6 +44,8 @@ return new class extends Migration
                 $table->boolean('payment_type')->default(0);
 
                  $table->boolean('isPublished')->default(1);
+                    $table->boolean('isDraft')->default(0);
+
             $table->timestamps();
         });
     }

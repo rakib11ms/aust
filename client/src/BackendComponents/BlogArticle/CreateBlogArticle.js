@@ -124,6 +124,8 @@ function CreateBlogArticle() {
         formData.append('article_blog_description', content1);
         formData.append('article_blog_image', image);
         formData.append('posted_by', 1);
+        formData.append('isDraft', 0);
+
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
 
@@ -140,7 +142,7 @@ function CreateBlogArticle() {
         axios.post(`/api/add-article-blogs`, formData).then(res => {
             if (res.data.status == 200) {
                 Swal.fire(res.data.message, '', 'success')
-                localStorage.removeItem("draftData");
+                // localStorage.removeItem("draftData");
 
                 navigate('/view-blog-article')
                 setcategory_id('');
@@ -234,34 +236,74 @@ const render = (data) => {
 };
 
 
-const draftArticleBlog=()=>{
-    const draftData={
-        category_id:category_id,
-        subcategory_id:subcategory_id,
-        article_blog_title:article_blog_title,
-        article_blog_description:content1
-    }
+const [isDraft,setIsDraft]=useState(0)
 
-    window.localStorage.setItem("draftData", JSON.stringify(draftData));
+const draftArticleBlog=(e)=>{
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('category_id', category_id);
+    formData.append('subcategory_id', subcategory_id);
+    formData.append('article_blog_title', article_blog_title);
+    formData.append('article_blog_description', content1);
+    formData.append('article_blog_image', image);
+    formData.append('posted_by', 1);
+    formData.append('isDraft', 1);
+    formData.append('isPublished', 0);
+    multipleImageFiles.files.forEach(file => {
+        console.log('files check', file)
+
+        formData.append("image[]", file);
+
+    });
+
+
+    console.log('check all data', formData);
+
+
+
+
+    axios.post(`/api/add-article-blogs`, formData).then(res => {
+        if (res.data.status == 200) {
+            // Swal.fire(res.data.message, '', 'success')
+            // localStorage.removeItem("draftData");
+
+            navigate('/view-blog-article')
+            setcategory_id('');
+            setsubcategory_id('');
+            setarticle_blog_title('')
+
+            setContent1('');
+
+            setImage('');
+            setPicture('');
+            document.getElementById('article_blog_image').value = "";
+        }
+        // else if (res.data.status == 400) {
+        //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
+        //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+
+        // }
+    })
+
     Swal.fire('Draft Saved Successfully', '', 'success')
 
     
 
 }
 
-useEffect(()=>{
+// useEffect(()=>{
 
-    let savedDraftData = window.localStorage.getItem("draftData");
-    if(savedDraftData ){
+//     let savedDraftData = window.localStorage.getItem("draftData");
+//     if(savedDraftData ){
 
     
-    const final=JSON.parse(savedDraftData);
-    setContent1(final.article_blog_description)
-    setcategory_id(final.category_id)
-    setsubcategory_id(final.subcategory_id)
-    setarticle_blog_title(final.article_blog_title)
-    }
-},[])
+//     const final=JSON.parse(savedDraftData);
+//     setContent1(final.article_blog_description)
+//     setcategory_id(final.category_id)
+//     setsubcategory_id(final.subcategory_id)
+//     setarticle_blog_title(final.article_blog_title)
+//     }
+// },[])
 
 
 
