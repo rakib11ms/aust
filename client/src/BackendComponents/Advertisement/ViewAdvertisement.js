@@ -260,6 +260,21 @@ function ViewAllAdvertisement() {
                             <div className='d-flex align-items-center  ' style={{ cursor: 'pointer' }}>
 
 
+                                {
+                                    row.isDraft==1 && 
+                                    <div class="form-check form-switch mx-2  text-danger">
+                                    <form encType="multipart/form-data" method='POST' >
+                                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                                            value=""
+
+
+                                            onChange="a" />
+                                    </form>
+
+                                </div>
+                                }
+                              
+
                                 <div className='text-secondary '>
                                     <Link to={`/edit-advertisement/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
@@ -586,10 +601,11 @@ function ViewAllAdvertisement() {
 
                                             <div className='d-flex table-filter-menus align-items-center'>
 
-                                                <h6 className={`${advertisementFiltering === 'all' ? 'filterTrack' : ""} mx-2`} onClick={() => setadvertisementFiltering('all')}>All</h6>
-                                                <h6 className={`${advertisementFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(1)}>Active</h6>
-                                                <h6 className={`${advertisementFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering(0)}>Paused</h6>
-                                                {/* <h6 className={`${advertisementFiltering === '' ? 'filterTrack' : ""} mx-3`} onClick={() => setadvertisementFiltering('')}>Finishing 15 Days</h6> */}
+                                                <h6 className={`${advertisementFiltering === 'all' ? 'filterTrack fw-400 text-dark' : ""} mx-2`} onClick={() => setadvertisementFiltering('all')}>All</h6>
+                                                <h6 className={`${advertisementFiltering === 1 ? 'filterTrack fw-400 text-dark' : ""} mx-3`} onClick={() => setadvertisementFiltering(1)}>Active</h6>
+                                                <h6 className={`${advertisementFiltering === 0 ? 'filterTrack fw-400 text-dark' : ""} mx-3`} onClick={() => setadvertisementFiltering(0)}>Paused</h6>
+                                                <h6 className={`${advertisementFiltering === 'draft' ? 'filterTrack fw-400 text-dark' : ""} mx-3`} onClick={() => setadvertisementFiltering('draft')}>My Draft</h6>
+                                                {/* <h6 className={`${advertisementFiltering === '' ? 'filterTrack fw-400 text-dark' : ""} mx-3`} onClick={() => setadvertisementFiltering('')}>Finishing 15 Days</h6> */}
                                                 <h6 className='mx-3'>
                                                     <select class="form-select form-select-sm rounded-pill" aria-label=".form-select-sm example" onChange={handleAdvertisementDaysFilter}>
                                                         <option selected value="all">Choose</option>

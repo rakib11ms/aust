@@ -757,7 +757,7 @@ function ViewBlogArticle() {
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
-                                                <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>Draft</h6>
+                                                <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>My Draft</h6>
 
                                             </div>
 

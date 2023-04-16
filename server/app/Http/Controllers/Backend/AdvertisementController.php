@@ -409,7 +409,7 @@ class AdvertisementController extends Controller
 
         if ($name == 'all') {
         
-        $all_advertisements =Advertisement::orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
+        $all_advertisements =Advertisement::where('isDraft',0)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
             return response()->json([
                 'status' => 200,
                 'all_advertisements' => $all_advertisements,
@@ -427,7 +427,14 @@ class AdvertisementController extends Controller
             ]);
         }
         else if($name == 0){
-   $all_advertisements =Advertisement::where('isPublished',0)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
+   $all_advertisements =Advertisement::where('isPublished',0)->where('isDraft',0)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
+            return response()->json([
+                'status' => 200,
+                'all_advertisements' => $all_advertisements,
+            ]);
+        }
+             else if($name == 'draft'){
+   $all_advertisements =Advertisement::where('isPublished',0)->where('isDraft',1)->orderBy('id','desc')->with(['AdvertisementImage','userName'])->get();
             return response()->json([
                 'status' => 200,
                 'all_advertisements' => $all_advertisements,
