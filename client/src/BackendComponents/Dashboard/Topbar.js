@@ -19,7 +19,7 @@ function Topbar() {
     const [clickedIcon, setClickedIcon] = useState(false);
     const [allUnreadNotification, setallUnreadNotification] = useState('');
     const [totalUnread, setTotalUnread] = useState('');
-    console.log('hello', allUnreadNotification)
+    // console.log('hello', allUnreadNotification)
     const [render, setRender] = useState('')
 
 

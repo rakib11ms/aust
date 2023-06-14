@@ -20,6 +20,7 @@ function ViewAllJob() {
     const [loading, setLoading] = useState(true);
 
     const [allJobPosts, setallJobPosts] = useState([]);
+    console.log('job posts filter', allJobPosts)
     const [totalActiveJobs, settotalActiveJobs] = useState([]);
     const [totalPendingJobs, settotalPendingJobs] = useState([]);
 
@@ -483,12 +484,13 @@ function ViewAllJob() {
     const [jobPostFiltering, setjobPostFiltering] = useState('all');
 
     // console.log('filtered post val',allJobPosts)
-    console.log('filter click check', jobPostFiltering)
+    // console.log('filter click check', jobPostFiltering)
 
 
     useEffect(() => {
         axios.get(`/api/filter-job-post-status/${jobPostFiltering}`).then(res => {
             if (res.data.status == 200) {
+                console.log('racing', res.data)
                 setallJobPosts(res.data.posts);
                 setLoading(false);
             }
@@ -620,7 +622,7 @@ function ViewAllJob() {
                                     <div class="inside " data-aos="fade-right">
                                         <div class="item1">
                                             <h2 className=' mb-0'>{totalActiveJobs}</h2>
-                                            <p className=''>Available</p>
+                                            <p className=''>Active</p>
                                         </div>
                                         <div class="item2">
                                             <h2 className=' mb-0'>{totalPendingJobs}</h2>

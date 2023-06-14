@@ -79,17 +79,6 @@ function CreateBlogArticle() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     // console.log('all users check', allUsers)
 
 
@@ -125,6 +114,7 @@ function CreateBlogArticle() {
         formData.append('article_blog_image', image);
         formData.append('posted_by', 1);
         formData.append('isDraft', 0);
+        formData.append('isPublished', 1);
 
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -164,29 +154,29 @@ function CreateBlogArticle() {
 
     }
 
-      //////////images code ///////////
+    //////////images code ///////////
 
-      const [multipleImages, setMultipleImages] = useState([]);
-      const [multipleImageFiles, setMultipleImageFiles] = useState({
-          files: []
-      });
-  
-  
-  
-      useEffect(() => {
-          if (multipleImages.length == 0) {
-              document.getElementById('formFileImage').value = "";
-          }
-      }, [multipleImages])
-  
-  
-  
-      console.log('image files', multipleImageFiles.files)
-      console.log('image url', multipleImages)
+    const [multipleImages, setMultipleImages] = useState([]);
+    const [multipleImageFiles, setMultipleImageFiles] = useState({
+        files: []
+    });
 
 
 
-      function removeArray(i) {
+    useEffect(() => {
+        if (multipleImages.length == 0) {
+            document.getElementById('formFileImage').value = "";
+        }
+    }, [multipleImages])
+
+
+
+    console.log('image files', multipleImageFiles.files)
+    console.log('image url', multipleImages)
+
+
+
+    function removeArray(i) {
         console.log('index clicked', i)
         // setMultipleImageFiles({
         //     files:
@@ -211,99 +201,99 @@ function CreateBlogArticle() {
 
 
     }
-   // Functions to preview multiple images
-   const changeMultipleFiles = (e) => {
-    setMultipleImageFiles({
-        files: [...multipleImageFiles.files, ...e.target.files]
-    })
-    if (e.target.files) {
-        const imageArray = Array.from(e.target.files).map((file) =>
-            URL.createObjectURL(file)
-        );
-        setMultipleImages((prevImages) => prevImages.concat(imageArray));
-    }
-};
-
-const render = (data) => {
-    return data.map((image, i) => {
-        return <div className='image-main mt-2' onClick={() => {
-            removeArray(i);
-        }}>
-            <i class="fa fa-close image-close text-danger" ></i>
-            <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
-        </div>
-    });
-};
-
-
-const [isDraft,setIsDraft]=useState(0)
-
-const draftArticleBlog=(e)=>{
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('category_id', category_id);
-    formData.append('subcategory_id', subcategory_id);
-    formData.append('article_blog_title', article_blog_title);
-    formData.append('article_blog_description', content1);
-    formData.append('article_blog_image', image);
-    formData.append('posted_by', 1);
-    formData.append('isDraft', 1);
-    formData.append('isPublished', 0);
-    multipleImageFiles.files.forEach(file => {
-        console.log('files check', file)
-
-        formData.append("image[]", file);
-
-    });
-
-
-    console.log('check all data', formData);
-
-
-
-
-    axios.post(`/api/add-article-blogs`, formData).then(res => {
-        if (res.data.status == 200) {
-            // Swal.fire(res.data.message, '', 'success')
-            // localStorage.removeItem("draftData");
-
-            navigate('/view-blog-article')
-            setcategory_id('');
-            setsubcategory_id('');
-            setarticle_blog_title('')
-
-            setContent1('');
-
-            setImage('');
-            setPicture('');
-            document.getElementById('article_blog_image').value = "";
+    // Functions to preview multiple images
+    const changeMultipleFiles = (e) => {
+        setMultipleImageFiles({
+            files: [...multipleImageFiles.files, ...e.target.files]
+        })
+        if (e.target.files) {
+            const imageArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            setMultipleImages((prevImages) => prevImages.concat(imageArray));
         }
-        // else if (res.data.status == 400) {
-        //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
-        //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+    };
 
-        // }
-    })
+    const render = (data) => {
+        return data.map((image, i) => {
+            return <div className='image-main mt-2' onClick={() => {
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger" ></i>
+                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+            </div>
+        });
+    };
 
-    Swal.fire('Draft Saved Successfully', '', 'success')
 
-    
+    const [isDraft, setIsDraft] = useState(0)
 
-}
+    const draftArticleBlog = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('category_id', category_id);
+        formData.append('subcategory_id', subcategory_id);
+        formData.append('article_blog_title', article_blog_title);
+        formData.append('article_blog_description', content1);
+        formData.append('article_blog_image', image);
+        formData.append('posted_by', 1);
+        formData.append('isDraft', 1);
+        formData.append('isPublished', 0);
+        multipleImageFiles.files.forEach(file => {
+            console.log('files check', file)
 
-// useEffect(()=>{
+            formData.append("image[]", file);
 
-//     let savedDraftData = window.localStorage.getItem("draftData");
-//     if(savedDraftData ){
+        });
 
-    
-//     const final=JSON.parse(savedDraftData);
-//     setContent1(final.article_blog_description)
-//     setcategory_id(final.category_id)
-//     setsubcategory_id(final.subcategory_id)
-//     setarticle_blog_title(final.article_blog_title)
-//     }
-// },[])
+
+        console.log('check all data', formData);
+
+
+
+
+        axios.post(`/api/add-article-blogs`, formData).then(res => {
+            if (res.data.status == 200) {
+                // Swal.fire(res.data.message, '', 'success')
+                // localStorage.removeItem("draftData");
+
+                navigate('/view-blog-article')
+                setcategory_id('');
+                setsubcategory_id('');
+                setarticle_blog_title('')
+
+                setContent1('');
+
+                setImage('');
+                setPicture('');
+                document.getElementById('article_blog_image').value = "";
+            }
+            // else if (res.data.status == 400) {
+            //     setjobDesc({ ...jobDesc, error_list: res.data.errors });
+            //     Swal.fire(jobDesc.error_list.job_id[0], '', 'error')
+
+            // }
+        })
+
+        Swal.fire('Draft Saved Successfully', '', 'success')
+
+
+
+    }
+
+    // useEffect(()=>{
+
+    //     let savedDraftData = window.localStorage.getItem("draftData");
+    //     if(savedDraftData ){
+
+
+    //     const final=JSON.parse(savedDraftData);
+    //     setContent1(final.article_blog_description)
+    //     setcategory_id(final.category_id)
+    //     setsubcategory_id(final.subcategory_id)
+    //     setarticle_blog_title(final.article_blog_title)
+    //     }
+    // },[])
 
 
 
@@ -452,8 +442,8 @@ const draftArticleBlog=(e)=>{
                                                 </div>
 
                                                 <div class="text-center mt-1" >
-                                                <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftArticleBlog}> DRAFT</button>
-                                                <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
+                                                    <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftArticleBlog}> DRAFT</button>
+                                                    <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
 
                                                 </div>
 

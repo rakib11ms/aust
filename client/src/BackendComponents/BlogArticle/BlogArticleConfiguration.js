@@ -22,6 +22,7 @@ function BlogArticleConfiguration() {
 
     const [totalDepartment, setTotalDepartment] = useState([])
     const [totalCategory, setTotalCategory] = useState([])
+    const [totalSubCategory, setTotalSubCategory] = useState([])
 
     console.log('ass', totalDepartment)
 
@@ -206,6 +207,8 @@ function BlogArticleConfiguration() {
         axios.get(`/api/article-blogs-subcategory`).then(res => {
             if (res.data.status == 200) {
                 setAllSubCategory(res.data.category);
+                setTotalSubCategory(res.data.total_sub_category)
+
                 setLoading(false);
             }
         })
@@ -525,7 +528,7 @@ function BlogArticleConfiguration() {
                                         <p className=''>Category</p>
                                     </div>
                                     <div class="item2">
-                                        <h2 className=' mb-0'>{2}</h2>
+                                        <h2 className=' mb-0'>{totalSubCategory}</h2>
                                         <p className=''>Sub Category</p>
                                     </div>
                                     {/* <div class="item2">
@@ -537,7 +540,7 @@ function BlogArticleConfiguration() {
                                 </div>
                                 <div class=" ">
 
-                                    <Link to=""><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A Blog/Article </span></button> </Link>
+                                    <Link to="/create-blog-article"><button type='button' className='btn border btn-sm text-light'> +  <span className='mx-1 ' style={{ textDecoration: 'none' }}>  Create A Blog/Article </span></button> </Link>
 
                                 </div>
 

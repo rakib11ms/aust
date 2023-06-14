@@ -11,6 +11,8 @@ import '../JobManagement.css'
 import Modal from 'react-modal';
 function JobConfiguration() {
 
+    const [loading, setLoading] = useState(true)
+
     const [allJobTypes, setAllJobTypes] = useState([]);
 
     console.log('all job types', allJobTypes)
@@ -181,26 +183,6 @@ function JobConfiguration() {
 
 
 
-    useEffect(() => {
-        axios.get(`/api/job-type`).then(res => {
-            if (res.data.status == 200) {
-                setAllJobTypes(res.data.job_type);
-                // setLoading(false);
-                setTotalJobType(res.data.total_job_types)
-            }
-        })
-
-        axios.get(`/api/edit-job-type/${editJobTypeId}`).then(res => {
-            if (res.data.status == 200) {
-                setEditJobTypeData(res.data.job_type);
-                // setLoading(false);
-            }
-        })
-
-
-
-
-    }, [renderAllJobTypes, editJobTypeId])
     const customStyles1 = {
         content: {
             // marginTop: '70px',
@@ -393,33 +375,6 @@ function JobConfiguration() {
 
     console.log('edit dep data ', editJobSectorId)
 
-
-
-
-
-
-    useEffect(() => {
-        axios.get(`/api/job-sector`).then(res => {
-            if (res.data.status == 200) {
-                setAllJobSectors(res.data.job_sector);
-                setTotalJobSector(res.data.total_job_sector)
-                // setLoading(false);
-            }
-        })
-
-        axios.get(`/api/edit-job-sector/${editJobSectorId}`).then(res => {
-            if (res.data.status == 200) {
-                setEditJobSectorData(res.data.job_sector);
-                // setLoading(false);
-            }
-        })
-
-
-    }, [renderAllJobSector, editJobSectorId])
-
-
-
-
     const deleteJobSector = (e, id) => {
         e.preventDefault();
 
@@ -452,27 +407,8 @@ function JobConfiguration() {
 
 
 
-
-
-
-
     const [alljobSector, setAllJobSector] = useState([]);
     const [alljobSubSector, setAllJobSubSector] = useState([]);
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
 
     ///job sub sector functionality starts
 
@@ -548,7 +484,7 @@ function JobConfiguration() {
 
     const [editJobSubSectorModalIsOpen, seteditJobSubSectorModalIsOpen] = useState(false);
     function openEditJobSubSectorModal(e, editId) {
-        console.log('bal',editId)
+        console.log('bal', editId)
         e.preventDefault();
         seteditJobSubSectorModalIsOpen(true)
         setEditJobSubSectorId(editId);
@@ -606,34 +542,27 @@ function JobConfiguration() {
     console.log('edit dep data ', editJobSectorId)
 
 
-
-
-
-
-    useEffect(() => {
-        axios.get(`/api/job-sector`).then(res => {
+    async function getData() {
+        axios.get(`/api/job-type`).then(res => {
             if (res.data.status == 200) {
-                setAllJobSectors(res.data.job_sector);
-                setTotalJobSector(res.data.total_job_sector)
+                setAllJobTypes(res.data.job_type);
                 // setLoading(false);
+                setTotalJobType(res.data.total_job_types)
+                setLoading(false)
             }
         })
 
-        axios.get(`/api/edit-job-sector/${editJobSectorId}`).then(res => {
+        axios.get(`/api/edit-job-type/${editJobTypeId}`).then(res => {
             if (res.data.status == 200) {
-                setEditJobSectorData(res.data.job_sector);
-                // setLoading(false);
+                setEditJobTypeData(res.data.job_type);
+                setLoading(false)
             }
         })
-
-
-    }, [renderAllJobSector, editJobSectorId])
-
-
-    useEffect(() => {
         axios.get(`/api/job-sector`).then(res => {
             if (res.data.status == 200) {
                 setAllJobSector(res.data.job_sector);
+                setLoading(false)
+
 
             }
         })
@@ -642,17 +571,24 @@ function JobConfiguration() {
             if (res.data.status == 200) {
                 setAllJobSubSector(res.data.job_sub_sector);
                 setTotalJobSubSector(res.data.total_job_sub_sector)
-
+                setLoading(false)
 
             }
         })
         axios.get(`/api/edit-job-sub-sector/${editJobSubSectorId}`).then(res => {
             if (res.data.status == 200) {
                 setEditJobSubSectorData(res.data.job_sub_sector);
-                // setLoading(false);
+                setLoading(false);
             }
         })
-    }, [renderAllJobSector, renderAllJobSubSector,editJobSubSectorId])
+
+    }
+
+
+
+    useEffect(() => {
+        getData()
+    }, [renderAllJobSector, renderAllJobSubSector, editJobSubSectorId, renderAllJobTypes, editJobTypeId])
 
     const deleteJobSubSector = (e, id) => {
         e.preventDefault();
@@ -856,7 +792,7 @@ function JobConfiguration() {
 
                                     <div className='job-type-secs'>
                                         {
-                                            allJobTypes.map((item, i) => {
+                                            loading ? 'Loading...' : allJobTypes.map((item, i) => {
                                                 return (
                                                     <>
                                                         <div>
@@ -1028,7 +964,7 @@ function JobConfiguration() {
 
 
                                         {
-                                            alljobSector.map((item, i) => {
+                                            loading ? 'Loading...' : alljobSector.map((item, i) => {
                                                 return (
                                                     <>
                                                         <div>
@@ -1262,7 +1198,7 @@ function JobConfiguration() {
 
 
                                         {
-                                            alljobSubSector.map((item, i) => {
+                                            loading ? 'Loading...' : alljobSubSector.map((item, i) => {
                                                 return (
                                                     <>
                                                         <div>

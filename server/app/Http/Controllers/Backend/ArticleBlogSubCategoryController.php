@@ -14,10 +14,11 @@ class ArticleBlogSubCategoryController extends Controller
         // $total_category = ArticleBlogSubCategory::orderBy('id', 'desc')->get()->count();
 
         $category = DB::table('article_blog_sub_categories')->leftJoin('article_blog_categories', 'article_blog_categories.id', '=', 'article_blog_sub_categories.category_id',)->select('article_blog_sub_categories.*', 'article_blog_categories.category_name')->orderBy('article_blog_sub_categories.id', 'desc')->get();
+        $total_sub_category = ArticleBlogSubCategory::orderBy('id', 'desc')->get()->count();
 
         return response()->json([
             'status' => 200,
-            // 'total_category' => $total_category,
+            'total_sub_category' => $total_sub_category,
 
             'category' => $category
         ]);

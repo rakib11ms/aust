@@ -402,10 +402,10 @@ function ViewAllUsers() {
                             <i className='fa fa-eye mx-1 '  >
                             </i>
                             <Link to={`/edit-user/${row.id}`} className="text-dark">
-                            <i className='fa fa-edit mx-2 '  >
-                            </i>
+                                <i className='fa fa-edit mx-2 '  >
+                                </i>
                             </Link>
-                          
+
 
                         </div>
 
@@ -1011,7 +1011,7 @@ function ViewAllUsers() {
 
                                         <div className=' bg-white py-0 my-0'>
 
-                                            <div className="d-flex justify-content-between py-0 my-0" style={{cursor:'pointer'}}>
+                                            <div className="d-flex justify-content-between py-0 my-0" style={{ cursor: 'pointer' }}>
 
                                                 <div className='d-flex align-items-center text-secondary '>
                                                     <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('All') }}>All</h6>

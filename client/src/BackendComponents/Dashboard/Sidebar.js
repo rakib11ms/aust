@@ -20,7 +20,7 @@ function Sidebar() {
     const [isActive11, setIsActive11] = useState(false);
     const [isActive12, setIsActive12] = useState(false);
     const [isActive13, setIsActive13] = useState(false);
-    console.log('is active cheking', isActive)
+    // console.log('is active cheking', isActive)
 
 
     const navigate = useNavigate();
@@ -54,12 +54,12 @@ function Sidebar() {
     // };
     // window.addEventListener('scroll', stickNavbar);
     const [trigger, setTrigger] = useState('')
-    console.log('trigger', trigger);
+    // console.log('trigger', trigger);
     const handleTrigger = (val) => {
         setTrigger(val)
     }
     var path = window.location.pathname;
-    console.log('widnow', path)
+    // console.log('widnow', path)
 
 
     useEffect(() => {

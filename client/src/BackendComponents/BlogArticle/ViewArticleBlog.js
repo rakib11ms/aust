@@ -21,7 +21,7 @@ function ViewBlogArticle() {
     const [loading, setLoading] = useState(true);
 
     const [allBlogArticle, setallBlogArticle] = useState([]);
-    console.log('allll postsss', allBlogArticle)
+    // console.log('allll postsss', allBlogArticle)
 
     const [totalBlogs, setTotalBlogs] = useState('');
     const [totalArticles, settotalArticles] = useState('');
@@ -239,7 +239,7 @@ function ViewBlogArticle() {
     };
     const [viewPostDescription, setViewPostDescription] = useState('');
 
-    console.log('view post', viewPostDescription)
+    // console.log('view post', viewPostDescription)
 
     const [viewNoticeNewsModalIsOpen, setviewNoticeNewsModalIsOpen] = useState(false);
     function openViewNoticeNewsModal(e, viewPost) {
@@ -488,28 +488,41 @@ function ViewBlogArticle() {
     // searchPostByRadioButton functionality
     const [searchRadioButtonValue, setSearchRadioButtonValue] = useState('');
     const [searchInputValue, setSearchInputValue] = useState('');
-    console.log('search input val', searchInputValue)
-    console.log('radio button seracg ', searchRadioButtonValue)
+    // console.log('search input val', searchInputValue)
+    // console.log('radio button seracg ', searchRadioButtonValue)
 
     const searchPostByRadioButton = (e, searchBy) => {
 
         // e.preventDefault();
-        console.log('seacrh by', searchBy)
+        // console.log('seacrh by', searchBy)
         setSearchRadioButtonValue(searchBy)
 
     }
 
     useEffect(() => {
-
-        axios.get(`/api/filter-article-blogs-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
-            console.log('reesssssssssssss', res)
-            if (res.data.status == 200) {
-                setallBlogArticle(res.data.article_blogs);
-                setLoading(false);
-            }
-        })
-        // }
-        console.log('useefefct run')
+        if(searchRadioButtonValue!=="" && searchInputValue!==""){
+            axios.get(`/api/filter-article-blogs-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+                // console.log('reesssssssssssss', res)
+                if (res.data.status == 200) {
+                    setallBlogArticle(res.data.article_blogs);
+                    setLoading(false);
+                }
+            })
+            // }
+            // console.log('useefefct run')
+        }
+        else if(searchInputValue=="" ){
+            axios.get(`/api/all-article-blogs`).then(res => {
+                if (res.data.status == 200) {
+                    setallBlogArticle(res.data.article_blogs);
+                    setTotalBlogs(res.data.total_blogs)
+                    settotalArticles(res.data.total_articles)
+                    setPendingPosts(res.data.total_pending_posts)
+                    setLoading(false);
+                }
+            })
+        }
+  
 
     }, [searchRadioButtonValue, searchInputValue])
 
@@ -524,7 +537,7 @@ function ViewBlogArticle() {
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
     const [selectedRowsIds, setSelectedRowsIds] = useState([]);
-    console.log("selcted rows ids", selectedRowsIds)
+    // console.log("selcted rows ids", selectedRowsIds)
 
 
 
