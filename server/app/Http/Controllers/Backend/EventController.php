@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Notification;
 use App\Models\AdminNoticeNotification;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\SendQueueEventEmail;
 
 class EventController extends Controller
 {
@@ -118,22 +119,23 @@ class EventController extends Controller
 
 
         $user_ids = explode(",", $request->contact_person);
+        // $users = User::whereIn("id", $user_ids)->get();
 
-        // dd($user_ids);         
-        $users = User::whereIn("id", $user_ids)->get();
-
-        // dd($users);
-
-        foreach ($users as $key => $user) {
-            // echo ($user->email);
-            Mail::to($user->email)->send(new EventMail($event));
-        }
+        // foreach ($users as $key => $user) {
+        //     // echo ($user->email);
+        //     Mail::to($user->email)->send(new EventMail($event));
+        // }
          
-        foreach($users as $key=>$user1){
-        Notification::send($user1, new EventNotification($event));
+        // foreach($users as $key=>$user1){
+        // Notification::send($user1, new EventNotification($event));
 
-        }
+        // }
 
+    
+        $job = (new SendQueueEventEmail($event,$user_ids)); 
+
+        dispatch($job);
+        // $event->save();
 
 
     $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();

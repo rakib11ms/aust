@@ -518,7 +518,7 @@ function ViewAllEvent() {
                         </div>
 
 
-                        <div className='mt-2' style={{ color: '#777777' }} dangerouslySetInnerHTML={{ __html: row.event_description.length > 50 ? `${row.event_description.substring(0, 50)}...` : row.event_description }}
+                        <div className='mt-2' style={{ color: '#777777' }} dangerouslySetInnerHTML={{ __html:row.event_description!==null && row.event_description.length > 50 ? `${row.event_description.substring(0, 50)}...` : row.event_description }}
                         />
 
 

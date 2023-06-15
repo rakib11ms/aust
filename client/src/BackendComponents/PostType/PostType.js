@@ -20,7 +20,7 @@ function PostType() {
     const [loading, setLoading] = useState(true);
 
     const [allPosts, setallPosts] = useState([]);
-    console.log('allll postsss', allPosts)
+    // console.log('allll postsss', allPosts)
 
     const [totalPosts, setTotalPosts] = useState('');
     const [activePosts, setActivePosts] = useState('');
@@ -123,7 +123,7 @@ function PostType() {
 
 
     const handlePostApproval = (e, id) => {
-        console.log('update', id)
+        // console.log('update', id)
 
         if (e.target.checked === true) {
             const formData = new FormData();
@@ -336,9 +336,6 @@ function PostType() {
 
 
 
-
-
-
     ////modal functionality start 
 
 
@@ -497,9 +494,6 @@ function PostType() {
 
             ,
 
-
-
-
             cellStyle: {
                 // marginLeft: 50,
                 maxWidth: 200,
@@ -640,15 +634,6 @@ function PostType() {
                                 />
 
 
-
-
-
-
-
-
-
-
-
                             </div>
 
 
@@ -710,7 +695,7 @@ function PostType() {
 
 
     // console.log('filtered post val',allPosts)
-    console.log('filter click check', postFiltering)
+    // console.log('filter click check', postFiltering)
 
 
 
@@ -720,10 +705,6 @@ function PostType() {
         axios.get(`/api/filter-post/${postFiltering}`).then(res => {
 
             if (res.data.status == 200) {
-                // window.location.reload();
-                console.log('use effect running')
-                // window.location.reload();
-
                 setallPosts(res.data.posts);
                 // setLoading(false);
             }
@@ -736,28 +717,42 @@ function PostType() {
     // searchPostByRadioButton functionality
     const [searchRadioButtonValue, setSearchRadioButtonValue] = useState('');
     const [searchInputValue, setSearchInputValue] = useState('');
-    console.log('search input val', searchInputValue)
-    console.log('radio button seracg ', searchRadioButtonValue)
+    // console.log('search input val', searchInputValue)
+    // console.log('radio button seracg ', searchRadioButtonValue)
 
     const searchPostByRadioButton = (e, searchBy) => {
 
         // e.preventDefault();
-        console.log('seacrh by', searchBy)
+        // console.log('seacrh by', searchBy)
         setSearchRadioButtonValue(searchBy)
 
     }
 
     useEffect(() => {
+        console.log('hello depends')
+        if(searchRadioButtonValue!=="" && searchInputValue!==""){
+            axios.get(`/api/filter-post-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+                if (res.data.status == 200) {
+                    setallPosts(res.data.posts);
+                    setLoading(false);
+                }
+            })
+            // }
+            console.log('radio search calling')
 
-        axios.get(`/api/filter-post-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
-            console.log('reesssssssssssss', res)
-            if (res.data.status == 200) {
-                setallPosts(res.data.posts);
-                setLoading(false);
-            }
-        })
-        // }
-        console.log('useefefct run')
+        }
+        else if(searchInputValue=="" ){
+            axios.get(`/api/filter-post/${postFiltering}`).then(res => {
+
+                if (res.data.status == 200) {
+                    setallPosts(res.data.posts);
+                    // setLoading(false);
+                }
+            })
+            console.log('radio nai but search calling')
+
+        }
+      
 
     }, [searchRadioButtonValue, searchInputValue])
 
@@ -772,7 +767,7 @@ function PostType() {
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
     const [selectedRowsIds, setSelectedRowsIds] = useState([]);
-    console.log("selcted rows ids", selectedRowsIds)
+    // console.log("selcted rows ids", selectedRowsIds)
 
 
 
@@ -1130,59 +1125,7 @@ function PostType() {
                                     </div>
 
 
-
-
-
-                                    {/* <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label fs-6">Mapping</label>
-                                        <div className='d-flex mt-2'>
-                                            <div className=''>
-                                                Mapping With
-                                            </div>
-
-
-                                            <div class="form-check mx-3">
-                                                <input class="form-check-input" type="checkbox" value="administrator" id="flexCheckDefault" name="administrator" onChange={handleAddPostTypeChange}
-                                                />
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Administrator
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check mx-2">
-                                                <input class="form-check-input" type="checkbox" value="moderator" id="flexCheckDefault" name="moderator" onChange={handleAddPostTypeChange} />
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Moderator
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check mx-2">
-                                                <input class="form-check-input" type="checkbox" value="alumni" id="flexCheckDefault" name="alumni" onChange={handleAddPostTypeChange} />
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Alumni
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check mx-2">
-                                                <input class="form-check-input" type="checkbox" value="stuff" id="flexCheckDefault" name="stuff" onChange={handleAddPostTypeChange} />
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Stuff
-                                                </label>
-                                            </div>
-
-
-
-
-
-                                        </div>
-
-                                    </div> */}
-
-
                                     <button className='btn btn-success btn-sm float-start me-5 rounded-3 px-3 py-1 ' onClick={handleSave}>Save</button>
-
-
-
 
 
                                 </div>

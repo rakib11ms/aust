@@ -105,8 +105,8 @@ function CreateEvent() {
 
 
 
-    console.log('image files', multipleImageFiles.files)
-    console.log('image url', multipleImages)
+    // console.log('image files', multipleImageFiles.files)
+    // console.log('image url', multipleImages)
 
     // multipleImages.map((item,i)=>{
     //     console.log('hello abba',i)
@@ -226,7 +226,7 @@ function CreateEvent() {
     }
 
     const [allEventTypes, setAllEventTypes] = useState([]);
-    console.log('allllllllllllllllllllllllllllllllllllllllllllllll', allEventTypes)
+    // console.log('allllllllllllllllllllllllllllllllllllllllllllllll', allEventTypes)
 
 
 
@@ -298,10 +298,10 @@ function CreateEvent() {
                                                                 })
                                                             }
 
-                                                            
+
 
                                                         </select>
-                                                   
+
 
                                                     </div>
                                                 </div>
@@ -451,10 +451,10 @@ function CreateEvent() {
                                                                     <span className='mx-2'>Show  Banner</span>
                                                                 </div>
 
-                                                                <div className='mt-4'>
+                                                                {/* <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
                                                                     <span className='mx-2 mt-5'>Priority</span>
-                                                                </div>
+                                                                </div> */}
 
                                                             </div>
                                                             <div class="" style={{ width: '50%' }}>
@@ -592,16 +592,7 @@ function CreateEvent() {
                                                                 </div>
 
 
-                                                                <div class="mt-3">
-                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                                                        onChange={(e) => {
-                                                                            setpriority(e.target.value)
-                                                                        }}>
-                                                                        {/* <option selected>Choose</option> */}
-                                                                        <option value="normal" selected>Normal</option>
-                                                                        <option value="high">High</option>
-                                                                    </select>
-                                                                </div>
+
 
                                                             </div>
                                                         </div>

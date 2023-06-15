@@ -1,22 +1,28 @@
 @component('mail::message')
-<!-- # Introduction
- -->
-# {{ $event['event_title'] }}
 
 
+<div style="max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f8f8;
+        font-family: Arial, sans-serif;" >
+    <h1 style="font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;">{{ $event['event_title'] }}</h1>
 
-@component('mail::button', ['url' => 'https://rakib10ms.com/admin-login'])
-Button Text
+    <div style="font-size: 14px;
+        margin-bottom: 20px;
+        text-align: justify;
+        color: #000000;">
+        {!! $event['event_description'] !!}
+    </div>
+
+    <p style="margin-top: 20px;
+        color: #888888;
+        font-size: 12px;">Event Time: {{ $event['event_time'] }}</p>
+
+    <p style="margin-top: 20px;
+        color: #888888;
+        font-size: 12px;">Thanks,<br>{{ config('app.name') }}</p>
+</div>
 @endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
-
-
-
-Hi { { name } }, 
-
-We are emailing you because { { reason } }...This will be the content of the message, you can insert HTML or anything you want.
-
-Thank you. - {{config('app.name') }}
