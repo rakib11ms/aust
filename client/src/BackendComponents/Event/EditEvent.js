@@ -278,18 +278,18 @@ function EditEvent() {
 
 
 
-    const[renderImageData,setRenderImageData]=useState('')
+    const [renderImageData, setRenderImageData] = useState('')
 
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`/api/edit-event/${id}`).then(res => {
             if (res.data.status == 200) {
-           
+
                 setAllImagesfromDatabase(res.data.event_images)
 
             }
         })
-    },[renderImageData])
+    }, [renderImageData])
 
     return (
         <div className="container-fluid">
@@ -475,10 +475,10 @@ function EditEvent() {
                                                                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Show  Banner</span>
                                                                 </div>
-                                                                <div className='mt-4'>
+                                                                {/* <div className='mt-4'>
                                                                     <i class="fa fa-flag" aria-hidden="true"></i>
                                                                     <span className='mx-2'>Priority</span>
-                                                                </div>
+                                                                </div> */}
 
                                                             </div>
                                                             <div class="" style={{ width: '50%' }}>
@@ -615,17 +615,7 @@ function EditEvent() {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="">
-                                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                                                        onChange={(e) => {
-                                                                            setpriority(e.target.value)
-                                                                        }}>
-                                                                        {/* <option selected>Open this select menu</option> */}
-                                                                        <option value="normal" selected>Normal</option>
-                                                                        <option value="urgent">Urgent</option>
-                                                                        <option value="low">Low</option>
-                                                                    </select>
-                                                                </div>
+
 
                                                             </div>
                                                         </div>
@@ -650,7 +640,7 @@ function EditEvent() {
 
                                         <div className='mb-2 mt-1 d-flex'>
 
-                                
+
 
                                             {
                                                 render(multipleImages)

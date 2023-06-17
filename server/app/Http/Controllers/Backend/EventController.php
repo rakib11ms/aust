@@ -54,6 +54,82 @@ class EventController extends Controller
 
 
 
+//     public function store(Request $request)
+//     {
+
+//         $validator = Validator::make($request->all(),[
+//             'event_title' => 'unique:aussta_events',
+//             'contact_person'=>'required'
+//         ]);
+           
+
+//         if ($validator->fails())
+//         {
+//             return response()->json([
+//                 'status' => 400,
+//                 'errors' => $validator->messages(),
+//             ]);
+
+//         }else{
+
+//         $event = new AusstaEvent();
+//        $event_unique_id = (date('md') . rand(1, 99999));
+
+//           $event->event_unique_id=$event_unique_id;
+//         $event->event_type_id = $request->event_type_id;
+//         $event->event_title = $request->event_title;
+//         $event->event_fee = $request->event_fee;
+//         $event->updated_by = $request->updated_by;
+//         $event->event_description = $request->event_description;
+//         $event->contact_person = $request->contact_person;
+//         // $event->event_date = date('d-m-Y', strtotime($request->event_date));
+//         $event->event_date = $request->event_date;
+//         $event->showBanner = $request->showBanner;
+
+//         $event->payment_type = $request->payment_type;
+
+//         $event->posted_by = $request->posted_by;
+//         $event->event_time = $request->event_time;
+//         // $event->isPublished = $request->isPublished;
+//         // $event->isArchived = $request->isArchived;
+//         $event->priority = $request->priority;
+//         $event->notification_type = 'event_type';
+//         $event->save();
+
+
+
+
+//    foreach ($request->file('image') as $image) {
+
+//             $upload_image_name = time() . $image->getClientOriginalName();
+//             $image->move('images/', $upload_image_name);
+
+//             $event_multiple_image=new EventMultipleImage();
+//             $event_multiple_image->event_id=$event->id;
+//             $event_multiple_image->image=$upload_image_name;
+//             $event_multiple_image->save();
+//             // $name[] = $upload_image_name;
+
+//             // $advertisement->image =  implode(', ', $name);
+//         // $advertisement->save();
+//         }
+//            // $advertisement->save();
+
+
+
+
+//         $user_ids = explode(",", $request->contact_person);
+ 
+//         $job = (new SendQueueEventEmail($event,$user_ids)); 
+
+//         dispatch($job);
+//         // $event->save();
+
+
+
+// }
+
+
     public function store(Request $request)
     {
 

@@ -149,16 +149,6 @@ function App() {
 
 
 
-
-
-
-
-
-
-
-
-
-
   const navigate = useNavigate();
   useEffect(() => {
     if (successStatus.status == 'yes') {
@@ -195,136 +185,147 @@ function App() {
 
 
 
-      <Suspense fallback={<div class="spin1">
+      {/* <Suspense fallback={<div class="spin1">
         <div class="spinner-border text-success" style={{ width: '2rem', "height": "2rem", "role": "status" }}>
           <span class="visually-hidden ">Loading...</span>
         </div>
-      </div>}>
+      </div>}> */}
+      {/* <Suspense fallback={
+        // <div class="spin1">
+        <>
+          <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </>
+        // </div>
+      }> */}
+
+      <Routes>
+
+
+        <Route path="/" element={<Navigate to='/admin-login' />} />
+
+        <Route exact path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}>
+
+        </Route>
+
+        <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
+        <Route path="admin-password-reset/:id" element={<AdminPasswordReset />}></Route>
 
 
 
-        <Routes>
-
-
-          <Route path="/" element={<Navigate to='/admin-login' />} />
-
-          <Route exact path="admin-login" element={<AdminLogin handleSucessLogin={handleSucessLogin} />}>
-
-          </Route>
-
-          <Route path="admin-password-reset-form" element={<AdminPasswordResetForm />}></Route>
-          <Route path="admin-password-reset/:id" element={<AdminPasswordReset />}></Route>
-
-
-
-          <Route path="term-conditions" element={<TermCondition />}></Route>
-          <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
-
-
-
-
-          <Route element={<ProtectedRoutes />}>
-            {
-              successStatus == 'yes' ?
-                storage === 'admin' && <>
-                  <Route path="admin-dashboard" element={<Dashboard />}></Route>
-                </>
-
-                :
-                <Route path="admin-login" element={<AdminLogin />}></Route>
-
-            }
-
-
-            <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            <Route path="post-type" element={<PostType />}></Route>
-            <Route path="post-configuration" element={<PostConfiguration />}></Route>
-            <Route path="job-configuration" element={<JobConfiguration />}></Route>
-            <Route path="create-job-post" element={<CreateJobPost />}></Route>
-            <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
-
-            <Route path="view-all-users" element={<ViewAllUsers />}></Route>
-            <Route path="edit-user/:id" element={<EditUser />}></Route>
-            <Route path="role-management" element={<RoleManagement />}></Route>
-
-            <Route path="user-configuration" element={<UserConfiguration />}></Route>
+        <Route path="term-conditions" element={<TermCondition />}></Route>
+        <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
 
 
 
 
-            <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
+        <Route element={<ProtectedRoutes />}>
+          {
+            successStatus == 'yes' ?
+              storage === 'admin' && <>
+                <Route path="admin-dashboard" element={<Dashboard />}></Route>
+              </>
 
-            <Route path="create-event" element={<CreateEvent />}></Route>
-            <Route path="edit-events/:id" element={<EditEvent />}></Route>
-            <Route path="event-configuration" element={<EventConfiguration />}></Route>
-            <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+              :
+              <Route path="admin-login" element={<AdminLogin />}></Route>
 
-
-            <Route path="admin-dashboard" element={<Dashboard />}></Route>
-            <Route path="post-type" element={<PostType />}></Route>
-            <Route path="job-configuration" element={<JobConfiguration />}></Route>
-            <Route path="create-job-post" element={<CreateJobPost />}></Route>
-            <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
-            <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
-
-            <Route path="create-event" element={<CreateEvent />}></Route>
-            <Route path="edit-events/:id" element={<EditEvent />}></Route>
-            <Route path="event-configuration" element={<EventConfiguration />}></Route>
-            <Route path="view-all-events" element={<ViewAllEvent />}></Route>
-            <Route path="view-event-payment" element={<ViewEventPayment />}></Route>
-
-            <Route path="view-blog-article" element={<ViewBlogArticle />}></Route>
-            <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>
-            <Route path="edit-blog-article/:id" element={<EditBlogArticle />}></Route>
-            <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
+          }
 
 
-            <Route path="create-notice-news" element={<CreateNoticeNews />}></Route>
-            <Route path="view-notice-news" element={<ViewNoticeNews />}></Route>
-            <Route path="edit-notice-news/:id" element={<EditNoticeNews />}></Route>
-            <Route path="notice-news-configuration" element={<NoticeNewsConfiguration />}></Route>
+          <Route path="admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="post-type" element={<PostType />}></Route>
+          <Route path="post-configuration" element={<PostConfiguration />}></Route>
+          <Route path="job-configuration" element={<JobConfiguration />}></Route>
+          <Route path="create-job-post" element={<CreateJobPost />}></Route>
+          <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
+
+          <Route path="view-all-users" element={<ViewAllUsers />}></Route>
+          <Route path="edit-user/:id" element={<EditUser />}></Route>
+          <Route path="role-management" element={<RoleManagement />}></Route>
+
+          <Route path="user-configuration" element={<UserConfiguration />}></Route>
 
 
 
 
-            <Route path="create-banner" element={<CreateBanner />}></Route>
-            <Route path="view-all-banner" element={<ViewAllBanner />}></Route>
-            <Route path="edit-banner/:id" element={<EditBanner />}></Route>
+          <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
+
+          <Route path="create-event" element={<CreateEvent />}></Route>
+          <Route path="edit-events/:id" element={<EditEvent />}></Route>
+          <Route path="event-configuration" element={<EventConfiguration />}></Route>
+          <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+
+
+          <Route path="admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="post-type" element={<PostType />}></Route>
+          <Route path="job-configuration" element={<JobConfiguration />}></Route>
+          <Route path="create-job-post" element={<CreateJobPost />}></Route>
+          <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
+          <Route path="edit-jobs/:id" element={<EditJobPost />}></Route>
+
+          <Route path="create-event" element={<CreateEvent />}></Route>
+          <Route path="edit-events/:id" element={<EditEvent />}></Route>
+          <Route path="event-configuration" element={<EventConfiguration />}></Route>
+          <Route path="view-all-events" element={<ViewAllEvent />}></Route>
+          <Route path="view-event-payment" element={<ViewEventPayment />}></Route>
+
+          <Route path="view-blog-article" element={<ViewBlogArticle />}></Route>
+          <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>
+          <Route path="edit-blog-article/:id" element={<EditBlogArticle />}></Route>
+          <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
+
+
+          <Route path="create-notice-news" element={<CreateNoticeNews />}></Route>
+          <Route path="view-notice-news" element={<ViewNoticeNews />}></Route>
+          <Route path="edit-notice-news/:id" element={<EditNoticeNews />}></Route>
+          <Route path="notice-news-configuration" element={<NoticeNewsConfiguration />}></Route>
 
 
 
-            <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>
-            <Route path="view-all-advertisement" element={<ViewAllAdvertisement />}></Route>
-            <Route path="edit-advertisement/:id" element={<EditAdvertisement />}></Route>
 
-            <Route path="create-vlog" element={<CreateVlog />}></Route>
-            <Route path="view-vlog" element={<ViewVlog />}></Route>
-            <Route path="edit-vlog/:id" element={<EditVlog />}></Route>
-            <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
-
-            <Route path="settings" element={<Settings />}></Route>
-
-
-            <Route path="create-organization" element={<CreateOrganization/>}></Route>
-            <Route path="view-organization" element={<ViewOrganization />}></Route>
-            <Route path="edit-organization/:id" element={<EditOrganization />}></Route>
+          <Route path="create-banner" element={<CreateBanner />}></Route>
+          <Route path="view-all-banner" element={<ViewAllBanner />}></Route>
+          <Route path="edit-banner/:id" element={<EditBanner />}></Route>
 
 
 
-            <Route path="view-global-notification" element={< ViewNotification />}></Route>
-            <Route path="create-global-notification" element={< CreateNotification />}></Route>
+          <Route path="create-advertisement" element={<CreateAdvertisement />}></Route>
+          <Route path="view-all-advertisement" element={<ViewAllAdvertisement />}></Route>
+          <Route path="edit-advertisement/:id" element={<EditAdvertisement />}></Route>
+
+          <Route path="create-vlog" element={<CreateVlog />}></Route>
+          <Route path="view-vlog" element={<ViewVlog />}></Route>
+          <Route path="edit-vlog/:id" element={<EditVlog />}></Route>
+          <Route path="vlog-configuration" element={<VlogConfiguration />}></Route>
+
+          <Route path="settings" element={<Settings />}></Route>
+
+
+          <Route path="create-organization" element={<CreateOrganization />}></Route>
+          <Route path="view-organization" element={<ViewOrganization />}></Route>
+          <Route path="edit-organization/:id" element={<EditOrganization />}></Route>
+
+
+
+          <Route path="view-global-notification" element={< ViewNotification />}></Route>
+          <Route path="create-global-notification" element={< CreateNotification />}></Route>
 
 
 
 
-          </Route>
-          <Route path="*" element={<NotFound />}></Route>
+        </Route>
+        <Route path="*" element={<NotFound />}></Route>
 
 
 
 
-        </Routes>
-      </Suspense>
+      </Routes>
+      {/* </Suspense > */}
 
 
 
