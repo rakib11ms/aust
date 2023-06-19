@@ -119,8 +119,8 @@ class NoticeNewsController extends Controller
 
 
 
-
-   foreach ($request->file('image') as $image) {
+            if($request->file('image')){
+ foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('images/', $upload_image_name);
@@ -132,6 +132,8 @@ class NoticeNewsController extends Controller
        
         }
 
+            }
+      
                 $count = NoticeNews::orderBy('id','desc')->get()->count();
 
  return response()->json([
@@ -240,13 +242,13 @@ class NoticeNewsController extends Controller
                 'notice_news' => $notice_news,
             ]);
         }
-        else{
-                      $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get(); 
-        return response()->json([
-                'status' => 200,
-                'notice_news' => $notice_news,
-            ]);
-        }
+        // else{
+        //               $notice_news=DB::table('notice_news')->leftJoin('notice_news_categories','notice_news_categories.id','=','notice_news.category_id',)->leftJoin('notice_news_sub_categories','notice_news_sub_categories.id','=','notice_news.subcategory_id')->leftJoin('users','users.id','=','notice_news.posted_by')->select('notice_news.*','notice_news_categories.category_name','notice_news_sub_categories.subcategory_name','users.full_name')->orderBy('notice_news.id','desc')->get(); 
+        // return response()->json([
+        //         'status' => 200,
+        //         'notice_news' => $notice_news,
+        //     ]);
+        // }
      }
 
 

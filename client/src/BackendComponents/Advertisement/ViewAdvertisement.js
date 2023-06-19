@@ -261,19 +261,19 @@ function ViewAllAdvertisement() {
 
 
                                 {
-                                    row.isDraft==1 && 
+                                    row.isDraft == 1 &&
                                     <div class="form-check form-switch mx-2  text-danger">
-                                    <form encType="multipart/form-data" method='POST' >
-                                        <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
-                                            value=""
+                                        <form encType="multipart/form-data" method='POST' >
+                                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault"
+                                                value=""
 
 
-                                            onChange="a" />
-                                    </form>
+                                                onChange="a" />
+                                        </form>
 
-                                </div>
+                                    </div>
                                 }
-                              
+
 
                                 <div className='text-secondary '>
                                     <Link to={`/edit-advertisement/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
@@ -552,11 +552,12 @@ function ViewAllAdvertisement() {
                             <section className='view-event-header d-flex justify-content-end rounded-3 mt-3'>
                                 <div class="col-5 ">
                                     <div class="view-event-header-form  px-3 ">
-                                        <div class="input-group">
+                                        <div class="input-group ">
                                             <input type="text" class="form-control shadow-sm" placeholder="Search.." aria-label="Username" onChange={(e) => setGlobalSearch(e.target.value)} aria-describedby="basic-addon1" data-aos="flip-up" />
 
                                             <span class="input-group-text bg-white py-3 shadow-sm" id="basic-addon1"> <i class="fa-solid fa-magnifying-glass"></i></span>
                                         </div>
+                                        
                                     </div>
 
                                 </div>

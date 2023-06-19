@@ -72,7 +72,7 @@ function EditAdvertisement() {
     const [viewInPage, setviewInPage] = React.useState([]);
     // const [viewInPageId, setviewInPageId] =useState([]);
 
-    console.log('checking baal', viewInPage)
+    // console.log('checking baal', viewInPage)
 
 
     let result = viewInPage.map(a => a.page_name);
@@ -179,7 +179,8 @@ function EditAdvertisement() {
 
 
     const [payment_type, setpayment_type] = useState();
-    const [advertisement_fee, setadvertisement_fee] = useState('');
+    const [advertisement_fee, setadvertisement_fee] = useState(null);
+    console.log('edit advertisement fee',advertisement_fee)
 
     ////advertisment file ///
 
@@ -216,6 +217,9 @@ function EditAdvertisement() {
         formData.append("advertiser_email", advertiser_email);
         formData.append("reference_no", reference_no);
         formData.append("po_no", po_no);
+        formData.append('isPublished', 1);
+        formData.append('isDraft', 0);
+
         formData.append("advertisement_file", advertisement_file);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -274,7 +278,7 @@ function EditAdvertisement() {
         blog_page: '',
         post_page: '',
         job_page: '',
-    
+
     });
 
     // console.log('all checkbox',allCheckBox)
@@ -299,7 +303,15 @@ function EditAdvertisement() {
                 setredirect_link(res.data.advertisement.redirect_link);
                 setadvertisement_title(res.data.advertisement.advertisement_title)
                 setadvertisement_fee(res.data.advertisement.advertisement_fee)
-                setpayment_type(res.data.advertisement.payment_type)
+                if(advertisement_fee!==null){
+                    setpayment_type(1)
+
+                }
+                else{
+                    setpayment_type(0)
+ 
+                }
+                // setpayment_type(res.data.advertisement.payment_type)
                 setadvertiser_email(res.data.advertisement.advertiser_email)
                 setadvertiser_name(res.data.advertisement.advertiser_name)
                 setadvertiser_phone(res.data.advertisement.advertiser_phone)
@@ -314,7 +326,7 @@ function EditAdvertisement() {
                     blog_page: res.data.advertisement.blog_page,
                     post_page: res.data.advertisement.post_page,
                     job_page: res.data.advertisement.job_page,
-         
+
                 })
 
             }
@@ -322,7 +334,7 @@ function EditAdvertisement() {
 
     }, [renderData])
 
- 
+
 
     // console.log('hhh', allCheckBox)
     function handleCheckbox(e) {
@@ -332,18 +344,18 @@ function EditAdvertisement() {
 
     }
 
-    const[renderImageData,setRenderImageData]=useState('')
+    const [renderImageData, setRenderImageData] = useState('')
 
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`/api/edit-advertisement/${id}`).then(res => {
             if (res.data.status == 200) {
-           
+
                 setAllImagesfromDatabase(res.data.advertisement_images)
 
             }
         })
-    },[renderImageData])
+    }, [renderImageData])
 
 
     return (
@@ -443,7 +455,8 @@ function EditAdvertisement() {
                                                                                     {
                                                                                         axios.post(`/api/delete-advertisement-multiple-image/${item.id}`).then(res => {
                                                                                             if (res.data.status == 200) {
-                                                                                                setRenderImageData(res.data)                                                                                            }
+                                                                                                setRenderImageData(res.data)
+                                                                                            }
                                                                                         })
                                                                                     }
 
@@ -474,13 +487,13 @@ function EditAdvertisement() {
                                                     </div>
                                                     <div class="mt-1">
                                                         <button type="submit" className='btn btn-success rounded-3 px-4 mx-2' onSubmit={handleUpdate}>UPDATE
-                                                        {
-                                                    clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
+                                                            {
+                                                                clickedRender ? <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span> : ''
 
 
 
 
-                                                }
+                                                            }
                                                         </button>
                                                     </div>
 
@@ -651,8 +664,7 @@ function EditAdvertisement() {
                                                                         }}>
                                                                         <option selected value="">Choose</option>
                                                                         <option value="top" >Top</option>
-                                                                        <option value="right">Right</option>
-                                                                        <option value="left">Left</option>
+                                                                        <option value="middle">Middle</option>
                                                                         <option value="bottom">Bottom</option>
                                                                     </select>
                                                                 </div>
@@ -666,41 +678,41 @@ function EditAdvertisement() {
 
 
                                                         <div class="mt-2">
-                                                        <div class="d-flex flex-wrap ">
+                                                            <div class="d-flex flex-wrap ">
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="home_page"  checked={allCheckBox.home_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="home_page" checked={allCheckBox.home_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Home
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="event_page" checked={allCheckBox.event_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="event_page" checked={allCheckBox.event_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Event
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="news_page" checked={allCheckBox.news_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="news_page" checked={allCheckBox.news_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         News
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="blog_page" checked={allCheckBox.blog_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="blog_page" checked={allCheckBox.blog_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Blog
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="post_page" checked={allCheckBox.post_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="post_page" checked={allCheckBox.post_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Post
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-2 mt-2">
-                                                                    <input class="form-check-input" type="checkbox" name="job_page" checked={allCheckBox.job_page==1} id="flexCheckDefault" onChange={handleCheckbox} />
+                                                                    <input class="form-check-input" type="checkbox" name="job_page" checked={allCheckBox.job_page == 1} id="flexCheckDefault" onChange={handleCheckbox} />
                                                                     <label class="form-check-label" for="flexCheckDefault">
                                                                         Job
                                                                     </label>

@@ -549,7 +549,7 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border  border-success rounded-side bb px-1" style={{ height: '140px' }}>
-                                                                <Link to={`/edit-events/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                <Link to={`/view-all-events`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between my-1">
 
 
@@ -614,7 +614,7 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb " style={{ height: '140px' }}>
-                                                                <Link to={`/edit-notice-news/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                <Link to={`/view-notice-news`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
@@ -684,7 +684,7 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '140px' }}>
-                                                                <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                <Link to={`/view-blog-article`} style={{ textDecoration: 'none', color: "black" }}>
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
 
@@ -753,7 +753,7 @@ function Dashboard() {
                                                     return (
                                                         <>
                                                             <div className="cards border p-2  border-success rounded-side bb  " style={{ height: '140px' }}>
-                                                                <Link to={`/edit-blog-article/${item.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                                                                <Link to={`/view-blog-article`} style={{ textDecoration: 'none', color: "black" }}>
 
                                                                     <nav className="card-tops-con d-flex align-items-center justify-content-between ">
 
@@ -915,7 +915,7 @@ function Dashboard() {
                                     <Slider {...settings}>
 
                                         {
-                                            allActiveJobs !==undefined && allActiveJobs.map((item, i) => {
+                                            allActiveJobs !== undefined && allActiveJobs.map((item, i) => {
                                                 return (
 
                                                     <div className="cards border p-2 border-success rounded-side bb  ">

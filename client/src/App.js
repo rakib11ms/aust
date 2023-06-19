@@ -162,6 +162,7 @@ function App() {
 
         navigate('/admin-dashboard')
         // setSuccessStatus('');
+        window.location.reload();
       }
       else if (successStatus.user_type === 'user') {
         navigate('/admin-login')
@@ -191,17 +192,19 @@ function App() {
         </div>
       </div>}> */}
       {/* <Suspense fallback={
-        // <div class="spin1">
-        <>
+        <div class="spin1">
           <div class="spinner-grow text-success" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
 
-          <div class="spinner-grow text-danger" role="status">
+          <div class="spinner-grow text-success" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-        </>
-        // </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+        </div>
       }> */}
 
       <Routes>

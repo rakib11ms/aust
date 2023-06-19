@@ -312,29 +312,29 @@ function CreateNoticeNews() {
 
 
 
-      //////////images code ///////////
+    //////////images code ///////////
 
-      const [multipleImages, setMultipleImages] = useState([]);
-      const [multipleImageFiles, setMultipleImageFiles] = useState({
-          files: []
-      });
-  
-  
-  
-      useEffect(() => {
-          if (multipleImages.length == 0) {
-              document.getElementById('formFileImage').value = "";
-          }
-      }, [multipleImages])
-  
-  
-  
-      console.log('image files', multipleImageFiles.files)
-      console.log('image url', multipleImages)
+    const [multipleImages, setMultipleImages] = useState([]);
+    const [multipleImageFiles, setMultipleImageFiles] = useState({
+        files: []
+    });
 
 
 
-      function removeArray(i) {
+    useEffect(() => {
+        if (multipleImages.length == 0) {
+            document.getElementById('formFileImage').value = "";
+        }
+    }, [multipleImages])
+
+
+
+    console.log('image files', multipleImageFiles.files)
+    console.log('image url', multipleImages)
+
+
+
+    function removeArray(i) {
         console.log('index clicked', i)
         // setMultipleImageFiles({
         //     files:
@@ -359,29 +359,29 @@ function CreateNoticeNews() {
 
 
     }
-   // Functions to preview multiple images
-   const changeMultipleFiles = (e) => {
-    setMultipleImageFiles({
-        files: [...multipleImageFiles.files, ...e.target.files]
-    })
-    if (e.target.files) {
-        const imageArray = Array.from(e.target.files).map((file) =>
-            URL.createObjectURL(file)
-        );
-        setMultipleImages((prevImages) => prevImages.concat(imageArray));
-    }
-};
+    // Functions to preview multiple images
+    const changeMultipleFiles = (e) => {
+        setMultipleImageFiles({
+            files: [...multipleImageFiles.files, ...e.target.files]
+        })
+        if (e.target.files) {
+            const imageArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            setMultipleImages((prevImages) => prevImages.concat(imageArray));
+        }
+    };
 
-const render = (data) => {
-    return data.map((image, i) => {
-        return <div className='image-main mt-2' onClick={() => {
-            removeArray(i);
-        }}>
-            <i class="fa fa-close image-close text-danger" ></i>
-            <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
-        </div>
-    });
-};
+    const render = (data) => {
+        return data.map((image, i) => {
+            return <div className='image-main mt-2' onClick={() => {
+                removeArray(i);
+            }}>
+                <i class="fa fa-close image-close text-danger" ></i>
+                <img className="image mx-3 my-2 " src={image} alt="" key={i} style={{ width: '100px', height: '80px', objectFit: 'cover' }} />
+            </div>
+        });
+    };
 
 
     return (
@@ -466,7 +466,7 @@ const render = (data) => {
                                                         config={config}
                                                         tabIndex={1} // tabIndex of textarea
                                                         onBlur={newContent => setContent1(newContent)} // preferred to use only this option to update the content for performance reasons
-                                                        onChange={newContent => { }}
+                                                        // onChange={newContent => { }}
                                                     />
 
                                                 </div>
@@ -499,27 +499,27 @@ const render = (data) => {
                                                 </div> */}
 
                                                 <div class="row mt-2">
-                                                  
+
 
                                                     <div class="mt-4">
-                                                    <div class="">
-                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
+                                                        <div class="">
+                                                            <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles} required
-                                                        />
+                                                            <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles} required
+                                                            />
 
-                                                        <div className='d-flex mt-2 ' >
-                                                            {render(multipleImages)}
+                                                            <div className='d-flex mt-2 ' >
+                                                                {render(multipleImages)}
+
+                                                            </div>
+
+
+
 
                                                         </div>
 
 
-
-
                                                     </div>
-
-
-                                                </div>
 
                                                     {/* <div class="mb-3 col-md-6">
                                             <label for="formFile" class="form-label fs-6">Default file input example</label>

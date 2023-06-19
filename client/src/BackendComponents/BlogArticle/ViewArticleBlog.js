@@ -358,9 +358,9 @@ function ViewBlogArticle() {
                 <div>
                     {
                         row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> :
-                        row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
+                            row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
 
-                        <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                                <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>
@@ -500,7 +500,7 @@ function ViewBlogArticle() {
     }
 
     useEffect(() => {
-        if(searchRadioButtonValue!=="" && searchInputValue!==""){
+        if (searchRadioButtonValue !== "" && searchInputValue !== "") {
             axios.get(`/api/filter-article-blogs-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
                 // console.log('reesssssssssssss', res)
                 if (res.data.status == 200) {
@@ -511,7 +511,7 @@ function ViewBlogArticle() {
             // }
             // console.log('useefefct run')
         }
-        else if(searchInputValue=="" ){
+        else if (searchInputValue == "") {
             axios.get(`/api/all-article-blogs`).then(res => {
                 if (res.data.status == 200) {
                     setallBlogArticle(res.data.article_blogs);
@@ -522,7 +522,7 @@ function ViewBlogArticle() {
                 }
             })
         }
-  
+
 
     }, [searchRadioButtonValue, searchInputValue])
 
@@ -577,7 +577,7 @@ function ViewBlogArticle() {
                         window.location.reload();
                     }
                 });
-              
+
             }
         })
 
@@ -629,7 +629,7 @@ function ViewBlogArticle() {
             })
         }
 
-        
+
         else {
 
         }

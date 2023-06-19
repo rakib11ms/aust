@@ -585,20 +585,28 @@ function ViewNoticeNews() {
     const searchPostByRadioButton = (e, searchBy) => {
 
         // e.preventDefault();
-        console.log('seacrh by', searchBy)
         setSearchRadioButtonValue(searchBy)
 
     }
 
     useEffect(() => {
-
-        axios.get(`/api/filter-notice-news-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
-            console.log('reesssssssssssss', res)
-            if (res.data.status == 200) {
-                setallNoticeNews(res.data.notice_news);
-                setLoading(false);
-            }
-        })
+        if (searchRadioButtonValue !== "" && searchInputValue !== "") {
+            axios.get(`/api/filter-notice-news-by-search-input-radio/${searchInputValue}/${searchRadioButtonValue}`).then(res => {
+                console.log('reesssssssssssss', res)
+                if (res.data.status == 200) {
+                    setallNoticeNews(res.data.notice_news);
+                    setLoading(false);
+                }
+            })
+        }
+        else if (searchInputValue == "") {
+            axios.get(`/api/filtering-notice-news-by-status/${postFiltering}`).then(res => {
+                if (res.data.status == 200) {
+                    setallNoticeNews(res.data.notice_news);
+                    setLoading(false);
+                }
+            })
+        }
         // }
         console.log('useefefct run')
 
@@ -1025,14 +1033,6 @@ function ViewNoticeNews() {
                                                 __html: viewPostDescription.notice_news_description
                                             }}
                                             />
-
-
-
-
-
-
-
-
 
 
 

@@ -181,6 +181,7 @@ function CreateAdvertisement() {
         formData.append("post_page", allCheckBox.post_page ? 1 : 0);
         formData.append("job_page", allCheckBox.job_page ? 1 : 0);
         formData.append('isDraft', 0);
+        formData.append('isPublished', 1);
 
         formData.append("showMobile", showMobile);
         formData.append("advertiser_name", advertiser_name);
@@ -422,7 +423,7 @@ function CreateAdvertisement() {
 
                                                 </div>
                                                 <div class="mt-3 mx-auto">
-                                                    <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftAdvertisement}> DRAFT</button>
+                                                    {/* <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftAdvertisement}> DRAFT</button> */}
 
                                                     <button type="submit" className='btn btn-success rounded-3 px-4 ' onSubmit={handleSubmit}>SAVE
                                                         {

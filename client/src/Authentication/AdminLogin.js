@@ -43,7 +43,6 @@ function AdminLogin({ handleSucessLogin }) {
 
         if (res.data.status == 200) {
           setClickedRender(false);
-
           let admin_auth = {
             full_name: res.data.full_name,
             image: res.data.image,

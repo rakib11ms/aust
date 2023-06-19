@@ -107,16 +107,6 @@ class MobileAuthenticationController extends Controller
 
                 }
 
-         
-
-
-
-                // if($request->office_email !==null && ){
-
-                // }
-    
-
-
                 $user->present_address = $request->present_address;
                 $user->permanent_address = $request->permanent_address;
                 // $user->otp_verify = 0;
