@@ -35,9 +35,9 @@ import { saveAs } from 'file-saver';
 
 function ViewAllUsers() {
 
+    const [loading, setLoading] = useState(true);
 
     const [allUsers, setallUsers] = useState([]);
-    console.log('users', allUsers)
 
     useEffect(() => {
         axios.get(`/api/all-users`).then(res => {
@@ -47,7 +47,9 @@ function ViewAllUsers() {
             }
         })
     }, []);
-    const [loading, setLoading] = useState(true);
+
+    // console.log('users', allUsers)
+
 
     // const [allUserPosts, setallUserPosts] = useState([]);
 
@@ -113,7 +115,7 @@ function ViewAllUsers() {
 
     const [viewUserDescription, setViewUserDescription] = useState('');
 
-    console.log('full profile', viewUserDescription);
+    // console.log('full profile', viewUserDescription);
 
 
     const [viewUserModalIsOpen, setviewUserModalIsOpen] = useState(false);
@@ -149,8 +151,8 @@ function ViewAllUsers() {
 
     const [passwordState, setPasswordState] = useState('');
     const [re_typepasswordState, setRe_typepasswordState] = useState('');
-    console.log('changing check', userRoleChangeInfo);
-    console.log('password check', passwordState, re_typepasswordState);
+    // console.log('changing check', userRoleChangeInfo);
+    // console.log('password check', passwordState, re_typepasswordState);
 
     // console.log('user_id_check',localStorage.getItem('user_id'));
 
@@ -208,7 +210,7 @@ function ViewAllUsers() {
                     </ul>
 
 
-                    <div class="modal fade" id={`exampleModal${row.roles[0].name}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id={`exampleModal${row.roles[0].name}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header py-2">
@@ -301,7 +303,7 @@ function ViewAllUsers() {
                 <div className='educational-field d-flex justify-content-between p-1 my-1 align-items-center' style={{ borderRight: "1px solid gray" }}>
                     <div>
                         <div className=' bg-white d-inline-block rounded '>
-                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].company_name.company_name}</span>
+                            <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].company_name !== null && row.professional_info[0].company_name.company_name}</span>
                         </div><br />
                         <div className=' bg-white d-inline-block rounded '>
                             <span className='text-secondary'>{row.professional_info[0] !== undefined && row.professional_info[0].designation}</span>
@@ -388,7 +390,7 @@ function ViewAllUsers() {
                 <div className='icon-view-field'>
                     <div className='sites-icon me-3'>
                         <a href={row.facebook_link} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div> </a>
-                        <a href={`/${row.linkedin_link}`} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
+                        <a href={`${row.linkedin_link}`} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
                         <a href={`mailto:${row.facebook_link}`} class="fw-bold" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
                     </div>
                     <div className='text-secondary d-flex'>
@@ -401,15 +403,51 @@ function ViewAllUsers() {
                         }>
                             <i className='fa fa-eye mx-1 '  >
                             </i>
+                        </div>
+
+                        <div className=''>
                             <Link to={`/edit-user/${row.id}`} className="text-dark">
                                 <i className='fa fa-edit mx-2 '  >
                                 </i>
                             </Link>
+                        </div>
+
+
+                        <div className="text-danger " onClick={() => {
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "You won't be able to revert this!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    axios.delete(`/api/delete-user-by-admin/${row.id}`).then(res => {
+                                        if (res.data.status === 200) {
+                                            // setRenderAllUserPosts(res.data)
+                                            window.location.reload();
+                                        }
+                                    });
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'User deleted successfully',
+                                        'success'
+                                    )
+                                }
+                            })
+
+                        }}>
+                            <i className='fa fa-trash mx-2 '>
+                            </i>
 
 
                         </div>
 
+
                     </div>
+
                 </div>
 
             </div>
@@ -442,10 +480,10 @@ function ViewAllUsers() {
     const [userRoleFiltering, setuserRoleFiltering] = useState('All');
 
     const [userRoleFilter, setUserRoleFilter] = useState('All');
-    console.log('user rolee', userRoleFilter)
+    // console.log('user rolee', userRoleFilter)
 
     // console.log('filtered post val',allJobPosts)
-    console.log('filter click check', userRoleFiltering)
+    // console.log('filter click check', userRoleFiltering)
 
 
     useEffect(() => {
@@ -453,6 +491,7 @@ function ViewAllUsers() {
             if (res.data.status == 200) {
                 setallUsers(res.data.all_users);
                 setLoading(false);
+                // window.location.reload();
             }
         })
 
@@ -480,7 +519,7 @@ function ViewAllUsers() {
     const [selectedRowsLength, setselectedRowsLength] = useState(0);
     // console.log("selcted rows",selectedRowsLength)
     const [selectedRowsIds, setSelectedRowsIds] = useState([]);
-    console.log("selcted rows ids", selectedRowsIds)
+    // console.log("selcted rows ids", selectedRowsIds)
 
 
 
@@ -534,7 +573,7 @@ function ViewAllUsers() {
     const [company_name, setcompany_name] = useState(null);
     const [batch_name, setbatch_name] = useState(null);
     const [gender_name, setgender_name] = useState(null);
-    console.log('gender name', gender_name)
+    // console.log('gender name', gender_name)
     const [stream_name, setstream_name] = useState(null);
     const [thana_name, setthana_name] = useState(null);
     const [job_sector_name, setjob_sector_name] = useState(null);
@@ -543,6 +582,8 @@ function ViewAllUsers() {
     const [allBloodGroupName, setAllBloodGroupName] = useState([]);
     const [allCompanyName, setAllCompanyName] = useState([]);
     const [allCompanyNameSort, setAllCompanyNameSort] = useState([]);
+
+    console.log('companies', allCompanyName, 'companies asc', allCompanyNameSort)
     const [allBatchName, setAllBatchName] = useState([]);
     const [allGenderName, setAllGenderName] = useState([]);
     const [allStreamName, setAllStreamName] = useState([]);
@@ -1187,7 +1228,7 @@ function ViewAllUsers() {
                                             </div>
                                             <div>
                                                 <div class="text-center mt-2 mb-3">
-                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/cv/${viewUserDescription.cv_file}`} title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
+                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/check/${viewUserDescription.cv_file}`} title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
                                                 </div>
 
                                                 {/* <div className='select-down-div'>

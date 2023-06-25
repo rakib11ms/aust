@@ -64,7 +64,7 @@ class ArticleBlogController extends Controller
 
             $article_blog->save();
 
-               foreach ($request->file('image') as $image) {
+            foreach ($request->file('image') as $image) {
 
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('images/', $upload_image_name);

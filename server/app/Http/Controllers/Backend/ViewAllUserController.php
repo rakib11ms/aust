@@ -25,18 +25,36 @@ use ZipArchive;
   
 class ViewAllUserController extends Controller
 {
-       public function allUsers()
-    {
+    //    public function allUsers()
+    // {
 
 
-         $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->get();
+    //      $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->get();
 
 
-        return response()->json([
-            'status' => 200,
-            'all_users' => $all_users
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 200,
+    //         'all_users' => $all_users
+    //     ]);
+    // }
+
+    public function allUsers()
+{
+    $all_users = [];
+
+    User::chunk(200, function ($users) use (&$all_users) {
+        foreach ($users as $user) {
+            $user->load(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles']);
+            $all_users[] = $user;
+        }
+    });
+
+    return response()->json([
+        'status' => 200,
+        'all_users' => $all_users
+    ]);
+}
+
 
     public function editUser($id){
    $edit_user=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('id',$id)->first();
@@ -418,4 +436,19 @@ public function userLocationSearch($name){
             ]);
          }
 
+         public function deleteUserByAdmin($id){
+    $user = User::findOrFail($id);
+   $imagePath = public_path('images/' . $user->image);
+
+
+    if (File::exists($imagePath)) {
+        File::delete($imagePath);
+    }
+     $user->delete();
+
+     return response()->json([
+                'status' => 200,
+                'message' => 'User Deleted successfully',
+            ]);
+}
 }

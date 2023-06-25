@@ -331,34 +331,36 @@ $user_cv_upload->update();
     {
 
         $user = User::where('email', $request->email)->first();
-        // dd($user->device_token);
+        // dd($user->status);
 
-        if($user){
+    
+        if($user && $user->status=='active' && Hash::check($request->password, $user->password)){
  $user->device_token=$request->device_token;
         $user->save();
-        }
-       
+    $login_token = $user->createToken($request->email)->plainTextToken;
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json(
+            [
+                'message' => 'Login Successfull',
+                'status' => 200,
+                // 'mess_status' => true,
+                'token' => $login_token,
+                'user_id'=>$user->id
+            ]
+        );
+            
+        }
+        else{
             return response()->json(
                 [
                     'message' => 'Login invalid',
                     'status' => 401,
                 ]
             );
+        
         }
+    
 
-        $login_token = $user->createToken($request->email)->plainTextToken;
-
-        return response()->json(
-            [
-                'message' => 'Login Successfull',
-                'status' => 200,
-                'mess_status' => true,
-                'token' => $login_token,
-                'user_id'=>$user->id
-            ]
-        );
     }
 
 

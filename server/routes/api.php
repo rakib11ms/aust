@@ -128,6 +128,10 @@ Route::get('/total-pending-or-active-users', [ViewAllUserController::class, 'tot
 
 Route::post('/change-user-status-active-or-pending/{id}', [ViewAllUserController::class, 'activeUserByPending']);
 
+//delete user
+
+Route::delete('/delete-user-by-admin/{id}', [ViewAllUserController::class, 'deleteUserByAdmin']);
+
 
 //delete multiple users
 Route::post('/delete-multiple-users/{id}', [ViewAllUserController::class, 'deleteMultileUsers']);

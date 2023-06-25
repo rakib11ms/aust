@@ -20,6 +20,7 @@ function Sidebar() {
     const [isActive11, setIsActive11] = useState(false);
     const [isActive12, setIsActive12] = useState(false);
     const [isActive13, setIsActive13] = useState(false);
+    const [isActive14, setIsActive14] = useState(false);
     // console.log('is active cheking', isActive)
 
 
@@ -68,7 +69,7 @@ function Sidebar() {
         path == '/view-all-users' && setIsActive(true) || path == '/role-management' && setIsActive(true) || path == '/user-configuration' && setIsActive(true)
         path == '/view-blog-article' && setIsActive4(true) || path == '/create-blog-article' && setIsActive4(true) || path == '/blog-article-configuration' && setIsActive4(true)
         path == '/post-type' && setIsActive5(true) || path == '/post-configuration' && setIsActive5(true)
-        path == '/create-event' && setIsActive6(true) || path == '/view-all-events' && setIsActive6(true) || path == '/event-configuration' && setIsActive6(true) || path == '/view-event-payment ' && setIsActive6(true)
+        path == '/create-event' && setIsActive6(true) || path == '/view-all-events' && setIsActive6(true) || path == '/view-event-payment' && setIsActive6(true) || path == '/event-configuration' && setIsActive6(true) || path == '/view-event-payment ' && setIsActive6(true)
         path == '/create-advertisement' && setIsActive7(true) || path == '/view-all-advertisement' && setIsActive7(true)
         path == '/view-all-banner' && setIsActive8(true) || path == '/create-banner' && setIsActive8(true)
         path == '/view-notice-news' && setIsActive10(true) || path == '/create-notice-news' && setIsActive10(true) || path == '/notice-news-configuration' && setIsActive10(true)
@@ -158,7 +159,7 @@ function Sidebar() {
                                             <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light'}`}  >Role Management</Link>
                                         </li>
                                         <li className='mt-1'>
-                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>E-Resister Users </a>
+                                            <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Event Resigter Users </a>
                                         </li>
                                         <li className='mt-1'>
                                             <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-active-color pt-1 pe-3 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
@@ -494,7 +495,7 @@ function Sidebar() {
 
                     <div className=''>
 
-                        <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive9(!isActive9)}>
+                        {/* <div id='user-mange' className='menu-name  d-flex justify-content-between align-items-center' onClick={() => setIsActive9(!isActive9)}>
                             <div class="menu-name-logo d-flex align-items-center text-white">
                                 <i class="fa-solid fa-rectangle-ad mt-1"></i>
 
@@ -507,7 +508,7 @@ function Sidebar() {
                                     :
                                     <b className=''>+</b>
                                 }                            </div>
-                        </div>
+                        </div> */}
                         <div class="menu-content ">
 
                             {
@@ -630,7 +631,7 @@ function Sidebar() {
                                         </li>
 
                                         <li>
-                                            <Link to='/create-district' className={`text-form ${path == '/create-district' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create District</Link>
+                                            <Link to='' className={`text-form ${path == '/create-district' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create District</Link>
                                         </li>
 
 
