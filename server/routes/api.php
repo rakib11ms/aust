@@ -106,10 +106,6 @@ Route::post('/reset-admin-password', [AuthenticationController::class, 'submitRe
 
 
 
-// //all users 
-// Route::get('/all-users', [AuthenticationController::class, 'allUsers']);
-
-
 ///view all users (web) view section ///
 
 Route::get('/all-users', [ViewAllUserController::class, 'allUsers']);
@@ -146,9 +142,8 @@ Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRo
 
 Route::get('/export-users-as-excel/{name}', [ViewAllUserController::class, 'exportUserExcel']);
 
-// Route::get('/multiple-filter-search-all-users/{company}/{blood}/{batch}/{stream}/{gender}/{job-sector}/{job-sub-sector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
-Route::get('/multiple-filter-search-all-users/{gender}/{stream}/{blood}/{company}/{batch}/{jobsector}/{subsector}/{thana}', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
+Route::post('/multiple-filter-search-all-users', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
 //global user search web
 Route::get('/user-global-search/{name}', [ViewAllUserController::class, 'userGlobalSearch']);

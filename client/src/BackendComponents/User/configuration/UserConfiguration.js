@@ -35,6 +35,8 @@ function UserConfiguration() {
     const [create_job_sub_sector, setcreate_job_sub_sector] = useState('');
     const [create_company_name, setcreate_company_name] = useState('');
     const [create_batch, setcreate_batch] = useState('');
+
+    console.log('batch',create_batch)
     const [create_stream, setcreate_stream] = useState('');
     const [create_blood_group, setcreate_blood_group] = useState('');
 

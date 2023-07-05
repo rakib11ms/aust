@@ -8,21 +8,20 @@ use App\Models\AusttaaBatch;
 use Illuminate\Support\Facades\Validator;
 class AusttaaBatchController extends Controller
 {
-   public function index()
-    {
-        $total_batch = AusttaaBatch::orderBy('id', 'desc')->get()->count();
+public function index()
+{
+    $batch_name = AusttaaBatch::orderByRaw("CAST(SUBSTRING(batch_name, 1, LENGTH(batch_name) - 2) AS UNSIGNED)")
+        ->orderBy('batch_name', 'asc')
+        ->get();
 
-        $batch_name = AusttaaBatch::orderBy('batch_name', 'asc')->get();
+    $total_batch = $batch_name->count();
 
-        return response()->json([
-            'status' => 200,
-            'total_batch' => $total_batch,
-
-            'batch_name' => $batch_name,
-        
-        ]);
-    }
-
+    return response()->json([
+        'status' => 200,
+        'total_batch' => $total_batch,
+        'batch_name' => $batch_name,
+    ]);
+}
 
     public function store(Request $request)
     {

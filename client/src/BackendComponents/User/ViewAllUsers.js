@@ -500,7 +500,7 @@ function ViewAllUsers() {
     //excel export users
     const [allExcelUsers, setAllExcelUsers] = useState([]);
 
-    console.log('du', allExcelUsers)
+    // console.log('du', allExcelUsers)
 
     useEffect(() => {
         axios.get(`/api/export-users-as-excel/${userRoleFiltering}`).then(res => {
@@ -583,7 +583,7 @@ function ViewAllUsers() {
     const [allCompanyName, setAllCompanyName] = useState([]);
     const [allCompanyNameSort, setAllCompanyNameSort] = useState([]);
 
-    console.log('companies', allCompanyName, 'companies asc', allCompanyNameSort)
+    console.log('compan', company_name)
     const [allBatchName, setAllBatchName] = useState([]);
     const [allGenderName, setAllGenderName] = useState([]);
     const [allStreamName, setAllStreamName] = useState([]);
@@ -642,25 +642,36 @@ function ViewAllUsers() {
 
 
     useEffect(() => {
-        if (batch_name !== null || company_name !== null || blood_group_name !== null || stream_name !== null || gender_name !== null || job_sector_name !== null || job_sub_sector_name !== null || thana_name !== null) {
-            axios.get(`/api/multiple-filter-search-all-users/${gender_name}/${stream_name}/${blood_group_name}/${company_name}/${batch_name}/${job_sector_name}/${job_sub_sector_name}/${thana_name}}`).then(res => {
+        if (batch_name == null &&  company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
+            axios.get(`/api/all-users`).then(res => {
                 if (res.data.status == 200) {
-
-                    console.log('ccc', res.data)
-                    setallUsers(res.data.all_users)
+                    setallUsers(res.data.all_users);
                     setLoading(false);
                 }
             })
         }
-        // else{
-        //     axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
-        //         if (res.data.status == 200) {
-        //             setallUsers(res.data.all_users);
-        //             setLoading(false);
-        //         }
-        //     })
-        // }
+        else{
+            const data={
+                batch:batch_name,
+                company: company_name,
+                blood:blood_group_name,
+                stream:stream_name,
+                gender:gender_name,
+                jobsector:job_sector_name,
+                subsector:job_sub_sector_name,
+                thana:thana_name
+            }
 
+            axios.post(`/api/multiple-filter-search-all-users/`,data).then(res => {
+                if (res.data.status == 200) {
+
+                    console.log('multiple filter search', res.data)
+                    setallUsers(res.data.all_users)
+                    setLoading(false);
+                }
+            })
+        
+        }
 
     }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, job_sub_sector_name, thana_name])
 
@@ -672,6 +683,14 @@ function ViewAllUsers() {
             axios.get(`/api/user-global-search/${globalSearch}`).then(res => {
                 if (res.data.status == 200) {
                     setallUsers(res.data.all_users)
+                    setLoading(false);
+                }
+            })
+        }
+        else {
+            axios.get(`/api/all-users`).then(res => {
+                if (res.data.status == 200) {
+                    setallUsers(res.data.all_users);
                     setLoading(false);
                 }
             })
@@ -703,14 +722,14 @@ function ViewAllUsers() {
     const [allUsersPdf, setAllUsersPdf] = useState([])
 
     console.log('pdfs', allUsersPdf)
-    useEffect(() => {
-        axios.get(`/api/get-all-users-pdf`).then(res => {
-            if (res.data.status == 200) {
-                setAllUsersPdf(res.data.pdfs)
+    // useEffect(() => {
+    //     axios.get(`/api/get-all-users-pdf`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setAllUsersPdf(res.data.pdfs)
 
-            }
-        })
-    }, [])
+    //         }
+    //     })
+    // }, [])
 
 
     function saveZip() {
@@ -1275,7 +1294,7 @@ function ViewAllUsers() {
                                                                 </tr>
                                                                 <tr>
                                                                     <th style={{ width: "30%" }}>Batch</th>
-                                                                    <td>{viewUserDescription.batch_name !== undefined && viewUserDescription.batch_name.batch_name}</td>
+                                                                    <td>{viewUserDescription.batch_name !== null && viewUserDescription.batch_name}</td>
 
                                                                 </tr>
                                                                 <tr>
@@ -1326,7 +1345,7 @@ function ViewAllUsers() {
                                                                         return (
                                                                             <>
                                                                                 <tr>
-                                                                                    <th scope="row">{item.company_name.company_name}</th>
+                                                                                    <th scope="row">{item.company_name !== null && item.company_name.company_name}</th>
                                                                                     <td>{item.designation}</td>
                                                                                     <td>{item.year}</td>
                                                                                     <td>{item.office_address}</td>
