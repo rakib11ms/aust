@@ -1233,7 +1233,7 @@ function ViewAllUsers() {
 
                                                             </div>
                                                             <div className='mx-2'>
-                                                                Blood Group: {viewUserDescription.blood_group !== undefined && viewUserDescription.blood_group.blood_group_name}
+                                                                Blood Group: {viewUserDescription.blood_group !== undefined && viewUserDescription.blood_group!==null && viewUserDescription.blood_group.blood_group_name}
 
                                                             </div>
                                                         </div>
