@@ -19,7 +19,7 @@ class EventMail extends Mailable
      */
     public function __construct($event)
     {
-                $this->event=$event;
+        $this->event = $event;
 
     }
 
@@ -30,8 +30,8 @@ class EventMail extends Mailable
      */
     public function build()
     {
-                $event=$this->event;
+        $event = $this->event;
 
-        return $this->markdown('emails.eventmail',compact('event'));
+        return $this->markdown('emails.eventmail', compact('event'));
     }
 }

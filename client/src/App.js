@@ -53,6 +53,7 @@ import EditVlog from './BackendComponents/Vlog/EditVlog';
 import EditNoticeNews from './BackendComponents/NoticeNews/EditNoticeNews';
 import ViewNotification from './BackendComponents/Notification/ViewNotification';
 import CreateNotification from './BackendComponents/Notification/CreateNotification';
+import PermissionUser from './BackendComponents/PermissionUser/PermissionUser';
 
 // const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
 // const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
@@ -249,7 +250,7 @@ function App() {
 
           <Route path="view-all-users" element={<ViewAllUsers />}></Route>
           <Route path="edit-user/:id" element={<EditUser />}></Route>
-          <Route path="role-management" element={<RoleManagement />}></Route>
+          <Route path="role-management" element={<PermissionUser />}></Route>
 
           <Route path="user-configuration" element={<UserConfiguration />}></Route>
 

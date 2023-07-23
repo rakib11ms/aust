@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 class RoleNameController extends Controller
 {
@@ -81,4 +82,50 @@ class RoleNameController extends Controller
 
     
     }
+
+    public function getAllRoles(){
+        $all_roles=Role::all();
+          return response()->json(
+        [
+            'status'=>200,
+            'all_roles'=>$all_roles
+        ]);
+      }
+
+      // Assign permissions to the role
+
+public function assignPermissionViaRole(Request $request,$id){
+    $role=Role::where('id',$id)->first();
+    $permissions=$request->all();
+    $result = [];
+
+// Loop through the object and extract keys with value true
+foreach ($permissions as $key => $value) {
+    if ($value === true) {
+        $result[] = $key;
+    }
+}
+
+$permissions = Permission::whereIn('name', $result)->get();
+$role->syncPermissions($permissions);
+
+  return response()->json(
+    [
+        'status'=>200,
+        'message'=>'Assigned Permission via role successfully',
+        'permissions'=>$permissions
+    ]);
+}
+public function getPermissionViaRole($id){
+    $role=Role::where('id',$id)->first();
+$permissions=$role->permissions->pluck('name');
+
+  return response()->json(
+    [
+        'status'=>200,
+        'permissions'=>$permissions,
+        'role'=>$role
+    ]);
+}
+    
 }

@@ -27,10 +27,10 @@ class EventController extends Controller
     public function index()
     {
 
-                $all_events =AusstaEvent::orderBy('id','desc')->with(['EventImage','userName','EventType'])->get();
+        $all_events = AusstaEvent::orderBy('id', 'desc')->with(['EventImage', 'userName', 'EventType'])->get();
 
 
-                $all_active_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->where('isArchived',0)->orderBy('aussta_events.id', 'desc')->limit(5)->get();
+        $all_active_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id', )->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->where('isArchived', 0)->orderBy('aussta_events.id', 'desc')->limit(5)->get();
 
         // $contact_person_information=$all_events['event_title'];
 
@@ -45,7 +45,7 @@ class EventController extends Controller
             'all_events' => $all_events,
             'total_events' => $total_events,
             'total_archive_events' => $total_archive_events,
-            'all_active_events'=>$all_active_events,
+            'all_active_events' => $all_active_events,
 
         ]);
     }
@@ -54,28 +54,28 @@ class EventController extends Controller
 
 
 
-//     public function store(Request $request)
+    //     public function store(Request $request)
 //     {
 
-//         $validator = Validator::make($request->all(),[
+    //         $validator = Validator::make($request->all(),[
 //             'event_title' => 'unique:aussta_events',
 //             'contact_person'=>'required'
 //         ]);
-           
 
-//         if ($validator->fails())
+
+    //         if ($validator->fails())
 //         {
 //             return response()->json([
 //                 'status' => 400,
 //                 'errors' => $validator->messages(),
 //             ]);
 
-//         }else{
+    //         }else{
 
-//         $event = new AusstaEvent();
+    //         $event = new AusstaEvent();
 //        $event_unique_id = (date('md') . rand(1, 99999));
 
-//           $event->event_unique_id=$event_unique_id;
+    //           $event->event_unique_id=$event_unique_id;
 //         $event->event_type_id = $request->event_type_id;
 //         $event->event_title = $request->event_title;
 //         $event->event_fee = $request->event_fee;
@@ -86,9 +86,9 @@ class EventController extends Controller
 //         $event->event_date = $request->event_date;
 //         $event->showBanner = $request->showBanner;
 
-//         $event->payment_type = $request->payment_type;
+    //         $event->payment_type = $request->payment_type;
 
-//         $event->posted_by = $request->posted_by;
+    //         $event->posted_by = $request->posted_by;
 //         $event->event_time = $request->event_time;
 //         // $event->isPublished = $request->isPublished;
 //         // $event->isArchived = $request->isArchived;
@@ -99,18 +99,18 @@ class EventController extends Controller
 
 
 
-//    foreach ($request->file('image') as $image) {
+    //    foreach ($request->file('image') as $image) {
 
-//             $upload_image_name = time() . $image->getClientOriginalName();
+    //             $upload_image_name = time() . $image->getClientOriginalName();
 //             $image->move('images/', $upload_image_name);
 
-//             $event_multiple_image=new EventMultipleImage();
+    //             $event_multiple_image=new EventMultipleImage();
 //             $event_multiple_image->event_id=$event->id;
 //             $event_multiple_image->image=$upload_image_name;
 //             $event_multiple_image->save();
 //             // $name[] = $upload_image_name;
 
-//             // $advertisement->image =  implode(', ', $name);
+    //             // $advertisement->image =  implode(', ', $name);
 //         // $advertisement->save();
 //         }
 //            // $advertisement->save();
@@ -118,143 +118,142 @@ class EventController extends Controller
 
 
 
-//         $user_ids = explode(",", $request->contact_person);
- 
-//         $job = (new SendQueueEventEmail($event,$user_ids)); 
+    //         $user_ids = explode(",", $request->contact_person);
 
-//         dispatch($job);
+    //         $job = (new SendQueueEventEmail($event,$user_ids)); 
+
+    //         dispatch($job);
 //         // $event->save();
 
 
 
-// }
+    // }
 
 
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'event_title' => 'unique:aussta_events',
-            'contact_person'=>'required'
+            'contact_person' => 'required'
         ]);
-           
 
-        if ($validator->fails())
-        {
+
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
                 'errors' => $validator->messages(),
             ]);
 
-        }else{
+        } else {
 
-        $event = new AusstaEvent();
-       $event_unique_id = (date('md') . rand(1, 99999));
+            $event = new AusstaEvent();
+            $event_unique_id = (date('md') . rand(1, 99999));
 
-          $event->event_unique_id=$event_unique_id;
-        $event->event_type_id = $request->event_type_id;
-        $event->event_title = $request->event_title;
-        $event->event_fee = $request->event_fee;
-        $event->updated_by = $request->updated_by;
-        $event->event_description = $request->event_description;
-        $event->contact_person = $request->contact_person;
-        // $event->event_date = date('d-m-Y', strtotime($request->event_date));
-        $event->event_date = $request->event_date;
-        $event->showBanner = $request->showBanner;
+            $event->event_unique_id = $event_unique_id;
+            $event->event_type_id = $request->event_type_id;
+            $event->event_title = $request->event_title;
+            $event->event_fee = $request->event_fee;
+            $event->updated_by = $request->updated_by;
+            $event->event_description = $request->event_description;
+            $event->contact_person = $request->contact_person;
+            // $event->event_date = date('d-m-Y', strtotime($request->event_date));
+            $event->event_date = $request->event_date;
+            $event->showBanner = $request->showBanner;
 
-        $event->payment_type = $request->payment_type;
+            $event->payment_type = $request->payment_type;
 
-        $event->posted_by = $request->posted_by;
-        $event->event_time = $request->event_time;
-        // $event->isPublished = $request->isPublished;
-        // $event->isArchived = $request->isArchived;
-        $event->priority = $request->priority;
-        $event->notification_type = 'event_type';
-        $event->save();
-
-
+            $event->posted_by = $request->posted_by;
+            $event->event_time = $request->event_time;
+            // $event->isPublished = $request->isPublished;
+            // $event->isArchived = $request->isArchived;
+            $event->priority = $request->priority;
+            $event->notification_type = 'event_type';
+            $event->save();
 
 
-   foreach ($request->file('image') as $image) {
 
-            $upload_image_name = time() . $image->getClientOriginalName();
-            $image->move('images/', $upload_image_name);
 
-            $event_multiple_image=new EventMultipleImage();
-            $event_multiple_image->event_id=$event->id;
-            $event_multiple_image->image=$upload_image_name;
-            $event_multiple_image->save();
-            // $name[] = $upload_image_name;
+            foreach ($request->file('image') as $image) {
 
-            // $advertisement->image =  implode(', ', $name);
-        // $advertisement->save();
+                $upload_image_name = time() . $image->getClientOriginalName();
+                $image->move('images/', $upload_image_name);
+
+                $event_multiple_image = new EventMultipleImage();
+                $event_multiple_image->event_id = $event->id;
+                $event_multiple_image->image = $upload_image_name;
+                $event_multiple_image->save();
+                // $name[] = $upload_image_name;
+
+                // $advertisement->image =  implode(', ', $name);
+                // $advertisement->save();
+            }
+            // $advertisement->save();
+
+
+
+
+            $user_ids = explode(",", $request->contact_person);
+            // $users = User::whereIn("id", $user_ids)->get();
+
+            // foreach ($users as $key => $user) {
+            //     // echo ($user->email);
+            //     Mail::to($user->email)->send(new EventMail($event));
+            // }
+
+            // foreach($users as $key=>$user1){
+            // Notification::send($user1, new EventNotification($event));
+
+            // }
+
+
+            $job = (new SendQueueEventEmail($event, $user_ids));
+
+            dispatch($job);
+            // $event->save();
+
+
+            $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+
+            $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
+
+            $data = [
+                "registration_ids" => $firebaseToken,
+                "notification" => [
+                    "title" => $request->event_title,
+                    "body" => date('Y-m-d'),
+                ]
+            ];
+            $dataString = json_encode($data);
+
+            $headers = [
+                'Authorization:key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            $response = curl_exec($ch);
+
+
+
+
+
+            return response()->json([
+                'status' => 200,
+                'event' => $event,
+                'users_id' => $user_ids,
+                'message' => 'Event Created Successfully',
+            ]);
         }
-           // $advertisement->save();
-
-
-
-
-        $user_ids = explode(",", $request->contact_person);
-        // $users = User::whereIn("id", $user_ids)->get();
-
-        // foreach ($users as $key => $user) {
-        //     // echo ($user->email);
-        //     Mail::to($user->email)->send(new EventMail($event));
-        // }
-         
-        // foreach($users as $key=>$user1){
-        // Notification::send($user1, new EventNotification($event));
-
-        // }
-
-    
-        $job = (new SendQueueEventEmail($event,$user_ids)); 
-
-        dispatch($job);
-        // $event->save();
-
-
-    $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-
-        $SERVER_API_KEY = "AAAAlxMWmLE:APA91bGE4xTGl3u7MOzRH4gOKSVM00Cp46ILE3Dn9YywzM-Jip-dFBzdtQaMd4eOTmKGEnRT9AAENpCaxYx9g51JdG0i7btNE53DmYj2-tA5vEPkKKaPRP-ETxTx9JpaNXO0IMzxIA29";
-
-        $data = [
-            "registration_ids" => $firebaseToken,
-            "notification" => [
-                "title" => $request->event_title,
-                "body" => date('Y-m-d'),
-            ]
-        ];
-        $dataString = json_encode($data);
-
-        $headers = [
-            'Authorization:key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
-        ];
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-        $response = curl_exec($ch);
-
-
-
-
-
-        return response()->json([
-            'status' => 200,
-            'event' => $event,
-            'users_id' => $user_ids,
-            'message' => 'Event Created Successfully',
-        ]);
     }
-}
 
 
 
@@ -269,7 +268,7 @@ class EventController extends Controller
 
         // dd ($lol);
 
-                $event_images=EventMultipleImage::where('event_id',$id)->get();
+        $event_images = EventMultipleImage::where('event_id', $id)->get();
 
 
         if ($event) {
@@ -277,7 +276,7 @@ class EventController extends Controller
                 'status' => 200,
                 'event' => $event,
                 'users' => $users,
-                'event_images'=>$event_images
+                'event_images' => $event_images
 
             ]);
         } else {
@@ -295,7 +294,7 @@ class EventController extends Controller
     {
 
         $event = AusstaEvent::find($id);
-        $event->event_unique_id=$request->event_unique_id;
+        $event->event_unique_id = $request->event_unique_id;
 
         $event->event_type_id = $request->event_type_id;
         $event->event_title = $request->event_title;
@@ -313,23 +312,23 @@ class EventController extends Controller
         $event->priority = $request->priority;
         $event->update();
 
-            if($request->file('image')){
-           foreach ($request->file('image') as $image) {
+        if ($request->file('image')) {
+            foreach ($request->file('image') as $image) {
 
-            $upload_image_name = time() . $image->getClientOriginalName();
-            $image->move('images/', $upload_image_name);
+                $upload_image_name = time() . $image->getClientOriginalName();
+                $image->move('images/', $upload_image_name);
 
-            $event_multiple_image=new EventMultipleImage();
-            $event_multiple_image->event_id=$event->id;
-            $event_multiple_image->image=$upload_image_name;
-            $event_multiple_image->save();
-            // $name[] = $upload_image_name;
+                $event_multiple_image = new EventMultipleImage();
+                $event_multiple_image->event_id = $event->id;
+                $event_multiple_image->image = $upload_image_name;
+                $event_multiple_image->save();
+                // $name[] = $upload_image_name;
 
-            // $advertisement->image =  implode(', ', $name);
-        // $advertisement->save();
+                // $advertisement->image =  implode(', ', $name);
+                // $advertisement->save();
+            }
         }
-    }
-           // $advertisement->save();
+        // $advertisement->save();
 
 
         $user_ids = explode(",", $request->contact_person);
@@ -404,14 +403,14 @@ class EventController extends Controller
 
         AusstaEvent::whereIn('id', $array)
             ->update([
-                'isArchived' => '1',
-                'updated_by' => 2
-                // 'size' => 'XL', 
+                    'isArchived' => '1',
+                    'updated_by' => 2
+                    // 'size' => 'XL', 
 
-                // 'price' => 10000 // Add as many as you need
-            ]);
+                    // 'price' => 10000 // Add as many as you need
+                ]);
 
-        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id', )->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
         return response()->json([
             'status' => 200,
             'all_events' => $all_events,
@@ -420,19 +419,20 @@ class EventController extends Controller
     }
 
 
-public function deleteEventMultipleImage($id){
-    $event = EventMultipleImage::find($id);
+    public function deleteEventMultipleImage($id)
+    {
+        $event = EventMultipleImage::find($id);
 
-        $file=$event->image;
-        $filename = public_path().'/images/'.$file;
+        $file = $event->image;
+        $filename = public_path() . '/images/' . $file;
         File::delete($filename);
         $event->delete();
 
-              return response()->json([
+        return response()->json([
             'status' => 200,
             'message' => 'event Image deleted successfully',
         ]);
-}
+    }
 
 
 
@@ -451,7 +451,7 @@ public function deleteEventMultipleImage($id){
                 // 'price' => 10000 // Add as many as you need
             ]);
 
-        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id',)->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
+        $all_events = DB::table('aussta_events')->leftJoin('austta_event_types', 'austta_event_types.id', '=', 'aussta_events.event_type_id', )->select('aussta_events.*', 'austta_event_types.event_type_name as event_type_name')->orderBy('aussta_events.id', 'desc')->get();
         return response()->json([
             'status' => 200,
             'all_events' => $all_events,
@@ -480,7 +480,7 @@ public function deleteEventMultipleImage($id){
         // dd($check);
 
         if ($name == 'all') {
-            $event_posts =AusstaEvent::orderBy('id','desc')->with(['EventImage','userName','EventType'])->get();
+            $event_posts = AusstaEvent::orderBy('id', 'desc')->with(['EventImage', 'userName', 'EventType'])->get();
             return response()->json([
                 'status' => 200,
                 'event_posts' => $event_posts,
@@ -502,7 +502,7 @@ public function deleteEventMultipleImage($id){
 
             // $filterDatePosts=Post::whereBetween(DB::raw('DATE(created_at)'), [$fromDate, $toDate])->get();
 
-             $event_posts =AusstaEvent::orderBy('id','desc')->whereBetween('event_date', [$currentDate, $currentDate_15])->with(['EventImage','userName','EventType'])->get();
+            $event_posts = AusstaEvent::orderBy('id', 'desc')->whereBetween('event_date', [$currentDate, $currentDate_15])->with(['EventImage', 'userName', 'EventType'])->get();
 
 
 
@@ -511,8 +511,8 @@ public function deleteEventMultipleImage($id){
                 'event_posts' => $event_posts,
             ]);
         } else if ($name == 'archive') {
-        
-         $event_posts =AusstaEvent::orderBy('id','desc')->where('isArchived',1)->with(['EventImage','userName','EventType'])->get();
+
+            $event_posts = AusstaEvent::orderBy('id', 'desc')->where('isArchived', 1)->with(['EventImage', 'userName', 'EventType'])->get();
 
 
             return response()->json([
@@ -520,7 +520,7 @@ public function deleteEventMultipleImage($id){
                 'event_posts' => $event_posts,
             ]);
         } else {
-            $event_posts =AusstaEvent::orderBy('id','desc')->with(['EventImage','userName','EventType'])->get();
+            $event_posts = AusstaEvent::orderBy('id', 'desc')->with(['EventImage', 'userName', 'EventType'])->get();
 
             return response()->json([
                 'status' => 200,
@@ -530,63 +530,65 @@ public function deleteEventMultipleImage($id){
     }
 
 
- //event gloabl all search (web) searchbar field
-        public function getAllEventRelatedDataByName($name){
-      // $event_posts = DB::table('aussta_events')->where('event_title','Like','%'.$name .'%')->where('event_description','Like','%'.$name .'%')->where('event_fee','Like','%'.$name .'%')->orderBy('aussta_events.id', 'desc')->get();
-      //       return response()->json([
-      //           'status' => 200,
-      //           'event_posts' => $event_posts,
-      //       ]);
+    //event gloabl all search (web) searchbar field
+    public function getAllEventRelatedDataByName($name)
+    {
+        // $event_posts = DB::table('aussta_events')->where('event_title','Like','%'.$name .'%')->where('event_description','Like','%'.$name .'%')->where('event_fee','Like','%'.$name .'%')->orderBy('aussta_events.id', 'desc')->get();
+        //       return response()->json([
+        //           'status' => 200,
+        //           'event_posts' => $event_posts,
+        //       ]);
 
-             $event_posts=AusstaEvent::where('event_title','Like','%'.$name.'%')->orWhere('event_description','Like','%'.$name.'%')->orWhere('event_fee','Like','%'.$name.'%')->with(['EventImage','UserName','EventType'])->orWhereHas('EventType',function($q) use($name){
-        $q->where('event_type_name','Like','%'.$name.'%');
-  })->orWhereHas('userName',function($q) use($name){
-        $q->where('full_name','Like','%'.$name.'%');
-    })->get();
-    
+        $event_posts = AusstaEvent::where('event_title', 'Like', '%' . $name . '%')->orWhere('event_description', 'Like', '%' . $name . '%')->orWhere('event_fee', 'Like', '%' . $name . '%')->with(['EventImage', 'UserName', 'EventType'])->orWhereHas('EventType', function ($q) use ($name) {
+            $q->where('event_type_name', 'Like', '%' . $name . '%');
+        })->orWhereHas('userName', function ($q) use ($name) {
+            $q->where('full_name', 'Like', '%' . $name . '%');
+        })->get();
 
-          return response()->json([
+
+        return response()->json([
+            'status' => 200,
+            'event_posts' => $event_posts,
+        ]);
+    }
+
+
+    public function eventQrCodePassOrFail($eventId)
+    {
+
+        $event = AusstaEvent::where('id', $eventId)->first();
+        $qr_code = $event->event_unique_id;
+        if ($event->event_fee == 0) {
+            return response()->json([
                 'status' => 200,
-                'event_posts' => $event_posts,
-            ]);
-}
-
-
-public function eventQrCodePassOrFail($eventId){
-
-        $event=AusstaEvent::where('id',$eventId)->first();
-        $qr_code=$event->event_unique_id;
-        if($event->event_fee ==0){
-    return response()->json([
-                'status' => 200,
-                'qr_code'=>$qr_code,
+                'qr_code' => $qr_code,
                 'message' => 'success',
             ]);
-        }
-        else if($event->event_fee!==0){
-    return response()->json([
+        } else if ($event->event_fee !== 0) {
+            return response()->json([
                 'status' => 400,
                 // 'qr_code'=>$qr_code,
 
                 'message' => 'Failed',
             ]);
         }
-        
-}
 
-//web event persons name
+    }
 
-public function eventContactPersonName($eventId){
-    $event_id=AusstaEvent::where('id',$eventId)->pluck('contact_person')->implode(',');
- $explode=explode(',', $event_id);
-    // dd($explode);
+    //web event persons name
+
+    public function eventContactPersonName($eventId)
+    {
+        $event_id = AusstaEvent::where('id', $eventId)->pluck('contact_person')->implode(',');
+        $explode = explode(',', $event_id);
+        // dd($explode);
 
 
 
-    $contact_persons=User::whereIn('id',$explode)->get();
-   return response()->json([
-                'status' => 200,
-              'contact_persons' => $contact_persons,
-            ]);
-}
+        $contact_persons = User::whereIn('id', $explode)->get();
+        return response()->json([
+            'status' => 200,
+            'contact_persons' => $contact_persons,
+        ]);
+    }
 }

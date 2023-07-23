@@ -1,5 +1,7 @@
 <?php
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\AdminNoticeNotification;
@@ -58,14 +60,14 @@ use App\Http\Controllers\Backend\RoleNameController;
 // });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    // Route::post('/check',[MobileAuthenticationController::class,'check']);
-    Route::post('/admin-logout', [AuthenticationController::class, 'adminLogout']);
+  // Route::post('/check',[MobileAuthenticationController::class,'check']);
+  Route::post('/admin-logout', [AuthenticationController::class, 'adminLogout']);
 
-    Route::get('/user-logout', [MobileAuthenticationController::class, 'UserLogout']);
+  Route::get('/user-logout', [MobileAuthenticationController::class, 'UserLogout']);
 
 
-    // Route::get('/post-type',[PostTypeController::class,'index']);
-Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
+  // Route::get('/post-type',[PostTypeController::class,'index']);
+  Route::get('/all-read-notification-through-posts', [DashboardHomeController::class, 'allReadNotificationThroughPosts']);
 
 });
 
@@ -101,7 +103,7 @@ Route::get('/specific-user/{id}', [MobileAuthenticationController::class, 'speci
 //web authentication
 
 Route::post('/admin-login', [AuthenticationController::class, 'adminLogin']);
-Route::post('/admin-forget-password', [AuthenticationController::class, 'submitForgetPasswordForm']); 
+Route::post('/admin-forget-password', [AuthenticationController::class, 'submitForgetPasswordForm']);
 Route::post('/reset-admin-password', [AuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
@@ -201,7 +203,7 @@ Route::delete('/delete-company-name/{id}', [AusttaaCompanyNameController::class,
 //ausstta job sector (user configuration) Master Setup
 
 
-Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
+// Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
 Route::post('/add-job-sector', [AusttaaJobSectorController::class, 'store']);
 Route::get('/edit-job-sector/{id}', [AusttaaJobSectorController::class, 'edit']);
 Route::post('/update-job-sector/{id}', [AusttaaJobSectorController::class, 'update']);
@@ -210,7 +212,7 @@ Route::delete('/delete-job-sector/{id}', [AusttaaJobSectorController::class, 'de
 
 //ausstta job sub sector
 
-Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index']);
+// Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index']);
 Route::post('/add-job-sub-sector', [AusttaaJobSubSectorController::class, 'store']);
 Route::get('/edit-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'edit']);
 Route::post('/update-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'update']);
@@ -288,7 +290,7 @@ Route::delete('/delete-job-type/{id}', [JobTypeController::class, 'destroy']);
 
 //job post routes
 Route::post('/save-job-post', [JobPostController::class, 'store']);
-Route::get('/all-job-post', [JobPostController::class, 'index']);
+// Route::get('/all-job-post', [JobPostController::class, 'index']);
 Route::get('/edit-job-post/{id}', [JobPostController::class, 'edit']);
 Route::post('/update-job-post/{id}', [JobPostController::class, 'update']);
 Route::post('/delete-job-post/{id}', [JobPostController::class, 'destroy']);
@@ -385,7 +387,7 @@ Route::post('/update-advertisement/{id}', [AdvertisementController::class, 'upda
 
 // /web upcoming advertisement,archive post (tab)filtering
 Route::get('/filter-advertisement-posts/{filterByName}', [AdvertisementController::class, 'filterAdvertisementsByName']);
-  //web filtering between days (advertisement finishing)
+//web filtering between days (advertisement finishing)
 Route::get('/filter-advertisement-finishing-days/{filterByDays}', [AdvertisementController::class, 'filterAdvertisementsByDays']);
 //global search web
 Route::get('/advertisement-global-search/{name}', [AdvertisementController::class, 'advertisementGlobalSearch']);
@@ -537,6 +539,9 @@ Route::post('/add-role-name', [RoleNameController::class, 'store']);
 Route::get('/edit-role-name/{id}', [RoleNameController::class, 'edit']);
 Route::post('/update-role-name/{id}', [RoleNameController::class, 'update']);
 Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
+Route::get('get-all-roles', [RoleNameController::class, 'getAllRoles']);
+Route::post('assign-permission-via-role/{id}', [RoleNameController::class, 'assignPermissionViaRole']);
+Route::get('get-permission-via-role/{id}', [RoleNameController::class, 'getPermissionViaRole']);
 
 
 
@@ -564,7 +569,28 @@ Route::post('/user-all-messages-between-two', [MessageController::class, 'allMes
 
 
 
-// Route::get('/check-mai-design',function(){
-//     return view('emails.eventmail');
-// });
+Route::post('/create-permissions',function(){
+    // return $permission = Permission::create(['name' => 'blog_article_configuration_delete']);
 
+
+    // $role=Role::where('name',"admin")->first();
+    // $permissions=Permission::all();
+    // // return $permissions;
+    // // $user=User::where('email','rakib10ms@gmail.com')->first();
+    // // return $user->assignRole('Admin');
+
+
+    // $role->syncPermissions($permissions);
+    // // $role->permissions;
+
+    // return $role;
+
+});
+
+// Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+  Route::get('/job-sector', [AusttaaJobSectorController::class, 'index'])->middleware('can:view_job_sector');
+  Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index'])->middleware('can:view_job_sub_sector');
+  Route::get('/all-job-post', [JobPostController::class, 'index'])->middleware('can:view_all_jobs');
+});

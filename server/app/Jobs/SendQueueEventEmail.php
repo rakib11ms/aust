@@ -25,10 +25,10 @@ class SendQueueEventEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(AusstaEvent $event,array $user_ids)
+    public function __construct(AusstaEvent $event, array $user_ids)
     {
-                $this->event = $event;
-                        $this->user_ids = $user_ids;
+        $this->event = $event;
+        $this->user_ids = $user_ids;
 
     }
 
@@ -39,15 +39,15 @@ class SendQueueEventEmail implements ShouldQueue
      */
     public function handle()
     {
-       // $persons = $this->event->contact_person;
-       //  $user_ids = explode(",", $persons);
+        // $persons = $this->event->contact_person;
+        //  $user_ids = explode(",", $persons);
 
-        $users = User::whereIn("id",$this->user_ids)->get();
+        $users = User::whereIn("id", $this->user_ids)->get();
 
         foreach ($users as $key => $user) {
             Mail::to($user->email)->send(new EventMail($this->event));
         }
-   
+
     }
 
 }
