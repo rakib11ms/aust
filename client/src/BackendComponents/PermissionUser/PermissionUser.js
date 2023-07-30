@@ -155,6 +155,63 @@ const PermissionUser = () => {
 
         }))
       }
+      if (res.data.permissions.includes('create_job')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          create_job: true,
+
+        }))
+      }
+
+      if (res.data.permissions.includes('view_job')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          view_job: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('update_job')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          update_job: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('delete_job')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          delete_job: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('job_configuration_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          job_configuration_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('job_configuration_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          job_configuration_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('job_configuration_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          job_configuration_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('job_configuration_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          job_configuration_delete: true,
+
+        }))
+      }
       if (res.data.permissions.includes('create_news_notice')) {
         setPermissions((prevPermissions) => ({
           ...prevPermissions,
@@ -214,7 +271,7 @@ const PermissionUser = () => {
       if (res.data.permissions.includes('create_blog_article')) {
         setPermissions((prevPermissions) => ({
           ...prevPermissions,
-          create_blog_articles: true,
+          create_blog_article: true,
 
         }))
       }
@@ -311,7 +368,7 @@ const PermissionUser = () => {
               </div>
               <div className="container">
                 <div className="d-flex justify-content-end align-items-start" style={{ marginTop: '-50px' }}>
-                  <button className="btn btn-success" type="button" onClick={handleSubmit}>আপডেট</button>
+                  <button className="btn btn-success" type="button" onClick={handleSubmit}>Update</button>
                 </div>
               </div>
             </div>

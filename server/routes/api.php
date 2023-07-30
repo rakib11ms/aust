@@ -203,7 +203,7 @@ Route::delete('/delete-company-name/{id}', [AusttaaCompanyNameController::class,
 //ausstta job sector (user configuration) Master Setup
 
 
-// Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
+Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
 Route::post('/add-job-sector', [AusttaaJobSectorController::class, 'store']);
 Route::get('/edit-job-sector/{id}', [AusttaaJobSectorController::class, 'edit']);
 Route::post('/update-job-sector/{id}', [AusttaaJobSectorController::class, 'update']);
@@ -212,7 +212,7 @@ Route::delete('/delete-job-sector/{id}', [AusttaaJobSectorController::class, 'de
 
 //ausstta job sub sector
 
-// Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index']);
+Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index']);
 Route::post('/add-job-sub-sector', [AusttaaJobSubSectorController::class, 'store']);
 Route::get('/edit-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'edit']);
 Route::post('/update-job-sub-sector/{id}', [AusttaaJobSubSectorController::class, 'update']);
@@ -290,7 +290,7 @@ Route::delete('/delete-job-type/{id}', [JobTypeController::class, 'destroy']);
 
 //job post routes
 Route::post('/save-job-post', [JobPostController::class, 'store']);
-// Route::get('/all-job-post', [JobPostController::class, 'index']);
+Route::get('/all-job-post', [JobPostController::class, 'index']);
 Route::get('/edit-job-post/{id}', [JobPostController::class, 'edit']);
 Route::post('/update-job-post/{id}', [JobPostController::class, 'update']);
 Route::post('/delete-job-post/{id}', [JobPostController::class, 'destroy']);
@@ -570,7 +570,7 @@ Route::post('/user-all-messages-between-two', [MessageController::class, 'allMes
 
 
 Route::post('/create-permissions',function(){
-    // return $permission = Permission::create(['name' => 'blog_article_configuration_delete']);
+    return $permission = Role::create(['name' => 'Alumni']);
 
 
     // $role=Role::where('name',"admin")->first();
@@ -589,8 +589,8 @@ Route::post('/create-permissions',function(){
 
 // Route::get('/job-sector', [AusttaaJobSectorController::class, 'index']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-  Route::get('/job-sector', [AusttaaJobSectorController::class, 'index'])->middleware('can:view_job_sector');
-  Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index'])->middleware('can:view_job_sub_sector');
-  Route::get('/all-job-post', [JobPostController::class, 'index'])->middleware('can:view_all_jobs');
-});
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+//   Route::get('/job-sector', [AusttaaJobSectorController::class, 'index'])->middleware('can:view_job_sector');
+//   Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index'])->middleware('can:view_job_sub_sector');
+//   Route::get('/all-job-post', [JobPostController::class, 'index'])->middleware('can:view_all_jobs');
+// });

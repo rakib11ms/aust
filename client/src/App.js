@@ -19,7 +19,6 @@ import JobConfiguration from './BackendComponents/Job Management/JobConfiguratio
 import CreateJobPost from './BackendComponents/Job Management/JobPost/CreateJobPost';
 import ViewAllJob from './BackendComponents/Job Management/JobPost/ViewAllJob';
 import ViewAllUsers from './BackendComponents/User/ViewAllUsers';
-import RoleManagement from './BackendComponents/User/RoleManagement/RoleManagement';
 import EditJobPost from './BackendComponents/Job Management/JobPost/EditJobPost';
 import CreateEvent from './BackendComponents/Event/CreateEvent';
 import EventConfiguration from './BackendComponents/Event/Event Configuration/EventConfiguration';

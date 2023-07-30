@@ -38,6 +38,8 @@ function ViewAllUsers() {
     const [loading, setLoading] = useState(true);
 
     const [allUsers, setallUsers] = useState([]);
+    console.log('users', allUsers)
+
 
     useEffect(() => {
         axios.get(`/api/all-users`).then(res => {
@@ -115,7 +117,7 @@ function ViewAllUsers() {
 
     const [viewUserDescription, setViewUserDescription] = useState('');
 
-    // console.log('full profile', viewUserDescription);
+    console.log('full profile', viewUserDescription);
 
 
     const [viewUserModalIsOpen, setviewUserModalIsOpen] = useState(false);
@@ -189,28 +191,69 @@ function ViewAllUsers() {
 
         {
             title: "ALL", field: `image`, render: (row) =>
+
                 <div className="dropdown dropend" >
                     <button class="btn btn-white " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className={`border border-2 ${row.roles[0].name == 'Admin' ? 'border-success' : row.roles[0].name == 'Moderator' ? 'border-info' : row.roles[0].name == 'Alumni' ? 'border-primary' : row.roles[0].name == 'Staff' ? 'border-warning' : ''}`} style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
+                        <img className={`border border-3 ${row.roles && row.roles.length >= 1 && row.roles[0].name === 'Admin' ? 'border-success' : row.roles && row.roles.length >= 1 && row.roles[0].name == 'Moderator' ? 'border-info' : row.roles && row.roles.length >= 1 && row.roles[0].name == 'Alumni' ? 'border-primary' : ''}`} style={{ borderRadius: "100px" }} src={`${global.img_url}/images/${row.image}`} width="55px" height="55px" alt="No Image" />
 
                     </button>
 
 
 
                     <ul class="dropdown-menu ms-1" aria-labelledby="dropdownMenuButton1">
-                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Admin' ? "active" : ""}`} href="#" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} name="Admin" onClick={(e) => handleUserRoleChangeInfo(e, row)}>Admin</a>
-                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Alumni' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Alumni" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Alumni</a>
-                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Moderator' ? "active" : ""}`} href="#" data-bs-toggle="modal" name="Moderator" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Moderator</a>
+                        {row.roles && row.roles.length >= 1 && (
+                            <a
+                                class={`dropdown-item ${row.roles[0].name === 'Admin' ? 'active' : ''}`}
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#exampleModal${row.roles[0].name}`}
+                                name="Admin"
+                                onClick={(e) => handleUserRoleChangeInfo(e, row)}
+                            >
+                                Admin
+                            </a>
+                        )}
+                        {row.roles && row.roles.length >= 1 && (
+                            <a
+                                class={`dropdown-item ${row.roles[0].name === 'Alumni' ? 'active' : ''}`}
+                                href="#"
+                                data-bs-toggle="modal"
+                                name="Alumni"
+                                data-bs-target={`#exampleModal${row.roles[0].name}`}
+                                onClick={(e) => handleUserRoleChangeInfo(e, row)}
+                            >
+                                Alumni
+                            </a>
+                        )}
+                        {row.roles && row.roles.length >= 1 && (
+                            <a
+                                class={`dropdown-item ${row.roles[0].name === 'Moderator' ? 'active' : ''}`}
+                                href="#"
+                                data-bs-toggle="modal"
+                                name="Moderator"
+                                data-bs-target={`#exampleModal${row.roles[0].name}`}
+                                onClick={(e) => handleUserRoleChangeInfo(e, row)}
+                            >
+                                Moderator
+                            </a>
+                        )}
                         {/* <div class="dropdown-divider"></div> */}
-                        <a class={`dropdown-item ${row.roles !== undefined && row.roles[0].name == 'Staff' ? "active" : ""}`} href="#" name="Staff" data-bs-toggle="modal" data-bs-target={`#exampleModal${row.roles !== undefined && row.roles[0].name}`} onClick={(e) => handleUserRoleChangeInfo(e, row)}>Staff</a>
-
-
-
-
+                        {/* {row.roles && row.roles.length >= 1 && (
+                            <a
+                                class={`dropdown-item ${row.roles[0].name === 'Staff' ? 'active' : ''}`}
+                                href="#"
+                                name="Staff"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#exampleModal${row.roles[0].name}`}
+                                onClick={(e) => handleUserRoleChangeInfo(e, row)}
+                            >
+                                Staff
+                            </a>
+                        )} */}
                     </ul>
 
 
-                    <div class="modal fade" id={`exampleModal${row.roles[0].name}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id={`exampleModal${row.roles && row.roles.length >= 1 && row.roles[0].name}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header py-2">
@@ -583,7 +626,7 @@ function ViewAllUsers() {
     const [allCompanyName, setAllCompanyName] = useState([]);
     const [allCompanyNameSort, setAllCompanyNameSort] = useState([]);
 
-    console.log('compan', company_name)
+    // console.log('compan', company_name)
     const [allBatchName, setAllBatchName] = useState([]);
     const [allGenderName, setAllGenderName] = useState([]);
     const [allStreamName, setAllStreamName] = useState([]);
@@ -642,7 +685,7 @@ function ViewAllUsers() {
 
 
     useEffect(() => {
-        if (batch_name == null &&  company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
+        if (batch_name == null && company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
             axios.get(`/api/all-users`).then(res => {
                 if (res.data.status == 200) {
                     setallUsers(res.data.all_users);
@@ -650,27 +693,27 @@ function ViewAllUsers() {
                 }
             })
         }
-        else{
-            const data={
-                batch:batch_name,
+        else {
+            const data = {
+                batch: batch_name,
                 company: company_name,
-                blood:blood_group_name,
-                stream:stream_name,
-                gender:gender_name,
-                jobsector:job_sector_name,
-                subsector:job_sub_sector_name,
-                thana:thana_name
+                blood: blood_group_name,
+                stream: stream_name,
+                gender: gender_name,
+                jobsector: job_sector_name,
+                subsector: job_sub_sector_name,
+                thana: thana_name
             }
 
-            axios.post(`/api/multiple-filter-search-all-users/`,data).then(res => {
+            axios.post(`/api/multiple-filter-search-all-users/`, data).then(res => {
                 if (res.data.status == 200) {
 
-                    console.log('multiple filter search', res.data)
+                    // console.log('multiple filter search', res.data)
                     setallUsers(res.data.all_users)
                     setLoading(false);
                 }
             })
-        
+
         }
 
     }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, job_sub_sector_name, thana_name])
@@ -706,7 +749,7 @@ function ViewAllUsers() {
         total_active: "",
         total_pending: ''
     });
-    console.log('bal', totalActivePending)
+    // console.log('bal', totalActivePending)
     useEffect(() => {
         axios.get(`/api/total-pending-or-active-users`).then(res => {
             if (res.data.status == 200) {
@@ -721,7 +764,7 @@ function ViewAllUsers() {
 
     const [allUsersPdf, setAllUsersPdf] = useState([])
 
-    console.log('pdfs', allUsersPdf)
+    // console.log('pdfs', allUsersPdf)
     // useEffect(() => {
     //     axios.get(`/api/get-all-users-pdf`).then(res => {
     //         if (res.data.status == 200) {
@@ -1076,7 +1119,7 @@ function ViewAllUsers() {
                                                 <div className='d-flex align-items-center text-secondary '>
                                                     <h6 className={`${userRoleFiltering === 'All' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('All') }}>All</h6>
                                                     <h6 className={`${userRoleFiltering === 'Alumni' ? 'filterTrack' : ""} mx-2`} onClick={() => { setuserRoleFiltering('Alumni') }}>Alumni</h6>
-                                                    <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Staff') }}>Staff</h6>
+                                                    {/* <h6 className={`${userRoleFiltering === 'Staff' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Staff') }}>Staff</h6> */}
                                                     <h6 className={`${userRoleFiltering === 'Admin' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Admin') }}>Admins</h6>
                                                     <h6 className={`${userRoleFiltering === 'Moderator' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Moderator') }}>Moderators</h6>
                                                     <h6 className={`${userRoleFiltering === 'Pending' ? 'filterTrack' : ""} mx-3`} onClick={() => { setuserRoleFiltering('Pending') }}>Pendings</h6>
@@ -1233,7 +1276,7 @@ function ViewAllUsers() {
 
                                                             </div>
                                                             <div className='mx-2'>
-                                                                Blood Group: {viewUserDescription.blood_group !== undefined && viewUserDescription.blood_group!==null && viewUserDescription.blood_group.blood_group_name}
+                                                                Blood Group: {viewUserDescription.blood_group !== undefined && viewUserDescription.blood_group !== null && viewUserDescription.blood_group.blood_group_name}
 
                                                             </div>
                                                         </div>
@@ -1294,7 +1337,7 @@ function ViewAllUsers() {
                                                                 </tr>
                                                                 <tr>
                                                                     <th style={{ width: "30%" }}>Batch</th>
-                                                                    <td>{viewUserDescription.batch_name !== null && viewUserDescription.batch_name}</td>
+                                                                    <td>{viewUserDescription.batch_name && viewUserDescription.batch_name !== undefined && viewUserDescription.batch_name.batch_name}</td>
 
                                                                 </tr>
                                                                 <tr>

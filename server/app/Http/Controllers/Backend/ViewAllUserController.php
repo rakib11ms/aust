@@ -165,7 +165,7 @@ if ($request->company !== null) {
 
 public function userLocationSearch($name){
  $all_users=User::where('present_address','Like','%'.$name.'%')->orWhere('permanent_address','Like','%'.$name.'%')->orWhere('thana','Like','%'.$name.'%')->with(['roles','professionalInfo','educationalInfo','bloodGroup','streamName','batchName'])->orWhereHas('professionalInfo',function($q) use($name){
-        $q->where('office_address','Like','%'.$name.'%');
+        $q->where('office_address',$name);
     })->get();
     return response()->json([
             'status' => 200,
@@ -184,8 +184,9 @@ public function userLocationSearch($name){
         }
      else if($name=='Admin'){
         $all_users=User::where('status','active')->orderBy('created_at','desc')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
-        $q->where('name','Like','%'.$name.'%');
+        $q->where('name',$name);
     })->get();
+
            return response()->json([
         'status'=>200,
         'all_users'=>$all_users,
@@ -195,7 +196,7 @@ public function userLocationSearch($name){
         }
         else if($name=='Alumni'){
       $all_users=User::where('status','active')->orderBy('created_at','desc')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
-        $q->where('name','Like','%'.$name.'%');
+        $q->where('name',$name);
     })->get();
            return response()->json([
         'status'=>200,
@@ -206,7 +207,7 @@ public function userLocationSearch($name){
 
            else if($name=='Moderator'){
       $all_users=User::where('status','active')->orderBy('created_at','desc')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
-        $q->where('name','Like','%'.$name.'%');
+        $q->where('name',$name);
     })->get();
            return response()->json([
         'status'=>200,
@@ -215,16 +216,16 @@ public function userLocationSearch($name){
     ]);
         }
 
-           else if($name=='Staff'){
-     $all_users=User::where('status','active')->orderBy('created_at','desc')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
-        $q->where('name','Like','%'.$name.'%');
-    })->get();
-           return response()->json([
-        'status'=>200,
-        'all_users'=>$all_users,
+    //        else if($name=='Staff'){
+    //  $all_users=User::where('status','active')->orderBy('created_at','desc')->with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->whereHas('roles',function($q) use($name){
+    //     $q->where('name','Like','%'.$name.'%');
+    // })->get();
+    //        return response()->json([
+    //     'status'=>200,
+    //     'all_users'=>$all_users,
     
-    ]);
-        }
+    // ]);
+    //     }
         else if($name=='Pending'){
      $all_users=User::with(['professionalInfo','educationalInfo','bloodGroup','streamName','batchName','roles'])->where('status','pending')->orderBy('created_at','desc')->get();
    return response()->json([
