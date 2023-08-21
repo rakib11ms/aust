@@ -18,7 +18,8 @@ use App\Http\Controllers\Backend\EventTypeController;
 use App\Http\Controllers\Backend\ArticleBlogCategoryController;
 use App\Http\Controllers\Backend\ArticleBlogSubCategoryController;
 use App\Http\Controllers\Backend\MessageController;
-
+use App\Http\Controllers\Backend\ThanaController;
+use App\Http\Controllers\Backend\PostalCodeController;
 use App\Http\Controllers\Backend\ArticleBlogController;
 use App\Http\Controllers\Backend\AusttaaJobSectorController;
 use App\Http\Controllers\Backend\AusttaaJobSubSectorController;
@@ -594,3 +595,11 @@ Route::post('/create-permissions',function(){
 //   Route::get('/job-sub-sector', [AusttaaJobSubSectorController::class, 'index'])->middleware('can:view_job_sub_sector');
 //   Route::get('/all-job-post', [JobPostController::class, 'index'])->middleware('can:view_all_jobs');
 // });
+
+
+
+
+//thana routes
+
+Route::resource('/thana', ThanaController::class);
+Route::resource('/postal-code', PostalCodeController::class);
