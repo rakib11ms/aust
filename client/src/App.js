@@ -53,7 +53,6 @@ import EditNoticeNews from './BackendComponents/NoticeNews/EditNoticeNews';
 import ViewNotification from './BackendComponents/Notification/ViewNotification';
 import CreateNotification from './BackendComponents/Notification/CreateNotification';
 import PermissionUser from './BackendComponents/PermissionUser/PermissionUser';
-
 // const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
 // const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
 
@@ -103,6 +102,7 @@ import PermissionUser from './BackendComponents/PermissionUser/PermissionUser';
 
 // const TermCondition = lazy(() => import('./PrivacyPolicy/TermCondition'));
 // const PrivacyPolicy = lazy(() => import('./PrivacyPolicy/PrivacyPolicy'));
+
 function App() {
 
   const [storage, setStorage] = useState('');
@@ -317,6 +317,7 @@ function App() {
 
           <Route path="view-global-notification" element={< ViewNotification />}></Route>
           <Route path="create-global-notification" element={< CreateNotification />}></Route>
+
 
 
 
