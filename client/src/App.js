@@ -53,6 +53,8 @@ import EditNoticeNews from './BackendComponents/NoticeNews/EditNoticeNews';
 import ViewNotification from './BackendComponents/Notification/ViewNotification';
 import CreateNotification from './BackendComponents/Notification/CreateNotification';
 import PermissionUser from './BackendComponents/PermissionUser/PermissionUser';
+import ViewThana from './BackendComponents/LocationSetup/Thana/ViewThana';
+import CreateThana from './BackendComponents/LocationSetup/Thana/CreateThana';
 // const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
 // const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
 
@@ -320,6 +322,8 @@ function App() {
 
 
 
+          <Route path="view-thana" element={< ViewThana />}></Route>
+          <Route path="create-thana" element={< CreateThana />}></Route>
 
 
         </Route>

@@ -530,7 +530,7 @@ class ThanaController extends Controller
             'thana_name' => [
                 'required',
                 'unique:thanas',
-                'regex:/^[A-Z][a-z]+$/',
+                // 'regex:/^[A-Z][a-z]+$/',
             ],
         ]);
 
