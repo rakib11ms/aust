@@ -318,15 +318,15 @@ public function userLocationSearch($name){
         }
     }
 
-    public function LocationThana(){
-            $all_thana=User::orderBy('thana','asc')->whereNotNull('thana')->pluck('thana');
-             return response()->json(
-                [
-                    'status' => 200,
-                    'all_thana' =>$all_thana,
-                ]
-            );
-    }
+    // public function LocationThana(){
+    //         $all_thana=User::orderBy('thana','asc')->whereNotNull('thana')->pluck('thana');
+    //          return response()->json(
+    //             [
+    //                 'status' => 200,
+    //                 'all_thana' =>$all_thana,
+    //             ]
+    //         );
+    // }
 
     public function totalPendingActiveUsers(){
         $active_users=User::where('status','active')->get()->count();

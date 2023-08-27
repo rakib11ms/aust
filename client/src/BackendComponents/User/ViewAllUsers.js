@@ -529,15 +529,18 @@ function ViewAllUsers() {
     // console.log('filter click check', userRoleFiltering)
 
 
-    useEffect(() => {
-        axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
-            if (res.data.status == 200) {
-                setallUsers(res.data.all_users);
-                setLoading(false);
-                // window.location.reload();
-            }
-        })
+  async function RoleFilter(){
+    await axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
+        if (res.data.status == 200) {
+            setallUsers(res.data.all_users);
+            setLoading(false);
+            // window.location.reload();
+        }
+    })
+  }
 
+    useEffect(() => {
+        RoleFilter();
     }, [userRoleFiltering, renderAllUsers])
 
     //excel export users
@@ -675,9 +678,9 @@ function ViewAllUsers() {
 
             }
         })
-        axios.get(`/api/all-thana`).then(res => {
+        axios.get(`/api/thana`).then(res => {
             if (res.data.status == 200) {
-                setAllThana(res.data.all_thana);
+                setAllThana(res.data.thana_name);
 
             }
         })
@@ -1012,7 +1015,7 @@ function ViewAllUsers() {
                                                                         allThana.map((item, i) => {
                                                                             return (
                                                                                 <>
-                                                                                    <option value={item}>{item}</option>
+                                                                                    <option value={item.thana_name}>{item.thana_name}</option>
 
                                                                                 </>
                                                                             )
@@ -1126,31 +1129,7 @@ function ViewAllUsers() {
                                                 </div>
 
 
-                                                <div className='d-flex align-items-center'>
-                                                    {/* {
-                                                        selectedRowsLength > 1 &&
-                                                        <>
-                                                            <div class="form-check form-switch mx-2">
-                                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                                                            </div>
-
-                                                            <div className='mx-2 '
-                                                                onClick={
-                                                                    deleteAllRecords
-                                                                }
-                                                            >
-                                                                <i class="fa-solid fa-trash icon-table-trash"></i>
-                                                            </div>
-
-
-
-                                                        </>
-                                                    } */}
-
-
-
-                                                </div>
-
+                                    
                                                 <div className='d-flex align-items-center  '>
 
                                                     <div class="mx-2">

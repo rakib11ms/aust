@@ -76,7 +76,8 @@ function Sidebar() {
         path == '/create-vlog' && setIsActive11(true) || path == '/view-vlog' && setIsActive11(true) || path == '/vlog-configuration' && setIsActive11(true)
         path == '/create-global-notification' && setIsActive12(true) || path == '/view-global-notification' && setIsActive12(true)
         path == '/create-organization' && setIsActive13(true) || path == '/view-organization' && setIsActive13(true)
-        path == '/create-thana' && setIsActive14(true)
+        path == '/create-thana' && setIsActive14(true) ||  path == '/view-thana' && setIsActive14(true) || path == '/create-postal-code' && setIsActive14(true) ||  path == '/view-postal-code' && setIsActive14(true) 
+
 
     }, [path])
 
@@ -159,9 +160,9 @@ function Sidebar() {
                                         <li className='mt-1'>
                                             <Link to="/role-management" className={`text-form ${path == '/role-management' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light'}`}  >Role Management</Link>
                                         </li>
-                                        <li className='mt-1'>
+                                        {/* <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color pt-1 pe-1 pb-1 rounded' : 'text-light '}`}>Event Resigter Users </a>
-                                        </li>
+                                        </li> */}
                                         <li className='mt-1'>
                                             <Link to="/user-configuration" className={`text-form ${path == '/user-configuration' ? 'text-light bg-active-color pt-1 pe-3 pb-1 rounded' : 'text-light '}`} >Configuration</Link>
                                         </li>
@@ -626,11 +627,17 @@ function Sidebar() {
                                         <li>
                                             <Link to='/create-thana' className={`text-form ${path == '/create-thana' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create thana</Link>
                                         </li>
-                                     
+                                        <li>
+                                            <Link to='/view-thana' className={`text-form ${path == '/view-thana' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View thana</Link>
+                                        </li>
 
+                                        <li>
+                                            <Link to='/create-postal-code' className={`text-form ${path == '/create-postal-code' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>Create postal code</Link>
+                                        </li>
 
-
-
+                                        <li>
+                                            <Link to='/view-postal-code' className={`text-form ${path == '/view-postal-code' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}>View postal code</Link>
+                                        </li>
 
                                     </ul>
                                 </>

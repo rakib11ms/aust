@@ -31,7 +31,7 @@ class PostalCodeController extends Controller
             'postal_code_name' => [
                 'required',
                 'unique:postal_codes',
-                'regex:/^[A-Z][a-z]+$/',
+                // 'regex:/^[A-Z][a-z]+$/',
             ],
         ]);
     

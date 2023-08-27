@@ -156,8 +156,8 @@ Route::get('/user-location-based-search-mobile/{name}', [ViewAllUserController::
 
 
 
-//all location (thana) from users table thana field dropdown
-Route::get('/all-thana', [ViewAllUserController::class, 'LocationThana']);
+// //all location (thana) from users table thana field dropdown
+// Route::get('/all-thana', [ViewAllUserController::class, 'LocationThana']);
 
 //austtaa batch 
 

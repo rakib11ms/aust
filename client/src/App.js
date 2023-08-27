@@ -55,6 +55,8 @@ import CreateNotification from './BackendComponents/Notification/CreateNotificat
 import PermissionUser from './BackendComponents/PermissionUser/PermissionUser';
 import ViewThana from './BackendComponents/LocationSetup/Thana/ViewThana';
 import CreateThana from './BackendComponents/LocationSetup/Thana/CreateThana';
+import ViewPostalCode from './BackendComponents/LocationSetup/PostalCode/ViewPostalCode';
+import CreatePostalCode from './BackendComponents/LocationSetup/PostalCode/CreatePostalCode';
 // const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
 // const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
 
@@ -324,6 +326,8 @@ function App() {
 
           <Route path="view-thana" element={< ViewThana />}></Route>
           <Route path="create-thana" element={< CreateThana />}></Route>
+          <Route path="view-postal-code" element={< ViewPostalCode />}></Route>
+          <Route path="create-postal-code" element={< CreatePostalCode />}></Route>
 
 
         </Route>
