@@ -148,6 +148,11 @@ Route::get('/export-users-as-excel/{name}', [ViewAllUserController::class, 'expo
 
 Route::post('/multiple-filter-search-all-users', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);
 
+//multiple advance search from mobile (advance filtering for users data)
+Route::post('/multiple-filter-advance-search-all-users', [ViewAllUserController::class, 'multipleFilterAdvanceSearchAllUsers']);
+
+
+
 //global user search web
 Route::get('/user-global-search/{name}', [ViewAllUserController::class, 'userGlobalSearch']);
 

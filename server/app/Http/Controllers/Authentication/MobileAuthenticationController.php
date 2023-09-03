@@ -51,13 +51,13 @@ class MobileAuthenticationController extends Controller
             if ($duplicateUser < 1) {
                 $user = new User();
 
-             if($request->hasFile('image')){
-            $file=$request->file('image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
-            $user->image =$filename ;
-         } 
+                if ($request->hasFile('image')) {
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $file->move('images/', $filename);
+                    $user->image = $filename;
+                }
                 $user->full_name = $request->full_name;
                 $user->nick_name = $request->nick_name;
                 $user->email = $request->email;
@@ -81,28 +81,27 @@ class MobileAuthenticationController extends Controller
                 if (is_numeric($request->job_sector)) {
 
                     // dd("job sector numeric");
-                 $user->job_sector = $request->job_sector;
+                    $user->job_sector = $request->job_sector;
 
-                } else if(!is_numeric($request->job_sector)){
+                } else if (!is_numeric($request->job_sector)) {
                     // dd("job sector numeric na aita text",$request->job_sector);
 
-                    $save_new_job_sector=new AusttaaJobSector();
+                    $save_new_job_sector = new AusttaaJobSector();
 
-                    $save_new_job_sector->job_sector_name=$request->job_sector;
-                     $save_new_job_sector->save();
+                    $save_new_job_sector->job_sector_name = $request->job_sector;
+                    $save_new_job_sector->save();
                     $user->job_sector = $save_new_job_sector->id;
 
                 }
 
-                if(is_numeric($request->job_sub_sector)){
-                $user->job_sub_sector = $request->job_sub_sector;
+                if (is_numeric($request->job_sub_sector)) {
+                    $user->job_sub_sector = $request->job_sub_sector;
 
-                }
-                else if(!is_numeric($request->job_sub_sector)){
-      $save_new_job_sub_sector=new AusttaaJobSubSector();
-            $save_new_job_sub_sector->job_sub_sector_name=$request->job_sub_sector;
-                $save_new_job_sub_sector->save();
-                $user->job_sub_sector = $save_new_job_sub_sector->id;
+                } else if (!is_numeric($request->job_sub_sector)) {
+                    $save_new_job_sub_sector = new AusttaaJobSubSector();
+                    $save_new_job_sub_sector->job_sub_sector_name = $request->job_sub_sector;
+                    $save_new_job_sub_sector->save();
+                    $user->job_sub_sector = $save_new_job_sub_sector->id;
 
 
                 }
@@ -119,34 +118,33 @@ class MobileAuthenticationController extends Controller
 
 
 
-                $user_professional=new UserProfessionalInfo();
+                $user_professional = new UserProfessionalInfo();
                 $user_professional->office_address = $request->office_address;
 
                 // $user_professional->name_of_company = $request->name_of_company;
-                      if(is_numeric($request->name_of_company)){
-                $user_professional->name_of_company = $request->name_of_company;
+                if (is_numeric($request->name_of_company)) {
+                    $user_professional->name_of_company = $request->name_of_company;
 
-                }
-                else if(!is_numeric($request->name_of_company)){
-      $save_new_company=new AusttaaCompanyName();
-            $save_new_company->company_name=$request->name_of_company;
-            $save_new_company->save();
+                } else if (!is_numeric($request->name_of_company)) {
+                    $save_new_company = new AusttaaCompanyName();
+                    $save_new_company->company_name = $request->name_of_company;
+                    $save_new_company->save();
                     $user_professional->name_of_company = $save_new_company->id;
 
                 }
 
                 $user_professional->year = $request->year;
-                $user_professional->designation= $request->designation;
-                $user_professional->user_id= $user->id;
+                $user_professional->designation = $request->designation;
+                $user_professional->user_id = $user->id;
                 $user_professional->save();
 
-                $user_educational=new UserEducationalInfo();
-                $user_educational->user_id= $user->id;
+                $user_educational = new UserEducationalInfo();
+                $user_educational->user_id = $user->id;
                 $user_educational->save();
 
                 $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
-            $otp = mt_rand(00000, 99999);
+                $otp = mt_rand(00000, 99999);
 
                 $emailOtp = new LoginEmailOtp();
                 $emailOtp->user_id = $user->id;
@@ -175,122 +173,155 @@ class MobileAuthenticationController extends Controller
         }
     }
 
-    public function userProfessionalAddMore(Request $request){
-            
-            $save_more_professional=new UserProfessionalInfo();
-            $save_more_professional->user_id=$request->user_id;
-            $save_more_professional->name_of_company= $request->name_of_company;
-            $save_more_professional->office_address= $request->office_address;
-            $save_more_professional->year= $request->year;
-            $save_more_professional->designation=$request->designation;
+    public function userProfessionalAddMore(Request $request)
+    {
+
+        $save_more_professional = new UserProfessionalInfo();
+        $save_more_professional->user_id = $request->user_id;
+        // $save_more_professional->name_of_company = $request->name_of_company;
+        $save_more_professional->office_address = $request->office_address;
+        $save_more_professional->year = $request->year;
+        $save_more_professional->designation = $request->designation;
+        if (is_numeric($request->name_of_company)) {
+            $save_more_professional->name_of_company = $request->name_of_company;
             $save_more_professional->save();
-            $user_professional_infos=UserProfessionalInfo::where('user_id',$request->user_id)->get();
-            return response()->json([
-                    'status' => 200,
-                    'message' => 'User Professional added one more',
-                    'user_professional_infos'=>$user_professional_infos,
-                ]);
+
+        } else if (!is_numeric($request->name_of_company)) {
+
+            $save_new_company = new AusttaaCompanyName();
+            $save_new_company->company_name = $request->name_of_company;
+            $save_new_company->save();
+            $save_more_professional->name_of_company = $save_new_company->id;
+            $save_more_professional->save();
+
+        }
+
+        // $save_more_professional->save();
+        $user_professional_infos = UserProfessionalInfo::where('user_id', $request->user_id)->get();
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Professional added one more',
+            'user_professional_infos' => $user_professional_infos,
+        ]);
 
 
     }
 
 
 
-        public function userProfessionalUpdate(Request $request,$id){
+    public function userProfessionalUpdate(Request $request, $id)
+    {
 
-            $update_user_profession=UserProfessionalInfo::find($id);
-        $update_user_profession->user_id=$request->user_id;
-            $update_user_profession->office_address=$request->office_address;
-            $update_user_profession->year=$request->year;
-            $update_user_profession->designation=$request->designation;
-            $update_user_profession->name_of_company=$request->name_of_company;
-       
+        $update_user_profession = UserProfessionalInfo::find($id);
+        $update_user_profession->user_id = $request->user_id;
+        $update_user_profession->office_address = $request->office_address;
+        $update_user_profession->year = $request->year;
+        $update_user_profession->designation = $request->designation;
+
+        // $user_professional->name_of_company = $request->name_of_company;
+        if (is_numeric($request->name_of_company)) {
+            $update_user_profession->name_of_company = $request->name_of_company;
             $update_user_profession->update();
-            $update_user_profession_data=UserProfessionalInfo::where('id',$id)->first();
 
-              return response()->json([
-                    'status' => 200,
-                    'update_user_profession_data' =>$update_user_profession_data
-                ]);
+        } else if (!is_numeric($request->name_of_company)) {
+
+            $save_new_company = new AusttaaCompanyName();
+            $save_new_company->company_name = $request->name_of_company;
+            $save_new_company->save();
+            $update_user_profession->name_of_company = $save_new_company->id;
+            $update_user_profession->update();
+
+        }
+
+        $update_user_profession_data = UserProfessionalInfo::where('id', $id)->first();
+
+        return response()->json([
+            'status' => 200,
+            'update_user_profession_data' => $update_user_profession_data
+        ]);
 
     }
 
-    public function editUserEducationalInfo(Request $request,$id){
-            $update_educational=UserEducationalInfo::where('user_id',$id)->first();
-            // $update_educational->user_id=auth('sanctum')->user()->id;
-            $update_educational->user_id=$update_educational->user_id;
-            $update_educational->ssc_passing_year=$request->ssc_passing_year;
-            $update_educational->hsc_passing_year=$request->hsc_passing_year;
-            $update_educational->bsc_passing_year=$request->bsc_passing_year;
-            $update_educational->msc_passing_year=$request->msc_passing_year;
-            $update_educational->ssc_grade=$request->ssc_grade;
-            $update_educational->hsc_grade=$request->hsc_grade;
-            $update_educational->bsc_grade=$request->bsc_grade;
-            $update_educational->msc_grade=$request->msc_grade;
-            $update_educational->ssc_institution=$request->ssc_institution;
-            $update_educational->bsc_institution=$request->bsc_institution;
-            $update_educational->hsc_institution=$request->hsc_institution;
-            $update_educational->msc_institution=$request->msc_institution;
-            $update_educational->update();
+    public function editUserEducationalInfo(Request $request, $id)
+    {
+        $update_educational = UserEducationalInfo::where('user_id', $id)->first();
+        // $update_educational->user_id=auth('sanctum')->user()->id;
+        $update_educational->user_id = $update_educational->user_id;
+        $update_educational->ssc_passing_year = $request->ssc_passing_year;
+        $update_educational->hsc_passing_year = $request->hsc_passing_year;
+        $update_educational->bsc_passing_year = $request->bsc_passing_year;
+        $update_educational->msc_passing_year = $request->msc_passing_year;
+        $update_educational->ssc_grade = $request->ssc_grade;
+        $update_educational->hsc_grade = $request->hsc_grade;
+        $update_educational->bsc_grade = $request->bsc_grade;
+        $update_educational->msc_grade = $request->msc_grade;
+        $update_educational->ssc_institution = $request->ssc_institution;
+        $update_educational->bsc_institution = $request->bsc_institution;
+        $update_educational->hsc_institution = $request->hsc_institution;
+        $update_educational->msc_institution = $request->msc_institution;
+        $update_educational->update();
 
-            return response()->json([
-                    'status' => 200,
-                    'update_educational_data' =>$update_educational,
-                    'message'=>'Professional Information Updated Successfully'
-                ]);
+        return response()->json([
+            'status' => 200,
+            'update_educational_data' => $update_educational,
+            'message' => 'Professional Information Updated Successfully'
+        ]);
     }
 
 
-public function userCvUpload(Request $request,$id){
-            $user_cv_upload=User::find($id);
-               if($request->hasFile('cv_file')){
-            $file=$request->file('cv_file');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
+    public function userCvUpload(Request $request, $id)
+    {
+        $user_cv_upload = User::find($id);
+        if ($request->hasFile('cv_file')) {
+            $file = $request->file('cv_file');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
 
-            $file->move('cv/',$filename);
-            $user_cv_upload->cv_file =$filename;
-         } 
-$user_cv_upload->update();
-       return response()->json([
-                  'status'=>200,
-                    'message' => 'Cv Upload Successfull'
-                ]);
+            $file->move('cv/', $filename);
+            $user_cv_upload->cv_file = $filename;
+        }
+        $user_cv_upload->update();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Cv Upload Successfull'
+        ]);
 
-}
-
-
-
-
-
-
-     public function updateUserBio(Request $request,$id){
- $update_bio=User::where('id',$id)->first();
-            $update_bio->bio=$request->bio;
-  
-            $update_bio->update();
-            $updated_bio=User::where('id',$id)->first();
-
-            return response()->json([
-                    'status' => 200,
-                    'updated_bio' =>$updated_bio
-                ]);
     }
-       public function updateUserContactSocialInformation(Request $request,$id){
-   $update_contact_social=User::where('id',$id)->first();
-            $update_contact_social->office_email=$request->office_email;
-            $update_contact_social->facebook_link=$request->facebook_link;
-            $update_contact_social->linkedin_link=$request->linkedin_link;
-            $update_contact_social->twitter_link=$request->twitter_link;
-            $update_contact_social->phone_no=$request->phone_no;
-  
-            $update_contact_social->update();
-            $updated_contact_social=User::where('id',$id)->first();
 
-            return response()->json([
-                    'status' => 200,
-                    'updated_contact_social' =>$updated_contact_social
-                ]);
+
+
+
+
+
+    public function updateUserBio(Request $request, $id)
+    {
+        $update_bio = User::where('id', $id)->first();
+        $update_bio->bio = $request->bio;
+
+        $update_bio->update();
+        $updated_bio = User::where('id', $id)->first();
+
+        return response()->json([
+            'status' => 200,
+            'updated_bio' => $updated_bio
+        ]);
+    }
+    public function updateUserContactSocialInformation(Request $request, $id)
+    {
+        $update_contact_social = User::where('id', $id)->first();
+        $update_contact_social->office_email = $request->office_email;
+        $update_contact_social->facebook_link = $request->facebook_link;
+        $update_contact_social->linkedin_link = $request->linkedin_link;
+        $update_contact_social->twitter_link = $request->twitter_link;
+        $update_contact_social->phone_no = $request->phone_no;
+
+        $update_contact_social->update();
+        $updated_contact_social = User::where('id', $id)->first();
+
+        return response()->json([
+            'status' => 200,
+            'updated_contact_social' => $updated_contact_social
+        ]);
     }
 
 
@@ -333,33 +364,32 @@ $user_cv_upload->update();
         $user = User::where('email', $request->email)->first();
         // dd($user->status);
 
-    
-        if($user && $user->status=='active' && Hash::check($request->password, $user->password)){
- $user->device_token=$request->device_token;
-        $user->save();
-    $login_token = $user->createToken($request->email)->plainTextToken;
 
-        return response()->json(
-            [
-                'message' => 'Login Successfull',
-                'status' => 200,
-                // 'mess_status' => true,
-                'token' => $login_token,
-                'user_id'=>$user->id
-            ]
-        );
-            
-        }
-        else{
+        if ($user && $user->status == 'active' && Hash::check($request->password, $user->password)) {
+            $user->device_token = $request->device_token;
+            $user->save();
+            $login_token = $user->createToken($request->email)->plainTextToken;
+
+            return response()->json(
+                [
+                    'message' => 'Login Successfull',
+                    'status' => 200,
+                    // 'mess_status' => true,
+                    'token' => $login_token,
+                    'user_id' => $user->id
+                ]
+            );
+
+        } else {
             return response()->json(
                 [
                     'message' => 'Login invalid or admin approval needs',
                     'status' => 401,
                 ]
             );
-        
+
         }
-    
+
 
     }
 
@@ -470,16 +500,17 @@ $user_cv_upload->update();
         }
     }
 
-        public function  UserLogout(){
-              auth()->user()->tokens()->delete();
-           return response()->json([
-                'status'=>200,
-                'message'=>'User Logged Out Successfull'
-            ]);
-}
+    public function UserLogout()
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Logged Out Successfull'
+        ]);
+    }
 
 
-//user profile mobile 
+    //user profile mobile 
 
 
     public function specificUser($id)
@@ -487,15 +518,15 @@ $user_cv_upload->update();
 
         // dd($formatChange);
 
-         $user_info=User::where('id',$id)->select('id','full_name','bio','nick_name','email','phone_no','twitter_link','linkedin_link','facebook_link','image','office_email','job_sector','batch','cv_file')->with(['professionalInfo','educationalInfo','roles'])->get();
+        $user_info = User::where('id', $id)->select('id', 'full_name', 'bio', 'nick_name', 'email', 'phone_no', 'twitter_link', 'linkedin_link', 'facebook_link', 'image', 'office_email', 'job_sector', 'batch', 'cv_file')->with(['professionalInfo', 'educationalInfo', 'roles'])->get();
 
-   // $user_info=User::where('id',$id)->select('users.full_name','users.bio','users.nick_name','users.email','users.phone_no','users.twitter_link','users.linkedin_link','users.facebook_link','users.image')
-   //  ->with(['professionalInfo' => function ($query) {
-   //      $query->select('id');
-   //  }],['educationalInfo' => function ($query) {
-   //      $query->select('id');
-   //  }])
-   //  ->get();
+        // $user_info=User::where('id',$id)->select('users.full_name','users.bio','users.nick_name','users.email','users.phone_no','users.twitter_link','users.linkedin_link','users.facebook_link','users.image')
+        //  ->with(['professionalInfo' => function ($query) {
+        //      $query->select('id');
+        //  }],['educationalInfo' => function ($query) {
+        //      $query->select('id');
+        //  }])
+        //  ->get();
 
         // $pay_date = $user_info->registration_pay_date;
         // $end_date = $user_info->registration_pay_end_date;
@@ -517,7 +548,7 @@ $user_cv_upload->update();
         // $registration_pay_validity = Carbon::now()->diffInDays($end_date);
 
         // dd($registration_pay_validity);
-            // $check=true;
+        // $check=true;
         // if ($registration_pay_validity < 15 && $check) {
         //     $event = new AusstaEvent();
 
@@ -536,36 +567,38 @@ $user_cv_upload->update();
         ]);
     }
 
-    public function updateUserName(Request $request,$id){
-        $user=User::find($id);
+    public function updateUserName(Request $request, $id)
+    {
+        $user = User::find($id);
 
-        $user->full_name=$request->full_name;
+        $user->full_name = $request->full_name;
         $user->update();
         return response()->json([
             'status' => 200,
-            'message'=>'User Name Update successful'
-          
+            'message' => 'User Name Update successful'
+
         ]);
 
     }
 
-  public function updateUserImage(Request $request,$id){
-   $user=User::find($id);
-        if($request->hasFile('image')){
-            $file=$request->file('image');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('images/',$filename);
-            $user->image =$filename ;
-         } 
+    public function updateUserImage(Request $request, $id)
+    {
+        $user = User::find($id);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('images/', $filename);
+            $user->image = $filename;
+        }
 
         $user->update();
         return response()->json([
             'status' => 200,
-            'message'=>'User Image Update successful'
-          
+            'message' => 'User Image Update successful'
+
         ]);
-}
-   
+    }
+
 
 }

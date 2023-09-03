@@ -41,14 +41,14 @@ function ViewAllUsers() {
     console.log('users', allUsers)
 
 
-    useEffect(() => {
-        axios.get(`/api/all-users`).then(res => {
-            if (res.data.status == 200) {
-                setallUsers(res.data.all_users);
-                setLoading(false);
-            }
-        })
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`/api/all-users`).then(res => {
+    //         if (res.data.status == 200) {
+    //             setallUsers(res.data.all_users);
+    //             setLoading(false);
+    //         }
+    //     })
+    // }, []);
 
     // console.log('users', allUsers)
 
