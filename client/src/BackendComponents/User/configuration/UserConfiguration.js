@@ -24,6 +24,12 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 function UserConfiguration() {
@@ -36,7 +42,7 @@ function UserConfiguration() {
     const [create_company_name, setcreate_company_name] = useState('');
     const [create_batch, setcreate_batch] = useState('');
 
-    console.log('batch',create_batch)
+    // console.log('batch', create_batch)
     const [create_stream, setcreate_stream] = useState('');
     const [create_blood_group, setcreate_blood_group] = useState('');
 
@@ -234,32 +240,31 @@ function UserConfiguration() {
     ///create job sector and job sub sector state mapping and submit///
 
     const [job_sector_id_state, setjob_sector_id_state] = useState('');
-    const [job_sub_sector_id_state, setjob_sub_sector_id_state] = useState('');
+    // const [job_sub_sector_id_state, setjob_sub_sector_id_state] = useState('');
 
     const submitCreateJobMap = () => {
-        const data = {
-            job_sub_sector_id: job_sub_sector_id_state,
-            job_sector_id: job_sector_id_state
-        }
 
+        jobSectorIds.forEach((item, i) => {
+            console.log('items', item)
+            const data = {
+                job_sub_sector_id: item,
+                job_sector_id: job_sector_id_state
 
-        console.log('state value check', data)
-        axios.post(`/api/add-job-sector-job-sub-sector-map`, data).then(res => {
-            if (res.data.status == 200) {
-                setRenderAllJobSectorSubSectorMapData(res.data)
-
-                Swal.fire(res.data.message, '', 'success')
-                // setRenderAllPosts(res.data);
-                // closeAddPostCategoryModal();
-                // setjob_sector_id_state("");
-                // job_sub_sector_id_state("")
             }
-            // else if (res.data.status == 400) {
-            //     setAddPostType({ ...addPostType, error_list: res.data.errors });
-            //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+            axios.post(`/api/add-job-sector-job-sub-sector-map`, data).then(res => {
+                if (res.data.status == 200) {
+                    setRenderAllJobSectorSubSectorMapData(res.data)
 
-            // }
+                }
+                // else if (res.data.status == 400) {
+                //     setAddPostType({ ...addPostType, error_list: res.data.errors });
+                //     Swal.fire(addPostType.error_list.type_name[0], '', 'error')
+
+                // }
+            })
         })
+        Swal.fire("Mapping added successfully ", '', 'success')
+
     }
 
     ////create map job sector and job sub sector and view modal functionality start
@@ -1409,7 +1414,7 @@ function UserConfiguration() {
     //job sector functionality start //
 
 
-    const [renderAllJobSectorData,setRenderAllJobSectorData]=useState();
+    const [renderAllJobSectorData, setRenderAllJobSectorData] = useState();
     const [viewJobSectorNameModalIsOpen, setviewJobSectorNameModalIsOpen] = useState(false);
     function openViewJobSectorNameModal(e) {
         e.preventDefault();
@@ -1597,7 +1602,7 @@ function UserConfiguration() {
     //job sub sector functionality start //
 
 
-    const [renderAllJobSubSectorData,setRenderAllJobSubSectorData]=useState();
+    const [renderAllJobSubSectorData, setRenderAllJobSubSectorData] = useState();
     const [viewJobSubSectorNameModalIsOpen, setviewJobSubSectorNameModalIsOpen] = useState(false);
     function openViewJobSubSectorNameModal(e) {
         e.preventDefault();
@@ -1630,7 +1635,7 @@ function UserConfiguration() {
         axios.get(`/api/job-sub-sector`).then(res => {
             if (res.data.status == 200) {
                 setAllJobSubSector(res.data.job_sub_sector)
-                
+
 
             }
         })
@@ -1781,6 +1786,15 @@ function UserConfiguration() {
     ];
     //job sub sector functionality end//
 
+
+    //job sector job sector mapping with multiple checkbox
+    const [jobSectorIds, setjobSectorIds] = useState('');
+    function handleChange(event, values) {
+        const data = values.map((item, i) => {
+            return item.id
+        })
+        setjobSectorIds(data)
+    }
 
 
     return (
@@ -2266,8 +2280,8 @@ function UserConfiguration() {
 
                                                     </div>
 
-                                                        {/* view job sector name modal start */}
-                                                        <Modal
+                                                    {/* view job sector name modal start */}
+                                                    <Modal
                                                         isOpen={viewJobSectorNameModalIsOpen}
                                                         onRequestClose={closeViewJobSectorNameModal}
                                                         style={StreamNameViewModalStyle}
@@ -2382,122 +2396,122 @@ function UserConfiguration() {
 
 
                                                     <div class="d-flex mt-4">
-                                                        <div className=''onClick={openViewJobSubSectorNameModal}>
+                                                        <div className='' onClick={openViewJobSubSectorNameModal}>
                                                             <p>View All</p>
                                                         </div>
-      {/* view job sub sector name modal start */}
-      <Modal
-                                                        isOpen={viewJobSubSectorNameModalIsOpen}
-                                                        onRequestClose={closeViewJobSubSectorNameModal}
-                                                        style={StreamNameViewModalStyle}
-                                                        contentLabel="Example Modal"
-                                                    >
+                                                        {/* view job sub sector name modal start */}
+                                                        <Modal
+                                                            isOpen={viewJobSubSectorNameModalIsOpen}
+                                                            onRequestClose={closeViewJobSubSectorNameModal}
+                                                            style={StreamNameViewModalStyle}
+                                                            contentLabel="Example Modal"
+                                                        >
 
-                                                        <div className='card-body '>
-                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobSubSectorNameModal}><i class="fa fa-times"></i></span>
+                                                            <div className='card-body '>
+                                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewJobSubSectorNameModal}><i class="fa fa-times"></i></span>
 
-                                                            <h6 className="">ALL Job Sub Sector Name</h6>
-                                                            <hr />
-
-
-                                                            <div className="row">
-
-                                                                <div className="col-12 px-4">
+                                                                <h6 className="">ALL Job Sub Sector Name</h6>
+                                                                <hr />
 
 
-                                                                    {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
+                                                                <div className="row">
 
-                                                                    <div class="job-sector-sub-sector-map-table mt-3 card">
-                                                                        <MaterialTable
-                                                                            components={{
-                                                                                Container: props => <Paper {...props} elevation={0} />
-                                                                            }}
-                                                                            columns={JobSubSectorcolumns}
-                                                                            data={alljobSubSector}
-                                                                            // isLoading={loading === true ? true : false}
+                                                                    <div className="col-12 px-4">
 
 
-                                                                            options={{
-                                                                                search: true,
-                                                                                // filtering: true,
-                                                                                toolbar: false,
-                                                                                showTitle: false,
-                                                                                searchFieldAlignment: "left",
-                                                                                pageSize: 5,
-                                                                                emptyRowsWhenPaging: false,
-                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
-                                                                                selection: false,
-                                                                                sorting: false,
-                                                                                searchFieldAlignment: "left",
+                                                                        {/* <h6 className='mt-2 mx-1'>ALL JobSector Mapping</h6> */}
 
-                                                                                // paging:false
+                                                                        <div class="job-sector-sub-sector-map-table mt-3 card">
+                                                                            <MaterialTable
+                                                                                components={{
+                                                                                    Container: props => <Paper {...props} elevation={0} />
+                                                                                }}
+                                                                                columns={JobSubSectorcolumns}
+                                                                                data={alljobSubSector}
+                                                                                // isLoading={loading === true ? true : false}
 
 
-                                                                            }}
+                                                                                options={{
+                                                                                    search: true,
+                                                                                    // filtering: true,
+                                                                                    toolbar: false,
+                                                                                    showTitle: false,
+                                                                                    searchFieldAlignment: "left",
+                                                                                    pageSize: 5,
+                                                                                    emptyRowsWhenPaging: false,
+                                                                                    pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                    selection: false,
+                                                                                    sorting: false,
+                                                                                    searchFieldAlignment: "left",
+
+                                                                                    // paging:false
+
+
+                                                                                }}
 
 
 
 
-                                                                        />
+                                                                            />
+
+                                                                        </div>
+
+
+
+
 
                                                                     </div>
-
-
 
 
 
                                                                 </div>
-
-
-
                                                             </div>
-                                                        </div>
 
-                                                    </Modal>
+                                                        </Modal>
 
-                                                    {/* edit job sub sector name modal */}
-                                                    <Modal
-                                                        isOpen={editJobSubSectorNameModalIsOpen}
-                                                        onRequestClose={closeEditJobSubSectorNameModal}
-                                                        style={StreamNameEditModalStyle}
-                                                        contentLabel="Example Modal"
-                                                    >
+                                                        {/* edit job sub sector name modal */}
+                                                        <Modal
+                                                            isOpen={editJobSubSectorNameModalIsOpen}
+                                                            onRequestClose={closeEditJobSubSectorNameModal}
+                                                            style={StreamNameEditModalStyle}
+                                                            contentLabel="Example Modal"
+                                                        >
 
-                                                        <div className='card-body '>
-                                                            <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSubSectorNameModal}><i class="fa fa-times"></i></span>
+                                                            <div className='card-body '>
+                                                                <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeEditJobSubSectorNameModal}><i class="fa fa-times"></i></span>
 
-                                                            <h6 className=""> Edit Job Sub Sector Name</h6>
-                                                            <hr />
+                                                                <h6 className=""> Edit Job Sub Sector Name</h6>
+                                                                <hr />
 
 
-                                                            <div className="row">
+                                                                <div className="row">
 
-                                                                <div className="col-12">
-                                                                    <label className='mb-2 fs-6 text-secondary '>Job Sector Name</label>
+                                                                    <div className="col-12">
+                                                                        <label className='mb-2 fs-6 text-secondary '>Job Sector Name</label>
 
-                                                                    <div className=''>
-                                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editJobSubSectorName} onChange={(e) => setEditJobSubSectorName(e.target.value)} />
+                                                                        <div className=''>
+                                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value={editJobSubSectorName} onChange={(e) => setEditJobSubSectorName(e.target.value)} />
+                                                                        </div>
+
+
+
+                                                                        <div className='text-center mt-2'>
+                                                                            <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateJobSubSectorName} style={{ color: '#0FA958' }}>Update</button>
+
+                                                                        </div>
+
+
+
+
+
                                                                     </div>
-
-
-
-                                                                    <div className='text-center mt-2'>
-                                                                        <button className='btn btn-success btn-sm text-dark me-5 rounded-3 px-4 py-2 mt-1 ' onClick={updateJobSubSectorName} style={{ color: '#0FA958' }}>Update</button>
-
-                                                                    </div>
-
-
 
 
 
                                                                 </div>
-
-
-
                                                             </div>
-                                                        </div>
 
-                                                    </Modal>
+                                                        </Modal>
 
 
 
@@ -2547,19 +2561,48 @@ function UserConfiguration() {
                                                                             </select>
                                                                         </div>
 
-                                                                        <div className='my-3'>
-                                                                            <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sub_sector_id_state(e.target.value)}>
-                                                                                <option selected disabled>Choose Job Sub Sector</option>
-                                                                                {
-                                                                                    alljobSubSector.map((item, i) => {
-                                                                                        return (
-                                                                                            <>
-                                                                                                <option value={item.id}>{item.job_sub_sector_name}</option>
-                                                                                            </>
-                                                                                        )
-                                                                                    })
-                                                                                }
-                                                                            </select>
+
+                                                                        <div>
+
+
+
+
+                                                                            <div class="mt-4 ">
+                                                                                <label for="exampleFormControlInput1" class="form-label fs-6">Job sub sector</label>
+                                                                                <Stack spacing={1} sx={{ width: '100%', paddingTop: '8px' }}>
+                                                                                    <Autocomplete
+                                                                                        multiple
+                                                                                        id="tags-standard"
+                                                                                        options={alljobSubSector}
+                                                                                        getOptionLabel={(option) => option.job_sub_sector_name}
+                                                                                        // defaultValue={[allUsers[1]]}
+                                                                                        onChange={handleChange}
+
+                                                                                        getOptionSelected={(option, value) =>
+                                                                                            option.id === value.id
+                                                                                        }
+
+                                                                                        renderInput={(params) => (
+
+                                                                                            <TextField
+
+
+                                                                                                {...params}
+                                                                                                // variant="standard"
+                                                                                                // label="Multiple values"
+                                                                                                placeholder="Search..."
+                                                                                            />
+                                                                                        )}
+
+
+                                                                                    />
+                                                                                </Stack>
+
+
+
+
+                                                                            </div>
+
                                                                         </div>
 
 

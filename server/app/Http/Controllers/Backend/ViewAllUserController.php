@@ -176,12 +176,13 @@ class ViewAllUserController extends Controller
                 });
             }
 
-            if ($request->subsector !== null) {
-                $subsector = $request->subsector;
-                $query->orWhereHas('jobSubSectorName', function ($q) use ($subsector) {
-                    $q->where('job_sub_sector_name', $subsector);
-                });
-            }
+         
+        if ($request->subsector !== null ) {
+    $subsectors = explode(",", $request->subsector);
+    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+        $q->whereIn('job_sub_sector_name', $subsectors);
+    });
+}
             if ($request->thana !==null){
                 $thana=$request->thana;
 
@@ -251,12 +252,13 @@ class ViewAllUserController extends Controller
                 });
             }
 
-            if ($request->subsector !== null) {
-                $subsector = $request->subsector;
-                $query->orWhereHas('jobSubSectorName', function ($q) use ($subsector) {
-                    $q->where('job_sub_sector_name', $subsector);
-                });
-            }
+              if ($request->subsector !== null ) {
+    $subsectors = explode(",", $request->subsector);
+    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+        $q->whereIn('job_sub_sector_name', $subsectors);
+    });
+}
+
             if ($request->thana !==null){
                 $query->where('present_address', 'like', '%' . $request->thana);
             }
@@ -311,12 +313,12 @@ class ViewAllUserController extends Controller
                 });
             }
 
-            if ($request->subsector !== null) {
-                $subsector = $request->subsector;
-                $query->orWhereHas('jobSubSectorName', function ($q) use ($subsector) {
-                    $q->where('job_sub_sector_name', $subsector);
-                });
-            }
+                       if ($request->subsector !== null ) {
+    $subsectors = explode(",", $request->subsector);
+    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+        $q->whereIn('job_sub_sector_name', $subsectors);
+    });
+}
             if ($request->thana !==null){
                 $query->where('permanent_address', 'like', '%' . $request->thana);
             }
