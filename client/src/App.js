@@ -233,7 +233,7 @@ function App() {
 
         <Route element={<ProtectedRoutes />}>
           {
-            successStatus == 'yes' ?
+            successStatus === 'yes' ?
               storage === 'admin' && <>
                 <Route path="admin-dashboard" element={<Dashboard />}></Route>
               </>

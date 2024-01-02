@@ -149,7 +149,7 @@ function Sidebar() {
                                 isActive && <>
                                     <ul className='text-light mx-4 '>
                                         <li>
-                                            <Link to="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</Link>
+                                            <a href="/view-all-users" className={`text-form ${path == '/view-all-users' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded ' : 'text-light '}`}  >View All Users</a>
                                         </li>
                                         {/* <li className='mt-1'>
                                             <a href='#' className={`text-form ${path == '/' ? 'text-light bg-active-color ps-1 pt-1 pe-4 pb-1 rounded' : 'text-light '}`}>Create User</a>

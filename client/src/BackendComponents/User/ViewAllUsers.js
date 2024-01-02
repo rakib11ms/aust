@@ -431,16 +431,16 @@ function ViewAllUsers() {
             title: "", field: "", render: (row) => <div className='d-flex align-items-center' style={{ cursor: 'pointer' }}>
 
                 <div className='icon-view-field'>
-                    <div className='sites-icon me-3'>
+                    <div className='sites-icon  me-3'>
                         <a href={row.facebook_link} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}><i class="fa-brands fa-facebook-f"></i></div> </a>
                         <a href={`${row.linkedin_link}`} style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ marginBottom: 5, padding: "0px 60px 0px 0px" }}> <i class="fa-brands fa-linkedin-in"></i></div> </a>
                         <a href={`mailto:${row.facebook_link}`} class="fw-bold" style={{ textDecoration: "none", color: 'black' }} target="_blank"> <div style={{ padding: "0px 60px 0px 0px" }}><i class="fa-regular fa-envelope"></i></div> </a>
                     </div>
-                    <div className='text-secondary d-flex'>
+                    <div className='text-secondary d-flex flex-column'>
 
 
 
-                        <div style={{ marginLeft: 20 }} onClick={(e) => {
+                        <div onClick={(e) => {
                             openViewUserProfileModal(e, row)
                         }
                         }>
@@ -450,7 +450,7 @@ function ViewAllUsers() {
 
                         <div className=''>
                             <Link to={`/edit-user/${row.id}`} className="text-dark">
-                                <i className='fa fa-edit mx-2 '  >
+                                <i className='fa fa-edit mx-1 my-1 '  >
                                 </i>
                             </Link>
                         </div>
@@ -482,7 +482,7 @@ function ViewAllUsers() {
                             })
 
                         }}>
-                            <i className='fa fa-trash mx-2 '>
+                            <i className='fa fa-trash mx-1 my-2'>
                             </i>
 
 
@@ -529,15 +529,15 @@ function ViewAllUsers() {
     // console.log('filter click check', userRoleFiltering)
 
 
-  async function RoleFilter(){
-    await axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
-        if (res.data.status == 200) {
-            setallUsers(res.data.all_users);
-            setLoading(false);
-            // window.location.reload();
-        }
-    })
-  }
+    async function RoleFilter() {
+        await axios.get(`/api/user-role-filtering/${userRoleFiltering}`).then(res => {
+            if (res.data.status == 200) {
+                setallUsers(res.data.all_users);
+                setLoading(false);
+                // window.location.reload();
+            }
+        })
+    }
 
     useEffect(() => {
         RoleFilter();
@@ -637,7 +637,18 @@ function ViewAllUsers() {
     const [allJobSectorAsc, setAllJobSectorAsc] = useState([]);
     const [allJobSubSectorAsc, setAllJobSubSectorAsc] = useState([]);
     const [allThana, setAllThana] = useState([]);
+    const [allDistrict, setAllDistrict] = useState([]);
+    const [allPostalCodes, setAllPostalCodes] = useState([]);
 
+
+    // filter you search functionality code starts //
+
+    const [fullName, setFullName] = useState("");
+    const [university_id, setUniversityId] = useState("");
+    const [postcode_name, setPostalCodeName] = useState("");
+    const [districtname, setDistrictName] = useState("");
+
+    const[filterYouSearchLocationOption,setFilterYouSearchLocationOption]=useState("office")
 
     useEffect(() => {
         axios.get(`/api/batch-name`).then(res => {
@@ -684,19 +695,32 @@ function ViewAllUsers() {
 
             }
         })
+        axios.get(`/api/postal-code`).then(res => {
+            if (res.data.status == 200) {
+                setAllPostalCodes(res.data.postal_code_name);
+
+            }
+        })
+        axios.get(`/api/district`).then(res => {
+            if (res.data.status == 200) {
+                setAllDistrict(res.data.district_name);
+
+            }
+        })
+
     }, [])
 
 
     useEffect(() => {
-        if (batch_name == null && company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
-            axios.get(`/api/all-users`).then(res => {
-                if (res.data.status == 200) {
-                    setallUsers(res.data.all_users);
-                    setLoading(false);
-                }
-            })
-        }
-        else {
+        // if (batch_name == null && company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
+        //     axios.get(`/api/all-users`).then(res => {
+        //         if (res.data.status == 200) {
+        //             setallUsers(res.data.all_users);
+        //             setLoading(false);
+        //         }
+        //     })
+        // }
+        // else {
             const data = {
                 batch: batch_name,
                 company: company_name,
@@ -705,10 +729,15 @@ function ViewAllUsers() {
                 gender: gender_name,
                 jobsector: job_sector_name,
                 subsector: job_sub_sector_name,
-                thana: thana_name
+                district:districtname,
+                thana: thana_name,
+                postal_code:postcode_name,
+                option:filterYouSearchLocationOption,
+                university_id:university_id,
+                full_name:fullName,
             }
 
-            axios.post(`/api/multiple-filter-search-all-users/`, data).then(res => {
+            axios.post(`/api/multiple-filter-advance-search-all-users/`, data).then(res => {
                 if (res.data.status == 200) {
 
                     // console.log('multiple filter search', res.data)
@@ -717,9 +746,9 @@ function ViewAllUsers() {
                 }
             })
 
-        }
+        // }
 
-    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, job_sub_sector_name, thana_name])
+    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, university_id,job_sub_sector_name, thana_name,fullName,districtname])
 
 
     const [globalSearch, setGlobalSearch] = useState('');
@@ -780,31 +809,13 @@ function ViewAllUsers() {
 
     function saveZip() {
 
-        //     axios.get(`/api/download-zip`).then(res => {
-        //         const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
-        // // const link = document.createElement("a");
-        // // link.href = url;
-        // // link.setAttribute("download", "fileName.zip");
-        // // document.body.appendChild(link);
-        // // link.click();
-        //         // if (res.data.status == 200) {
-        //         //     alert("downled zip");
-
-        //         // }
-        //     })
-
-        axios({
-            url: 'http://172.31.120.58/api/download-zip',
-            method: 'GET',
-            responseType: 'blob', // important
-        }).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'file.pdf'); //or any other extension
-            document.body.appendChild(link);
-            link.click();
-        });
+        axios.get(`/api/download-all-cv-zip`).then(res => {
+            Swal.fire(
+                'Success!',
+                'Downloaded cv as a zipp file',
+                'success'
+            )
+        })
     }
 
     const [changeStatus, setChangeStatus] = useState();
@@ -874,9 +885,83 @@ function ViewAllUsers() {
 
                                                     <h5 className=""> Filter You Search</h5>
                                                     <hr />
+                                                    <div className='d-flex justify-content-end mx-5'>
+                                                        <button className='btn btn-success btn-sm' onClick={closeAddMultipleFilterModal}>Search ...</button>
+                                                    </div>
 
+                                                    <div className="row col-12 my-2 d-flex justify-content-center align-items-center">
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Full Name</label>
 
-                                                    <div className="row col-12 my-4 d-flex justify-content-center align-items-center">
+                                                            <div class="col-sm-10">
+
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search name" value={fullName} onChange={(e) => setFullName(e.target.value)}></input>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">University Id</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search university id" value={university_id} onChange={(e) => setUniversityId(e.target.value)}></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Batch</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allBatchName.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.batch_name}>{item.batch_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sector</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allJobSectorAsc.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.job_sector_name}>{item.job_sector_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sub Sector</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allJobSubSectorAsc.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.job_sub_sector_name}>{item.job_sub_sector_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Gender</label>
@@ -947,16 +1032,39 @@ function ViewAllUsers() {
                                                             </div>
                                                         </div>
 
+
+                                                        <div class="mb-3 row fs-6">
+                                                            <div className='d-flex justify-content-center  w-75'>
+                                                                <div class="form-check mx-4">
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("office")}  checked={filterYouSearchLocationOption=="office"}/>
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <b>Office </b>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-4">
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("present")}  checked={filterYouSearchLocationOption=="present"} />
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <b>Present </b>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check mx-4">
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("permanent")}  checked={filterYouSearchLocationOption=="permanent"}/>
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <b>Permanent</b>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Batch</label>
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">District</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch_name(e.target.value)}>
+                                                                <select class="form-select" aria-label="Default select example" value={districtname} onChange={(e) => setDistrictName(e.target.value)}>
                                                                     <option selected disabled>Open this select menu</option>
                                                                     {
-                                                                        allBatchName.map((item, i) => {
+                                                                        allDistrict.map((item, i) => {
                                                                             return (
                                                                                 <>
-                                                                                    <option value={item.batch_name}>{item.batch_name}</option>
+                                                                                    <option value={item.district_name}>{item.district_name}</option>
 
                                                                                 </>
                                                                             )
@@ -965,46 +1073,6 @@ function ViewAllUsers() {
                                                                 </select>
                                                             </div>
                                                         </div>
-
-
-                                                        <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sector</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
-                                                                    <option selected disabled>Open this select menu</option>
-                                                                    {
-                                                                        allJobSectorAsc.map((item, i) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={item.job_sector_name}>{item.job_sector_name}</option>
-
-                                                                                </>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mb-3 row">
-                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Job Sub Sector</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector_name(e.target.value)}>
-                                                                    <option selected disabled>Open this select menu</option>
-                                                                    {
-                                                                        allJobSubSectorAsc.map((item, i) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={item.job_sub_sector_name}>{item.job_sub_sector_name}</option>
-
-                                                                                </>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
 
                                                         <div class="mb-3 row">
                                                             <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Thana</label>
@@ -1016,6 +1084,25 @@ function ViewAllUsers() {
                                                                             return (
                                                                                 <>
                                                                                     <option value={item.thana_name}>{item.thana_name}</option>
+
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2 col-form-label fs-6">Postal code</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-select" aria-label="Default select example" value={postcode_name} onChange={(e) => setPostalCodeName(e.target.value)}>
+                                                                    <option selected disabled>Open this select menu</option>
+                                                                    {
+                                                                        allPostalCodes.map((item, i) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={item.postal_code_name}>{item.postal_code_name}</option>
 
                                                                                 </>
                                                                             )
@@ -1052,7 +1139,7 @@ function ViewAllUsers() {
                                         </div>
                                     </div>
                                 </div>
-                                <Container class="" >
+                                {/* <Container class="" >
                                     <div className='mx-5 px-5 mt-1 mb-3' data-aos="fade-up"
                                         data-aos-anchor-placement="top-bottom">
                                         {
@@ -1105,7 +1192,7 @@ function ViewAllUsers() {
 
 
                                     </div>
-                                </Container>
+                                </Container> */}
                             </div>
 
                             <div className="col-md-12 mt-3">
@@ -1129,7 +1216,7 @@ function ViewAllUsers() {
                                                 </div>
 
 
-                                    
+
                                                 <div className='d-flex align-items-center  '>
 
                                                     <div class="mx-2">
@@ -1163,7 +1250,7 @@ function ViewAllUsers() {
                                                         Download
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#" onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download CV as a PDF</a></li>
+                                                        <li><a class="dropdown-item"  href={`${global.img_url}/cv/cv_documents.zip`} onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download all CV as a PDF</a></li>
                                                         {
                                                             <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
                                                                 <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
@@ -1269,7 +1356,7 @@ function ViewAllUsers() {
                                             </div>
                                             <div>
                                                 <div class="text-center mt-2 mb-3">
-                                                    <a class="btn line-btn-dark btn-icon btn-radius border" download href={`${global.img_url}/check/${viewUserDescription.cv_file}`} title="" ><i class="fa fa-download" download></i> <span className='modal-h6'>Download CV</span></a>
+                                                    <a class="btn line-btn-dark btn-icon btn-radius border" target='_blank' rel="noreferrer" href={`${global.img_url}/cv/${viewUserDescription.cv_file}`} title="" ><i class="fa fa-download" ></i> <span className='modal-h6'>Download CV</span></a>
                                                 </div>
 
                                                 {/* <div className='select-down-div'>
@@ -1395,7 +1482,7 @@ function ViewAllUsers() {
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col">Education</th>
-                                                                    <th scope="col">Grade</th>
+                                                                    <th scope="col">Grade/divison</th>
                                                                     <th scope="col">Year</th>
                                                                     <th scope="col">Institution</th>
                                                                 </tr>
@@ -1403,13 +1490,13 @@ function ViewAllUsers() {
                                                             <tbody>
                                                                 <tr>
                                                                     <th scope="row">SSC</th>
-                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_grade !==null ? viewUserDescription.educational_info.ssc_grade: viewUserDescription.educational_info?.ssc_division }</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_passing_year}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_institution}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th scope="row">HSC</th>
-                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_grade}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_grade!==null ? viewUserDescription.educational_info?.hsc_division: viewUserDescription.educational_info?.hsc_division}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_passing_year}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_institution}</td>
                                                                 </tr>
