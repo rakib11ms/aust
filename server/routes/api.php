@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Backend\DistrictController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
@@ -75,7 +76,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
 //mobile api authentication and user profile
-Route::post('/register', [MobileAuthenticationController::class, 'register']);
+Route::post('/register', [MobileAuthenticationController::class, 'regiter']);
 Route::post('/login-otp-verification', [MobileAuthenticationController::class, 'loginValideOtp']);
 Route::post('/user-login', [MobileAuthenticationController::class, 'userLogin']);
 Route::post('/user-forgot-password', [MobileAuthenticationController::class, 'userForgotPassword']);
@@ -558,6 +559,9 @@ Route::get('/get-all-users-pdf', [ViewAllUserController::class, 'getAllUsersPdf'
 
 Route::get('/download-zip', [ViewAllUserController::class, 'downloadZip']);
 
+Route::get('/download-all-cv-zip', [ViewAllUserController::class,'generateAndZip']);
+
+
 
 //messaging
 
@@ -608,3 +612,4 @@ Route::post('/create-permissions',function(){
 
 Route::resource('/thana', ThanaController::class);
 Route::resource('/postal-code', PostalCodeController::class);
+Route::resource('/district', DistrictController::class);

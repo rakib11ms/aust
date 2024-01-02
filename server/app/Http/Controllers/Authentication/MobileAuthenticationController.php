@@ -252,7 +252,9 @@ class MobileAuthenticationController extends Controller
         $update_educational->bsc_passing_year = $request->bsc_passing_year;
         $update_educational->msc_passing_year = $request->msc_passing_year;
         $update_educational->ssc_grade = $request->ssc_grade;
+        $update_educational->ssc_division = $request->ssc_division;
         $update_educational->hsc_grade = $request->hsc_grade;
+        $update_educational->hsc_division = $request->hsc_division;
         $update_educational->bsc_grade = $request->bsc_grade;
         $update_educational->msc_grade = $request->msc_grade;
         $update_educational->ssc_institution = $request->ssc_institution;

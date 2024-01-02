@@ -22,6 +22,9 @@ use App\Models\UserProfessionalInfo;
 use Spatie\Permission\Models\Role;
 use File;
 use ZipArchive;
+use Illuminate\Support\Facades\Log; 
+
+
 
 class ViewAllUserController extends Controller
 {
@@ -136,10 +139,19 @@ class ViewAllUserController extends Controller
 
     public function multipleFilterAdvanceSearchAllUsers(Request $request)
     {
-        $query = User::with(['professionalInfo', 'bloodGroup', 'streamName','educationalInfo', 'batchName', 'jobSectorName', 'jobSubSectorName']);
-
+        $query = User::with(['professionalInfo', 'bloodGroup', 'streamName', 'educationalInfo', 'batchName', 'jobSectorName', 'jobSubSectorName']);
 
         if ($request->option == "office") {
+
+            if ($request->full_name !== null) {
+                $full_name = $request->full_name;
+                $query->where("full_name", 'like', '%' . $full_name . '%')->orWhere("nick_name", 'like', '%' . $full_name . '%');
+
+            }
+            if ($request->university_id !== null) {
+                $university_id = $request->university_id;
+                $query->where("university_id", $university_id);
+            }
             if ($request->batch !== null) {
                 $batch = $request->batch;
                 $query->whereHas('batchName', function ($q) use ($batch) {
@@ -168,7 +180,7 @@ class ViewAllUserController extends Controller
             if ($request->company !== null) {
                 $company = $request->company;
                 // dd($company);
-    
+
                 $query->wereHas('professionalInfo', function ($q) use ($company) {
                     $q->whereHas('companyName', function ($qs) use ($company) {
                         $qs->where('company_name', $company);
@@ -176,32 +188,32 @@ class ViewAllUserController extends Controller
                 });
             }
 
-         
-        if ($request->subsector !== null ) {
-    $subsectors = explode(",", $request->subsector);
-    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
-        $q->whereIn('job_sub_sector_name', $subsectors);
-    });
-}
-            if ($request->thana !==null){
-                $thana=$request->thana;
+
+            if ($request->subsector !== null) {
+                $subsectors = explode(",", $request->subsector);
+                $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+                    $q->whereIn('job_sub_sector_name', $subsectors);
+                });
+            }
+            if ($request->thana !== null) {
+                $thana = $request->thana;
 
                 $query->whereHas('professionalInfo', function ($q) use ($thana) {
-                        $q->where('office_address', 'like', '%' . $thana. '%');
+                    $q->where('office_address', 'like', '%' . $thana . '%');
                 });
             }
-            if ($request->district !==null){
-                $district=$request->district;
+            if ($request->district !== null) {
+                $district = $request->district;
 
                 $query->whereHas('professionalInfo', function ($q) use ($district) {
-                        $q->where('office_address', 'like', '%' . $district. '%');
+                    $q->where('office_address', 'like', '%' . $district . '%');
                 });
             }
-            if ($request->postal_code !==null){
-                $postal_code=$request->postal_code;
+            if ($request->postal_code !== null) {
+                $postal_code = $request->postal_code;
 
                 $query->whereHas('professionalInfo', function ($q) use ($postal_code) {
-                        $q->where('office_address', 'like', '%' . $postal_code. '%');
+                    $q->where('office_address', 'like', '%' . $postal_code . '%');
                 });
             }
 
@@ -212,10 +224,15 @@ class ViewAllUserController extends Controller
                 'all_users' => $all_users
             ]);
 
-        }
-        
-        else if ($request->option == "present") {
-
+        } else if ($request->option == "present") {
+            if ($request->full_name !== null) {
+                $full_name = $request->full_name;
+                $query->where("full_name", 'like', '%' . $full_name . '%')->orWhere("nick_name", 'like', '%' . $full_name . '%');
+            }
+            if ($request->university_id !== null) {
+                $university_id = $request->university_id;
+                $query->where("university_id", $university_id);
+            }
             if ($request->batch !== null) {
                 $batch = $request->batch;
                 $query->whereHas('batchName', function ($q) use ($batch) {
@@ -244,7 +261,7 @@ class ViewAllUserController extends Controller
             if ($request->company !== null) {
                 $company = $request->company;
                 // dd($company);
-    
+
                 $query->wereHas('professionalInfo', function ($q) use ($company) {
                     $q->whereHas('companyName', function ($qs) use ($company) {
                         $qs->where('company_name', $company);
@@ -252,20 +269,20 @@ class ViewAllUserController extends Controller
                 });
             }
 
-              if ($request->subsector !== null ) {
-    $subsectors = explode(",", $request->subsector);
-    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
-        $q->whereIn('job_sub_sector_name', $subsectors);
-    });
-}
+            if ($request->subsector !== null) {
+                $subsectors = explode(",", $request->subsector);
+                $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+                    $q->whereIn('job_sub_sector_name', $subsectors);
+                });
+            }
 
-            if ($request->thana !==null){
+            if ($request->thana !== null) {
                 $query->where('present_address', 'like', '%' . $request->thana);
             }
-            if ($request->district !==null){
+            if ($request->district !== null) {
                 $query->where('present_address', 'like', '%' . $request->district);
             }
-            if ($request->postal_code !==null){
+            if ($request->postal_code !== null) {
                 $query->where('present_address', 'like', '%' . $request->postal_code);
             }
             $all_users = $query->get();
@@ -275,8 +292,15 @@ class ViewAllUserController extends Controller
                 'all_users' => $all_users
             ]);
 
-        } 
-        else if ($request->option == "permanent") {
+        } else if ($request->option == "permanent") {
+            if ($request->full_name !== null) {
+                $full_name = $request->full_name;
+                $query->where("full_name", 'like', '%' . $full_name . '%')->orWhere("nick_name", 'like', '%' . $full_name . '%');
+            }
+            if ($request->university_id !== null) {
+                $university_id = $request->university_id;
+                $query->where("university_id", $university_id);
+            }
             if ($request->batch !== null) {
                 $batch = $request->batch;
                 $query->whereHas('batchName', function ($q) use ($batch) {
@@ -305,7 +329,7 @@ class ViewAllUserController extends Controller
             if ($request->company !== null) {
                 $company = $request->company;
                 // dd($company);
-    
+
                 $query->wereHas('professionalInfo', function ($q) use ($company) {
                     $q->whereHas('companyName', function ($qs) use ($company) {
                         $qs->where('company_name', $company);
@@ -313,19 +337,19 @@ class ViewAllUserController extends Controller
                 });
             }
 
-                       if ($request->subsector !== null ) {
-    $subsectors = explode(",", $request->subsector);
-    $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
-        $q->whereIn('job_sub_sector_name', $subsectors);
-    });
-}
-            if ($request->thana !==null){
+            if ($request->subsector !== null) {
+                $subsectors = explode(",", $request->subsector);
+                $query->whereHas('jobSubSectorName', function ($q) use ($subsectors) {
+                    $q->whereIn('job_sub_sector_name', $subsectors);
+                });
+            }
+            if ($request->thana !== null) {
                 $query->where('permanent_address', 'like', '%' . $request->thana);
             }
-            if ($request->district !==null){
+            if ($request->district !== null) {
                 $query->where('permanent_address', 'like', '%' . $request->district);
             }
-            if ($request->postal_code !==null){
+            if ($request->postal_code !== null) {
                 $query->where('permanent_address', 'like', '%' . $request->postal_code);
             }
             $all_users = $query->get();
@@ -591,6 +615,55 @@ class ViewAllUserController extends Controller
 
         return response()->download(public_path($fileName));
     }
+
+
+    public function generateAndZip()
+    {
+        // Fetch users with non-null cv_file
+        $all_users = User::whereNotNull('cv_file')->get();
+        // dd($all_users);
+
+        // Define the ZIP file name and path
+        $zipFileName = 'cv_documents.zip';
+        $zipFilePath = public_path('cv/' . $zipFileName);
+
+        // Create a new ZIP archive
+        $zip = new ZipArchive();
+        $zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($all_users as $user) {
+            // dd($user);
+
+            $cvFilePath = public_path('cv/' . $user->cv_file);
+
+            // Check if the CV file exists before proceeding
+            if (file_exists($cvFilePath)) {
+                // dd($user);
+                // Add the CV file to the ZIP archive
+                $zip->addFile($cvFilePath, $user->cv_file);
+            } else {
+                // Handle the case where the file doesn't exist
+                // Log or handle the error accordingly
+                Log::error("CV file not found for user with ID {$user->id}");
+            }
+        }
+
+        // Close the ZIP archive
+        $zip->close();
+        // Download the ZIP file and delete it after sending
+     // Create a JSON response
+    $jsonResponse = response()->json(["status" => 200, "message" => "Downloaded zip cv"]);
+
+    // Send the JSON response and then initiate the file download
+    return $jsonResponse->header('Content-Disposition', 'attachment; filename=' . $zipFileName)
+                        ->header('Content-Type', 'application/zip')
+                        ->header('Content-Length', filesize($zipFilePath))
+                        ->header('Connection', 'close')
+                        ->sendContent(file_get_contents($zipFilePath))
+                        ->deleteFileAfterSend(true);
+
+    }
+
 
     public function activeUserByPending(Request $request, $ids)
     {

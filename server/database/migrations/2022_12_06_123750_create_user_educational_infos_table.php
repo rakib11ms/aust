@@ -25,7 +25,9 @@ return new class extends Migration
             $table->string('bsc_institution')->nullable();
             $table->string('msc_institution')->nullable();
             $table->string('ssc_grade')->nullable();
+            $table->string('ssc_division')->nullable();
             $table->string('hsc_grade')->nullable();
+            $table->string('hsc_division')->nullable();
             $table->string('bsc_grade')->nullable();
             $table->string('msc_grade')->nullable();
             $table->timestamps();
