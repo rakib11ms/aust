@@ -94,14 +94,15 @@ function EditBlogArticle() {
 
     useEffect(() => {
         axios.get(`/api/edit-article-blogs/${editId}`).then(res => {
-            if (res.data.status == 200) {
+            if (res.data.status === 200) {
+                console.log("redux",res.data)
                 setEditBlogArticleData(res.data.article_blog);
-                setarticle_blog_title(res.data.article_blog.article_blog_title)
-                setContent1(res.data.article_blog.article_blog_description)
-                setcategory_id(res.data.article_blog.category_id)
-                setsubcategory_id(res.data.article_blog.subcategory_id)
-                setisArchived(res.data.article_blog.isArchived)
-                setIsPublished(res.data.article_blog.isPublished)
+                setarticle_blog_title(res.data.article_blog.article_blog_title);
+                setContent1(res.data.article_blog.article_blog_description);
+                setcategory_id(res.data.article_blog.category_id);
+                setsubcategory_id(res.data.article_blog.subcategory_id);
+                setisArchived(res.data.article_blog.isArchived);
+                setIsPublished(res.data.article_blog.isPublished);
                 // setLoading(false);
             }
         })
@@ -300,6 +301,7 @@ function EditBlogArticle() {
         formData.append('article_blog_title', article_blog_title);
         formData.append('article_blog_description', content1);
         formData.append('article_blog_image', image);
+        
         formData.append('isArchived', isArchived);
         formData.append('isPublished', isPublished);
         multipleImageFiles.files.forEach(file => {

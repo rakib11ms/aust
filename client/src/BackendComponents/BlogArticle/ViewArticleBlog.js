@@ -358,7 +358,7 @@ function ViewBlogArticle() {
                 <div>
                     {
                         row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> :
-                            row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
+                            // row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
 
                                 <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
@@ -770,7 +770,7 @@ function ViewBlogArticle() {
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
-                                                <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>My Draft</h6>
+                                                {/* <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>My Draft</h6> */}
 
                                             </div>
 

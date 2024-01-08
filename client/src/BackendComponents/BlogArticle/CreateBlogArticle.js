@@ -8,21 +8,21 @@ import JoditEditor from "jodit-react";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 
-import MaterialTable from "material-table";
-import moment from 'moment';
+// import MaterialTable from "material-table";
+// import moment from 'moment';
 
-import Chip from '@mui/material/Chip';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
+// import Chip from '@mui/material/Chip';
+// import Autocomplete from '@mui/material/Autocomplete';
+// import TextField from '@mui/material/TextField';
+// import Stack from '@mui/material/Stack';
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Box, ThemeProvider, createTheme } from '@mui/system';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { Box, ThemeProvider, createTheme } from '@mui/system';
 
 
 
@@ -112,7 +112,7 @@ function CreateBlogArticle() {
         formData.append('article_blog_title', article_blog_title);
         formData.append('article_blog_description', content1);
         formData.append('article_blog_image', image);
-        formData.append('posted_by', 1);
+        // formData.append('posted_by', 1);
         formData.append('isDraft', 0);
         formData.append('isPublished', 1);
 
@@ -419,7 +419,7 @@ function CreateBlogArticle() {
                                                         <div class="">
                                                             <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                            <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles} required
+                                                            <input class="form-control" type="file" id="formFileImage"  onChange={changeMultipleFiles} required
                                                             />
 
                                                             <div className='d-flex mt-2 ' >
@@ -442,7 +442,7 @@ function CreateBlogArticle() {
                                                 </div>
 
                                                 <div class="text-center mt-1" >
-                                                    <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftArticleBlog}> DRAFT</button>
+                                                    {/* <button type="button" className='btn btn-secondary rounded-3 mx-2' onClick={draftArticleBlog}> DRAFT</button> */}
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={submitBlogArticle}> PUBLISH NOW</button>
 
                                                 </div>
