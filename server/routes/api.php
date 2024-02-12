@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Backend\ArticleBlogCommentController;
 use App\Http\Controllers\Backend\DistrictController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -429,7 +430,14 @@ Route::get('/get-article-blogs-subcategories-by-category-id/{id}', [ArticleBlogS
 
 
 
+//article blogs comments
+Route::post('/save-article-blogs-comments', [ArticleBlogCommentController::class, 'saveArticleBlogComment']);
+
+
+
+
 Route::get('/all-article-blogs', [ArticleBlogController::class, 'index']);
+Route::get('/view-single-article-blogs-with-comments/{id}', [ArticleBlogController::class, 'viewSingleArticleBlogsWithComments']);
 Route::post('/add-article-blogs', [ArticleBlogController::class, 'store']);
 Route::get('/edit-article-blogs/{id}', [ArticleBlogController::class, 'edit']);
 Route::post('/delete-article-blogs/{id}', [ArticleBlogController::class, 'destroy']);
