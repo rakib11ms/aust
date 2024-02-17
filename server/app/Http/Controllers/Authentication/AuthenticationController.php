@@ -17,6 +17,7 @@ use DateTime;
 use App\Mail\EventMail;
 use App\Models\AusstaEvent;
 use App\Mail\ResetPassword;
+use Spatie\Permission\Models\Permission;
 
 class AuthenticationController extends Controller
 {
@@ -36,7 +37,6 @@ class AuthenticationController extends Controller
         }
 
         $login_token = $user->createToken($request->email)->plainTextToken;
-
         return response()->json(
             [
                 'message' => 'Login Successfull',
@@ -48,6 +48,8 @@ class AuthenticationController extends Controller
                 'user_id' => $user->id,
                 'user_info' => $user,
                 'email' => $user->email,
+                // 'permissions' => $permissions,
+
             ]
         );
     }

@@ -432,6 +432,9 @@ Route::get('/get-article-blogs-subcategories-by-category-id/{id}', [ArticleBlogS
 
 //article blogs comments
 Route::post('/save-article-blogs-comments', [ArticleBlogCommentController::class, 'saveArticleBlogComment']);
+Route::get('/edit-article-blogs-comment/{id}', [ArticleBlogCommentController::class, 'editArticleBlogComment']);
+Route::patch('/update-article-blogs-comment/{id}', [ArticleBlogCommentController::class, 'updateArticleBlogComment']);
+Route::delete('/delete-article-blogs-comment/{id}', [ArticleBlogCommentController::class, 'deleteArticleBlogComment']);
 
 
 
@@ -555,6 +558,7 @@ Route::get('/edit-role-name/{id}', [RoleNameController::class, 'edit']);
 Route::post('/update-role-name/{id}', [RoleNameController::class, 'update']);
 Route::delete('/delete-role-name/{id}', [RoleNameController::class, 'destroy']);
 Route::get('get-all-roles', [RoleNameController::class, 'getAllRoles']);
+Route::get('get-all-permissions', [RoleNameController::class, 'getAllPermissions']);
 Route::post('assign-permission-via-role/{id}', [RoleNameController::class, 'assignPermissionViaRole']);
 Route::get('get-permission-via-role/{id}', [RoleNameController::class, 'getPermissionViaRole']);
 
@@ -577,7 +581,6 @@ Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/user-individual-send-messages/{id}', [MessageController::class, 'sendIndividualMessage']);
 Route::get('/user-receive-messages/{id}', [MessageController::class, 'receiveMessage']);
 Route::post('/user-all-messages-between-two', [MessageController::class, 'allMessagesBetweenTwo']);
-
 
 
 

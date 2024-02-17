@@ -107,6 +107,7 @@ foreach ($permissions as $key => $value) {
 }
 
 $permissions = Permission::whereIn('name', $result)->get();
+// dd("s",$permissions);
 $role->syncPermissions($permissions);
 
   return response()->json(
@@ -125,6 +126,14 @@ $permissions=$role->permissions->pluck('name');
         'status'=>200,
         'permissions'=>$permissions,
         'role'=>$role
+    ]);
+}
+
+public function getAllPermissions(){
+    $all_permissions=Permission::all();
+    return response()->json([
+        "status"=>200,
+        "all_permissions"=>$all_permissions
     ]);
 }
     
