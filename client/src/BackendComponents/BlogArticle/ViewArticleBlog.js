@@ -360,7 +360,7 @@ function ViewBlogArticle() {
                         row.isPublished == 1 ? <button className='btn btn-success  btn-sm  px-4 btn-sm rounded-pill'> Approved</button> :
                             // row.isDraft == 1 ? <button className='btn btn-danger  btn-sm  px-4 btn-sm rounded-pill'> Draft</button> :
 
-                                <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
+                            <button className='btn btn-danger btn-sm px-4  btn-sm rounded-pill'> Pending</button>
                     }
 
                 </div>
@@ -412,9 +412,12 @@ function ViewBlogArticle() {
 
                     }
                 </div>
-                <div className='mx-2 mb-1 text-secondary' onClick={(e) => openViewNoticeNewsModal(e, row)}>
-
+                {/* <div className='mx-2 mb-1 text-secondary' onClick={(e) => openViewNoticeNewsModal(e, row)}> */}
+                <div className='mx-2 mb-1 text-secondary'>
+                    <Link to={`/view-blog-article-with-comments/${row.id}`} className='text-secondary'>
                     <i className='fa fa-eye'></i>
+
+                    </Link>
 
 
                 </div>
@@ -872,12 +875,13 @@ function ViewBlogArticle() {
                                     <div className="row">
 
                                         <div className="col-12 ">
-
-                                            <div className=''>
-                                                <div className='mx-auto' style={{ width: '50%', height: '150px' }}>
-                                                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewPostDescription.article_blog_image}`} />
+                                            {viewPostDescription?.article_blog_image &&
+                                                <div className=''>
+                                                    <div className='mx-auto' style={{ width: '50%', height: '150px' }}>
+                                                        <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} class="rounded-3" src={`${global.img_url}/images/${viewPostDescription.article_blog_image}`} />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
 
                                             <div className='d-flex justify-content-between mt-2'>
                                                 <div className='mt-3'>

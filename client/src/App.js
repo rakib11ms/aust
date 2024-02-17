@@ -57,6 +57,7 @@ import ViewThana from './BackendComponents/LocationSetup/Thana/ViewThana';
 import CreateThana from './BackendComponents/LocationSetup/Thana/CreateThana';
 import ViewPostalCode from './BackendComponents/LocationSetup/PostalCode/ViewPostalCode';
 import CreatePostalCode from './BackendComponents/LocationSetup/PostalCode/CreatePostalCode';
+import ViewBlogArticleWithComments from './BackendComponents/BlogArticle/ViewBlogArticleWithComments';
 // const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
 // const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
 
@@ -285,6 +286,7 @@ function App() {
           <Route path="create-blog-article" element={<CreateBlogArticle />}></Route>
           <Route path="edit-blog-article/:id" element={<EditBlogArticle />}></Route>
           <Route path="blog-article-configuration" element={<BlogArticleConfiguration />}></Route>
+          <Route path="view-blog-article-with-comments/:id" element={<ViewBlogArticleWithComments />}></Route>
 
 
           <Route path="create-notice-news" element={<CreateNoticeNews />}></Route>

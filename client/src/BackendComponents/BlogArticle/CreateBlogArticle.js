@@ -419,7 +419,7 @@ function CreateBlogArticle() {
                                                         <div class="">
                                                             <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                            <input class="form-control" type="file" id="formFileImage"  onChange={changeMultipleFiles} required
+                                                            <input class="form-control" type="file" id="formFileImage"  onChange={changeMultipleFiles} 
                                                             />
 
                                                             <div className='d-flex mt-2 ' >
