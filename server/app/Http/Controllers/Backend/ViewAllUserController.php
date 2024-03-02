@@ -22,7 +22,7 @@ use App\Models\UserProfessionalInfo;
 use Spatie\Permission\Models\Role;
 use File;
 use ZipArchive;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -42,7 +42,7 @@ class ViewAllUserController extends Controller
             });
 
         // Reverse the order of $all_users array
-        $all_users = array_reverse($all_users);
+        // $all_users = array_reverse($all_users);
 
         return response()->json([
             'status' => 200,
@@ -651,16 +651,16 @@ class ViewAllUserController extends Controller
         // Close the ZIP archive
         $zip->close();
         // Download the ZIP file and delete it after sending
-     // Create a JSON response
-    $jsonResponse = response()->json(["status" => 200, "message" => "Downloaded zip cv"]);
+        // Create a JSON response
+        $jsonResponse = response()->json(["status" => 200, "message" => "Downloaded zip cv"]);
 
-    // Send the JSON response and then initiate the file download
-    return $jsonResponse->header('Content-Disposition', 'attachment; filename=' . $zipFileName)
-                        ->header('Content-Type', 'application/zip')
-                        ->header('Content-Length', filesize($zipFilePath))
-                        ->header('Connection', 'close')
-                        ->sendContent(file_get_contents($zipFilePath))
-                        ->deleteFileAfterSend(true);
+        // Send the JSON response and then initiate the file download
+        return $jsonResponse->header('Content-Disposition', 'attachment; filename=' . $zipFileName)
+            ->header('Content-Type', 'application/zip')
+            ->header('Content-Length', filesize($zipFilePath))
+            ->header('Connection', 'close')
+            ->sendContent(file_get_contents($zipFilePath))
+            ->deleteFileAfterSend(true);
 
     }
 

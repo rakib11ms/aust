@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
 //mobile api authentication and user profile
-Route::post('/register', [MobileAuthenticationController::class, 'regiter']);
+Route::post('/register', [MobileAuthenticationController::class, 'register']);
 Route::post('/login-otp-verification', [MobileAuthenticationController::class, 'loginValideOtp']);
 Route::post('/user-login', [MobileAuthenticationController::class, 'userLogin']);
 Route::post('/user-forgot-password', [MobileAuthenticationController::class, 'userForgotPassword']);

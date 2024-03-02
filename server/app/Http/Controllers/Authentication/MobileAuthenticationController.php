@@ -124,12 +124,18 @@ class MobileAuthenticationController extends Controller
                 // $user_professional->name_of_company = $request->name_of_company;
                 if (is_numeric($request->name_of_company)) {
                     $user_professional->name_of_company = $request->name_of_company;
+                    $user_professional->designation=$request->designation;
+                    $user_professional->year=$request->year;
+
 
                 } else if (!is_numeric($request->name_of_company)) {
                     $save_new_company = new AusttaaCompanyName();
                     $save_new_company->company_name = $request->name_of_company;
                     $save_new_company->save();
                     $user_professional->name_of_company = $save_new_company->id;
+                    $user_professional->designation=$request->designation;
+                    $user_professional->year=$request->year;
+
 
                 }
 
