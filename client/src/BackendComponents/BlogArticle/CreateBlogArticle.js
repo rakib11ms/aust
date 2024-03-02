@@ -116,12 +116,12 @@ function CreateBlogArticle() {
         formData.append('isDraft', 0);
         formData.append('isPublished', 1);
 
-        multipleImageFiles.files.forEach(file => {
-            console.log('files check', file)
+        // multipleImageFiles.files.forEach(file => {
+        //     console.log('files check', file)
 
-            formData.append("image[]", file);
+        //     formData.append("image[]", file);
 
-        });
+        // });
 
 
         console.log('check all data', formData);
@@ -239,12 +239,12 @@ function CreateBlogArticle() {
         formData.append('posted_by', 1);
         formData.append('isDraft', 1);
         formData.append('isPublished', 0);
-        multipleImageFiles.files.forEach(file => {
-            console.log('files check', file)
+        // multipleImageFiles.files.forEach(file => {
+        //     console.log('files check', file)
 
-            formData.append("image[]", file);
+        //     formData.append("image[]", file);
 
-        });
+        // });
 
 
         console.log('check all data', formData);
@@ -419,13 +419,27 @@ function CreateBlogArticle() {
                                                         <div class="">
                                                             <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
 
-                                                            <input class="form-control" type="file" id="formFileImage"  onChange={changeMultipleFiles} 
+                                                            <input class="form-control" type="file" id="formFileImage" name="article_blog_image" onChange={onChangePicture}
                                                             />
 
-                                                            <div className='d-flex mt-2 ' >
-                                                                {render(multipleImages)}
 
-                                                            </div>
+                                                            {
+                                                                image && <div className='mt-3 d-flex ' >
+                                                                    <div className='' style={{ height: "170px", width: "200px" }}>
+                                                                        <img src={picture} style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+
+                                                                    </div>
+                                                                    <div className='mx-2' onClick={() => {
+                                                                        setImage('');
+                                                                        setPicture(null)
+                                                                    }}>
+                                                                        <i className='fa fa-close' style={{ cursor: "pointer" }} ></i>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            }
+
 
 
 

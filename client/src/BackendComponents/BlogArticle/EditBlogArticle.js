@@ -48,7 +48,9 @@ function EditBlogArticle() {
 
     const [category_id, setcategory_id] = useState([]);
     const [subcategory_id, setsubcategory_id] = useState([]);
+    const [articleBlogImageFromDb, setArticleBlogImageFromDb] = useState("");
 
+    console.log("ttt", articleBlogImageFromDb)
 
 
     const params = useParams();
@@ -95,7 +97,7 @@ function EditBlogArticle() {
     useEffect(() => {
         axios.get(`/api/edit-article-blogs/${editId}`).then(res => {
             if (res.data.status === 200) {
-                console.log("redux",res.data)
+                console.log("redux", res.data)
                 setEditBlogArticleData(res.data.article_blog);
                 setarticle_blog_title(res.data.article_blog.article_blog_title);
                 setContent1(res.data.article_blog.article_blog_description);
@@ -103,6 +105,7 @@ function EditBlogArticle() {
                 setsubcategory_id(res.data.article_blog.subcategory_id);
                 setisArchived(res.data.article_blog.isArchived);
                 setIsPublished(res.data.article_blog.isPublished);
+                setArticleBlogImageFromDb(res.data.article_blog.article_blog_image)
                 // setLoading(false);
             }
         })
@@ -301,8 +304,9 @@ function EditBlogArticle() {
         formData.append('article_blog_title', article_blog_title);
         formData.append('article_blog_description', content1);
         formData.append('article_blog_image', image);
-        
+
         formData.append('isArchived', isArchived);
+        formData.append('isDraft',0);
         formData.append('isPublished', isPublished);
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)
@@ -498,32 +502,7 @@ function EditBlogArticle() {
 
                                                 </div>
 
-                                                {/* <div class="mt-1">
-                                                    <label for="exampleFormControlInput1" class="form-label fs-6">Redirection Link</label>
 
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" onChange={(e) => setredirect_link(e.target.value)} name="redirect_link" value={redirect_link} />
-
-                                                </div> */}
-
-                                                {/* <div class="mt-4">
-                                                    <div class="">
-                                                        <label for="exampleFormControlInput1" class="form-label fs-6">Add Media (Png,Jpg) are allowed</label>
-
-                                                        <input class="form-control" type="file" id="formFileImage" multiple onChange={changeMultipleFiles}
-                                                        />
-
-                                                        <div className='d-flex mt-2 ' >
-                                                            {render(multipleImages)}
-
-                                                        </div>
-
-
-
-
-                                                    </div>
-
-
-                                                </div> */}
 
                                                 <div class="row mt-2">
                                                     <div class="mb-3 col-md-6 ">
@@ -533,65 +512,33 @@ function EditBlogArticle() {
 
 
                                                 </div>
-                                                {/* {
-                                                    picture == '' ? <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
-                                                        <img className="playerProfilePic_home_tile" src={`${global.img_url}/images/${EditBlogArticleData.article_blog_image}`} style={{ width: '100px', height: '90px' }}></img>
+
+
+
+                                                {
+                                                    image ? <div className='mt-3 d-flex ' >
+                                                        <div className='' style={{ height: "170px", width: "200px" }}>
+                                                            <img src={picture} style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+
+                                                        </div>
+                                                        <div className='mx-2' onClick={() => {
+                                                            setImage('');
+                                                            setPicture(null)
+                                                        }}>
+                                                            <i className='fa fa-close' style={{ cursor: "pointer" }} ></i>
+                                                        </div>
+
+
                                                     </div>
                                                         :
-                                                        <div className="form-group mt-1" style={{ width: '100px', height: '90px' }}>
-                                                            <img className="playerProfilePic_home_tile" src={picture} style={{ width: '100px', height: '90px' }}></img>
+                                                        <div className=''>
+                                                            <img src={`${global.img_url}/images/${articleBlogImageFromDb}`} style={{ width: "170x", height: "170px" }} />
                                                         </div>
 
                                                 }
-                                                {
-                                                    image.size > 524288 && <div className='text-danger mt-4'>Image Size Must be less than 0.5 Mb </div>
-                                                } */}
-
-
-                                                <div className='mb-2 mt-1 d-flex'>
 
 
 
-                                                    {
-                                                        render(multipleImages)
-
-                                                    }
-                                                    {
-
-                                                        allImagesFromDatabase.map((item, i) => {
-                                                            return (
-                                                                <>
-                                                                    {/* <img className="rounded mx-2" src={`${global.img_url}/images/${item.trim()}`} style={{ width: '100px', height: '90px' }}></img> */}
-                                                                    <div class="" style={{ position: 'relative' }} >
-                                                                        <div style={{ position: 'absoulute', right: '-10px', top: '0px' }} onClick={(e) => {
-                                                                            {
-                                                                                axios.post(`/api/delete-article-blogs-multiple-image/${item.id}`).then(res => {
-                                                                                    if (res.data.status == 200) {
-                                                                                        setRenderImageData(res.data)
-                                                                                    }
-                                                                                })
-                                                                            }
-
-                                                                        }}>
-                                                                            <i class="fa fa-close text-danger"></i>
-
-                                                                        </div>
-
-                                                                        <img className="rounded mx-2" src={`${global.img_url}/images/${item.image}`} style={{ width: '100px', height: '90px' }}></img>
-
-                                                                    </div>
-
-
-
-                                                                </>
-                                                            )
-                                                        })
-
-                                                    }
-
-
-
-                                                </div>
 
                                                 <div class="text mt-2">
                                                     <button type="submit" className='btn btn-success rounded-3' onSubmit={updateBlogArticle}> Update</button>

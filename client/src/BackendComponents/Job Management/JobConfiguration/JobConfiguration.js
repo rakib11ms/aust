@@ -561,6 +561,7 @@ function JobConfiguration() {
         axios.get(`/api/job-sector`).then(res => {
             if (res.data.status == 200) {
                 setAllJobSector(res.data.job_sector);
+                setTotalJobSector(res.data.total_job_sector)
                 setLoading(false)
 
 
@@ -649,7 +650,7 @@ function JobConfiguration() {
                                         <p className=''>Job Sectors</p>
                                     </div>
                                     <div class="item2">
-                                        <h2 className=' mb-0'>03</h2>
+                                        <h2 className=' mb-0'>{totalJobSubSector}</h2>
                                         <p className=''>Sub Sectors</p>
                                     </div>
 

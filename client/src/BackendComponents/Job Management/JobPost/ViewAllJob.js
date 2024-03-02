@@ -289,6 +289,7 @@ function ViewAllJob() {
                     if (res.data.status === 200) {
                         thisClicked.closest("tr").remove();
                         //   swal("Success", res.data.message, "success");
+                        window.location.reload();
                     }
                 });
                 Swal.fire(

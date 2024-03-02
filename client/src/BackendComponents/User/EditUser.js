@@ -12,6 +12,21 @@ function EditUser() {
     const params = useParams();
 
     const editId = params.id;
+    const [editUserData, setEditUserData] = useState('');
+    console.log('edit user1', editUserData)
+
+    async function editUserDatas() {
+        await axios.get(`/api/edit-user/${editId}`).then(res => {
+            if (res.data.status == 200) {
+                setEditUserData(res.data.edit_user);
+            }
+        })
+    }
+    useEffect(() => {
+
+        editUserDatas();
+    }, [editId])
+
     useEffect(() => {
         axios.get(`/api/edit-user/${editId}`).then(res => {
             if (res.data.status == 200) {
@@ -47,15 +62,7 @@ function EditUser() {
         })
     }, [editId])
 
-    const [editUserData, setEditUserData] = useState('');
-    console.log('edit user', editUserData)
-    // useEffect(() => {
-    //     axios.get(`/api/edit-user/${editId}`).then(res => {
-    //         if (res.data.status == 200) {
-    //             setEditUserData(res.data.edit_user);
-    //         }
-    //     })
-    // }, [editId])
+
     const [allBloodGroupName, setAllBloodGroupName] = useState([]);
     const [allCompanyName, setAllCompanyName] = useState([]);
 
@@ -65,6 +72,10 @@ function EditUser() {
     const [allJobSectorAsc, setAllJobSectorAsc] = useState([]);
     const [allJobSubSectorAsc, setAllJobSubSectorAsc] = useState([]);
     const [allThana, setAllThana] = useState([]);
+    const [allDistricts, setAllDistrics] = useState([]);
+    const [allPostalCodes, setAllPostalCodes] = useState([]);
+    console.log("all postal", allPostalCodes)
+
 
 
     useEffect(() => {
@@ -105,12 +116,25 @@ function EditUser() {
 
             }
         })
-        axios.get(`/api/all-thana`).then(res => {
+        axios.get(`/api/thana`).then(res => {
             if (res.data.status == 200) {
-                setAllThana(res.data.all_thana);
+                setAllThana(res.data.thana_name);
 
             }
         })
+        axios.get(`/api/district`).then(res => {
+            if (res.data.status == 200) {
+                setAllDistrics(res.data.district_name);
+
+            }
+        })
+        axios.get(`/api/postal-code`).then(res => {
+            if (res.data.status == 200) {
+                setAllPostalCodes(res.data.postal_code_name);
+
+            }
+        })
+
     }, [])
 
 
@@ -155,14 +179,17 @@ function EditUser() {
     const handleUpdate = (e) => {
         e.preventDefault();
         const saveData = {
-            full_name: full_name,
-            nick_name: nick_name,
-            phone_no: phone,
-            present_address: present_address,
-            permanent_address: permanent_address,
-            gender: gender_name,
-            batch: batch,
-            stream: stream,
+            full_name: editUserData.full_name,
+            nick_name: editUserData.nick_name,
+            phone_no: editUserData.phone_no,
+            present_address: editUserData.present_address,
+            permanent_address: editUserData.permanent_address,
+            gender: editUserData.gender,
+            thana: editUserData.thana,
+            district: editUserData.district,
+            postal_code: editUserData.postal_code,
+            batch: editUserData.batch,
+            stream: editUserData.stream,
             ssc_grade: ssc_grade,
             hsc_grade: hsc_grade,
             bsc_grade: bsc_grade,
@@ -213,27 +240,7 @@ function EditUser() {
 
     const handleUpdateProfessional = (id, newValue) => {
 
-        // console.log('v1',newValue.target.name);
 
-        // //     console.log('y1',index)
-        // const newArray = [...editProfessionalDatas];
-        // const index = newArray.findIndex(obj => obj.id === id); // find the index of the object to update
-        // const updatedObj = { ...newArray[index] }; // create a copy of the object to be updated
-
-        // updatedObj.name_of_company = companyname; // update the property that needs to be changed
-        // updatedObj.designation = desgination; // update the property that needs to be changed
-        // updatedObj.year = Years; // update the property that needs to be changed
-        // updatedObj.office_address = office; // update the property that needs to be changed
-
-        // // const value = newValue.target.value;
-        // // setEditProfessionalDatas({
-        // //  ...updatedObj,
-        // //  [newValue.target.name]: value
-        // // });
-
-
-        // newArray[index] = updatedObj; // replace the old object with the updated object in the new array
-        // setEditProfessionalDatas(newArray); // update the state with the new array
     }
 
     useEffect(() => {
@@ -313,6 +320,14 @@ function EditUser() {
     };
 
 
+    const handleEditUserData = (e) => {
+        setEditUserData({
+            ...editUserData, [e.target.name]: e.target.value
+
+        })
+    }
+
+
     return (
         <>
 
@@ -342,14 +357,21 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Full Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="full_name" value={full_name} onChange={(e) => setFull_name(e.target.value)} />
+                                                <input type="text" class="form-control" id="inputText" name="full_name"
+                                                    value={editUserData.full_name} onChange={handleEditUserData}
+                                                //  value={full_name} onChange={(e) => setFull_name(e.target.value)} 
+                                                />
                                             </div>
 
                                         </div>
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Nick Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="nick_name" value={nick_name} onChange={(e) => setNick_name(e.target.value)} />
+                                                <input type="text" class="form-control" id="inputText" name="nick_name"
+                                                    // value={nick_name} onChange={(e) => setNick_name(e.target.value)} 
+                                                    value={editUserData.nick_name} onChange={handleEditUserData}
+
+                                                />
                                             </div>
 
                                         </div>
@@ -358,30 +380,82 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Phone No</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="phone_no" value={phone} onChange={(e) => setphone(e.target.value)} />
+                                                <input type="text" class="form-control" id="inputText" name="phone_no"
+                                                    // value={phone} onChange={(e) => setphone(e.target.value)} 
+                                                    value={editUserData.phone_no} onChange={handleEditUserData}
+
+                                                />
                                             </div>
 
                                         </div>
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">District</label>
-                                            <div class="col-sm-10">
+                                            {/* <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="inputText" name="district" value={editUserData.district} readOnly />
+                                            </div> */}
+
+                                            <div className='col-sm-10'>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    onChange={handleEditUserData} name="district" value={editUserData.district}
+                                                >
+                                                    <option selected disabled>Open this select menu</option>
+                                                    {
+                                                        allDistricts.map((item, i) => {
+                                                            return (
+                                                                <option value={item.id}>{item.district_name}</option>
+
+                                                            )
+                                                        })
+                                                    }
+
+                                                </select>
                                             </div>
+
+
+
+
 
                                         </div>
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Thana</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="thana" value={editUserData.thana} readOnly />
+                                            <div className='col-sm-10'>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    onChange={handleEditUserData} name="thana" value={editUserData.thana}
+                                                >
+                                                    <option selected disabled>Open this select menu</option>
+                                                    {
+                                                        allThana.map((item, i) => {
+                                                            return (
+                                                                <option value={item.id}>{item.thana_name}</option>
+
+                                                            )
+                                                        })
+                                                    }
+
+                                                </select>
                                             </div>
 
                                         </div>
 
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Postal Code</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText" name="postal_code" value={editUserData.postal_code} readOnly />
+                                            <div className='col-sm-10'>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    onChange={handleEditUserData} name="postal_code" value={editUserData.postal_code}
+                                                >
+                                                    <option selected disabled>Open this select menu</option>
+                                                    {
+                                                        allPostalCodes.map((item, i) => {
+                                                            return (
+                                                                <option value={item.id}>{item.postal_code_name}</option>
+
+                                                            )
+                                                        })
+                                                    }
+
+                                                </select>
                                             </div>
+
 
                                         </div>
 
@@ -406,7 +480,9 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Gender</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setgender_name(e.target.value)} name="gender" value={gender_name}>
+                                                <select class="form-select" aria-label="Default select example" 
+                                                onChange={handleEditUserData} name="gender" value={editUserData.gender}
+                                                >
                                                     <option selected disabled>Open this select menu</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -420,7 +496,11 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Batch</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setbatch(e.target.value)} name="batch" value={batch}>
+                                                <select class="form-select" aria-label="Default select example"
+                                                // onChange={(e) => setbatch(e.target.value)} name="batch" value={batch}
+                                                onChange={handleEditUserData} name="batch" value={editUserData.batch}
+
+                                                >
                                                     <option selected disabled>Open this select menu</option>
 
                                                     {
@@ -443,7 +523,9 @@ function EditUser() {
                                         <div class="mb-3 row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Stream</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" aria-label="Default select example" onChange={(e) => setstream(e.target.value)} name="stream" value={stream}>
+                                                <select class="form-select" aria-label="Default select example"
+                                                onChange={handleEditUserData} name="stream" value={editUserData.stream}
+                                                >
                                                     <option selected disabled>Open this select menu</option>
                                                     {
                                                         allStreamName.map((item, i) => {
@@ -473,10 +555,9 @@ function EditUser() {
 
 
                                             <>
-                                                <h6 className=''>Social Information</h6>
 
 
-                                                <div class="mb-3 row">
+                                                <div class="mb-3 row mt-2">
                                                     <label for="inputPassword" class="col-sm-2 col-form-label">Job Sector</label>
                                                     <div class="col-sm-10">
                                                         <select class="form-select" aria-label="Default select example" onChange={(e) => setjob_sector(e.target.value)} name="job_sector" value={job_sector}>

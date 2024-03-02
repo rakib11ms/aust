@@ -24,7 +24,7 @@ function ViewBlogArticleWithComments() {
                     <Topbar />
 
                     <div className='container-fluids'>
-                        <div className='card'>
+                        <div className='card p-2'>
                             <h6 className='px-3'>View Blog Article</h6>
                             <div className=''>
                                 <div className='blog-article-image' class="w-50 mx-auto" style={{ height: "200px" }}>
@@ -57,7 +57,7 @@ function ViewBlogArticleWithComments() {
                                 </div>
                             </div>
 
-                            <hr />
+                            {/* <hr />
                             <h6 className='text-danger px-2'>Comments</h6>
 
                             <div className='px-2'>
@@ -97,7 +97,7 @@ function ViewBlogArticleWithComments() {
                                 </div>
 
 
-                            </div>
+                            </div> */}
 
 
                         </div>
