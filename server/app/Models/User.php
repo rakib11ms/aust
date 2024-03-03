@@ -78,6 +78,21 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\AusttaaJobSubSector','job_sub_sector');
     }
 
+    public function Thana()
+    {
+        return $this->belongsTo('App\Models\Thana','thana');
+    }
+
+    public function District()
+    {
+        return $this->belongsTo('App\Models\District','district');
+    }
+
+    public function Postcode()
+    {
+        return $this->belongsTo('App\Models\PostalCode','postal_code');
+    }
+
 
 //    public function roles()
 //     {

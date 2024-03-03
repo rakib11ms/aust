@@ -470,48 +470,185 @@ class ViewAllUserController extends Controller
     }
 
 
+    // public function exportUserExcel($name)
+    // {
+    //     if ($name == "All") {
+    //         $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+    //         return response()->json([
+    //             'status' => 200,
+    //             'all_users' => $all_users,
+
+    //         ]);
+    //     } else if ($name == 'Alumni') {
+    //         $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Alumni')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+    //         return response()->json([
+    //             'status' => 200,
+    //             'all_users' => $all_users,
+
+    //         ]);
+    //     } else if ($name == 'Admin') {
+    //         $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Admin')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+    //         return response()->json([
+    //             'status' => 200,
+    //             'all_users' => $all_users,
+
+    //         ]);
+    //     } else if ($name == 'Staff') {
+    //         $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Staff')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+    //         return response()->json([
+    //             'status' => 200,
+    //             'all_users' => $all_users,
+
+    //         ]);
+    //     } else if ($name == 'Moderator') {
+    //         $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Moderator')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+    //         return response()->json([
+    //             'status' => 200,
+    //             'all_users' => $all_users,
+
+    //         ]);
+    //     }
+
+
+    // }
+
+
+
     public function exportUserExcel($name)
     {
         if ($name == "All") {
-            $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
+  
+            // $all_users = [];
+
+            // User::orderBy('created_at', 'desc')
+            //     ->chunk(200, function ($users) use (&$all_users) {
+            //         foreach ($users as $user) {
+            //             $user->load(['professionalInfo', 'educationalInfo', 'bloodGroup', 'streamName', 'batchName', 'roles', 'jobSectorName', 'jobSubSectorName', 'Thana', 'District', 'Postcode']);
+            //             $all_users[] = $user;
+            //         }
+            //     });
+            
+            // // Convert the array to a collection using collect()
+            // $formatted_users_collection = collect($all_users);
+            
+            // // Now you can use the map method
+            // $formatted_users_mapped = $formatted_users_collection->map(function ($user) {
+            //     return [
+            //         'Id' => $user->id,
+            //         'Full Name' => $user->full_name,
+            //         'Nick Name' => $user->nick_name,
+            //         'Email' => $user->email,
+            //         'Office Email' => $user->office_email,
+            //         'Phone No' => $user->phone_no,
+            //         'Batch' => optional($user->batchName)->batch_name ?? "",
+            //         'University Id' => $user->university_id,
+            //         'Blood Group' => optional($user->bloodGroup)->blood_group_name ?? "",
+            //         'Stream' => optional($user->streamName)->stream_name ?? "",
+            //         'Job Sector' => optional($user->jobSectorName)->job_sector_name ?? "",
+            //         'Job Sub Sector' => optional($user->jobSubSectorName)->job_sub_sector_name ?? "",
+            //         'Role' => $user->user_role,
+            //         'Present Address' => $user->present_address,
+            //         'Permanent Address' => $user->permanent_address,
+            //         'Thana' => optional($user->Thana)->thana_name ?? "",
+            //         'District' => optional($user->District)->district_name ?? "",
+            //         'Postal Code' => optional($user->Postcode)->postal_code_name ?? "",
+            //         "SSC Grade"=>optional($user->educationalInfo)->ssc_grade?? "",
+            //         "SSC Division"=>optional($user->educationalInfo)->ssc_division?? "",
+            //         "SSC Passing Year"=>optional($user->educationalInfo)->ssc_passing_year?? "",
+            //         "SSC Institution"=>optional($user->educationalInfo)->ssc_institution?? "",
+            //         "HSC Grade"=>optional($user->educationalInfo)->hsc_grade?? "",
+            //         "HSC Division"=>optional($user->educationalInfo)->hsc_division?? "",
+            //         "HSC Passing Year"=>optional($user->educationalInfo)->hsc_passing_year?? "",
+            //         "HSC Institution"=>optional($user->educationalInfo)->hsc_institution?? "",
+            //         "BSC Grade"=>optional($user->educationalInfo)->bsc_grade?? "",
+            //         "BSC Division"=>optional($user->educationalInfo)->bsc_division?? "",
+            //         "BSC Passing Year"=>optional($user->educationalInfo)->bsc_passing_year?? "",
+            //         "BSC Institution"=>optional($user->educationalInfo)->bsc_institution?? "",
+            //         "MSC Grade"=>optional($user->educationalInfo)->msc_grade?? "",
+            //         "MSC Division"=>optional($user->educationalInfo)->msc_division?? "",
+            //         "MSC Passing Year"=>optional($user->educationalInfo)->msc_passing_year?? "",
+            //         "MSC Institution"=>optional($user->educationalInfo)->msc_institution?? "",
+            //         // Add other fields as needed
+            //     ];
+            // });
+            
+            // // Add more fields to the response as needed
+            // return response()->json([
+            //     'status' => 200,
+            //     'all_users' => $all_users,
+            //     // Additional response data if necessary
+            // ]);
+            $all_users = [];
+
+            User::orderBy('created_at', 'desc')
+                ->chunk(200, function ($users) use (&$all_users) {
+                    foreach ($users as $user) {
+                        $user->load(['professionalInfo', 'educationalInfo', 'bloodGroup', 'streamName', 'batchName', 'roles', 'jobSectorName', 'jobSubSectorName', 'Thana', 'District', 'Postcode']);
+            
+                        // Map professional info dynamically for multiple companies
+                        $professional_info = $user->professionalInfo->map(function ($info) {
+                            return [
+                                'Company' => optional($info->company_name)->company_name ?? "",
+                                'Designation' => optional($info)->designation ?? "",
+                                'Year' => optional($info)->year ?? "",
+                            ];
+                        })->toArray();
+            
+                        // Flatten the professional info and include in the user details array
+                        $user_details = [
+                            'Id' => $user->id,
+                            'Full Name' => $user->full_name,
+                            'Nick Name' => $user->nick_name,
+                            'Email' => $user->email,
+                            'Office Email' => $user->office_email,
+                            'Phone No' => $user->phone_no,
+                            'Batch' => optional($user->batchName)->batch_name ?? "",
+                            'University Id' => $user->university_id,
+                            'Blood Group' => optional($user->bloodGroup)->blood_group_name ?? "",
+                            'Stream' => optional($user->streamName)->stream_name ?? "",
+                            'Job Sector' => optional($user->jobSectorName)->job_sector_name ?? "",
+                            'Job Sub Sector' => optional($user->jobSubSectorName)->job_sub_sector_name ?? "",
+                            'Role' => $user->user_role,
+                            'Present Address' => $user->present_address,
+                            'Permanent Address' => $user->permanent_address,
+                            'Thana' => optional($user->Thana)->thana_name ?? "",
+                            'District' => optional($user->District)->district_name ?? "",
+                            'Postal Code' => optional($user->Postcode)->postal_code_name ?? "",
+                            "SSC Grade" => optional($user->educationalInfo)->ssc_grade ?? "",
+                            "SSC Division" => optional($user->educationalInfo)->ssc_division ?? "",
+                            "SSC Passing Year" => optional($user->educationalInfo)->ssc_passing_year ?? "",
+                            "SSC Institution" => optional($user->educationalInfo)->ssc_institution ?? "",
+                            
+            
+                            // Include flattened professional info directly in the user details array
+                            ...collect($professional_info)->flatMap(function ($info, $index) {
+                                return [
+                                    "Company" . ($index + 1) => $info['Company'],
+                                    "Designation" . ($index + 1) => $info['Designation'],
+                                    "Year" . ($index + 1) => $info['Year'],
+                                ];
+                            })->toArray(),
+                            'Created At'=>$user->created_at,
+                            'Updated At'=>$user->updated_at,
+            
+                            // Add other fields as needed
+                        ];
+            
+                        // Add the user details to the all_users array
+                        $all_users[] = $user_details;
+                    }
+                });
+            
+            // Add more fields to the response as needed
             return response()->json([
                 'status' => 200,
                 'all_users' => $all_users,
-
+                // Additional response data if necessary
             ]);
-        } else if ($name == 'Alumni') {
-            $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Alumni')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
-            return response()->json([
-                'status' => 200,
-                'all_users' => $all_users,
-
-            ]);
-        } else if ($name == 'Admin') {
-            $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Admin')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
-            return response()->json([
-                'status' => 200,
-                'all_users' => $all_users,
-
-            ]);
-        } else if ($name == 'Staff') {
-            $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Staff')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
-            return response()->json([
-                'status' => 200,
-                'all_users' => $all_users,
-
-            ]);
-        } else if ($name == 'Moderator') {
-            $all_users = DB::table('users')->leftJoin('austtaa_batches', 'users.batch', '=', 'austtaa_batches.id')->leftJoin('austtaa_blood_groups', 'users.blood_group', '=', 'austtaa_blood_groups.id')->leftJoin('austtaa_streams', 'users.stream', '=', 'austtaa_streams.id')->leftJoin('austtaa_job_sectors', 'users.job_sector', '=', 'austtaa_job_sectors.id')->leftJoin('austtaa_job_sub_sectors', 'users.job_sub_sector', '=', 'austtaa_job_sub_sectors.id')->where('users.user_role', 'Moderator')->select('users.id', 'users.full_name', 'users.bio', 'users.nick_name', 'users.email', 'users.office_email', 'users.phone_no', 'users.user_role', 'users.gender', 'austtaa_blood_groups.blood_group_name', 'austtaa_batches.batch_name', 'austtaa_streams.stream_name', 'austtaa_job_sectors.job_sector_name', 'austtaa_job_sub_sectors.job_sub_sector_name', 'users.thana', 'users.present_address', 'users.permanent_address', 'users.user_role', 'users.thana')->get();
-            return response()->json([
-                'status' => 200,
-                'all_users' => $all_users,
-
-            ]);
+            
         }
 
-
     }
-
 
     //role change with password revoke
 
