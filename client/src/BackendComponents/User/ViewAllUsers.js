@@ -648,7 +648,7 @@ function ViewAllUsers() {
     const [postcode_name, setPostalCodeName] = useState("");
     const [districtname, setDistrictName] = useState("");
 
-    const[filterYouSearchLocationOption,setFilterYouSearchLocationOption]=useState("office")
+    const [filterYouSearchLocationOption, setFilterYouSearchLocationOption] = useState("office")
 
     useEffect(() => {
         axios.get(`/api/batch-name`).then(res => {
@@ -721,34 +721,34 @@ function ViewAllUsers() {
         //     })
         // }
         // else {
-            const data = {
-                batch: batch_name,
-                company: company_name,
-                blood: blood_group_name,
-                stream: stream_name,
-                gender: gender_name,
-                jobsector: job_sector_name,
-                subsector: job_sub_sector_name,
-                district:districtname,
-                thana: thana_name,
-                postal_code:postcode_name,
-                option:filterYouSearchLocationOption,
-                university_id:university_id,
-                full_name:fullName,
+        const data = {
+            batch: batch_name,
+            company: company_name,
+            blood: blood_group_name,
+            stream: stream_name,
+            gender: gender_name,
+            jobsector: job_sector_name,
+            subsector: job_sub_sector_name,
+            district: districtname,
+            thana: thana_name,
+            postal_code: postcode_name,
+            option: filterYouSearchLocationOption,
+            university_id: university_id,
+            full_name: fullName,
+        }
+
+        axios.post(`/api/multiple-filter-advance-search-all-users/`, data).then(res => {
+            if (res.data.status == 200) {
+
+                // console.log('multiple filter search', res.data)
+                setallUsers(res.data.all_users)
+                setLoading(false);
             }
-
-            axios.post(`/api/multiple-filter-advance-search-all-users/`, data).then(res => {
-                if (res.data.status == 200) {
-
-                    // console.log('multiple filter search', res.data)
-                    setallUsers(res.data.all_users)
-                    setLoading(false);
-                }
-            })
+        })
 
         // }
 
-    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, university_id,job_sub_sector_name, thana_name,fullName,districtname])
+    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, university_id, job_sub_sector_name, thana_name, fullName, districtname])
 
 
     const [globalSearch, setGlobalSearch] = useState('');
@@ -1036,19 +1036,19 @@ function ViewAllUsers() {
                                                         <div class="mb-3 row fs-6">
                                                             <div className='d-flex justify-content-center  w-75'>
                                                                 <div class="form-check mx-4">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("office")}  checked={filterYouSearchLocationOption=="office"}/>
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e) => setFilterYouSearchLocationOption("office")} checked={filterYouSearchLocationOption == "office"} />
                                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                                         <b>Office </b>
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-4">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("present")}  checked={filterYouSearchLocationOption=="present"} />
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e) => setFilterYouSearchLocationOption("present")} checked={filterYouSearchLocationOption == "present"} />
                                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                                         <b>Present </b>
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mx-4">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e)=>setFilterYouSearchLocationOption("permanent")}  checked={filterYouSearchLocationOption=="permanent"}/>
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value={filterYouSearchLocationOption} onChange={(e) => setFilterYouSearchLocationOption("permanent")} checked={filterYouSearchLocationOption == "permanent"} />
                                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                                         <b>Permanent</b>
                                                                     </label>
@@ -1139,60 +1139,7 @@ function ViewAllUsers() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <Container class="" >
-                                    <div className='mx-5 px-5 mt-1 mb-3' data-aos="fade-up"
-                                        data-aos-anchor-placement="top-bottom">
-                                        {
-                                            gender_name !== null && <Button onClick={() => setgender_name(null)} style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<MaleRoundedIcon />} endIcon={<CloseIcon />}>
-                                                {gender_name}
-                                            </Button>
-                                        }
 
-                                        {
-                                            company_name !== null && <Button onClick={() => setcompany_name(null)} className='header-button' style={{ color: "#828282", border: "1px solid #828282", borderRadius: 7, fontSize: 12, marginRight: 10 }} variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
-                                                {company_name}
-                                            </Button>
-                                        }
-
-
-
-                                        {
-                                            batch_name !== null && <Button onClick={() => setbatch_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BatchPredictionIcon />} endIcon={<CloseIcon />}>
-                                                {batch_name}
-                                            </Button>
-                                        }
-
-                                        {
-                                            blood_group_name !== null && <Button onClick={() => setblood_group_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BloodtypeOutlinedIcon />} endIcon={<CloseIcon />}>
-                                                {blood_group_name}
-                                            </Button>
-                                        }
-                                        {
-                                            stream_name !== null && <Button onClick={() => setstream_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<AccessTimeIcon />} endIcon={<CloseIcon />}>
-                                                {stream_name}
-                                            </Button>
-                                        }
-                                        {
-                                            job_sector_name !== null && <Button onClick={() => setjob_sector_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
-                                                {job_sector_name}
-                                            </Button>
-                                        }
-                                        {
-                                            job_sub_sector_name !== null && <Button onClick={() => setjob_sub_sector_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<BusinessCenterIcon />} endIcon={<CloseIcon />}>
-                                                {job_sub_sector_name}
-                                            </Button>
-                                        }
-                                        {
-                                            thana_name !== null && <Button onClick={() => setthana_name(null)} style={{ color: "#828282", border: "1px solid #828282 ", borderRadius: 7, fontSize: 12, marginRight: 10 }} className="header-button" variant="outlined" startIcon={<LocationCityOutlinedIcon />} endIcon={<CloseIcon />}>
-                                                {thana_name}
-                                            </Button>
-                                        }
-
-
-
-
-                                    </div>
-                                </Container> */}
                             </div>
 
                             <div className="col-md-12 mt-3">
@@ -1250,7 +1197,7 @@ function ViewAllUsers() {
                                                         Download
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item"  href={`${global.img_url}/cv/cv_documents.zip`} onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download all CV as a PDF</a></li>
+                                                        <li><a class="dropdown-item" href={`${global.img_url}/cv/cv_documents.zip`} onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download all CV as a PDF</a></li>
                                                         {
                                                             <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
                                                                 <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
@@ -1490,13 +1437,13 @@ function ViewAllUsers() {
                                                             <tbody>
                                                                 <tr>
                                                                     <th scope="row">SSC</th>
-                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_grade !==null ? viewUserDescription.educational_info.ssc_grade: viewUserDescription.educational_info?.ssc_division }</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_grade !== null ? viewUserDescription.educational_info.ssc_grade : viewUserDescription.educational_info?.ssc_division}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_passing_year}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.ssc_institution}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th scope="row">HSC</th>
-                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_grade!==null ? viewUserDescription.educational_info?.hsc_division: viewUserDescription.educational_info?.hsc_division}</td>
+                                                                    <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_grade !== null ? viewUserDescription.educational_info?.hsc_division : viewUserDescription.educational_info?.hsc_division}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_passing_year}</td>
                                                                     <td>{viewUserDescription.educational_info !== undefined && viewUserDescription.educational_info.hsc_institution}</td>
                                                                 </tr>
