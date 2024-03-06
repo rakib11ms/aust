@@ -14,6 +14,8 @@ import MaterialTable from "material-table";
 import moment from 'moment';
 // import { Paper } from '@material-ui/core';
 import Paper from '@mui/material/Paper';
+import { CSVLink } from 'react-csv';
+import * as XLSX from 'xlsx';
 
 
 function ViewAllJob() {
@@ -420,6 +422,7 @@ function ViewAllJob() {
                     }
 
                 </div>
+
                 <div className='text-secondary'>
                     <Link to={`/edit-jobs/${row.id}`}><i className='fa fa-edit mx-2 icon-table-archive'></i> </Link>
 
@@ -603,6 +606,42 @@ function ViewAllJob() {
     }
 
 
+    const [allExcelJobPosts, setAllExcelJobPosts] = useState([]);
+
+    // console.log('du', allExcelJobPosts)
+
+    useEffect(() => {
+        axios.get(`/api/export-all-job-post-as-excel`).then(res => {
+            if (res.data.status == 200) {
+                setAllExcelJobPosts(res.data.all_job_posts);
+            }
+        })
+
+    }, [])
+
+
+    const handleExportClick = () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+    
+        // Add a worksheet with the JSON data
+        const ws = XLSX.utils.json_to_sheet(allExcelJobPosts);
+        XLSX.utils.book_append_sheet(workbook, ws, 'User Posts');
+    
+        // Save the workbook to an XLSX file
+        const xlsxBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    
+        // Convert buffer to Blob
+        const blob = new Blob([xlsxBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    
+        // Create a download link and trigger a click to download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'Job Posts.xlsx';
+        downloadLink.click();
+      };
+    
+
     return (
         <>
             <div className="container-fluid">
@@ -654,18 +693,28 @@ function ViewAllJob() {
 
                                         <div className='table-filter-tab bg-white'>
 
-                                            <div className='d-flex table-filter-menus align-items-center'>
+                                            <div className='d-flex table-filter-menus align-items-center w-100'>
 
                                                 <h6 className={`${jobPostFiltering === 'all' ? 'text-dark' : ""} mx-2`} onClick={() => setjobPostFiltering('all')}>All</h6>
                                                 <h6 className={`${jobPostFiltering === 1 ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${jobPostFiltering === 0 ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${jobPostFiltering === 'archive' ? 'text-dark' : ""} mx-3`} onClick={() => setjobPostFiltering('archive')}>Archived</h6>
 
+                                                <div className='btn btn-light btn-sm border py-1 justify-content-end ' onClick={handleExportClick} >
+                                                       {/* <CSVLink data={allExcelJobPosts} filename="UserPost" className="" >
+                                                                <li><a class="dropdown-item1" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>         Download Excel</a></li>
+
+                                                            </CSVLink> */}
+
+                                                            Download Excel
+                                           
+                                                </div>
+
                                             </div>
 
                                             <div className='d-flex align-items-center'>
                                                 {
-                                                    selectedRowsLength > 1 &&
+                                                    
                                                     <>
 
 

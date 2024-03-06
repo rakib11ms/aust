@@ -13,6 +13,7 @@ import Modal from 'react-modal';
 
 import MaterialTable from "material-table";
 import moment from 'moment';
+import * as XLSX from 'xlsx';
 
 function ViewBlogArticle() {
 
@@ -415,7 +416,7 @@ function ViewBlogArticle() {
                 {/* <div className='mx-2 mb-1 text-secondary' onClick={(e) => openViewNoticeNewsModal(e, row)}> */}
                 <div className='mx-2 mb-1 text-secondary'>
                     <Link to={`/view-blog-article-with-comments/${row.id}`} className='text-secondary'>
-                    <i className='fa fa-eye'></i>
+                        <i className='fa fa-eye'></i>
 
                     </Link>
 
@@ -638,6 +639,36 @@ function ViewBlogArticle() {
         }
     }
 
+    const [allBlogArticleExcel, setAllArticleBlogExcel] = useState([]);
+
+    // console.log("test",allBlogArticleExcel)
+    useEffect(() => {
+        axios.get(`/api/export-article-blogs-as-excel`).then(res => {
+            if (res.data.status == 200) {
+                setAllArticleBlogExcel(res.data.all_article_blogs);
+            }
+        })
+    }, [])
+    const handleExportClick = () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+
+        // Add a worksheet with the JSON data
+        const ws = XLSX.utils.json_to_sheet(allBlogArticleExcel);
+        XLSX.utils.book_append_sheet(workbook, ws, 'Article Blogs');
+
+        // Save the workbook to an XLSX file
+        const xlsxBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+        // Convert buffer to Blob
+        const blob = new Blob([xlsxBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // Create a download link and trigger a click to download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'Article Blogs.xlsx';
+        downloadLink.click();
+    };
 
     return (
         <>
@@ -774,6 +805,16 @@ function ViewBlogArticle() {
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
                                                 {/* <h6 className={`${postFiltering === 'draft' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('draft')}>My Draft</h6> */}
+
+                                                <div className='btn btn-light btn-sm border py-1 justify-content-end ' onClick={handleExportClick} >
+                                                    {/* <CSVLink data={allExcelPosts} filename="UserPost" className="" >
+                                                                <li><a class="dropdown-item1" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>         Download Excel</a></li>
+
+                                                            </CSVLink> */}
+
+                                                    Download Excel
+
+                                                </div>
 
                                             </div>
 

@@ -31,6 +31,7 @@ import { Container } from '@mui/system';
 import { CSVLink } from 'react-csv';
 import JSZip from "jszip";
 import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 
 function ViewAllUsers() {
@@ -549,13 +550,37 @@ function ViewAllUsers() {
     // console.log('du', allExcelUsers)
 
     useEffect(() => {
-        axios.get(`/api/export-users-as-excel/${userRoleFiltering}`).then(res => {
+        axios.get(`/api/export-users-as-excel/All`).then(res => {
             if (res.data.status == 200) {
                 setAllExcelUsers(res.data.all_users);
             }
         })
 
     }, [userRoleFiltering])
+
+
+
+    const handleExportClick = () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+
+        // Add a worksheet with the JSON data
+        const ws = XLSX.utils.json_to_sheet(allExcelUsers);
+        XLSX.utils.book_append_sheet(workbook, ws, 'User Posts');
+
+        // Save the workbook to an XLSX file
+        const xlsxBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+        // Convert buffer to Blob
+        const blob = new Blob([xlsxBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // Create a download link and trigger a click to download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'All Users.xlsx';
+        downloadLink.click();
+    };
+
 
 
 
@@ -1199,10 +1224,12 @@ function ViewAllUsers() {
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href={`${global.img_url}/cv/cv_documents.zip`} onClick={saveZip}><i style={{ marginRight: 5 }} class="fa-regular fa-file-pdf"></i> Download all CV as a PDF</a></li>
                                                         {
-                                                            <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
-                                                                <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
+                                                            // <CSVLink data={allExcelUsers} filename="RegisterUserData" className="" >
+                                                            //     <li><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
 
-                                                            </CSVLink>
+                                                            // </CSVLink>
+                                                            <li onClick={handleExportClick}><a class="dropdown-item" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>Download details as a excel</a></li>
+
                                                         }
 
                                                         {/* <li><a class="dropdown-item" href="#"><i style={{ marginRight: 9 }} class="fa-regular fa-file-word"></i>Download details as a docs</a></li> */}
