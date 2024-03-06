@@ -37,6 +37,26 @@ class ArticleBlogController extends Controller
     }
 
 
+   public function exportArtilceBlogAsExcel(){
+    $all_article_blogs=ArticleBlog::with(['category','subcategory','user'])->get();
+    $result=$all_article_blogs->map(function ($item){
+        return[
+            "Id"=>$item->id,
+            "Category "=>$item->category? $item->category->category_name:"",
+            "Sub Category "=>$item->subcategory? $item->subcategory->subcategory_name:"",
+            "Title"=>$item->article_blog_title,
+            "Description"=>$item->article_blog_description,
+            "Posted By"=>$item->user?$item->user->full_name: "",
+            "Created At"=>$item->created_at,
+            "Updated At"=>$item->updated_at
+        ];
+    });
+    return response()->json([
+        "status"=>200,
+        "all_article_blogs"=>$result
+    ]);
+   }
+
 
 
 

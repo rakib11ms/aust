@@ -44,6 +44,26 @@ class PostController extends Controller
          ]);
     }
 
+    public function exportPostAsExcel(){
+        $all_posts=Post::with(["PostType","userPost"])->get();
+
+        $result=$all_posts->map(function ($item){
+            return[
+                "Id"=>$item->id,
+                "Post Type"=>$item->PostType? $item->PostType->type_name:"",
+                "Post Title"=>$item->post_title,
+                "Post Description"=>$item->post_description,
+                "Posted By"=>$item->userPost?$item->userPost->full_name: "",
+                "Created At"=>$item->created_at,
+                "Updated At"=>$item->updated_at
+            ];
+        });
+        return response()->json([
+            "status"=>200,
+            "all_posts"=>$result
+        ]);
+
+    }
 
 
 

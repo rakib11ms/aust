@@ -20,6 +20,9 @@ class AusstaEvent extends Model
     {
         return $this->belongsTo('App\Models\AusttaEventType','event_type_id');
     }
-    
+ // AusstaEvent.php
 
+
+
+    
 }

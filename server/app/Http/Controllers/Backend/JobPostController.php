@@ -32,7 +32,31 @@ class JobPostController extends Controller
     }
 
 
-
+    
+    public function exportJobPostsAsExcel(){
+        $all_job_posts=JobPost::with(['JobType','JobSector','JobSubSector','user'])->get();
+        $result=$all_job_posts->map(function ($item){
+            return[
+                "Id"=>$item->id,
+                "Job Type "=>$item->JobType? $item->JobType->type_name:"",
+                "Job Sector"=>$item->JobSector? $item->JobSector->job_sector_name:"",
+                "Job Sub Sector"=>$item->JobSubSector? $item->JobSubSector->job_sub_sector_name:"",
+                // "Sub Category "=>$item->subcategory? $item->subcategory->subcategory_name:"",
+                "Title"=>$item->job_title,
+                "Description"=>$item->job_description,
+                "Job Link"=>$item->job_link,
+                "Job Link"=>$item->job_location,
+                "Posted By"=>$item->user?$item->user->full_name: "",
+                "Created At"=>$item->created_at,
+                "Updated At"=>$item->updated_at
+            ];
+        });
+        return response()->json([
+            "status"=>200,
+            "all_job_posts"=>$result
+        ]);
+       }
+    
 
 
       public function store(Request $request){
@@ -103,31 +127,31 @@ class JobPostController extends Controller
 
           
 
- if ($files = $request->file('image')) {
-            $names = $files->getClientOriginalName();
-            $name = rand(111, 99999).$names;
-            $files->move('images/', $name);
-        }
+//  if ($files = $request->file('image')) {
+//             $names = $files->getClientOriginalName();
+//             $name = rand(111, 99999).$names;
+//             $files->move('images/', $name);
+//         }
            
-            if($files!=null){
-             $post->image=$name;
+//             if($files!=null){
+//              $post->image=$name;
 
-            }
+//             }
 
-            $post->job_title = $request->job_title;
-           $post->job_type = $request->job_type;
-           $post->job_description = $request->job_description;
-           $post->job_link = $request->job_link;
+        //     $post->job_title = $request->job_title;
+        //    $post->job_type = $request->job_type;
+        //    $post->job_description = $request->job_description;
+        //    $post->job_link = $request->job_link;
            // $post->image = $request->image;
            // $post->job_sub_title = $request->job_sub_title;
 
-           $post->posted_by = $request->posted_by;
+        //    $post->posted_by = $request->posted_by;
            // $post->date = $request->date;
-           $post->isPublished = $request->isPublished;
-           $post->isArchived = $request->isArchived;
-           $post->application_deadline = $request->application_deadline;
-             $post->job_sector = $request->job_sector;
-           $post->job_sub_sector = $request->job_sub_sector;
+           $post->isPublished = $request->isPublished !==null && $request->isPublished;
+        //    $post->isArchived = $request->isArchived !==null && $request->isArchived;
+        //    $post->application_deadline = $request->application_deadline;
+        //      $post->job_sector = $request->job_sector;
+        //    $post->job_sub_sector = $request->job_sub_sector;
             $post->update();
 
  return response()->json([

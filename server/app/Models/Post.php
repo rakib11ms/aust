@@ -23,4 +23,7 @@ class Post extends Model
        public function userPost() {
         return $this->belongsTo('App\Models\User','posted_by')->select('*');
     }
+    public function PostType(){
+      return $this->belongsTo('App\Models\PostType','post_type');
+    }
 }

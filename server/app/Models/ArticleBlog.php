@@ -31,5 +31,7 @@ class ArticleBlog extends Model
     {
         return $this->belongsTo(User::class, 'comment_person_id');
     }
+
+
     
 }

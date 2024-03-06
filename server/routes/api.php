@@ -252,6 +252,7 @@ Route::delete('/delete-post-type/{id}', [PostTypeController::class, 'destroy']);
 //post routes
 Route::post('/save-post', [PostController::class, 'store']);
 Route::get('/all-posts', [PostController::class, 'index']);
+Route::get('/export-posts-as-excel', [PostController::class, 'exportPostAsExcel']);
 Route::get('/edit-post/{id}', [PostController::class, 'edit']);
 Route::post('/update-post/{id}', [PostController::class, 'update']);
 Route::post('/delete-post/{id}', [PostController::class, 'destroy']);
@@ -299,6 +300,7 @@ Route::delete('/delete-job-type/{id}', [JobTypeController::class, 'destroy']);
 //job post routes
 Route::post('/save-job-post', [JobPostController::class, 'store']);
 Route::get('/all-job-post', [JobPostController::class, 'index']);
+Route::get('/export-all-job-post-as-excel', [JobPostController::class, 'exportJobPostsAsExcel']);
 Route::get('/edit-job-post/{id}', [JobPostController::class, 'edit']);
 Route::post('/update-job-post/{id}', [JobPostController::class, 'update']);
 Route::post('/delete-job-post/{id}', [JobPostController::class, 'destroy']);
@@ -335,6 +337,7 @@ Route::delete('/delete-event-type/{id}', [EventTypeController::class, 'destroy']
 //events
 
 Route::get('/all-event-posts', [EventController::class, 'index']);
+Route::get('/export-all-events-as-excel', [EventController::class, 'exportAllEventAsExcel']);
 Route::post('/add-event', [EventController::class, 'store']);
 Route::get('/edit-event/{id}', [EventController::class, 'edit']);
 Route::post('/delete-event/{id}', [EventController::class, 'destroy']);
@@ -440,6 +443,8 @@ Route::delete('/delete-article-blogs-comment/{id}', [ArticleBlogCommentControlle
 
 
 Route::get('/all-article-blogs', [ArticleBlogController::class, 'index']);
+Route::get('/export-article-blogs-as-excel', [ArticleBlogController::class, 'exportArtilceBlogAsExcel']);
+
 Route::get('/view-single-article-blogs-with-comments/{id}', [ArticleBlogController::class, 'viewSingleArticleBlogsWithComments']);
 Route::post('/add-article-blogs', [ArticleBlogController::class, 'store']);
 Route::get('/edit-article-blogs/{id}', [ArticleBlogController::class, 'edit']);

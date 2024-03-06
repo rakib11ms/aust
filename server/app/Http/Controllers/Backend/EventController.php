@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AusttaEventType;
 use Illuminate\Http\Request;
 use App\Models\AusstaEvent;
 use App\Models\EventMultipleImage;
@@ -50,6 +51,42 @@ class EventController extends Controller
         ]);
     }
 
+    public function exportAllEventAsExcel(){
+        $all_events = AusstaEvent::with(['EventType','UserName'])->get();
+    
+        foreach ($all_events as $event) {
+            $contactPersons = User::whereIn("id", explode(",", $event['contact_person']))->select('id', 'full_name', 'email')->get();
+            
+            // Extract the 'full_name' property from each object in the 'contact' array
+            $fullNames = $contactPersons->pluck('full_name')->toArray();
+    
+            // Convert the collection to an array and then implode
+            $event['contact'] = implode(', ', $fullNames);
+        }
+
+        $result=$all_events->map(function ($item){
+            return[
+                "Id"=>$item->id,
+                "Event Id "=>$item->event_unique_id,
+                "Event Type"=>$item->EventType?$item->EventType->event_type_name:"",
+                "Event Title"=>$item->event_title,
+                "Event Time"=>$item->event_time,
+                "Event Description"=>$item->event_description,
+                "Event Fee"=>$item->event_fee,
+                "Payment Type"=>$item->payment_type,
+                "Contact Persons"=>$item->contact,
+                "Posted By"=>$item->UserName?$item->UserName->full_name: "",
+                "Created At"=>$item->created_at,
+                "Updated At"=>$item->updated_at
+            ];
+        });
+        return response()->json([
+            "status"=>200,
+            "all_posts"=>$result
+        ]);    
+ 
+    }
+    
 
 
 
