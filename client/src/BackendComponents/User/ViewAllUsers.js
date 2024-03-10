@@ -547,16 +547,16 @@ function ViewAllUsers() {
     //excel export users
     const [allExcelUsers, setAllExcelUsers] = useState([]);
 
-    // console.log('du', allExcelUsers)
+    console.log('du', allExcelUsers)
 
     useEffect(() => {
-        axios.get(`/api/export-users-as-excel/All`).then(res => {
+        axios.get(`/api/export-users-as-excel`).then(res => {
             if (res.data.status == 200) {
                 setAllExcelUsers(res.data.all_users);
             }
         })
 
-    }, [userRoleFiltering])
+    }, [])
 
 
 
@@ -566,7 +566,7 @@ function ViewAllUsers() {
 
         // Add a worksheet with the JSON data
         const ws = XLSX.utils.json_to_sheet(allExcelUsers);
-        XLSX.utils.book_append_sheet(workbook, ws, 'User Posts');
+        XLSX.utils.book_append_sheet(workbook, ws, 'All Users');
 
         // Save the workbook to an XLSX file
         const xlsxBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

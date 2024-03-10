@@ -42,6 +42,7 @@ function AdminLogin({ handleSucessLogin }) {
 
 
         if (res.data.status == 200) {
+          console.log("boom",res.data);
           setClickedRender(false);
           let admin_auth = {
             full_name: res.data.full_name,
@@ -50,7 +51,8 @@ function AdminLogin({ handleSucessLogin }) {
             token: res.data.token,
             email: res.data.email,
             user_id: res.data.user_id,
-            status: 'yes'
+            status: 'yes',
+            roleId:res.data.roleId
           }
           // update(admin_auth)
           handleSucessLogin(admin_auth);

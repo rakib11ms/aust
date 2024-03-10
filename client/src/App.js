@@ -163,6 +163,7 @@ function App() {
       localStorage.setItem('email', successStatus.email);
       localStorage.setItem('user_type', successStatus.user_type);
       localStorage.setItem('user_id', successStatus.user_id);
+      localStorage.setItem('roleId', successStatus.roleId);
       if (successStatus.user_type === 'admin') {
 
         navigate('/admin-dashboard')

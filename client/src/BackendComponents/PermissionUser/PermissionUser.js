@@ -9,16 +9,31 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 const PermissionUser = () => {
-  const [allRoles, setAllRoles] = useState([])
+  const [allRoles, setAllRoles] = useState([]);
+  console.log("all roles",allRoles)
   useEffect(() => {
     axios.get("api/get-all-roles").then((res) => {
       setAllRoles(res.data.all_roles);
     });
   }, [])
 
-  const [role_id, setRole_id] = useState(10);
-  console.log('role check',role_id)
+  const [role_id, setRole_id] = useState('');
+  // console.log('role check',role_id);
 
+  // useEffect(() => {
+
+  //   const storedRole = localStorage.getItem("roleId");
+
+  //   if (storedRole) {
+  //     // Parse the string as JSON and then log it
+  //     setRole_id(storedRole)
+  //   } else {
+  //     console.log("Role not found in localStorage");
+  //   }
+    
+  // }, []);
+  
+  
 
   
   // console.log('role id change', role_id)

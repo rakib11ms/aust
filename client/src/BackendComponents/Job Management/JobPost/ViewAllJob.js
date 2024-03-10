@@ -370,7 +370,7 @@ function ViewAllJob() {
                         </h5>
 
 
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description.length > 50 ? `${row.job_description.substring(0, 50)}...` : row.job_description }} />
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.job_description?.length > 50 ? `${row.job_description.substring(0, 50)}...` : row.job_description }} />
 
 
                         <div className=' bg-light d-inline-block rounded '>
