@@ -240,6 +240,13 @@ class ArticleBlogController extends Controller
                 'article_blogs' => $article_blogs,
             ]);
         }
+        else{
+            $article_blogs = DB::table('article_blogs')->leftJoin('article_blog_categories', 'article_blog_categories.id', '=', 'article_blogs.category_id', )->leftJoin('article_blog_sub_categories', 'article_blog_sub_categories.id', '=', 'article_blogs.subcategory_id')->leftJoin('users', 'users.id', '=', 'article_blogs.posted_by')->select('article_blogs.*', 'article_blog_categories.category_name', 'article_blog_sub_categories.subcategory_name', 'users.full_name')->where('article_blogs.isDraft', 0)->orderBy('article_blogs.id', 'desc')->get();
+            return response()->json([
+                'status' => 200,
+                'article_blogs' => $article_blogs,
+            ]);
+        }
     }
 
     function articleBlogfilterBySearchInputRadioButton($searchInputValue, $searchRadioButtonValue)

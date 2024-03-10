@@ -27,6 +27,8 @@ class AuthenticationController extends Controller
     {
 
         $user = User::where('email', $request->email)->first();
+        $role=$user->roles;
+
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(
                 [
@@ -48,6 +50,7 @@ class AuthenticationController extends Controller
                 'user_id' => $user->id,
                 'user_info' => $user,
                 'email' => $user->email,
+                'roleId'=>$role[0]->id
                 // 'permissions' => $permissions,
 
             ]

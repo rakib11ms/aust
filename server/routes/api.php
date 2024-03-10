@@ -145,7 +145,7 @@ Route::get('/user-role-filtering/{name}', [ViewAllUserController::class, 'userRo
 
 //export users as a excel data (web)
 
-Route::get('/export-users-as-excel/{name}', [ViewAllUserController::class, 'exportUserExcel']);
+Route::get('/export-users-as-excel', [ViewAllUserController::class, 'exportUserExcel']);
 
 
 Route::post('/multiple-filter-search-all-users', [ViewAllUserController::class, 'multipleFilterSearchAllUsers']);

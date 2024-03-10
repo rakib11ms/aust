@@ -514,9 +514,8 @@ class ViewAllUserController extends Controller
 
 
 
-    public function exportUserExcel($name)
+    public function exportUserExcel()
     {
-        if ($name == "All") {
   
             // $all_users = [];
 
@@ -646,7 +645,7 @@ class ViewAllUserController extends Controller
                 // Additional response data if necessary
             ]);
             
-        }
+        
 
     }
 
