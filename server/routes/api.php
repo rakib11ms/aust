@@ -484,6 +484,8 @@ Route::delete('/delete-article-blogs-subcategory/{id}', [NoticeNewsSubCategoryCo
 Route::get('/get-notice-news-subcategories-by-category-id/{id}', [NoticeNewsSubCategoryController::class, 'getAllSubCatByCategoryId']);
 
 Route::get('/all-notice-news', [NoticeNewsController::class, 'index']);
+Route::get('/export-all-notice-news-as-excel', [NoticeNewsController::class, 'allNoticeNewsExcel']);
+
 Route::post('/add-notice-news', [NoticeNewsController::class, 'store']);
 Route::get('/edit-notice-news/{id}', [NoticeNewsController::class, 'edit']);
 Route::post('/delete-notice-news/{id}', [NoticeNewsController::class, 'destroy']);
