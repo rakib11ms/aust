@@ -17,7 +17,7 @@ import moment from 'moment';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import * as XLSX from 'xlsx';
 function ViewNoticeNews() {
 
 
@@ -726,6 +726,43 @@ function ViewNoticeNews() {
 
 
 
+    const [allExcelNoticeNews, setAllExcelNoticeNews] = useState([]);
+
+    // console.log('du', allExcelNoticeNews)
+
+    useEffect(() => {
+        axios.get(`/api/export-all-notice-news-as-excel`).then(res => {
+            if (res.data.status == 200) {
+                setAllExcelNoticeNews(res.data.all_notice_news);
+            }
+        })
+
+    }, [])
+
+
+    const handleExportClick = () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+    
+        // Add a worksheet with the JSON data
+        const ws = XLSX.utils.json_to_sheet(allExcelNoticeNews);
+        XLSX.utils.book_append_sheet(workbook, ws, 'All Notice News');
+    
+        // Save the workbook to an XLSX file
+        const xlsxBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    
+        // Convert buffer to Blob
+        const blob = new Blob([xlsxBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    
+        // Create a download link and trigger a click to download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'All Notice News.xlsx';
+        downloadLink.click();
+      };
+
+
+
     return (
         <>
             <div className="container-fluid">
@@ -860,6 +897,16 @@ function ViewNoticeNews() {
                                                 <h6 className={`${postFiltering === 1 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(1)}>Active</h6>
                                                 <h6 className={`${postFiltering === 0 ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering(0)}>Pending</h6>
                                                 <h6 className={`${postFiltering === 'archive' ? 'filterTrack' : ""} mx-3`} onClick={() => setPostFiltering('archive')}>Archived</h6>
+                                                
+                                                <div className='btn btn-light btn-sm border py-1 justify-content-end ' onClick={handleExportClick} >
+                                                       {/* <CSVLink data={allExcelJobPosts} filename="UserPost" className="" >
+                                                                <li><a class="dropdown-item1" ><i style={{ marginRight: 9 }} class="fa-regular fa-file-excel"></i>         Download Excel</a></li>
+
+                                                            </CSVLink> */}
+
+                                                            Download Excel
+                                           
+                                                </div>
 
                                             </div>
 

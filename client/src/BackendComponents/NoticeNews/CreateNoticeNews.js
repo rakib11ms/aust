@@ -273,7 +273,6 @@ function CreateNoticeNews() {
         formData.append('notice_news_title', notice_news_title);
         formData.append('notice_news_description', content1);
         formData.append('notice_news_image', image);
-        formData.append('posted_by', 1);
 
         multipleImageFiles.files.forEach(file => {
             console.log('files check', file)

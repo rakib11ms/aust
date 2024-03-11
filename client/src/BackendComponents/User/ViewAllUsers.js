@@ -736,44 +736,75 @@ function ViewAllUsers() {
     }, [])
 
 
-    useEffect(() => {
-        // if (batch_name == null && company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
-        //     axios.get(`/api/all-users`).then(res => {
-        //         if (res.data.status == 200) {
-        //             setallUsers(res.data.all_users);
-        //             setLoading(false);
-        //         }
-        //     })
-        // }
-        // else {
-        const data = {
-            batch: batch_name,
-            company: company_name,
-            blood: blood_group_name,
-            stream: stream_name,
-            gender: gender_name,
-            jobsector: job_sector_name,
-            subsector: job_sub_sector_name,
-            district: districtname,
-            thana: thana_name,
-            postal_code: postcode_name,
-            option: filterYouSearchLocationOption,
-            university_id: university_id,
-            full_name: fullName,
-        }
+    // useEffect(() => {
+    //     // if (batch_name == null && company_name == null && blood_group_name == null && stream_name == null && gender_name == null && job_sector_name == null && job_sub_sector_name == null && thana_name == null) {
+    //     //     axios.get(`/api/all-users`).then(res => {
+    //     //         if (res.data.status == 200) {
+    //     //             setallUsers(res.data.all_users);
+    //     //             setLoading(false);
+    //     //         }
+    //     //     })
+    //     // }
+    //     // else {
+    //     const data = {
+    //         batch: batch_name,
+    //         company: company_name,
+    //         blood: blood_group_name,
+    //         stream: stream_name,
+    //         gender: gender_name,
+    //         jobsector: job_sector_name,
+    //         subsector: job_sub_sector_name,
+    //         district: districtname,
+    //         thana: thana_name,
+    //         postal_code: postcode_name,
+    //         option: filterYouSearchLocationOption,
+    //         university_id: university_id,
+    //         full_name: fullName,
+    //     }
 
-        axios.post(`/api/multiple-filter-advance-search-all-users/`, data).then(res => {
+    //     axios.post(`/api/multiple-filter-advance-search-all-users/`, data).then(res => {
+    //         if (res.data.status == 200) {
+
+    //             // console.log('multiple filter search', res.data)
+    //             setallUsers(res.data.all_users)
+    //             setLoading(false);
+    //         }
+    //     })
+
+    //     // }
+
+    // }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, university_id, job_sub_sector_name, thana_name, fullName, districtname])
+
+
+    const data = {
+        batch: batch_name,
+        company: company_name,
+        blood: blood_group_name,
+        stream: stream_name,
+        gender: gender_name,
+        jobsector: job_sector_name,
+        subsector: job_sub_sector_name,
+        district: districtname,
+        thana: thana_name,
+        postal_code: postcode_name,
+        option: filterYouSearchLocationOption,
+        university_id: university_id,
+        full_name: fullName,
+    }
+
+    const handleSearch=(e)=>{
+        e.preventDefault();
+        axios.post(`/api/multiple-filter-advance-search-all-users`, data).then(res => {
             if (res.data.status == 200) {
 
                 // console.log('multiple filter search', res.data)
                 setallUsers(res.data.all_users)
                 setLoading(false);
+                closeAddMultipleFilterModal();
+                
             }
         })
-
-        // }
-
-    }, [blood_group_name, company_name, batch_name, gender_name, stream_name, job_sector_name, university_id, job_sub_sector_name, thana_name, fullName, districtname])
+    }
 
 
     const [globalSearch, setGlobalSearch] = useState('');
@@ -911,7 +942,7 @@ function ViewAllUsers() {
                                                     <h5 className=""> Filter You Search</h5>
                                                     <hr />
                                                     <div className='d-flex justify-content-end mx-5'>
-                                                        <button className='btn btn-success btn-sm' onClick={closeAddMultipleFilterModal}>Search ...</button>
+                                                        <button className='btn btn-success btn-sm' onClick={handleSearch}>Search ...</button>
                                                     </div>
 
                                                     <div className="row col-12 my-2 d-flex justify-content-center align-items-center">
