@@ -130,18 +130,18 @@ function PostType() {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
-            formData.append('isArchived', id.isArchived);
-            // formData.append('_method', 'PUT');
+            // formData.append('isArchived', id.isArchived);
+            // // formData.append('_method', 'PUT');
 
-            formData.append('post_title', id.post_title);
-            formData.append('post_type', id.post_type);
-            formData.append('post_description', id.post_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('date', id.date);
-            formData.append('image', id.image);
-            formData.append('tag', id.tag);
+            // formData.append('post_title', id.post_title);
+            // formData.append('post_type', id.post_type);
+            // formData.append('post_description', id.post_description);
+            // formData.append('posted_by', id.posted_by);
+            // formData.append('date', id.date);
+            // formData.append('image', id.image);
+            // formData.append('tag', id.tag);
 
-            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/handle-general-post-approval/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
@@ -169,16 +169,16 @@ function PostType() {
             formData.append('isPublished', 0);
             // formData.append('_method', 'PUT');
 
-            formData.append('post_title', id.post_title);
-            formData.append('post_type', id.post_type);
-            formData.append('post_description', id.post_description);
-            formData.append('posted_by', id.posted_by);
-            formData.append('date', id.date);
-            formData.append('image', id.image);
-            formData.append('tag', id.tag);
-            formData.append('isArchived', id.isArchived);
+            // formData.append('post_title', id.post_title);
+            // formData.append('post_type', id.post_type);
+            // formData.append('post_description', id.post_description);
+            // formData.append('posted_by', id.posted_by);
+            // formData.append('date', id.date);
+            // formData.append('image', id.image);
+            // formData.append('tag', id.tag);
+            // formData.append('isArchived', id.isArchived);
 
-            axios.post(`/api/update-post/${id.id}`, formData).then(res => {
+            axios.post(`/api/handle-general-post-approval/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 

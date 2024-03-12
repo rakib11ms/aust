@@ -50,16 +50,16 @@ function ViewBlogArticle() {
             const formData = new FormData();
 
             formData.append('isPublished', 1);
-            formData.append('isArchived', id.isArchived);
-            formData.append('isDraft', 0);
-            formData.append('category_id', id.category_id);
-            formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
+            // formData.append('isArchived', id.isArchived);
+            // formData.append('isDraft', 0);
+            // formData.append('category_id', id.category_id);
+            // formData.append('subcategory_id', id.subcategory_id);
+            // formData.append('article_blog_title', id.article_blog_title);
+            // formData.append('article_blog_description', id.content1);
+            // formData.append('article_blog_image', id.article_blog_image);
 
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/handle-blog-artical-post-approval/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
@@ -85,15 +85,15 @@ function ViewBlogArticle() {
             const formData = new FormData();
 
             formData.append('isPublished', 0);
-            formData.append('isArchived', id.isArchived);
-            formData.append('category_id', id.category_id);
-            formData.append('subcategory_id', id.subcategory_id);
-            formData.append('article_blog_title', id.article_blog_title);
-            formData.append('article_blog_description', id.content1);
-            formData.append('article_blog_image', id.article_blog_image);
-            formData.append('posted_by', 1);
+            // formData.append('isArchived', id.isArchived);
+            // formData.append('category_id', id.category_id);
+            // formData.append('subcategory_id', id.subcategory_id);
+            // formData.append('article_blog_title', id.article_blog_title);
+            // formData.append('article_blog_description', id.content1);
+            // formData.append('article_blog_image', id.article_blog_image);
+            // formData.append('posted_by', 1);
 
-            axios.post(`/api/update-article-blogs/${id.id}`, formData).then(res => {
+            axios.post(`/api/handle-blog-artical-post-approval/${id.id}`, formData).then(res => {
                 if (res.data.status == 200) {
                     window.location.reload();
 
@@ -332,7 +332,7 @@ function ViewBlogArticle() {
                         </h5>
 
 
-                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
+                        <div className='text-secondary' dangerouslySetInnerHTML={{ __html: row.article_blog_description?.length > 50 ? `${row.article_blog_description.substring(0, 50)}...` : row.article_blog_description }} />
 
 
 
