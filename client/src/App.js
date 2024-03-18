@@ -58,57 +58,16 @@ import CreateThana from './BackendComponents/LocationSetup/Thana/CreateThana';
 import ViewPostalCode from './BackendComponents/LocationSetup/PostalCode/ViewPostalCode';
 import CreatePostalCode from './BackendComponents/LocationSetup/PostalCode/CreatePostalCode';
 import ViewBlogArticleWithComments from './BackendComponents/BlogArticle/ViewBlogArticleWithComments';
-// const AdminLogin = lazy(() => import('./Authentication/AdminLogin'));
-// const ProtectedRoutes = lazy(() => import('./Authentication/ProtectedRoutes'));
-
-// const Dashboard = lazy(() => import('./BackendComponents/Dashboard/Dashboard'));
-// const PostType = lazy(() => import('./BackendComponents/PostType/PostType'));
-// const JobConfiguration = lazy(() => import('./BackendComponents/Job Management/JobConfiguration/JobConfiguration'));
-// const CreateJobPost = lazy(() => import('./BackendComponents/Job Management/JobPost/CreateJobPost'));
-// const ViewAllJob = lazy(() => import('./BackendComponents/Job Management/JobPost/ViewAllJob'));
-// const ViewAllUsers = lazy(() => import('./BackendComponents/User/ViewAllUsers'));
-// const RoleManagement = lazy(() => import('./BackendComponents/User/RoleManagement/RoleManagement'));
-// const EditJobPost = lazy(() => import('./BackendComponents/Job Management/JobPost/EditJobPost'));
-// const CreateEvent = lazy(() => import('./BackendComponents/Event/CreateEvent'));
-// const EventConfiguration = lazy(() => import('./BackendComponents/Event/Event Configuration/EventConfiguration'));
-// const ViewAllEvent = lazy(() => import('./BackendComponents/Event/ViewAllEvent'));
-// const ViewEventPayment = lazy(() => import('./BackendComponents/ViewEventPayment/ViewEventPayment'));
-// const EditEvent = lazy(() => import('./BackendComponents/Event/EditEvent'));
-// const CreateAdvertisement = lazy(() => import('./BackendComponents/Advertisement/CreateAdvertisement'));
-// const ViewAllAdvertisement = lazy(() => import('./BackendComponents/Advertisement/ViewAdvertisement'));
-// const Settings = lazy(() => import('../src/BackendComponents/Settings/Settings'));
-// const EditAdvertisement = lazy(() => import('./BackendComponents/Advertisement/EditAdvertisement'));
-// const AdminPasswordReset = lazy(() => import('./Authentication/AdminPasswordReset'));
-// const AdminPasswordResetForm = lazy(() => import('./Authentication/AdminPasswordResetForm'));
 
 
-// const BlogArticleConfiguration = lazy(() => import('./BackendComponents/BlogArticle/BlogArticleConfiguration'));
-// const CreateBlogArticle = lazy(() => import('./BackendComponents/BlogArticle/CreateBlogArticle'));
-// const ViewBlogArticle = lazy(() => import('./BackendComponents/BlogArticle/ViewArticleBlog'));
-// const CreateBanner = lazy(() => import('./BackendComponents/Banner/CreateBanner'));
-// const ViewAllBanner = lazy(() => import('./BackendComponents/Banner/ViewBanner'));
-// const EditBlogArticle = lazy(() => import('./BackendComponents/BlogArticle/EditBlogArticle'));
-// const NoticeNewsConfiguration = lazy(() => import('./BackendComponents/NoticeNews/NoticeNewsConfiguration'));
-// const CreateNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/CreateNoticeNews'));
-// const ViewNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/ViewNoticeNews'));
-// const EditBanner = lazy(() => import('./BackendComponents/Banner/EditBanner'));
-// const NotFound = lazy(() => import('./BackendComponents/NotFound/NotFound'));
-// const UserConfiguration = lazy(() => import('./BackendComponents/User/configuration/UserConfiguration'));
-// const VlogConfiguration = lazy(() => import('./BackendComponents/Vlog/VlogConfiguration'));
-// const CreateVlog = lazy(() => import('./BackendComponents/Vlog/CreateVlog'));
-// const ViewVlog = lazy(() => import('./BackendComponents/Vlog/ViewVlog'));
-// const EditVlog = lazy(() => import('./BackendComponents/Vlog/EditVlog'));
-// const EditNoticeNews = lazy(() => import('./BackendComponents/NoticeNews/EditNoticeNews'));
-
-// const ViewNotification = lazy(() => import('./BackendComponents/Notification/ViewNotification'));
-// const CreateNotification = lazy(() => import('./BackendComponents/Notification/CreateNotification'));
-// const PostConfiguration = lazy(() => import('./BackendComponents/PostType/PostConfiguration'));
 
 
-// const TermCondition = lazy(() => import('./PrivacyPolicy/TermCondition'));
-// const PrivacyPolicy = lazy(() => import('./PrivacyPolicy/PrivacyPolicy'));
+
+
+
 
 function App() {
+
 
   const [storage, setStorage] = useState('');
   useEffect(() => {
@@ -135,22 +94,6 @@ function App() {
 
   }, [trigger]);
 
-  axios.interceptors.response.use(response => {
-    return response;
-
-  }, error => {
-    if (error.response.status === 401) {
-      // setTrigger(error.response.status);
-      // console.log('use effect triggered');
-      // alert('trii')
-      // Swal.fire("Unauthorized", '', 'error')
-      // navigate('admin-login')
-      { <Navigate to="/admin-login" /> }
-
-    }
-    return error;
-
-  });
 
 
 
@@ -186,6 +129,49 @@ function App() {
   //   }
 
   // }, [])
+
+
+  
+
+axios.defaults.baseURL = 'http://10.81.11.60:8000';
+// axios.defaults.baseURL = 'http://127.0.0.1:8000';
+// axios.defaults.baseURL = 'https://admin.austtaa.com/server/public/';
+// axios.defaults.baseURL = 'https://dev.zaimahtech.com/ztl-server/public/api/';
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json';
+axios.defaults.withCredentials = true;
+
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('auth_token');
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
+
+  return config;
+},  function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+const [isAuthenticated, setIsAuthenticated] = useState("");
+
+    const axiosInterceptor = axios.interceptors.response.use(
+        function (response) {
+            // setIsAuthenticated(true);
+            return response;
+        },
+        function (error) {
+            if (error.response && error.response.status === 401) {
+                // alert("Unauthenticated");
+                // setIsAuthenticated("401");
+                window.location.href = '/admin-login';
+
+            }
+            return Promise.reject(error);
+        }
+    );
+
+ 
+
 
   return (
     <>
@@ -234,7 +220,7 @@ function App() {
 
 
         <Route element={<ProtectedRoutes />}>
-          {
+          {/* {
             successStatus === 'yes' ?
               storage === 'admin' && <>
                 <Route path="admin-dashboard" element={<Dashboard />}></Route>
@@ -243,7 +229,7 @@ function App() {
               :
               <Route path="admin-login" element={<AdminLogin />}></Route>
 
-          }
+          } */}
 
 
           <Route path="admin-dashboard" element={<Dashboard />}></Route>

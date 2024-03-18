@@ -544,7 +544,7 @@ function UserConfiguration() {
     const companyNameViewModalStyle = {
         content: {
             // marginTop: '70px',
-            top: '50vh',
+            top: '40vh',
             left: '20%',
             right: 'auto',
             bottom: 'auto',
@@ -604,12 +604,16 @@ function UserConfiguration() {
     }
 
     const [allCompanyName, setAllCompanyName] = useState([]);
+    const [filteredCompanies, setFilteredCompanies] = useState([])
+    console.log("all cc ", filteredCompanies)
+
     const [renderAllCompanyName, setRenderAllCompanyName] = useState('');
 
     useEffect(() => {
         axios.get(`/api/company-name`).then(res => {
             if (res.data.status == 200) {
                 setAllCompanyName(res.data.company_name);
+                setFilteredCompanies(res.data.company_name)
 
             }
         })
@@ -1797,6 +1801,22 @@ function UserConfiguration() {
     }
 
 
+    const [replaceCompany,setReplaceCompany]=useState("");
+    
+    const [selectedRowsIds, setSelectedRowsIds] = useState([]);
+    // console.log("selcted rows ids", selectedRowsIds)
+
+
+
+    const selectionCheck = (selectedRows) => {
+        // setSelectedRowsIds(selectedRows)
+        let result = selectedRows.map(a => a.id);
+        // console.log('result',result)
+
+        setSelectedRowsIds(result);
+
+
+    }
     return (
         <div className="container-fluid">
             <div className="row">
@@ -1953,9 +1973,9 @@ function UserConfiguration() {
                                                                                 toolbar: false,
                                                                                 showTitle: false,
                                                                                 searchFieldAlignment: "left",
-                                                                                pageSize: 5,
+                                                                                pageSize: 10,
                                                                                 emptyRowsWhenPaging: false,
-                                                                                pageSizeOptions: [5, 10, 20, 50, 100],
+                                                                                // pageSizeOptions: [5, 10, 20, 50, 100],
                                                                                 selection: false,
                                                                                 sorting: false,
                                                                                 searchFieldAlignment: "left",
@@ -2754,7 +2774,62 @@ function UserConfiguration() {
                                                             <span className='float-end' style={{ fontSize: "20px", cursor: "pointer" }} onClick={closeViewCompanyNameModal}><i class="fa fa-times"></i></span>
 
                                                             <h6 className="">ALL Company Name</h6>
-                                                            <hr />
+                                                            {/* <hr /> */}
+
+                                                            <div className='d-flex justify-content-between'>
+                                                                
+                                                                <div className='d-flex'>
+                                                                <div className=''>
+                                                                    <input type='text' className='form-control' placeholder='replace this' value={replaceCompany} onChange={(e)=>setReplaceCompany(e.target.value)}/>
+                                                                </div>
+                                                                <button className='btn btn-secondary btn-sm mx-2' 
+                                                                onClick={()=>{
+                                                                    const data={
+                                                                        company_name:replaceCompany,
+                                                                        replace_company_ids:selectedRowsIds
+                                                                    }
+                                                                    // console.log("BB",data)
+                                                                    axios.post("/api/replace-company",data).then(res=>{
+                                                                        if(res.data.status==200){
+                                                                            Swal.fire({
+                                                                                title: "Replaced Company Name?",
+                                                                                icon: "success"
+                                                                              });
+                                                                            window.location.reload();
+                                                                        }
+                                                                    })
+                                                               
+                                                                }}
+                                                                > Replace</button>
+                                                                </div>
+                                                         
+                                                                <div className='d-flex align-items-center mt-1'>
+
+
+                                                                    <div class="">
+                                                                        <input type="text" onChange={(e) => {
+                                                                            if (e.target.value !== null) {
+                                                                                const result = allCompanyName.filter((item) => {
+                                                                                    return item.company_name && item.company_name.toLowerCase().includes(e.target.value.toLowerCase());
+                                                                                });
+                                                                                // setAllCompanyName(result)
+                                                                                // console.log("all cc ", result)
+                                                                                setFilteredCompanies(result)
+
+                                                                            }
+
+
+
+                                                                        }} class="form-control" id="exampleFormControlInput1" placeholder="Search Company" />
+                                                                    </div>
+                                                                    <div className='mx-2'>
+                                                                        <button className='btn btn-success '> Search..</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
 
 
                                                             <div className="row">
@@ -2770,8 +2845,9 @@ function UserConfiguration() {
                                                                                 Container: props => <Paper {...props} elevation={0} />
                                                                             }}
                                                                             columns={companycolumns}
-                                                                            data={allCompanyName}
+                                                                            data={filteredCompanies}
                                                                             // isLoading={loading === true ? true : false}
+                                                                            onSelectionChange={selectionCheck}
 
 
                                                                             options={{
@@ -2785,6 +2861,8 @@ function UserConfiguration() {
                                                                                 pageSizeOptions: [5, 10, 20, 50, 100],
                                                                                 selection: false,
                                                                                 sorting: false,
+                                                                                selection: true,
+
                                                                                 searchFieldAlignment: "left",
 
                                                                                 // paging:false
