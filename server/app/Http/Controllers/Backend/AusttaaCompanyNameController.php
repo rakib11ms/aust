@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AusttaaCompanyName;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 class AusttaaCompanyNameController extends Controller
 {
      public function index()
@@ -26,7 +27,27 @@ class AusttaaCompanyNameController extends Controller
         ]);
     }
 
+    public function replaceCompany(Request $request){
+        $company = new AusttaaCompanyName();
+        $company->company_name = $request->company_name;
+        $company->save();
 
+    
+        $replace_company_ids = $request->replace_company_ids;
+    
+        DB::table('user_professional_infos')
+            ->whereIn('name_of_company', $replace_company_ids)
+            ->update(['name_of_company' => $company->id]);
+
+        AusttaaCompanyName::destroy($request->replace_company_ids);
+
+        return response()->json([
+            "status"=>200,
+            "message"=>"Updated all companies"
+
+        ]);
+    }
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

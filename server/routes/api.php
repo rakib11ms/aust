@@ -207,6 +207,8 @@ Route::post('/add-company-name', [AusttaaCompanyNameController::class, 'store'])
 Route::get('/edit-company-name/{id}', [AusttaaCompanyNameController::class, 'edit']);
 Route::post('/update-company-name/{id}', [AusttaaCompanyNameController::class, 'update']);
 Route::delete('/delete-company-name/{id}', [AusttaaCompanyNameController::class, 'destroy']);
+Route::post('/replace-company', [AusttaaCompanyNameController::class, 'replaceCompany']);
+
 
 //ausstta job sector (user configuration) Master Setup
 
@@ -261,7 +263,7 @@ Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultip
 Route::put('/archive-all-posts-by-update/{id}', [PostController::class, 'archiveAllPostsByUpdate']);
 Route::put('/active-all-posts-by-update/{id}', [PostController::class, 'activeAllPostsByUpdate']);
 Route::put('/pending-all-posts-by-update/{id}', [PostController::class, 'pendingAllPostsByUpdate']);
-
+Route::post("/handle-general-post-approval/{id}", [PostController::class, 'handleGeneralPostApproval']);
 
 //web posts(table)
 Route::post('/delete-multiple-posts/{id}', [PostController::class, 'deleteMultiplePosts']);
@@ -454,6 +456,7 @@ Route::post('/update-article-blogs/{id}', [ArticleBlogController::class, 'update
 //web article blogs(table) filtering
 Route::get('/filtering-article-blogs-by-status/{name}', [ArticleBlogController::class, 'articleBlogfilterByStatus']);
 
+Route::post("/handle-blog-artical-post-approval/{id}", [ArticleBlogController::class, 'handleBlogArticlePostApproval']);
 
 Route::post('/delete-article-blogs-multiple-image/{id}', [ArticleBlogController::class, 'deleteArticleBlogsMultipleImage']);
 
@@ -529,7 +532,7 @@ Route::get('/filtering-global-notification/{name}', [GlobalNotificationControlle
 
 ///////admin home admin dashboard start////
 
-Route::get('/total-users-jobs-posts-announce-advertisements', [DashboardHomeController::class, 'totalStatus']);
+Route::get('/total-users-jobs-posts-announce-advertisements', [DashboardHomeController::class, 'totalStatus'])->middleware('auth:sanctum');
 Route::get('/job-filtering-admin-homepage/{name}', [DashboardHomeController::class, 'jobFilteringAdminHomePage']);
 
 ///////admin home admin dashboard end////
@@ -578,7 +581,7 @@ Route::get('/get-all-users-pdf', [ViewAllUserController::class, 'getAllUsersPdf'
 
 Route::get('/download-zip', [ViewAllUserController::class, 'downloadZip']);
 
-Route::get('/download-all-cv-zip', [ViewAllUserController::class,'generateAndZip']);
+Route::get('/download-all-cv-zip', [ViewAllUserController::class, 'generateAndZip']);
 
 
 
@@ -597,21 +600,21 @@ Route::post('/user-all-messages-between-two', [MessageController::class, 'allMes
 
 
 
-Route::post('/create-permissions',function(){
-    return $permission = Role::create(['name' => 'Alumni']);
+Route::post('/create-permissions', function () {
+  return $permission = Role::create(['name' => 'Alumni']);
 
 
-    // $role=Role::where('name',"admin")->first();
-    // $permissions=Permission::all();
-    // // return $permissions;
-    // // $user=User::where('email','rakib10ms@gmail.com')->first();
-    // // return $user->assignRole('Admin');
+  // $role=Role::where('name',"admin")->first();
+  // $permissions=Permission::all();
+  // // return $permissions;
+  // // $user=User::where('email','rakib10ms@gmail.com')->first();
+  // // return $user->assignRole('Admin');
 
 
-    // $role->syncPermissions($permissions);
-    // // $role->permissions;
+  // $role->syncPermissions($permissions);
+  // // $role->permissions;
 
-    // return $role;
+  // return $role;
 
 });
 
