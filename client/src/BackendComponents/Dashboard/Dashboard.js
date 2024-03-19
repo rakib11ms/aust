@@ -55,6 +55,8 @@ function Dashboard() {
     const [allActiveNoticeNews, setAllActiveNoticeNews] = useState([]);
     const [allActiveEvents, setAllActiveEvents] = useState([]);
     const [allActiveJobs, setAllActiveJobs] = useState([]);
+
+    console.log("all active jobs",allActiveJobs)
     const [allActiveBlogs, setAllActiveBlogs] = useState([]);
     const [allActiveArticles, setAllActiveArticles] = useState([]);
     console.log('all blogs', allActiveBlogs)
@@ -118,7 +120,7 @@ function Dashboard() {
             if (res.data.status == 200) {
                 // setJobPostFiltering(false);
 
-                setAllActiveJobs(res.data.active_jobs)
+                setAllActiveJobs(res.data.posts)
             }
         });
         axios.get(`/api/all-article-blogs`).then(res => {
