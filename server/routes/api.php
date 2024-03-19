@@ -634,3 +634,21 @@ Route::post('/create-permissions', function () {
 Route::resource('/thana', ThanaController::class);
 Route::resource('/postal-code', PostalCodeController::class);
 Route::resource('/district', DistrictController::class);
+
+
+
+Route::get("/all-user-role-check",function(){
+  $users = User::all();
+
+  // dd($users);
+
+foreach ($users as $user) {
+    // Retrieve the user's current roles
+    // $currentRoles = $user->getRoleNames();
+    $user->assignRole('admin');
+    // dd($currentRoles);
+
+    // // Re-attach the current roles to the user
+    // $user->syncRoles($currentRoles);
+}
+});
