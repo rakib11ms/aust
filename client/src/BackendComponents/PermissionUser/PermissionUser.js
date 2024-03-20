@@ -70,6 +70,32 @@ const PermissionUser = () => {
     blog_article_configuration_view: false,
     blog_article_configuration_update: false,
     blog_article_configuration_delete: false,
+    post_create:false,
+    post_view:false,
+    post_update:false,
+    post_delete:false,
+    post_configuration_view:false,
+    post_configuration_update:false,
+    post_configuration_delete:false,
+    event_create:false,
+    event_view:false,
+    event_update:false,
+    event_delete:false,
+    event_configuration_create:false,
+    event_configuration_view:false,
+    event_configuration_update:false,
+    event_configuration_delete:false,
+    advertisement_configuration_create:false,
+    advertisement_configuration_view:false,
+    advertisement_configuration_update:false,
+    advertisement_configuration_delete:false,
+    advertisement_create:false,
+    advertisement_view:false,
+    advertisement_delete:false,
+    advertisement_delete:false,
+    
+
+    
   });
 
   console.log('permission states check', permissions)
@@ -342,6 +368,174 @@ const PermissionUser = () => {
 
         }))
       }
+      if (res.data.permissions.includes('post_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_delete: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_configuration_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_configuration_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_configuration_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_configuration_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_configuration_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_configuration_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('post_configuration_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          post_configuration_delete: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_delete: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_configuration_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_configuration_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_configuration_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_configuration_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_configuration_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_configuration_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('event_configuration_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          event_configuration_delete: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_delete: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_configuration_create')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_configuration_create: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_configuration_view')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_configuration_view: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_configuration_update')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_configuration_update: true,
+
+        }))
+      }
+      if (res.data.permissions.includes('advertisement_configuration_delete')) {
+        setPermissions((prevPermissions) => ({
+          ...prevPermissions,
+          advertisement_configuration_delete: true,
+
+        }))
+      }
     });
 
 
@@ -503,6 +697,126 @@ const PermissionUser = () => {
                     User Configuration Delete
                   </label>
                 </div>
+
+              </div>
+              <div className="col-4 px-4 py-2 ">
+                <h5>Post</h5>
+                <hr />
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_create"
+                    checked={permissions.post_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Create Post
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_view"
+                    checked={permissions.post_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    View Post
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_update"
+                    checked={permissions.post_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Update Post
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_delete"
+                    checked={permissions.post_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Delete/Inactive Job
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_configuration_create"
+                    checked={permissions.post_configuration_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Post Configuration Create
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_configuration_view"
+                    checked={permissions.post_configuration_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Post Configuration View
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_configuration_update"
+                    checked={permissions.post_configuration_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Post Configuration Update
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="post_configuration_delete"
+                    checked={permissions.post_configuration_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Post Configuration Delete
+                  </label>
+                </div>
+
+
+
+
+
 
               </div>
               <div className="col-4 px-4 py-2 ">
@@ -853,6 +1167,240 @@ const PermissionUser = () => {
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     News/Notice Configuration Delete
+                  </label>
+                </div>
+
+
+              </div>
+
+              <div className="col-4 px-4 py-2 ">
+                <h5>Event Management</h5>
+                <hr />
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_create"
+                    checked={permissions.event_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Create News/Notice
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_view"
+                    checked={permissions.event_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    View  News/Notice
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_update"
+                    checked={permissions.event_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Update News/Notice
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_delete"
+                    checked={permissions.event_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Delete/Inactive News/Notice
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_configuration_create"
+                    checked={permissions.event_configuration_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    News/Notice Configuration Create
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_configuration_view"
+                    checked={permissions.event_configuration_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    News/Notice Configuration View
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_configuration_update"
+                    checked={permissions.event_configuration_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    News/Notice Configuration Update
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="event_configuration_delete"
+                    checked={permissions.event_configuration_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    News/Notice Configuration Delete
+                  </label>
+                </div>
+
+
+              </div>
+
+              <div className="col-4 px-4 py-2 ">
+                <h5>Advertisement Management</h5>
+                <hr />
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_create"
+                    checked={permissions.advertisement_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Create Advertiement
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_view"
+                    checked={permissions.advertisement_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    View  Advertiement
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_update"
+                    checked={permissions.advertisement_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Update Advertiement
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_delete"
+                    checked={permissions.advertisement_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Delete/Inactive Advertiement
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_configuration_create"
+                    checked={permissions.advertisement_configuration_create}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                  Advertisement Configuration Create
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_configuration_view"
+                    checked={permissions.advertisement_configuration_view}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                  Advertisement Configuration View
+                  </label>
+                </div>
+
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_configuration_update"
+                    checked={permissions.advertisement_configuration_update}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                  Advertisement Configuration Update
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault crud"
+                    name="advertisement_configuration_delete"
+                    checked={permissions.advertisement_configuration_delete}
+                    onChange={handlePermissionChange}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                  Advertisement Configuration Delete
                   </label>
                 </div>
 

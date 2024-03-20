@@ -111,7 +111,7 @@ function App() {
 
         navigate('/admin-dashboard')
         // setSuccessStatus('');
-        window.location.reload();
+        // window.location.reload();
       }
       else if (successStatus.user_type === 'user') {
         navigate('/admin-login')
@@ -219,7 +219,7 @@ const [isAuthenticated, setIsAuthenticated] = useState("");
 
 
 
-        <Route element={<ProtectedRoutes />}>
+        {/* <Route element={<ProtectedRoutes />}> */}
           {/* {
             successStatus === 'yes' ?
               storage === 'admin' && <>
@@ -239,7 +239,10 @@ const [isAuthenticated, setIsAuthenticated] = useState("");
           <Route path="create-job-post" element={<CreateJobPost />}></Route>
           <Route path="view-all-jobs" element={<ViewAllJob />}></Route>
 
-          <Route path="view-all-users" element={<ViewAllUsers />}></Route>
+          <Route element={<ProtectedRoutes allowedPermission={['view-user','create-user','update-user','delete-user']}/>}  >
+          <Route path="/view-all-users" exact element={<ViewAllUsers />}></Route>
+          </Route>
+          {/* <Route path="view-all-users" element={<ViewAllUsers />}></Route> */}
           <Route path="edit-user/:id" element={<EditUser />}></Route>
           <Route path="role-management" element={<PermissionUser />}></Route>
 
@@ -319,7 +322,7 @@ const [isAuthenticated, setIsAuthenticated] = useState("");
           <Route path="create-postal-code" element={< CreatePostalCode />}></Route>
 
 
-        </Route>
+        {/* </Route> */}
         <Route path="*" element={<NotFound />}></Route>
 
 

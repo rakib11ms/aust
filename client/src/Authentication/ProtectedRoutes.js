@@ -12,8 +12,13 @@ import axios from 'axios';
 
 
 
-function ProtectedRoutes() {
+function ProtectedRoutes({ allowedPermission}) {
 
+    useEffect(()=>{
+        const token = localStorage.getItem('auth_token');
+    },[]) 
+
+    console.log("allowed permission",allowedPermission)
 
     // axios.interceptors.response.use(
     //     function (response) {
@@ -34,7 +39,10 @@ function ProtectedRoutes() {
 
             {/* {localStorage.getItem('user_type') ? <Outlet /> : <Navigate to="/admin-login" />
             } */}
-                        {localStorage.getItem('user_type')? <Outlet /> : <Navigate to="/admin-login" />}
+            {
+                allowedPermission.includes("view-user") ?
+                <Outlet/>:localStorage.getItem("user_type")? <Navigate to="/unauthorized"/> :<Navigate to="/admin-login" />
+            }
 
         </>
     )
