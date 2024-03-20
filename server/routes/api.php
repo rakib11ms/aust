@@ -652,3 +652,17 @@ foreach ($users as $user) {
     // $user->syncRoles($currentRoles);
 }
 });
+
+
+Route::get("/all-user-permission-check", function () {
+  $users = User::with("permissions")->get();
+   
+
+  return response()->json([
+      "status" => 200,
+      "users" => $users
+  ]);
+});
+
+
+
