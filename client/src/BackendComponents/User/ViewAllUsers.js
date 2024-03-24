@@ -551,7 +551,7 @@ function ViewAllUsers() {
 
     useEffect(() => {
         axios.get(`/api/export-users-as-excel`).then(res => {
-            if (res.data.status == 200) {
+            if (res.data.status === 200) {
                 setAllExcelUsers(res.data.all_users);
             }
         })
