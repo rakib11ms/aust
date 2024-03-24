@@ -306,6 +306,7 @@ Route::get('/export-all-job-post-as-excel', [JobPostController::class, 'exportJo
 Route::get('/edit-job-post/{id}', [JobPostController::class, 'edit']);
 Route::post('/update-job-post/{id}', [JobPostController::class, 'update']);
 Route::post('/delete-job-post/{id}', [JobPostController::class, 'destroy']);
+Route::patch("/approve-job-post/{id}",[JobPostController::class,'approveJobPost']);
 Route::post('/delete-multiple-job-posts/{id}', [JobPostController::class, 'deleteMultipleJobPosts']);
 Route::put('/archive-all-job-posts-by-update/{id}', [JobPostController::class, 'archiveAllJobPostsByUpdate']);
 Route::put('/active-all-job-posts-by-update/{id}', [JobPostController::class, 'activeAllJobPostsByUpdate']);

@@ -32,6 +32,19 @@ class JobPostController extends Controller
     }
 
 
+
+
+   public function approveJobPost(Request $request,$id){
+        $job=JobPost::find($id);
+        $job->isPublished=$request->isPublished;
+        $job->update();
+        return response()->json(
+            [
+                "status"=>200,
+                "message"=>"Approval Updated"
+            ]
+            );
+   }
     
     public function exportJobPostsAsExcel(){
         $all_job_posts=JobPost::with(['JobType','JobSector','JobSubSector','user'])->get();
@@ -124,34 +137,39 @@ class JobPostController extends Controller
     public function update(Request $request,$id){
 
              $post=JobPost::find($id);
+             $old_file=$post->image;
+
+            if($request->hasFile('image')){
+                if($old_file){
+                    if(file_exists(public_path('images/'.$old_file)))
+                    unlink(public_path('images/'.$old_file));
+                }
+                $file=$request->file('image');
+                $extension=$file->getClientOriginalExtension();
+                $filename=time().'.'.$extension;
+                $file->move('images/',$filename);
+                $post->image =$filename;
+                
+    
+             } 
+
 
           
 
-//  if ($files = $request->file('image')) {
-//             $names = $files->getClientOriginalName();
-//             $name = rand(111, 99999).$names;
-//             $files->move('images/', $name);
-//         }
-           
-//             if($files!=null){
-//              $post->image=$name;
+            $post->job_title = $request->job_title;
+           $post->job_type = $request->job_type;
+           $post->job_description = $request->job_description;
+           $post->job_link = $request->job_link;
+        //    $post->image = $request->image;
 
-//             }
-
-        //     $post->job_title = $request->job_title;
-        //    $post->job_type = $request->job_type;
-        //    $post->job_description = $request->job_description;
-        //    $post->job_link = $request->job_link;
-           // $post->image = $request->image;
-           // $post->job_sub_title = $request->job_sub_title;
-
-        //    $post->posted_by = $request->posted_by;
-           // $post->date = $request->date;
+           $post->posted_by = $request->posted_by;
+           $post->job_location=$request->job_location;
+        //    $post->date = $request->date;
            $post->isPublished = $request->isPublished !==null && $request->isPublished;
-        //    $post->isArchived = $request->isArchived !==null && $request->isArchived;
-        //    $post->application_deadline = $request->application_deadline;
-        //      $post->job_sector = $request->job_sector;
-        //    $post->job_sub_sector = $request->job_sub_sector;
+           $post->isArchived = $request->isArchived !==null && $request->isArchived;
+           $post->application_deadline = $request->application_deadline;
+             $post->job_sector = $request->job_sector;
+           $post->job_sub_sector = $request->job_sub_sector;
             $post->update();
 
  return response()->json([
