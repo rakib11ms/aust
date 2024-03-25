@@ -249,7 +249,7 @@ function ViewAllBanner() {
 
                     {
                         row.banner_image !== undefined &&
-                        <img className="rounded" src={`${global.img_url}/images/${row.banner_image[0].image}`} width="100px" height="70px" alt="No Image" />
+                        <img className="rounded" src={`${global.img_url}/images/${row.banner_image[0]?.image}`} width="100px" height="70px" alt="No Image" />
 
                     }
 
